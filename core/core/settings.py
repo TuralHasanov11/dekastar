@@ -12,6 +12,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", None)
 DEBUG = str(os.environ.get("DEBUG")) == "True"
 SITE_URL = os.environ.get("SITE_URL")
 
+SITE_ID = 1
 
 if DEBUG:
     ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
@@ -45,7 +46,7 @@ INSTALLED_APPS = [
     "rosetta",
     "log_viewer",
     "apps.main",
-    "apps.admin",
+    "apps.administration",
     "apps.store",
 ]
 
@@ -68,7 +69,7 @@ ROOT_URLCONF = "core.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -119,8 +120,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_URL = "admin:login"
-LOGIN_REDIRECT_URL = "admin:dashboard"
+LOGIN_URL = "apps.administration:login"
+LOGIN_REDIRECT_URL = "apps.administration:dashboard"
 
 
 LANGUAGE_CODE = "en-us"

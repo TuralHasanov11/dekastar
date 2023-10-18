@@ -3,4 +3,4 @@ from django.shortcuts import render
 
 
 def index(request: HttpRequest):
-    return render(request, "main/index.html")
+    return render(request, "administration/index.html")

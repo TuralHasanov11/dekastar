@@ -1,0 +1,28 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as CURRENT_LANGUAGE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages%}
+<!DOCTYPE html>
+<html lang="{{CURRENT_LANGUAGE}}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="max-image-preview:large" />
+    {% include "components/default/imports/links.html" %}
+    {% block stylesheet %}{% endblock stylesheet %}
+    
+    <title>{% block title %}{% endblock title %} | {{config.app.name}}</title>
+    <meta name="description" content="{% block description %}{% endblock description %}"/>
+  </head>
+  <body>
+
+    {% block content %} 
+    {% endblock content %} 
+
+
+    {% include "components/default/imports/scripts.html" %}
+    {% block scripts %}{% endblock scripts %}
+  </body>
+</html>
