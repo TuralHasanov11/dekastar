@@ -4,5 +4,5 @@ from django.urls import path
 app_name = "apps.administration"
 
 urlpatterns = [
-    path("", views.index),
+    path("", views.DashboardView.as_view(), name="index"),
 ]

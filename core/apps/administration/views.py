@@ -1,6 +1,8 @@
-from django.http import HttpRequest
-from django.shortcuts import render
+# from django.http import HttpRequest
+# from django.shortcuts import render
+from django.views.generic import TemplateView
 
 
-def index(request: HttpRequest):
-    return render(request, "administration/index.html")
+class DashboardView(TemplateView):
+    template_name = "administration/index.html"
+

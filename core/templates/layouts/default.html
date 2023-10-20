@@ -10,18 +10,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="description" content="{% block description %}{% endblock description %}"/>
+
     {% include "components/default/imports/links.html" %}
     {% block stylesheet %}{% endblock stylesheet %}
     
     <title>{% block title %}{% endblock title %} | {{config.app.name}}</title>
-    <meta name="description" content="{% block description %}{% endblock description %}"/>
   </head>
   <body>
+    {% include "components/default/preloader.html" %}
 
-    {% block content %} 
-    {% endblock content %} 
+    <div class="wrapper">
+      {% include "components/default/header.html" %}
 
+      {% block content %} 
+      {% endblock content %} 
 
+      {% include "components/default/footer.html" %}
+    </div>
+    
     {% include "components/default/imports/scripts.html" %}
     {% block scripts %}{% endblock scripts %}
   </body>
