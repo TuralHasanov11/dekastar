@@ -9,3 +9,11 @@ class HomeView(TemplateView):
 
 class PrivacyPolicyView(TemplateView):
     template_name = "main/privacy-policy.html"
+
+
+class ContactView(TemplateView):
+    template_name = "main/contact.html"
+
+
+class AboutView(TemplateView):
+    template_name = "main/about.html"

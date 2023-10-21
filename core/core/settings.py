@@ -77,6 +77,9 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "apps.main.context_processors.default_header_menu",
+                "apps.main.context_processors.default_footer_menu",
+                "apps.main.context_processors.default_footer_social_links"
             ],
         },
     },
@@ -98,7 +101,8 @@ DATABASES = {
 
 DATABASE_URL = os.environ.get("DATABASE_URL", None)
 if DATABASE_URL:
-    db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=1800)
+    db_from_env = dj_database_url.config(
+        default=DATABASE_URL, conn_max_age=1800)
     DATABASES["default"].update(db_from_env)
 
 
@@ -243,7 +247,8 @@ LOG_VIEWER_FILES_DIR = "logs/"
 LOG_VIEWER_PAGE_LENGTH = 25
 LOG_VIEWER_MAX_READ_LINES = 1000
 LOG_VIEWER_FILE_LIST_MAX_ITEMS_PER_PAGE = 25
-LOG_VIEWER_PATTERNS = ["[INFO]", "[DEBUG]", "[WARNING]", "[ERROR]", "[CRITICAL]"]
+LOG_VIEWER_PATTERNS = ["[INFO]", "[DEBUG]",
+                       "[WARNING]", "[ERROR]", "[CRITICAL]"]
 LOG_VIEWER_EXCLUDE_TEXT_PATTERN = None
 
 
