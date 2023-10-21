@@ -1,0 +1,133 @@
+{% extends 'layouts/default.html' %} 
+{% load static %} 
+{% load i18n %} 
+{% block title %}{% translate "Contact Page Description" %}{% endblock title %} 
+{% block description %}{% translate "Contact Page Description" %}{% endblock description %} 
+{% block content %}
+<section class="contact">
+
+  <div id="map" style="position: relative; overflow: hidden">
+    <div
+      style="
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        background-color: rgb(229, 227, 223);
+        background-image:url({% static 'images/gallery-1.jpg' %});
+        background-size: cover;
+      "
+    >
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <div class="contact-block">
+          <div class="contact-info">
+            <div class="row">
+              <div class="col-sm-3 col-md-6">
+                <figure class="text-center">
+                  <span class="icon icon-map-marker"></span>
+                  <figcaption>
+                    <strong>{% translate "Address" %}</strong>
+                    <span>200 12th Ave, New York, <br />NY 10001, USA</span>
+                  </figcaption>
+                </figure>
+              </div>
+              <div class="col-sm-3 col-md-6">
+                <figure class="text-center">
+                  <span class="icon icon-phone"></span>
+                  <figcaption>
+                    <strong>{% translate "Call us" %}</strong>
+                    <span>
+                      <strong>T</strong> +1 222 333 4444 <br />
+                      <strong>F</strong> +1 222 333 5555
+                    </span>
+                  </figcaption>
+                </figure>
+              </div>
+              <div class="col-sm-3 col-md-6">
+                <figure class="text-center">
+                  <span class="icon icon-clock"></span>
+                  <figcaption>
+                    <strong>{% translate "Working hours" %}</strong>
+                    <span>
+                      <strong>Mon</strong> - Sat: 10 am - 6 pm <br />
+                      <strong>Sun</strong> 12pm - 2 pm
+                    </span>
+                  </figcaption>
+                </figure>
+              </div>
+              <div class="col-sm-3 col-md-6">
+                <figure class="text-center">
+                  <span class="icon icon-envelope"></span>
+                  <figcaption>
+                    <strong>{% translate "E-mail" %}</strong>
+                    <span>
+                      <strong>Mon</strong> - Sat: 10 am - 6 pm <br />
+                      <strong>Sun</strong> 12pm - 2 pm
+                    </span>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-info">
+            <h2 class="title">{% translate "Write to us" %}</h2>
+            <p>
+              {% blocktranslate with app_name=config.app.name%}
+              Thanks for your interest in {{app_name}}. We believe in creativity
+              as one of the major forces of progress. Please use this form if
+              you have any questions about our products and we'll get back with
+              you very soon.
+              {% endblocktranslate %}
+            </p>
+
+            <div id="contact-form" class="contact-form-wrapper">
+              <div class="contact-form clearfix">
+                {% include 'components/messages.html' with messages=messages %}
+
+                <form method="POST">
+                  {% csrf_token %} 
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        {{form.name}}
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        {{form.email}}
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        {{form.subject}}
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        {{form.message}}
+                      </div>
+                    </div>
+                    <div class="col-md-12 text-center">
+                      <button type="submit" class="btn btn-primary">
+                        {% translate "Send message" %}
+                      </button>
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

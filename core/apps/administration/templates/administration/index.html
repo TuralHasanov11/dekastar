@@ -1,12 +1,15 @@
 {% extends 'layouts/admin.html' %} 
-{% load static %} 
-{% load i18n %} 
-{% block title %}{% translate "Dashboard" %}{% endblock title %}
+{% load static %} {% load i18n %} 
+{% block title %}{% translate "Dashboard" %}{% endblock title %} 
 {% block content %}
 <header class="py-10 mb-4 bg-gradient-success-to-secondary">
   <div class="container-xl px-4">
     <div class="text-center">
-      <h1 class="text-white">{% blocktranslate %}Welcome to {{config.app.name}} Admin{% endblocktranslate %}</h1>
+      <h1 class="text-white">
+        {% blocktranslate %}
+        Welcome to {{config.app.name}} Admin
+        {% endblocktranslate %}
+      </h1>
     </div>
   </div>
 </header>
@@ -15,18 +18,16 @@
   <h2 class="mt-5 mb-0">{% translate "Dashboards" %}</h2>
   <hr class="mt-0 mb-4" />
   <div class="row">
-    {% comment %} {% for dashboard in creator_dashboards %}
+    {% for dashboard in creator_dashboards %}
     <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
       <a
-        class="d-block lift rounded overflow-hidden mb-2"
-        href="{% url dashboard.route %}"
-        ><img
-          class="img-fluid creator-dashboard-image"
-          src="{% static dashboard.image %}"
-      /></a>
-      <div class="text-center small">{{dashboard.name}}</div>
+        class="d-block mb-2 h4 text-decoration-none"
+        href="{{dashboard.route}}"
+      >
+        <div class="text-center small">{{dashboard.name}}</div>
+      </a>
     </div>
-    {% endfor %} {% endcomment %}
+    {% endfor %}
   </div>
 </div>
 {% endblock content %}

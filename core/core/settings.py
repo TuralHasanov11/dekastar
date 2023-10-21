@@ -77,6 +77,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "core.context_processors.config",
                 "apps.main.context_processors.default_header_menu",
                 "apps.main.context_processors.default_footer_menu",
                 "apps.main.context_processors.default_footer_social_links"
@@ -143,7 +144,7 @@ LANGUAGE_CODE = "az"
 LANGUAGES = (
     ("az", _("Azerbaijani")),
     ("en", _("English")),
-    ("en", _("Russian")),
+    ("ru", _("Russian")),
 )
 
 LOCALE_PATHS = (BASE_DIR / "locale/",)

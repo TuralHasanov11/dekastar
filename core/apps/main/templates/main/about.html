@@ -1,0 +1,27 @@
+{% extends 'layouts/default.html' %} 
+{% load static %} 
+{% load i18n %} 
+{% block title %}{% translate "About Page Description" %}{% endblock title %} 
+{% block description %}{% translate "About Page Description" %}{% endblock description %}
+{% block content %}
+<section class="about pt-4 pt-lg-5">
+  <header>
+    <div class="container">
+      <h2 class="title">{% translate "About Us" %}</h2>
+      <div class="text">
+        <p>
+          Suspendisse scelerisque odio eu felis eleifend, vitae gravida magna
+          iaculis. Vestibulum volutpat, purus in consectetur porta, velit felis
+          suscipit metus, et pharetra enim augue suscipit est. Aenean non ante
+          tortor. Nam egestas tincidunt turpis, quis accumsan est vestibulum non
+        </p>
+      </div>
+    </div>
+  </header>
+  <div class="container-fluid">
+    <div class="image">
+      <img src="{% static 'images/gallery-1.jpg' %}" alt="Alternate Text" />
+    </div>
+  </div>
+</section>
+{% endblock content %}
