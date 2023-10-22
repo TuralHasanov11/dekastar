@@ -1,11 +1,11 @@
 @font-face {
 	font-family: 'LinearIcons';
-	src:url('../fonts/linearIcons54e9.eot?w118d');
-	src:url('../fonts/linearIconsd41d.eot?#iefixw118d') format('embedded-opentype'),
-		url('../fonts/linearIcons54e9.woff2?w118d') format('woff2'),
-		url('../fonts/linearIcons54e9.woff?w118d') format('woff'),
-		url('../fonts/linearIcons54e9.ttf?w118d') format('truetype'),
-		url('../fonts/linearIcons54e9.svg?w118d#Linearicons-Free') format('svg');
+	src:url('/static/fonts/linearIcons54e9.eot?w118d');
+	src:url('/static/fonts/linearIconsd41d.eot?#iefixw118d') format('embedded-opentype'),
+		url('/static/fonts/linearIcons54e9.woff2?w118d') format('woff2'),
+		url('/static/fonts/linearIcons54e9.woff?w118d') format('woff'),
+		url('/static/fonts/linearIcons54e9.ttf?w118d') format('truetype'),
+		url('/static/fonts/linearIcons54e9.svg?w118d#Linearicons-Free') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

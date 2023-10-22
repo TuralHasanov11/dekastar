@@ -1,0 +1,82 @@
+
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Privacy Policy Texts" %}{% endblock title %}
+{% block content %}
+<header class="page-header page-header-dark bg-gradient-danger-to-secondary pb-10">
+    <div class="container-xl px-4">
+        <div class="page-header-content pt-4">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-auto mt-4">
+                    <h1 class="page-header-title">
+                        <div class="page-header-icon"><i data-feather="arrow-right-circle"></i></div>
+                        {% translate "Privacy Policy Texts" %}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container-xl px-4 mt-n10">
+    <div class="card">
+        <div class="card-body">
+            {% include 'components/messages.html' with messages=messages %}
+            <form method="POST" action="{% url 'apps.administration:privacy-policy' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.management_form }}
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    {% for lang in languages %}
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link {% if forloop.counter == 1 %}active{% endif %}" id="pills-{{forloop.counter}}-tab" 
+                                data-bs-toggle="pill" data-bs-target="#pills-{{forloop.counter}}" type="button" role="tab" 
+                                aria-controls="pills-{{forloop.counter}}" 
+                                aria-selected="{% if forloop.counter == 1 %}true{% else %}false{% endif %}"
+                            >
+                            {{lang.name_local}}
+                        </button>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    {% for form_item in form %}
+                    <div class="tab-pane fade show {% if forloop.counter == 1 %}active{% endif %}" id="pills-{{forloop.counter}}" 
+                        role="tabpanel" aria-labelledby="pills-{{forloop.counter}}-tab" tabindex="0"
+                    >
+                    {% include "components/forms/hidden-fields.html" with hidden_fields=form_item.hidden_fields %}
+                    {{form_item.non_field_errors}} 
+                    {{form_item.non_form_errors}} 
+                    {{ form_item.media }}
+                    <div class="mb-3 d-none">
+                        <h5 class="text-primary mb-1">{{form_item.language.label}} - {{form_item.language.value|upper}}</h5>
+                    </div>
+                    <div class="mb-3">
+                        <label class="mb-1 small" for="{{form_item.privacy_policy.id_for_label}}">{{form_item.privacy_policy.label}}</label>
+                        {{form_item.privacy_policy}}
+                        {{ form_item.privacy_policy.errors  }}
+                    </div>
+                    <div class="mb-3">
+                        {{form_item.language}}
+                        {{form_item.language.errors}}
+                    </div>
+                    <hr>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-success btn-sm" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+

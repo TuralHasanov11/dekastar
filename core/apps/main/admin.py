@@ -1,3 +1,7 @@
+from apps.main.models import SiteText
 from django.contrib import admin
 
-# Register your models here.
+
+@admin.register(SiteText)
+class SiteTextAdmin(admin.ModelAdmin):
+    pass
