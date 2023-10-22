@@ -13,11 +13,36 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
+    <link href="{% static 'css/admin/main.css' %}" rel="stylesheet" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static 'images/logo.png' %}"
+    />
+
     <title>{% block title %}{% endblock title %} | {% translate "Admin" %}</title>
   </head>
   <body class="bg-light">
-    
-    {% block content %} {% endblock content %}
+    <div id="layoutAuthentication">
+      <div id="layoutAuthentication_content">
+        {% block content %} {% endblock content %}
+      </div>
+    </div>
 
+    <script
+      data-search-pseudo-elements=""
+      defer=""
+      src="{% static 'fonts/font-awesome.min.js' %}"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="{% static 'icons/feather.min.js' %}"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="{% static 'js/admin/bootstrap.bundle.min.js' %}"
+      crossorigin="anonymous"
+    ></script>
+    <script src="{% static 'js/admin/admin.js' %}"></script>
   </body>
 </html>

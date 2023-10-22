@@ -1,5 +1,4 @@
-{% load static %} {% load i18n %}
-
+{% load static %} {% load i18n %} {% load build_language_path %}
 <nav
   class="topnav navbar navbar-expand shadow justify-content-between justify-content-sm-start navbar-light bg-white"
   id="sidenavAccordion"
@@ -10,4 +9,87 @@
   >
     <i data-feather="menu"></i>
   </button>
+  <a
+    class="navbar-brand pe-3 ps-4 ps-lg-2"
+    href="{% url 'apps.administration:index' %}"
+    >{{config.app.name}} {% translate "Admin" %}</a
+  >
+  <ul class="navbar-nav align-items-center ms-auto">
+    <li class="nav-item dropdown no-caret d-none d-md-block me-3">
+      <a
+        class="nav-link dropdown-toggle"
+        id="navbarDropdownLanguages"
+        href="javascript:void(0);"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <div class="fw-500">{{CURRENT_LANGUAGE|upper}}</div>
+        <i class="fas fa-chevron-right dropdown-arrow"></i>
+      </a>
+      <div
+        class="dropdown-menu dropdown-menu-end py-0 me-sm-n15 me-lg-0 o-hidden animated--fade-in-up"
+        aria-labelledby="navbarDropdownLanguages"
+      >
+        {% for lang in languages %}
+        <a
+          class="dropdown-item py-2"
+          href="{% build_language_path path=request.get_full_path lang=lang.code current_language=CURRENT_LANGUAGE%}"
+        >
+          <div>{{lang.code|upper}}</div>
+        </a>
+        {% endfor %}
+      </div>
+    </li>
+    <li class="nav-item dropdown no-caret dropdown-user me-3 me-lg-4">
+      <a
+        class="btn btn-icon btn-transparent-dark dropdown-toggle"
+        id="navbarDropdownUserImage"
+        href="javascript:void(0);"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        ><img
+          loading="lazy"
+          class="img-fluid"
+          src="https://ui-avatars.com/api/?name={{user.first_name}}+{{user.last_name}}&background=00ac69&color=fff&size=64"
+      /></a>
+      <div
+        class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up"
+        aria-labelledby="navbarDropdownUserImage"
+      >
+        <h6 class="dropdown-header d-flex align-items-center">
+          <img
+            loading="lazy"
+            class="dropdown-user-img"
+            src="https://ui-avatars.com/api/?name={{user.first_name}}+{{user.last_name}}&background=00ac69&color=fff&size=64"
+          />
+          <div class="dropdown-user-details">
+            <div class="dropdown-user-details-name">{{user.username}}</div>
+            <div class="dropdown-user-details-email">{{user.email}}</div>
+          </div>
+        </h6>
+        <div class="dropdown-divider"></div>
+        <a
+          class="dropdown-item"
+          href="{% url 'apps.administration:auth-profile' %}"
+        >
+          <div class="dropdown-item-icon"><i data-feather="settings"></i></div>
+          {% translate "Account" %}
+        </a>
+        <form
+          action="{% url 'apps.administration:auth-logout' %}"
+          method="POST"
+        >
+          {% csrf_token %}
+          <button type="submit" class="dropdown-item">
+            <div class="dropdown-item-icon"><i data-feather="log-out"></i></div>
+            {% translate "Logout" %}
+          </button>
+        </form>
+      </div>
+    </li>
+  </ul>
 </nav>

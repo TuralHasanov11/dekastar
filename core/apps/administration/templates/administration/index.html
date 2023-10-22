@@ -2,18 +2,6 @@
 {% load static %} {% load i18n %} 
 {% block title %}{% translate "Dashboard" %}{% endblock title %} 
 {% block content %}
-<header class="py-10 mb-4 bg-gradient-success-to-secondary">
-  <div class="container-xl px-4">
-    <div class="text-center">
-      <h1 class="text-white">
-        {% blocktranslate %}
-        Welcome to {{config.app.name}} Admin
-        {% endblocktranslate %}
-      </h1>
-    </div>
-  </div>
-</header>
-
 <div class="container-xl px-4">
   <h2 class="mt-5 mb-0">{% translate "Dashboards" %}</h2>
   <hr class="mt-0 mb-4" />

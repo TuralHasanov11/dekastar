@@ -24,7 +24,7 @@
                 height="34"
             /></a>
           </li>
-          {% if auth.User %}
+          {% if user.is_authenticated %}
           <li class="left-side">
             <a href="{% url 'apps.administration:index' %}">{% translate "Admin Panel" %}</a>
           </li>

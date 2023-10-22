@@ -80,7 +80,8 @@ TEMPLATES = [
                 "core.context_processors.config",
                 "apps.main.context_processors.default_header_menu",
                 "apps.main.context_processors.default_footer_menu",
-                "apps.main.context_processors.default_footer_social_links"
+                "apps.main.context_processors.default_footer_social_links",
+                "apps.administration.context_processors.admin_menu"
             ],
         },
     },
@@ -125,8 +126,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_URL = "apps.administration:login"
-LOGIN_REDIRECT_URL = "apps.administration:dashboard"
+LOGIN_URL = "apps.administration:auth-login"
+LOGIN_REDIRECT_URL = "apps.administration:index"
 
 
 LANGUAGE_CODE = "en-us"

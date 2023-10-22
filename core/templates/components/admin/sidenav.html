@@ -1,16 +1,22 @@
-{% load i18n %} 
+{% load i18n %}
 <nav class="sidenav shadow-right sidenav-light">
   <div class="sidenav-menu">
-    <div class="nav accordion" id="accordionSidenav">
-      <div class="sidenav-menu-heading d-sm-none">{% translate "Account" %}</div>
-
-      
+    <div class="nav accordion">
+      <div class="sidenav-menu-heading d-sm-none">
+        {% translate "Account" %}
+      </div>
+      {% for item in admin_menu %}
+      <a class="nav-link mb-2" href="{{item.route}}">
+        <div class="nav-link-icon"><i data-feather="{{item.icon}}"></i></div>
+        {{item.title}}
+      </a>
+      {% endfor %}
     </div>
   </div>
   <div class="sidenav-footer">
     <div class="sidenav-footer-content">
       <div class="sidenav-footer-subtitle">{% translate "Logged in as" %}:</div>
-      <div class="sidenav-footer-title">{{request.user.username}}</div>
+      <div class="sidenav-footer-title">{{user.username}}</div>
     </div>
   </div>
 </nav>

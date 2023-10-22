@@ -1,11 +1,14 @@
 from typing import Any
 
-from django.urls import reverse
+from apps.administration.forms import LoginForm, PasswordChangeForm
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView, UpdateView
 
 
-class DashboardView(TemplateView):
+class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = "administration/index.html"
     http_method_names = ["get"]
 
@@ -22,13 +25,37 @@ class DashboardView(TemplateView):
         return context
 
 
-class PrivacyPolicyView(UpdateView):
+class PrivacyPolicyView(LoginRequiredMixin, TemplateView):
     template_name = "administration/privacy-policy.html"
+    http_method_names = ["get", "post"]
 
 
-class AboutView(UpdateView):
+class AboutView(LoginRequiredMixin, TemplateView):
     template_name = "administration/about.html"
+    http_method_names = ["get", "post"]
 
 
-class ContactView(UpdateView):
+class ContactView(LoginRequiredMixin, TemplateView):
     template_name = "administration/contact.html"
+    http_method_names = ["get", "post"]
+
+
+class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
+    next_page = reverse_lazy("apps.main:index")
+
+
+class ProfileView(LoginRequiredMixin, UpdateView):
+    template_name = "administration/profile.html"
+
+
+class LoginView(auth_views.LoginView):
+    authentication_form = LoginForm
+    redirect_field_name = reverse_lazy("apps.administration:index")
+    redirect_authenticated_user = True
+    template_name = 'administration/auth/login.html'
+
+
+class PasswordChangeView(LoginRequiredMixin, auth_views.PasswordChangeView):
+    template_name = 'administration/auth/password-change.html'
+    success_url = reverse_lazy("apps.administration:auth-profile")
+    form_class = PasswordChangeForm
