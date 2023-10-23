@@ -2,16 +2,20 @@ from typing import Any
 
 from apps.administration.forms import (AboutTextFormSet, LoginForm,
                                        PasswordChangeForm,
-                                       PrivacyPolicyTextFormSet)
+                                       PrivacyPolicyTextFormSet,
+                                       UserCreateForm, UserUpdateForm)
 from apps.main.models import SiteText
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import TemplateView, UpdateView
+from django.views.generic import ListView, TemplateView
+from django.views.generic.edit import CreateView, DeleteView
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):
@@ -27,6 +31,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                 "apps.administration:privacy-policy")},
             {"name": _("Contact"), "route": reverse(
                 "apps.administration:contact")},
+            {"name": _("Users"), "route": reverse(
+                "apps.administration:user-list")},
         ]
         return context
 
@@ -103,8 +109,29 @@ class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
     next_page = reverse_lazy("apps.main:index")
 
 
-class ProfileView(LoginRequiredMixin, UpdateView):
-    template_name = "administration/profile.html"
+class ProfileView(LoginRequiredMixin, TemplateView):
+    template_name = "administration/auth/profile.html"
+    http_method_names = ["get", "post"]
+    form_class = UserUpdateForm
+    redirect_url_name = "apps.administration:auth-profile"
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(instance=request.user)
+        return render(request, self.template_name, {"form": form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(
+            instance=request.user, data=request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                messages.success(request, _(
+                    'User information were saved successfully!'))
+                return redirect(self.redirect_url_name)
+            except Exception:
+                messages.error(request, _("User information cannot be saved!"))
+        messages.error(request, _("User information cannot be saved!"))
+        return render(request, self.template_name, {"form": form})
 
 
 class LoginView(auth_views.LoginView):
@@ -118,3 +145,25 @@ class PasswordChangeView(LoginRequiredMixin, auth_views.PasswordChangeView):
     template_name = 'administration/auth/password-change.html'
     success_url = reverse_lazy("apps.administration:auth-profile")
     form_class = PasswordChangeForm
+
+
+class UserListView(LoginRequiredMixin, ListView):
+    model = get_user_model()
+    template_name = 'administration/users/list.html'
+    context_object_name = "users"
+
+
+class UserCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = get_user_model()
+    form_class = UserCreateForm
+    login_url = reverse_lazy('apps.administration:index')
+    template_name = 'administration/users/create.html'
+    success_message = _("User was created successfully!")
+    success_url = reverse_lazy('apps.administration:user-list')
+
+
+class UserDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = get_user_model()
+    # queryset = get_user_model().staff.all()
+    success_message = _("User was deleted successfully!")
+    success_url = reverse_lazy('apps.administration:user-list')

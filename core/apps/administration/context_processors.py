@@ -26,5 +26,10 @@ def admin_menu(request):
                 "route": reverse("apps.administration:contact"),
                 "icon": "phone",
             },
+            {
+                "title": _("User List"),
+                "route": reverse("apps.administration:user-list"),
+                "icon": "user",
+            },
         ]
     }
