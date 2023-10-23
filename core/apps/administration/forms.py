@@ -95,3 +95,16 @@ class PrivacyPolicyTextForm(forms.ModelForm):
 
 PrivacyPolicyTextFormSet = forms.modelformset_factory(
     model=SiteText, form=PrivacyPolicyTextForm, max_num=len(settings.LANGUAGES))
+
+
+class DeliveryPolicyTextForm(forms.ModelForm):
+    language = custom_form_fields.LanguageField()
+    delivery_policy = custom_form_fields.TextField(label=_('Delivery Policy'))
+
+    class Meta:
+        model = SiteText
+        fields = ['delivery_policy', 'language']
+
+
+DeliveryPolicyTextFormSet = forms.modelformset_factory(
+    model=SiteText, form=DeliveryPolicyTextForm, max_num=len(settings.LANGUAGES))

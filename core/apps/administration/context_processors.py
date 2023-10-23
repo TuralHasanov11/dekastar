@@ -22,6 +22,11 @@ def admin_menu(request):
                 "icon": "lock",
             },
             {
+                "title": _("Delivery Policy"),
+                "route": reverse("apps.administration:delivery-policy"),
+                "icon": "truck",
+            },
+            {
                 "title": _("Contact Information"),
                 "route": reverse("apps.administration:contact"),
                 "icon": "phone",

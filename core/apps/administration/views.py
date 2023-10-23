@@ -1,6 +1,7 @@
 from typing import Any
 
-from apps.administration.forms import (AboutTextFormSet, LoginForm,
+from apps.administration.forms import (AboutTextFormSet,
+                                       DeliveryPolicyTextFormSet, LoginForm,
                                        PasswordChangeForm,
                                        PrivacyPolicyTextFormSet,
                                        UserCreateForm, UserUpdateForm)
@@ -29,6 +30,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                 "apps.administration:about")},
             {"name": _("Privacy Policy"), "route": reverse(
                 "apps.administration:privacy-policy")},
+            {"name": _("Delivery Policy"), "route": reverse(
+                "apps.administration:delivery-policy")},
             {"name": _("Contact"), "route": reverse(
                 "apps.administration:contact")},
             {"name": _("Users"), "route": reverse(
@@ -48,14 +51,14 @@ class PrivacyPolicyView(LoginRequiredMixin, TemplateView):
             SiteText.objects.bulk_create(
                 [SiteText(language=lang[0]) for lang in settings.LANGUAGES])
         site_texts = SiteText.objects.all().order_by(
-            'language').only('language', 'privacy')
+            'language').only('language', 'privacy_policy')
         form = self.form_class(
             initial=site_texts)
         return render(request, self.template_name, {"form": form})
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(
-            initial=SiteText.objects.all().order_by('language').only('language', 'privacy'), data=request.POST)
+            initial=SiteText.objects.all().order_by('language').only('language', 'privacy_policy'), data=request.POST)
         if form.is_valid():
             try:
                 form.save()
@@ -66,6 +69,38 @@ class PrivacyPolicyView(LoginRequiredMixin, TemplateView):
                 messages.error(request, _(
                     "Privacy Policy texts cannot be saved!"))
         messages.error(request, _("Privacy Policy texts cannot be saved!"))
+        return render(request, self.template_name, {"form": form})
+    
+
+class DeliveryPolicyView(LoginRequiredMixin, TemplateView):
+    template_name = "administration/delivery-policy.html"
+    http_method_names = ["get", "post"]
+    form_class = DeliveryPolicyTextFormSet
+    redirect_url_name = "apps.administration:delivery-policy"
+
+    def get(self, request, *args, **kwargs):
+        if SiteText.objects.count() == 0:
+            SiteText.objects.bulk_create(
+                [SiteText(language=lang[0]) for lang in settings.LANGUAGES])
+        site_texts = SiteText.objects.all().order_by(
+            'language').only('language', 'delivery')
+        form = self.form_class(
+            initial=site_texts)
+        return render(request, self.template_name, {"form": form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(
+            initial=SiteText.objects.all().order_by('language').only('language', 'delivery_policy'), data=request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                messages.success(request, _(
+                    'Delivery Policy texts were saved successfully!'))
+                return redirect(self.redirect_url_name)
+            except Exception:
+                messages.error(request, _(
+                    "Delivery Policy texts cannot be saved!"))
+        messages.error(request, _("Delivery Policy texts cannot be saved!"))
         return render(request, self.template_name, {"form": form})
 
 

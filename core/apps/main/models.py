@@ -6,6 +6,7 @@ from shared import custom_model_fields
 class SiteText(models.Model):
     language = custom_model_fields.LanguageField()
     privacy_policy = custom_model_fields.TextField()
+    delivery_policy = custom_model_fields.TextField()
     about = custom_model_fields.TextField()
     created_at = custom_model_fields.CreatedAtField()
     updated_at = custom_model_fields.UpdatedAtField()
