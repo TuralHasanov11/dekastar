@@ -1,9 +1,11 @@
 # from django.http import HttpRequest
 from apps.main.forms import ContactForm
+from apps.main.models import SiteText
 from django.contrib import messages
-from django.core.mail import BadHeaderError, EmailMessage
+from django.core.mail import BadHeaderError
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
@@ -16,6 +18,21 @@ class HomeView(TemplateView):
 class PrivacyPolicyView(TemplateView):
     template_name = "main/privacy-policy.html"
     http_method_names = ['get']
+
+    def get(self, request, *args, **kwargs):
+        site_text = SiteText.objects.filter(language=get_language()).only(
+            'language', 'privacy_policy').first()
+        return render(request, self.template_name, {'privacy_policy': site_text.privacy_policy})
+
+
+class DeliveryPolicyView(TemplateView):
+    template_name = "main/delivery-policy.html"
+    http_method_names = ['get']
+
+    def get(self, request, *args, **kwargs):
+        site_text = SiteText.objects.filter(language=get_language()).only(
+            'language', 'delivery_policy').first()
+        return render(request, self.template_name, {'delivery_policy': site_text.delivery_policy})
 
 
 class ContactView(TemplateView):

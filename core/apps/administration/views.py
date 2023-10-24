@@ -1,11 +1,14 @@
 from typing import Any
 
-from apps.administration.forms import (AboutTextFormSet,
+from apps.administration.forms import (AboutTextFormSet, CompanyInfoFormSet,
+                                       ContactEmailForm, ContactPhoneForm,
                                        DeliveryPolicyTextFormSet, LoginForm,
                                        PasswordChangeForm,
                                        PrivacyPolicyTextFormSet,
-                                       UserCreateForm, UserUpdateForm)
-from apps.main.models import SiteText
+                                       SocialMediaLinkForm, UserCreateForm,
+                                       UserUpdateForm)
+from apps.main.models import (CompanyInfo, ContactEmail, ContactPhone,
+                              SiteText, SocialMediaLink)
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -70,7 +73,7 @@ class PrivacyPolicyView(LoginRequiredMixin, TemplateView):
                     "Privacy Policy texts cannot be saved!"))
         messages.error(request, _("Privacy Policy texts cannot be saved!"))
         return render(request, self.template_name, {"form": form})
-    
+
 
 class DeliveryPolicyView(LoginRequiredMixin, TemplateView):
     template_name = "administration/delivery-policy.html"
@@ -137,7 +140,84 @@ class AboutView(LoginRequiredMixin, TemplateView):
 
 class ContactView(LoginRequiredMixin, TemplateView):
     template_name = "administration/contact.html"
-    http_method_names = ["get", "post"]
+    http_method_names = ["get"]
+    social_media_link_form_class = SocialMediaLinkForm
+    contact_phone_form_class = ContactPhoneForm
+    contact_email_form_class = ContactEmailForm
+    company_info_form_class = CompanyInfoFormSet
+
+    def get(self, request, *args, **kwargs):
+        social_media_link_form = self.social_media_link_form_class()
+        contact_email_form = self.contact_email_form_class()
+        contact_phone_form = self.contact_phone_form_class()
+        company_info_form = self.company_info_form_class()
+        social_media_links = SocialMediaLink.objects.all()
+        contact_emails = ContactEmail.objects.all()
+        contact_phones = ContactPhone.objects.all()
+        return render(request, self.template_name, {
+            "social_media_link_form": social_media_link_form,
+            "contact_email_form": contact_email_form,
+            "company_info_form": company_info_form,
+            "contact_phone_form": contact_phone_form,
+            "social_media_links": social_media_links,
+            "contact_emails": contact_emails,
+            "contact_phones": contact_phones,
+        })
+
+
+class ContactEmailCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = ContactEmail
+    form_class = ContactEmailForm
+    http_method_names = ["post"]
+    success_message = _("Contact email was added successfully!")
+
+    def get_success_url(self) -> str:
+        return reverse("apps.administration:contact") + "#contact-email-form"
+
+
+class ContactEmailDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = ContactEmail
+    success_message = _("Contact email was deleted successfully!")
+
+    def get_success_url(self) -> str:
+        return reverse("apps.administration:contact") + "#contact-email-form"
+
+
+class ContactPhoneCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = ContactPhone
+    form_class = ContactPhoneForm
+    http_method_names = ["post"]
+    success_message = _("Contact phone was added successfully!")
+
+    def get_success_url(self) -> str:
+        return reverse("apps.administration:contact") + "#contact-phone-form"
+
+
+class ContactPhoneDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = ContactPhone
+    success_message = _("Contact phone was deleted successfully!")
+
+    def get_success_url(self) -> str:
+        return reverse("apps.administration:contact") + "#contact-phone-form"
+
+
+class SocialMediaLinkCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = SocialMediaLink
+    form_class = SocialMediaLinkForm
+    http_method_names = ["post"]
+    success_message = _("Social media link was added successfully!")
+
+    def get_success_url(self) -> str:
+        return reverse("apps.administration:contact") + "#social-media-link-form"
+
+
+class SocialMediaLinkDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = SocialMediaLink
+    success_message = _(
+        "Social media link was deleted successfully!")
+
+    def get_success_url(self) -> str:
+        return reverse("apps.administration:contact") + "#social-media-link-form"
 
 
 class LogoutView(LoginRequiredMixin, auth_views.LogoutView):

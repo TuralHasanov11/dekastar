@@ -1,5 +1,6 @@
 
-from apps.main.models import SiteText
+from apps.main.models import (CompanyInfo, ContactEmail, ContactPhone,
+                              SiteText, SocialMediaLink)
 from django import forms
 from django.conf import settings
 from django.contrib.auth import forms as auth_forms
@@ -108,3 +109,54 @@ class DeliveryPolicyTextForm(forms.ModelForm):
 
 DeliveryPolicyTextFormSet = forms.modelformset_factory(
     model=SiteText, form=DeliveryPolicyTextForm, max_num=len(settings.LANGUAGES))
+
+
+class SocialMediaLinkForm(forms.ModelForm):
+    platform = forms.ChoiceField(label=_("Platform"), widget=forms.Select(
+        attrs={"class": "form-select form-select-sm"}), choices=SocialMediaLink.Platforms.choices)
+    link = forms.URLField(label=_('Link'), widget=forms.URLInput(
+        attrs={"class": "form-control form-control-sm"}))
+
+    class Meta:
+        model = SocialMediaLink
+        fields = ['platform', 'link']
+
+
+class ContactEmailForm(forms.ModelForm):
+    email = forms.EmailField(label=_("Email"), widget=forms.EmailInput(
+        attrs={"class": "form-control form-control-sm",
+               'placeholder': _("Email"), 'title': _('Please enter email')}))
+
+    class Meta:
+        model = ContactEmail
+        fields = ['email']
+
+
+class ContactPhoneForm(forms.ModelForm):
+    phone = forms.CharField(label=_("Phone"), widget=forms.TextInput(
+        attrs={"class": "form-control form-control-sm", 'placeholder': _("Phone"),
+               'title': _('Please enter phone')}))
+
+    class Meta:
+        model = ContactPhone
+        fields = ['phone']
+
+
+class CompanyInfoForm(forms.ModelForm):
+    language = custom_form_fields.LanguageField()
+    address = forms.CharField(label=_('Address'), widget=forms.Textarea(
+        attrs={"class": "form-control form-control-sm",
+               'placeholder': _('Address'), 'rows': 25,
+               'title': _('Please enter address')}))
+    working_hours = forms.CharField(label=_('Working Hours'), widget=forms.TextInput(
+        attrs={"class": "form-control form-control-sm",
+               'placeholder': _('Working Hours'),
+               'title': _('Please enter working hours')}))
+
+    class Meta:
+        model = CompanyInfo
+        fields = ['address', 'language', 'working_hours']
+
+
+CompanyInfoFormSet = forms.modelformset_factory(
+    model=CompanyInfo, form=CompanyInfoForm, max_num=len(settings.LANGUAGES))

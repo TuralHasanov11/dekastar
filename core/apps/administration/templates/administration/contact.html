@@ -1,0 +1,227 @@
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Contact Info" %}{% endblock title %} 
+{% block content %}
+<main>
+  <header
+    class="page-header page-header-compact page-header-light border-bottom bg-white mb-4"
+  >
+    <div class="container-fluid px-4">
+      <div class="page-header-content">
+        <div class="row align-items-center justify-content-between pt-3">
+          <div class="col-auto mb-3">
+            <h1 class="page-header-title">
+              <div class="page-header-icon"><i data-feather="list"></i></div>
+              {% translate "Contact Info" %}
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container-fluid px-4">
+    {% include 'components/messages.html' with messages=messages %}
+    <div class="card mb-3">
+      <div class="card-header">{% translate "Contact Emails" %}</div>
+      <div class="card-body">
+        <form id="contact-email-form" method="POST" action="{% url 'apps.administration:contact-email-create' %}" class="mb-3">
+          {{contact_email_form.errors}} {% csrf_token %} 
+          {% include "components/forms/hidden-fields.html" with hidden_fields=contact_email_form.hidden_fields %}
+          <div class="row gx-3 mb-4">
+            <div class="col-md-6">
+              <label class="mb-1 small" for="{{ contact_email_form.email.id_for_label }}"
+                >{{ contact_email_form.email.label }}</label
+              >
+              {{ contact_email_form.email }} {{ contact_email_form.email.errors }}
+            </div>
+          </div>
+          {{contact_email_form.non_field_errors}} {{contact_email_form.non_form_errors}}
+          <button class="btn btn-success btn-sm" type="submit">
+            <i class="me-1" data-feather="user-plus"></i> {% translate "Save" %}
+          </button>
+        </form>
+        <hr>
+        {% if contact_emails %}
+        <table id="contactEmailDatatablesSimple" class="entry-table">
+          <thead>
+            <tr>
+              <th>{% translate "Email" %}</th>
+              <th>{% translate "Actions" %}</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>{% translate "Email" %}</th>
+              <th>{% translate "Actions" %}</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            {% for email in contact_emails %}
+            <tr>
+              <td>{{email}}</td>
+              <td>
+                <form
+                  class="delete-form"
+                  action="{% url 'apps.administration:contact-email-delete' pk=email.pk %}"
+                  method="POST"
+                >
+                  {% csrf_token %}
+                  <button
+                    type="submit"
+                    class="btn btn-datatable btn-icon btn-transparent-dark"
+                  >
+                    <i data-feather="trash-2"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p><em>{% translate "No entry found" %}</em></p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-header">{% translate "Contact Phones" %}</div>
+      <div class="card-body">
+        <form id="contact-phone-form" method="POST" action="{% url 'apps.administration:contact-phone-create' %}" class="mb-3">
+          {{contact_phone_form.errors}} {% csrf_token %} 
+          {% include "components/forms/hidden-fields.html" with hidden_fields=contact_phone_form.hidden_fields %}
+          <div class="row gx-3 mb-4">
+            <div class="col-md-6">
+              <label class="mb-1 small" for="{{ contact_phone_form.phone.id_for_label }}"
+                >{{ contact_phone_form.phone.label }}</label
+              >
+              {{ contact_phone_form.phone }} {{ contact_phone_form.phone.errors }}
+            </div>
+          </div>
+          {{contact_phone_form.non_field_errors}} {{contact_phone_form.non_form_errors}}
+          <button class="btn btn-success btn-sm" type="submit">
+            <i class="me-1" data-feather="user-plus"></i> {% translate "Save" %}
+          </button>
+        </form>
+        <hr>
+        {% if contact_phones %}
+        <table id="contactPhoneDatatablesSimple" class="entry-table">
+          <thead>
+            <tr>
+              <th>{% translate "Phone" %}</th>
+              <th>{% translate "Actions" %}</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>{% translate "Phone" %}</th>
+              <th>{% translate "Actions" %}</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            {% for phone in contact_phones %}
+            <tr>
+              <td>{{phone}}</td>
+              <td>
+                <form
+                  class="delete-form"
+                  action="{% url 'apps.administration:contact-phone-delete' pk=phone.pk %}"
+                  method="POST"
+                >
+                  {% csrf_token %}
+                  <button
+                    type="submit"
+                    class="btn btn-datatable btn-icon btn-transparent-dark"
+                  >
+                    <i data-feather="trash-2"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p><em>{% translate "No entry found" %}</em></p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-header">{% translate "Social Media Links" %}</div>
+      <div class="card-body">
+        <form id="social-media-link-form" method="POST" action="{% url 'apps.administration:social-media-link-create' %}" class="mb-3">
+          {{social_media_link_form.errors}} {% csrf_token %} 
+          {% include "components/forms/hidden-fields.html" with hidden_fields=social_media_link_form.hidden_fields %}
+          <div class="row gx-3 mb-4">
+            <div class="col-md-6">
+              <label class="mb-1 small" for="{{ social_media_link_form.platform.id_for_label }}"
+                >{{ social_media_link_form.platform.label }}</label
+              >
+              {{ social_media_link_form.platform }} {{ social_media_link_form.platform.errors }}
+            </div>
+            <div class="col-md-6">
+              <label class="mb-1 small" for="{{ social_media_link_form.link.id_for_label }}"
+                >{{ social_media_link_form.link.label }}</label
+              >
+              {{ social_media_link_form.link }} {{ social_media_link_form.link.errors }}
+            </div>
+          </div>
+          {{social_media_link_form.non_field_errors}} {{social_media_link_form.non_form_errors}}
+          <button class="btn btn-success btn-sm" type="submit">
+            <i class="me-1" data-feather="user-plus"></i> {% translate "Save" %}
+          </button>
+        </form>
+        <hr>
+        {% if social_media_links %}
+        <table id="socialMediaLinkDatatablesSimple" class="entry-table">
+          <thead>
+            <tr>
+              <th>{% translate "Platform" %}</th>
+              <th>{% translate "Link" %}</th>
+              <th>{% translate "Actions" %}</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>{% translate "Platform" %}</th>
+              <th>{% translate "Link" %}</th>
+              <th>{% translate "Actions" %}</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            {% for link in social_media_links %}
+            <tr>
+              <td>{{link.platform}}</td>
+              <td>{{link}}</td>
+              <td>
+                <form
+                  class="delete-form"
+                  action="{% url 'apps.administration:social-media-link-delete' pk=link.pk %}"
+                  method="POST"
+                >
+                  {% csrf_token %}
+                  <button
+                    type="submit"
+                    class="btn btn-datatable btn-icon btn-transparent-dark"
+                  >
+                    <i data-feather="trash-2"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p><em>{% translate "No entry found" %}</em></p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-header">{% translate "Company Info" %}</div>
+      <div class="card-body">
+        
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

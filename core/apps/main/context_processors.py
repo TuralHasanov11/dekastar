@@ -30,6 +30,8 @@ def default_footer_menu(request):
                         "apps.main:contact")},
                     {"title": _("Privacy Policy"), "route": reverse(
                         "apps.main:privacy-policy")},
+                    {"title": _("Delivery Policy"), "route": reverse(
+                        "apps.main:delivery-policy")},
                 ],
             },
             {

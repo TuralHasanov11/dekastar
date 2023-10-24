@@ -19607,3 +19607,26 @@ pre[class*=language-] {
 .token.variable {
   color: #ff6666;
 }
+
+.errorlist li {
+  padding: 0.2em;
+}
+
+.errorlist li {
+  font-size: 0.8em !important;
+  color: var(--bs-danger) !important;
+}
+
+.django-ckeditor-widget {
+  display: block !important;
+  width: 100%;
+}
+
+.cke {
+  width: 100% !important;
+}
+
+.bg-gradient-danger-to-secondary {
+  background-color: var(--bs-danger) !important;
+  background-image: linear-gradient(135deg, var(--bs-danger), var(--bs-danger-soft) 100%) !important;
+}
