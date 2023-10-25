@@ -5,5 +5,11 @@
 {% block description %}{% translate "Home Page Description" %}{% endblock description %} 
 
 {% block content %}
+{% include "components/default/slider.html" %}
 
+{% include "components/default/featured_categories.html" %}
+
+{% include "components/default/discounted_products.html" %}
+
+{% include "components/default/new_products.html" %}
 {% endblock content %}

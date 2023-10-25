@@ -1,6 +1,6 @@
 # from django.http import HttpRequest
 from apps.main.forms import ContactForm
-from apps.main.models import SiteText
+from apps.main.models import CompanyInfo, ContactEmail, ContactPhone, SiteText
 from django.contrib import messages
 from django.core.mail import BadHeaderError
 from django.shortcuts import redirect, render
@@ -42,7 +42,16 @@ class ContactView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         form = self.form_class()
-        return render(request, self.template_name, {"form": form})
+        contact_emails = ContactEmail.objects.all()
+        contact_phones = ContactPhone.objects.all()
+        company_info = CompanyInfo.objects.filter(
+            language=get_language()).first()
+        return render(request, self.template_name, {
+            "form": form,
+            "contact_emails": contact_emails,
+            "contact_phones": contact_phones,
+            "company_info": company_info
+        })
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
@@ -74,3 +83,9 @@ class ContactView(TemplateView):
 
 class AboutView(TemplateView):
     template_name = "main/about.html"
+    http_method_names = ['get']
+
+    def get(self, request, *args, **kwargs):
+        site_text = SiteText.objects.filter(language=get_language()).only(
+            'language', 'about').first()
+        return render(request, self.template_name, {'about': site_text.about})

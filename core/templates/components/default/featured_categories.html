@@ -1,0 +1,89 @@
+{% load static %}
+{% load i18n %} 
+
+<section class="blog blog-block">
+  <header>
+    <div class="container">
+      <h2 class="title">{% translate "Featured categories" %}</h2>
+      <div class="text">
+        <p>
+          <a href="category.html" class="btn btn-main"
+            >{% translate "View more" %}</a
+          >
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="scroll-wrapper">
+      <div class="row scroll text-center">
+        <div class="col-md-4">
+          <article data-3d>
+            <a href="products-grid.html">
+              <div class="image">
+                <img src="{% static 'images/product-1.jpg' %}" alt="" />
+              </div>
+              <div class="entry entry-block">
+                <div class="label">2020 Collection</div>
+                <div class="title">
+                  <h2 class="h4">Beedroms</h2>
+                </div>
+                <div class="description d-none d-sm-block">
+                  <p>Top picks four your desire</p>
+                </div>
+              </div>
+              <div class="show-more">
+                <span class="btn btn-clean">Shop now</span>
+              </div>
+            </a>
+          </article>
+        </div>
+
+        <div class="col-md-4">
+          <article data-3d>
+            <a href="products-grid.html">
+              <div class="image">
+                <img src="{% static 'images/product-2.jpg' %}" alt="" />
+              </div>
+              <div class="entry entry-block">
+                <div class="label">Modern design</div>
+                <div class="title">
+                  <h2 class="h4">Kitchens</h2>
+                </div>
+                <div class="description d-none d-sm-block">
+                  <p>Explore popular devices</p>
+                </div>
+              </div>
+              <div class="show-more">
+                <span class="btn btn-clean">Shop now</span>
+              </div>
+            </a>
+          </article>
+        </div>
+
+        <div class="col-md-4">
+          <article data-3d>
+            <a href="products-grid.html">
+              <div class="image">
+                <img src="{% static 'images/product-3.jpg' %}" alt="" />
+              </div>
+              <div class="entry entry-block">
+                <div class="label">New discounts</div>
+                <div class="title">
+                  <h2 class="h4">Living rooms</h2>
+                </div>
+                <div class="description d-none d-sm-block">
+                  <p>Available for quick shipping</p>
+                </div>
+              </div>
+              <div class="show-more">
+                <span class="btn btn-clean">Shop now</span>
+              </div>
+            </a>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

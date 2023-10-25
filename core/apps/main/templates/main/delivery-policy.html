@@ -1,0 +1,24 @@
+{% extends 'layouts/default.html' %} 
+{% load static %} 
+{% load i18n %} 
+{% block title %}{% translate "Delivery Policy Description" %}{% endblock title %} 
+{% block description %}{% translate "Delivery Policy Description" %}{% endblock description %}
+{% block content %}
+<section class="about pt-4 pt-lg-5">
+  <header>
+    <div class="container">
+      <h2 class="title">{% translate "Delivery Policy" %}</h2>
+      <div class="text">
+        <p>
+          {{delivery_policy|safe}}
+        </p>
+      </div>
+    </div>
+  </header>
+  <div class="container-fluid">
+    <div class="image">
+      <img src="{% static 'images/gallery-1.jpg' %}" alt="Alternate Text" />
+    </div>
+  </div>
+</section>
+{% endblock content %}

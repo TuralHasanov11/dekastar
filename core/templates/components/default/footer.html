@@ -1,4 +1,5 @@
 {% load static %} {% load i18n %}
+{% load get_social_media_platform_icon %}
 
 <div>
   <footer>
@@ -39,7 +40,7 @@
               <ul>
                 {% for item in default_footer_social_links %}
                 <li>
-                  <a href="{{item.link}}"><i class="{{item.icon}}"></i></a>
+                  <a href="{{item.link}}"><i class="{{item.platform|get_social_media_platform_icon}}"></i></a>
                 </li>
                 {% endfor %}
               </ul>

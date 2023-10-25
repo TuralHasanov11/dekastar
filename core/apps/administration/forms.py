@@ -1,6 +1,6 @@
 
 from apps.main.models import (CompanyInfo, ContactEmail, ContactPhone,
-                              SiteText, SocialMediaLink)
+                              SiteImage, SiteText, SocialMediaLink)
 from django import forms
 from django.conf import settings
 from django.contrib.auth import forms as auth_forms
@@ -146,7 +146,7 @@ class CompanyInfoForm(forms.ModelForm):
     language = custom_form_fields.LanguageField()
     address = forms.CharField(label=_('Address'), widget=forms.Textarea(
         attrs={"class": "form-control form-control-sm",
-               'placeholder': _('Address'), 'rows': 25,
+               'placeholder': _('Address'), 'rows': 5,
                'title': _('Please enter address')}))
     working_hours = forms.CharField(label=_('Working Hours'), widget=forms.TextInput(
         attrs={"class": "form-control form-control-sm",
@@ -160,3 +160,31 @@ class CompanyInfoForm(forms.ModelForm):
 
 CompanyInfoFormSet = forms.modelformset_factory(
     model=CompanyInfo, form=CompanyInfoForm, max_num=len(settings.LANGUAGES))
+
+
+class SiteImageForm(forms.ModelForm):
+    contact_image = forms.ImageField(label=_('Contact Image'), widget=forms.ClearableFileInput(
+        attrs={'class': 'form-control form-control-sm',
+               'placeholder': _('Contact Image'),
+               'title': _('Please upload contact image'),
+               'multiple': False}), required=False)
+    about_image = forms.ImageField(label=_('About Image'), widget=forms.ClearableFileInput(
+        attrs={'class': 'form-control form-control-sm',
+               'placeholder': _('About Image'),
+               'title': _('Please upload about image'),
+               'multiple': False}), required=False)
+    delivery_policy_image = forms.ImageField(label=_('Delivery Policy Image'), widget=forms.ClearableFileInput(
+        attrs={'class': 'form-control form-control-sm',
+               'placeholder': _('Delivery Policy Image'),
+               'title': _('Please upload delivery policy image'),
+               'multiple': False}), required=False)
+    privacy_policy_image = forms.ImageField(label=_('Privacy Policy Image'), widget=forms.ClearableFileInput(
+        attrs={'class': 'form-control form-control-sm',
+               'placeholder': _('Privacy Policy Image'),
+               'title': _('Please upload privacy policy image'),
+               'multiple': False}), required=False)
+
+    class Meta:
+        model = SiteImage
+        fields = ['contact_image', 'about_image',
+                  'delivery_policy_image', 'privacy_policy_image']

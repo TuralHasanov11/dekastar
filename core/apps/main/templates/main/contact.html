@@ -33,7 +33,7 @@
                   <span class="icon icon-map-marker"></span>
                   <figcaption>
                     <strong>{% translate "Address" %}</strong>
-                    <span>200 12th Ave, New York, <br />NY 10001, USA</span>
+                    <span>{{company_info.address}}</span>
                   </figcaption>
                 </figure>
               </div>
@@ -43,8 +43,9 @@
                   <figcaption>
                     <strong>{% translate "Call us" %}</strong>
                     <span>
-                      <strong>T</strong> +1 222 333 4444 <br />
-                      <strong>F</strong> +1 222 333 5555
+                      {% for phone in contact_phones %}
+                      {{phone}} <br/>
+                      {% endfor %}
                     </span>
                   </figcaption>
                 </figure>
@@ -55,8 +56,7 @@
                   <figcaption>
                     <strong>{% translate "Working hours" %}</strong>
                     <span>
-                      <strong>Mon</strong> - Sat: 10 am - 6 pm <br />
-                      <strong>Sun</strong> 12pm - 2 pm
+                      {{company_info.working_hours}}
                     </span>
                   </figcaption>
                 </figure>
@@ -67,8 +67,9 @@
                   <figcaption>
                     <strong>{% translate "E-mail" %}</strong>
                     <span>
-                      <strong>Mon</strong> - Sat: 10 am - 6 pm <br />
-                      <strong>Sun</strong> 12pm - 2 pm
+                      {% for email in contact_emails %}
+                      {{email}} <br/>
+                      {% endfor %}
                     </span>
                   </figcaption>
                 </figure>

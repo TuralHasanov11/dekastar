@@ -1,5 +1,7 @@
 from django.db import models
+from django.db.models.signals import post_save
 from django.utils.translation import gettext_lazy as _
+from PIL import Image
 from shared import custom_model_fields
 
 
@@ -60,3 +62,31 @@ class CompanyInfo(models.Model):
 
     def __str__(self):
         return self.address
+
+
+class SiteImage(models.Model):
+    contact_image = models.ImageField(upload_to="site/", null=True, blank=True)
+    about_image = models.ImageField(upload_to="site/", null=True, blank=True)
+    privacy_policy_image = models.ImageField(upload_to="site/", null=True, blank=True)
+    delivery_policy_image = models.ImageField(upload_to="site/", null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = _("Site Images")
+
+
+def site_image_compressor(sender, **kwargs):
+    with Image.open(kwargs["instance"].contact_image.path) as contact_image:
+        contact_image.save(
+            kwargs["instance"].contact_image.path, optimize=True, quality=15)
+    with Image.open(kwargs["instance"].about_image.path) as about_image:
+        about_image.save(
+            kwargs["instance"].about_image.path, optimize=True, quality=15)
+    with Image.open(kwargs["instance"].privacy_policy_image.path) as privacy_policy_image:
+        privacy_policy_image.save(
+            kwargs["instance"].privacy_policy_image.path, optimize=True, quality=15)
+    with Image.open(kwargs["instance"].delivery_policy_image.path) as delivery_policy_image:
+        delivery_policy_image.save(
+            kwargs["instance"].delivery_policy_image.path, optimize=True, quality=15)
+
+
+post_save.connect(site_image_compressor, sender=SiteImage)

@@ -4,11 +4,11 @@ from apps.administration.forms import (AboutTextFormSet, CompanyInfoFormSet,
                                        ContactEmailForm, ContactPhoneForm,
                                        DeliveryPolicyTextFormSet, LoginForm,
                                        PasswordChangeForm,
-                                       PrivacyPolicyTextFormSet,
+                                       PrivacyPolicyTextFormSet, SiteImageForm,
                                        SocialMediaLinkForm, UserCreateForm,
                                        UserUpdateForm)
 from apps.main.models import (CompanyInfo, ContactEmail, ContactPhone,
-                              SiteText, SocialMediaLink)
+                              SiteImage, SiteText, SocialMediaLink)
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -147,10 +147,13 @@ class ContactView(LoginRequiredMixin, TemplateView):
     company_info_form_class = CompanyInfoFormSet
 
     def get(self, request, *args, **kwargs):
+        if CompanyInfo.objects.count() == 0:
+            CompanyInfo.objects.bulk_create(
+                [CompanyInfo(language=lang[0]) for lang in settings.LANGUAGES])
         social_media_link_form = self.social_media_link_form_class()
         contact_email_form = self.contact_email_form_class()
         contact_phone_form = self.contact_phone_form_class()
-        company_info_form = self.company_info_form_class()
+        company_info_form = self.company_info_form_class(initial=CompanyInfo.objects.all())
         social_media_links = SocialMediaLink.objects.all()
         contact_emails = ContactEmail.objects.all()
         contact_phones = ContactPhone.objects.all()
@@ -218,6 +221,62 @@ class SocialMediaLinkDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteV
 
     def get_success_url(self) -> str:
         return reverse("apps.administration:contact") + "#social-media-link-form"
+
+
+class CompanyInfoCreateView(LoginRequiredMixin, SuccessMessageMixin, TemplateView):
+    model = CompanyInfo
+    form_class = CompanyInfoFormSet
+    http_method_names = ["post"]
+    success_message = _("Company info was saved successfully!")
+    redirect_url_name = "apps.administration:contact"
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(
+            initial=CompanyInfo.objects.all(), data=request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                messages.success(request, _(
+                    'Company info was saved successfully!'))
+                return redirect(self.redirect_url_name)
+            except Exception:
+                messages.error(request, _("Company info cannot be saved!"))
+        messages.error(request, _("Company info cannot be saved!"))
+        return redirect(self.redirect_url_name)
+    
+    def get_success_url(self) -> str:
+        return reverse("apps.administration:contact") + "#company-info-form"
+    
+
+class SiteImagesView(LoginRequiredMixin, TemplateView):
+    template_name = "administration/site-images.html"
+    http_method_names = ["get", "post"]
+    form_class = SiteImageForm
+    redirect_url_name = "apps.administration:site-images"
+
+    def get(self, request, *args, **kwargs):
+        try:
+            site_image = SiteImage.objects.first()
+        except SiteImage.DoesNotExist:
+            site_image = SiteImage()
+            site_image.save()
+        form = self.form_class(instance=site_image)
+        return render(request, self.template_name, {"form": form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(
+            instance=SiteText.objects.first(), data=request.POST, files=request.FILES)
+        if form.is_valid():
+            try:
+                form.save()
+                messages.success(request, _(
+                    'Site images were saved successfully!'))
+                return redirect(self.redirect_url_name)
+            except Exception:
+                messages.error(request, _(
+                    "Site images cannot be saved!"))
+        messages.error(request, _("Site images cannot be saved!"))
+        return render(request, self.template_name, {"form": form})
 
 
 class LogoutView(LoginRequiredMixin, auth_views.LogoutView):

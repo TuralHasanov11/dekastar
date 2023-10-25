@@ -1,0 +1,65 @@
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Site Images" %}{% endblock title %} 
+{% block content %}
+<main>
+  <header
+    class="page-header page-header-compact page-header-light border-bottom bg-white mb-4"
+  >
+    <div class="container-xl px-4">
+      <div class="page-header-content">
+        <div class="row align-items-center justify-content-between pt-3">
+          <div class="col-auto mb-4">
+            <h1 class="page-header-title">
+              <div class="page-header-icon">
+                <i data-feather="user-plus"></i>
+              </div>
+              {% translate "Site Images" %}
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="container-xl px-4 mt-4">
+    <div class="card mb-4">
+      <div class="card-header">{% translate "Site Images" %}</div>
+      <div class="card-body">
+        <form method="POST">
+          {{form.errors}} {% csrf_token %} 
+          {% include "components/forms/hidden-fields.html" with hidden_fields=form.hidden_fields %}
+          <div class="row gx-3 mb-4">
+            <div class="col-12">
+              <label class="mb-1 small" for="{{ form.contact_image.id_for_label }}"
+                >{{ form.contact_image.label }}</label
+              >
+              {{ form.contact_image }} {{ form.contact_image.errors }}
+            </div>
+            <div class="col-12">
+              <label class="mb-1 small" for="{{ form.about_image.id_for_label }}"
+                >{{ form.about_image.label }}</label
+              >
+              {{ form.about_image }} {{ form.about_image.errors }}
+            </div>
+            <div class="col-12">
+                <label class="mb-1 small" for="{{ form.delivery_policy_image.id_for_label }}"
+                  >{{ form.delivery_policy_image.label }}</label
+                >
+                {{ form.delivery_policy_image }} {{ form.delivery_policy_image.errors }}
+              </div>
+              <div class="col-12">
+                <label class="mb-1 small" for="{{ form.privacy_policy_image.id_for_label }}"
+                  >{{ form.privacy_policy_image.label }}</label
+                >
+                {{ form.privacy_policy_image }} {{ form.privacy_policy_image.errors }}
+              </div>
+          </div>
+          {{form.non_field_errors}} {{form.non_form_errors}}
+          <button class="btn btn-success btn-sm" type="submit">
+            <i class="me-1" data-feather="edit"></i> {% translate "Save" %}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

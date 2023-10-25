@@ -219,7 +219,41 @@
     <div class="card mb-3">
       <div class="card-header">{% translate "Company Info" %}</div>
       <div class="card-body">
-        
+        <form id="company-info-form" method="POST" action="{% url 'apps.administration:company-info-create' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ company_info_form.management_form }}
+          {% for form_item in company_info_form %}
+          <div>
+            {% include "components/forms/hidden-fields.html" with hidden_fields=form_item.hidden_fields %}
+            {{form_item.non_field_errors}} 
+            {{form_item.non_form_errors}} 
+            {{ form_item.media }}
+            {% if form_item.language.value %}
+            <div class="mb-3 d-none">
+              <h5 class="text-primary mb-1">{{form_item.language.label}} - {{form_item.language.value|upper}}</h5>
+            </div>
+            {% endif %}
+            <div class="mb-3">
+              {{form_item.language}}
+              {{form_item.language.errors}}
+            </div>
+            <div class="mb-3">
+                <label class="mb-1 small" for="{{form_item.address.id_for_label}}">{{form_item.address.label}}</label>
+                {{form_item.address}}
+                {{ form_item.address.errors  }}
+            </div>
+            <div class="mb-3">
+              <label class="mb-1 small" for="{{form_item.working_hours.id_for_label}}">{{form_item.working_hours.label}}</label>
+              {{form_item.working_hours}}
+              {{ form_item.working_hours.errors  }}
+          </div>
+            <hr>
+          </div>
+          {% endfor %}
+          <div class="d-flex justify-content-between">
+              <button class="btn btn-success btn-sm" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
+          </div>
+      </form>
       </div>
     </div>
   </div>

@@ -1,3 +1,4 @@
+from apps.main.models import SocialMediaLink
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -17,9 +18,7 @@ def default_footer_menu(request):
         "default_footer_menu": [
             {
                 "title": _("Categories"),
-                "children": [
-
-                ],
+                "children": [],
             },
             {
                 "title": _("About the Company"),
@@ -48,18 +47,5 @@ def default_footer_menu(request):
 
 def default_footer_social_links(request):
     return {
-        "default_footer_social_links": [
-            {
-                "link": "",
-                "icon": "fa fa-facebook"
-            },
-            {
-                "link": "",
-                "icon": "fa fa-facebook"
-            },
-            {
-                "link": "",
-                "icon": "fa fa-facebook"
-            }
-        ]
+        "default_footer_social_links": SocialMediaLink.objects.all()
     }

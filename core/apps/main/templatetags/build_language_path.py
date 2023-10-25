@@ -19,3 +19,5 @@ def build_language_path(context, **kwargs):
         elif (prefix in path and language is settings.LANGUAGE_CODE) or (language is not settings.LANGUAGE_CODE):
             return f"/{path.replace(prefix, '')}"
     return path
+
+
