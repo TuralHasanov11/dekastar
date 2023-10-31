@@ -1,8 +1,11 @@
-# from django.http import HttpRequest
+from typing import Any
+
 from apps.main.forms import ContactForm
 from apps.main.models import CompanyInfo, ContactEmail, ContactPhone, SiteText
+from apps.store.models import Category, Product
 from django.contrib import messages
 from django.core.mail import BadHeaderError
+from django.db.models import Count
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import get_language
@@ -13,6 +16,15 @@ from django.views.generic import TemplateView
 class HomeView(TemplateView):
     template_name = "main/index.html"
     http_method_names = ['get']
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.annotate(
+            products_count=Count("product_category")).all()
+        context["new_products"] = Product.products.order_by('-created_at').all()[:6]
+        context["discounted_products"] = Product.products.filter(discount__gt=0).order_by('-updated_at')[
+            :6]
+        return context
 
 
 class PrivacyPolicyView(TemplateView):

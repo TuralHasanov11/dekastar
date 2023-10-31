@@ -29,8 +29,12 @@
             <a href="{% url 'apps.administration:index' %}">{% translate "Admin Panel" %}</a>
           </li>
           {% endif %}
+          <li><a href="javascript:void(0);" class="open-login"><i class="icon icon-heart"></i></a></li>
+          <li><a href="javascript:void(0);" class="open-search"><i class="icon icon-magnifier"></i></a></li>
+          <li><a href="javascript:void(0);" class="open-cart"><i class="icon icon-cart"></i> <span>4</span></a></li>
         </ul>
       </div>
+      
 
       <div class="navigation navigation-main">
         <a href="#" class="open-menu"><i class="icon icon-menu"></i></a>
@@ -45,6 +49,25 @@
               <a href="{{item.route}}"
                 >{{item.title}}
               </a>
+              {% if item.children %}
+              <div class="navbar-dropdown navbar-dropdown-single">
+                <div class="navbar-box">
+                    <div class="box-full">
+                        <div class="box clearfix">
+                            <ul>
+                                {% for child in item.children %}
+                                <li>
+                                  <a href="{{child.route}}">
+                                    {{child.title}}
+                                  </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              {% endif %}
             </li>
             {% endfor %}
             <li class="nav-settings">
@@ -69,6 +92,11 @@
             </li>
           </ul>
         </div>
+      </div>
+
+      <div class="search-wrapper">
+        <input class="form-control" placeholder="Search...">
+        <button class="btn btn-outline-dark btn-sm">Search now</button>
       </div>
 
     </div>

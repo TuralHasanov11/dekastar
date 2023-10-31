@@ -11,7 +11,6 @@ sitemaps: Dict = {}
 
 
 urlpatterns = [
-    # path('ckeditor/', include('ckeditor_uploader.urls')),
     path("django-admin/", admin.site.urls),
     path("logs/", include("log_viewer.urls")),
     path(

@@ -8,5 +8,4 @@ register = template.Library()
 @register.filter
 @stringfilter
 def get_social_media_platform_icon(value):
-    print(SocialMediaPlatformIconContainer[value].value)
     return SocialMediaPlatformIconContainer[value].value

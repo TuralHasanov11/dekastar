@@ -1,12 +1,14 @@
 
 from apps.main.models import (CompanyInfo, ContactEmail, ContactPhone,
                               SiteImage, SiteText, SocialMediaLink)
+from apps.store.models import Brand, Category
 from django import forms
 from django.conf import settings
 from django.contrib.auth import forms as auth_forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
+from mptt.forms import TreeNodeChoiceField
 from shared import custom_form_fields
 
 
@@ -188,3 +190,39 @@ class SiteImageForm(forms.ModelForm):
         model = SiteImage
         fields = ['contact_image', 'about_image',
                   'delivery_policy_image', 'privacy_policy_image']
+
+
+class CategoryForm(forms.ModelForm):
+    name = forms.CharField(label=_('Name'), widget=forms.TextInput(
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Name'), 'title': _('Please enter name')}))
+    parent = TreeNodeChoiceField(label=_('Parent'),
+                                 queryset=Category.objects.all(), required=False)
+    cover_image = forms.ImageField(label=_('Cover Image'), widget=forms.ClearableFileInput(
+        attrs={'class': 'form-control form-control-sm',
+               'placeholder': _('Cover Image'),
+               'title': _('Please upload cover Image'),
+               'multiple': False}), required=False)
+
+    class Meta:
+        model = Category
+        fields = ('name', 'parent', 'cover_image')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["parent"].widget.attrs.update(
+            {"class": "form-select form-select-sm"})
+
+
+class BrandForm(forms.ModelForm):
+    name = forms.CharField(label=_('Name'), widget=forms.TextInput(
+        attrs={'class': 'form-control form-control-sm',
+               'placeholder': _('Name'), 'title': _('Please enter name')}))
+    cover_image = forms.ImageField(label=_('Cover Image'), widget=forms.ClearableFileInput(
+        attrs={'class': 'form-control form-control-sm',
+               'placeholder': _('Cover Image'),
+               'title': _('Please upload cover Image'),
+               'multiple': False}), required=False)
+
+    class Meta:
+        model = Brand
+        fields = ('name', 'cover_image')

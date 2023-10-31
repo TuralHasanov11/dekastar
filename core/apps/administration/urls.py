@@ -25,4 +25,8 @@ urlpatterns = [
     path("auth/password-change", views.PasswordChangeView.as_view(),
          name="auth-password-change"),
     path('auth/profile', views.ProfileView.as_view(), name='auth-profile'),
+    path('store/categories', views.CategoryListCreateView.as_view(), name='store-category-list-create'),
+    path('store/categories/<int:pk>', views.CategoryUpdateDeleteView.as_view(), name='store-category-update-delete'),
+    path('store/brands', views.BrandListCreateView.as_view(), name='store-brand-list-create'),
+    path('store/brands/<int:pk>', views.BrandUpdateDeleteView.as_view(), name='store-brand-update-delete'),
 ]

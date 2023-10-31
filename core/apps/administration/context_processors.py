@@ -32,9 +32,19 @@ def admin_menu(request):
                 "icon": "phone",
             },
             {
-                "title": _("User List"),
+                "title": _("Users"),
                 "route": reverse("apps.administration:user-list"),
                 "icon": "user",
+            },
+            {
+                "title": _("Categories"),
+                "route": reverse("apps.administration:store-category-list-create"),
+                "icon": "book",
+            },
+            {
+                "title": _("Brands"),
+                "route": reverse("apps.administration:store-brand-list-create"),
+                "icon": "globe",
             },
         ]
     }
