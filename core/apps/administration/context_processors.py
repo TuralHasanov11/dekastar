@@ -12,6 +12,11 @@ def admin_menu(request):
                 "icon": "activity",
             },
             {
+                "title": _("Banners"),
+                "route": reverse("apps.administration:banner-list-create"),
+                "icon": "image",
+            },
+            {
                 "title": _("About Us"),
                 "route": reverse("apps.administration:about"),
                 "icon": "file-text",
@@ -45,6 +50,11 @@ def admin_menu(request):
                 "title": _("Brands"),
                 "route": reverse("apps.administration:store-brand-list-create"),
                 "icon": "globe",
+            },
+            {
+                "title": _("Products"),
+                "route": reverse("apps.administration:store-product-list"),
+                "icon": "shopping-bag",
             },
         ]
     }

@@ -67,8 +67,10 @@ class CompanyInfo(models.Model):
 class SiteImage(models.Model):
     contact_image = models.ImageField(upload_to="site/", null=True, blank=True)
     about_image = models.ImageField(upload_to="site/", null=True, blank=True)
-    privacy_policy_image = models.ImageField(upload_to="site/", null=True, blank=True)
-    delivery_policy_image = models.ImageField(upload_to="site/", null=True, blank=True)
+    privacy_policy_image = models.ImageField(
+        upload_to="site/", null=True, blank=True)
+    delivery_policy_image = models.ImageField(
+        upload_to="site/", null=True, blank=True)
 
     class Meta:
         verbose_name_plural = _("Site Images")
@@ -90,3 +92,16 @@ def site_image_compressor(sender, **kwargs):
 
 
 post_save.connect(site_image_compressor, sender=SiteImage)
+
+
+def banner_image_path(instance, filename):
+    return f"banners/{instance.id}-{filename}"
+
+
+class Banner(models.Model):
+    image = models.ImageField(upload_to=banner_image_path)
+    link = models.URLField(blank=True, null=True)
+    is_active = models.BooleanField(default=True, null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = _("Banners")

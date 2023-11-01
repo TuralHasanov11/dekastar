@@ -1,7 +1,8 @@
 from typing import Any
 
 from apps.main.forms import ContactForm
-from apps.main.models import CompanyInfo, ContactEmail, ContactPhone, SiteText
+from apps.main.models import (Banner, CompanyInfo, ContactEmail, ContactPhone,
+                              SiteText)
 from apps.store.models import Category, Product
 from django.contrib import messages
 from django.core.mail import BadHeaderError
@@ -24,6 +25,7 @@ class HomeView(TemplateView):
         context["new_products"] = Product.products.list_queryset().order_by('-created_at').all()[:6]
         context["discounted_products"] = Product.products.list_queryset().filter(discount__gt=0).order_by('-updated_at')[
             :6]
+        context["banners"] = Banner.objects.filter(is_active=True).order_by('-id')
         return context
 
 

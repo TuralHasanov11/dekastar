@@ -1,5 +1,5 @@
 
-from apps.main.models import (CompanyInfo, ContactEmail, ContactPhone,
+from apps.main.models import (Banner, CompanyInfo, ContactEmail, ContactPhone,
                               SiteImage, SiteText, SocialMediaLink)
 from apps.store.models import Brand, Category
 from django import forms
@@ -190,6 +190,23 @@ class SiteImageForm(forms.ModelForm):
         model = SiteImage
         fields = ['contact_image', 'about_image',
                   'delivery_policy_image', 'privacy_policy_image']
+
+
+class BannerForm(forms.ModelForm):
+    link = forms.URLField(label=_('Link'), widget=forms.URLInput(
+        attrs={'class': 'form-control form-control-sm',
+               'placeholder': _('Link'), 'title': _('Please enter link')}))
+    image = forms.ImageField(label=_('Image'), widget=forms.ClearableFileInput(
+        attrs={'class': 'form-control form-control-sm',
+               'placeholder': _('Image'),
+               'title': _('Please upload Image'),
+               'multiple': False}), required=True)
+    is_active = forms.BooleanField(label=_('Active'), widget=forms.CheckboxInput(
+        attrs={'class': 'form-check-input form-control-sm'}), initial=True)
+
+    class Meta:
+        model = Banner
+        fields = ('link', 'image', 'is_active')
 
 
 class CategoryForm(forms.ModelForm):

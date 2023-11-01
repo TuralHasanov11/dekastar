@@ -1,0 +1,121 @@
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Banner List" %}{% endblock title %} 
+{% block content %}
+<main>
+  <header
+    class="page-header page-header-compact page-header-light border-bottom bg-white mb-4"
+  >
+    <div class="container-fluid px-4">
+      <div class="page-header-content">
+        <div class="row align-items-center justify-content-between pt-3">
+          <div class="col-auto mb-3">
+            <h1 class="page-header-title">
+              <div class="page-header-icon"><i data-feather="list"></i></div>
+              {% translate "Banner List" %}
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container-fluid px-4">
+    <div class="card mb-4">
+      <div class="card-header">{% translate "Add Banner" %}</div>
+      <div class="card-body">
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %} {{form.media}} 
+          {% include "components/forms/hidden-fields.html" with hidden_fields=form.hidden_fields %}
+          <div class="row gx-3 mb-4">
+            <div class="col-md-6 col-12">
+              <label class="small mb-1" for="{{ form.image.id_for_label }}"
+                >{{ form.image.label }}</label
+              >
+              {{ form.image }} {{ form.image.errors }}
+            </div>
+            <div class="col-md-6 col-12">
+              <label class="small mb-1" for="{{ form.link.id_for_label }}"
+                >{{ form.link.label }}</label
+              >
+              {{ form.link }} {{ form.link.errors }}
+            </div>
+            <div class="col-md-6 col-12">
+              <label
+                class="small mb-1 form-check-label"
+                for="{{ form.is_active.id_for_label }}"
+                >{{ form.is_active.label }}</label
+              >
+              {{ form.is_active }} {{ form.is_active.errors }}
+            </div>
+          </div>
+          {{form.non_field_errors}} {{form.non_form_errors}}
+          <button class="btn btn-success btn-sm" type="submit">
+            <i class="me-1" data-feather="plus"></i> {% translate "Save" %}
+          </button>
+        </form>
+      </div>
+    </div>
+    {% include 'components/messages.html' with messages=messages %}
+    <div class="card">
+      <div class="card-body">
+        <table id="datatablesSimple" class="entry-table">
+          <thead>
+            <tr>
+              <th>{% translate "Image" %}</th>
+              <th>{% translate "Opened Page" %}</th>
+              <th>{% translate "Is Active" %}</th>
+              <th>{% translate "Actions" %}</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>{% translate "Image" %}</th>
+              <th>{% translate "Opened Page" %}</th>
+              <th>{% translate "Is Active" %}</th>
+              <th>{% translate "Actions" %}</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            {% for banner in banners %}
+            <tr>
+              <td>
+                <img
+                  loading="lazy"
+                  width="30"
+                  height="30"
+                  src="{{banner.image.url}}"
+                  alt="{{banner.link}}"
+                />
+              </td>
+              <td><a href="{{banner.link}}" target="_blank">{% translate "Page" %}</a></td>
+              <td>{{banner.is_active}}</td>
+              <td>
+                <a
+                  href="{% url 'apps.administration:banner-update-delete' pk=banner.pk %}"
+                  class="btn btn-datatable btn-icon btn-transparent-dark me-2"
+                  >{% translate "Edit" %}</a
+                >
+                <form
+                  class="delete-form"
+                  action="{% url 'apps.administration:banner-update-delete' pk=banner.pk %}"
+                  method="POST"
+                >
+                  {% csrf_token %}
+                  <button
+                    type="submit"
+                    class="btn btn-datatable btn-icon btn-transparent-dark"
+                  >
+                    {% translate "Delete" %}
+                  </button>
+                  <input type="hidden" name="_method" value="delete" />
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

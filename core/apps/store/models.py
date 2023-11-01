@@ -76,6 +76,17 @@ class ProductQuerySet(models.QuerySet):
                 is_feature=True), to_attr='image_feature'),
             Prefetch('product_image', to_attr='images')
         )
+    
+
+class ProductAdminQuerySet(models.QuerySet):
+    def list_queryset(self):
+        return self.select_related('category').prefetch_related(
+            Prefetch('product_image', queryset=ProductImage.objects.filter(
+                is_feature=True), to_attr='image_feature'),
+        )
+
+    def detail_queryset(self):
+        pass 
 
 
 class ProductManager(models.Manager):
@@ -87,6 +98,17 @@ class ProductManager(models.Manager):
 
     def detail_queryset(self):
         return self.get_queryset().detail_queryset()
+    
+
+class ProductAdminManager(models.Manager):
+    def get_queryset(self):
+        return ProductAdminQuerySet(self.model, using=self._db)
+
+    def list_queryset(self):
+        return self.get_queryset().list_queryset()
+
+    def detail_queryset(self):
+        return self.get_queryset()
 
 
 class Product(models.Model):
@@ -107,6 +129,7 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     products = ProductManager()
+    admin_products = ProductAdminManager()
     objects = models.Manager()
 
     def __str__(self):

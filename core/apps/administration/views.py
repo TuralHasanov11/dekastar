@@ -1,6 +1,6 @@
 from typing import Any
 
-from apps.administration.forms import (AboutTextFormSet, BrandForm,
+from apps.administration.forms import (AboutTextFormSet, BannerForm, BrandForm,
                                        CategoryForm, CompanyInfoFormSet,
                                        ContactEmailForm, ContactPhoneForm,
                                        DeliveryPolicyTextFormSet, LoginForm,
@@ -8,9 +8,9 @@ from apps.administration.forms import (AboutTextFormSet, BrandForm,
                                        PrivacyPolicyTextFormSet, SiteImageForm,
                                        SocialMediaLinkForm, UserCreateForm,
                                        UserUpdateForm)
-from apps.main.models import (CompanyInfo, ContactEmail, ContactPhone,
+from apps.main.models import (Banner, CompanyInfo, ContactEmail, ContactPhone,
                               SiteImage, SiteText, SocialMediaLink)
-from apps.store.models import Brand, Category
+from apps.store.models import Brand, Category, Product
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -32,6 +32,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["creator_dashboards"] = [
+            {"name": _("Banners"), "route": reverse(
+                "apps.administration:banner-list-create")},
             {"name": _("About Us"), "route": reverse(
                 "apps.administration:about")},
             {"name": _("Privacy Policy"), "route": reverse(
@@ -46,6 +48,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                 "apps.administration:store-category-list-create")},
             {"name": _("Brands"), "route": reverse(
                 "apps.administration:store-brand-list-create")},
+            {"name": _("Product"), "route": reverse(
+                "apps.administration:store-product-list")},
         ]
         return context
 
@@ -287,6 +291,42 @@ class SiteImagesView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, {"form": form})
 
 
+class BannerListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Banner
+    form_class = BannerForm
+    template_name = 'administration/banners/index.html'
+    success_message = _("Banner was created successfully!")
+    success_url = reverse_lazy(
+        "apps.administration:banner-list-create")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["banners"] = self.model.objects.all()
+        return context
+
+
+class BannerUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    form_class = BannerForm
+    model = Banner
+    template_name = 'administration/banners/edit.html'
+    context_object_name = 'banner'
+
+    def post(self, request, pk):
+        banner = self.model.objects.get(pk=pk)
+        form = self.form_class(
+            instance=banner, data=request.POST, files=request.FILES)
+        if self.request.POST.get('_method', None) == 'delete':
+            banner.delete()
+            messages.success(request, _("Banner was deleted successfully"))
+            return redirect(reverse("apps.administration:banner-list-create"))
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Banner was updated successfully"))
+            return redirect(reverse("apps.administration:banner-update-delete", kwargs={"pk": banner.pk}))
+        return render(request, self.template_name, {'form': form, 'banner': banner})
+
+
+# AUTH
 class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
     next_page = reverse_lazy("apps.main:index")
 
@@ -351,6 +391,7 @@ class UserDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     success_url = reverse_lazy('apps.administration:user-list')
 
 
+# STORE
 class CategoryListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Category
     form_class = CategoryForm
@@ -377,15 +418,18 @@ class CategoryUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateVi
         try:
             if self.request.POST.get('_method', None) == 'delete':
                 category.delete()
-                messages.success(request, _("Category was deleted successfully"))
+                messages.success(request, _(
+                    "Category was deleted successfully"))
                 return redirect(reverse("apps.administration:store-category-list-create"))
             if form.is_valid():
                 form.save()
-                messages.success(request, _("Category was updated successfully"))
-                return redirect(reverse("apps.administration:store-category-update-delete", kwargs={"pk": category.pk})) 
+                messages.success(request, _(
+                    "Category was updated successfully"))
+                return redirect(reverse("apps.administration:store-category-update-delete", kwargs={"pk": category.pk}))
         except ProtectedError:
-            messages.error(request, _("Category is depended on another category"))
-            return redirect(reverse("apps.administration:store-category-update-delete", kwargs={"pk": category.pk})) 
+            messages.error(request, _(
+                "Category is depended on another category"))
+            return redirect(reverse("apps.administration:store-category-update-delete", kwargs={"pk": category.pk}))
         return render(request, self.template_name, {'form': form, 'category': category})
 
 
@@ -411,7 +455,8 @@ class BrandUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView)
 
     def post(self, request, pk):
         brand = self.model.objects.get(pk=pk)
-        form = self.form_class(instance=brand, data=request.POST, files=request.FILES)
+        form = self.form_class(
+            instance=brand, data=request.POST, files=request.FILES)
         if self.request.POST.get('_method', None) == 'delete':
             brand.delete()
             messages.success(request, _("Brand was deleted successfully"))
@@ -419,5 +464,22 @@ class BrandUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView)
         if form.is_valid():
             form.save()
             messages.success(request, _("Brand was updated successfully"))
-            return redirect(reverse("apps.administration:store-brand-update-delete", kwargs={"pk": brand.pk}))        
+            return redirect(reverse("apps.administration:store-brand-update-delete", kwargs={"pk": brand.pk}))
         return render(request, self.template_name, {'form': form, 'brand': brand})
+
+
+class ProductListView(LoginRequiredMixin, ListView):
+    model = Product
+    template_name = 'administration/store/products/list.html'
+    context_object_name = 'products'
+    queryset = model.admin_products.all()
+
+
+class ProductCreateView(LoginRequiredMixin, CreateView):
+    model = Product
+    template_name = 'administration/store/products/create.html'
+
+
+class ProductUpdateDeleteView(LoginRequiredMixin, UpdateView):
+    model = Product
+    template_name = 'administration/store/products/edit.html'

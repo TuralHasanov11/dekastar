@@ -16,6 +16,8 @@ urlpatterns = [
     path("contact-email/<int:pk>", views.ContactEmailDeleteView.as_view(), name="contact-email-delete"),
     path("contact-phone/<int:pk>", views.ContactPhoneDeleteView.as_view(), name="contact-phone-delete"),
     path("social-media-link/<int:pk>", views.SocialMediaLinkDeleteView.as_view(), name="social-media-link-delete"),
+    path('banners', views.BannerListCreateView.as_view(), name='banner-list-create'),
+    path('banners/<int:pk>', views.BannerUpdateDeleteView.as_view(), name='banner-update-delete'),
     path("site-images", views.SiteImagesView.as_view(), name="site-images"),
     path('users', views.UserListView.as_view(), name='user-list'),
     path('users/create', views.UserCreateView.as_view(), name='user-create'),
@@ -29,4 +31,7 @@ urlpatterns = [
     path('store/categories/<int:pk>', views.CategoryUpdateDeleteView.as_view(), name='store-category-update-delete'),
     path('store/brands', views.BrandListCreateView.as_view(), name='store-brand-list-create'),
     path('store/brands/<int:pk>', views.BrandUpdateDeleteView.as_view(), name='store-brand-update-delete'),
+    path('store/products', views.ProductListView.as_view(), name='store-product-list'),
+    path('store/products/create', views.ProductCreateView.as_view(), name='store-product-create'),
+    path('store/products/<int:pk>', views.ProductUpdateDeleteView.as_view(), name='store-product-update-delete'),
 ]
