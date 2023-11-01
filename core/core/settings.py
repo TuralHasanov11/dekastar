@@ -24,7 +24,7 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
     CSRF_TRUSTED_ORIGINS = [
-        os.environ.get("SITE_URL"),
+        SITE_URL,
         os.environ.get("SITE_URL2", None),
     ]
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
@@ -47,9 +47,12 @@ INSTALLED_APPS = [
     "log_viewer",
     "ckeditor",
     "mptt",
+    'rest_framework',
+    "corsheaders",
     "apps.main",
     "apps.administration",
     "apps.store",
+    "apps.api"
 ]
 
 MIDDLEWARE = [
@@ -57,6 +60,7 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.gzip.GZipMiddleware",
     "django.middleware.locale.LocaleMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -83,7 +87,8 @@ TEMPLATES = [
                 "apps.main.context_processors.default_header_menu",
                 "apps.main.context_processors.default_footer_menu",
                 "apps.main.context_processors.default_footer_social_links",
-                "apps.administration.context_processors.admin_menu"
+                "apps.administration.context_processors.admin_menu",
+                "apps.store.context_processors.favorites"
             ],
         },
     },
@@ -294,3 +299,11 @@ MESSAGE_TAGS = {
 
 MAINTENANCE_MODE = int(os.environ.get("MAINTENANCE_MODE", 0))
 MAINTENANCE_BYPASS_QUERY = os.environ.get("MAINTENANCE_BYPASS_QUERY")
+
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    SITE_URL,
+    os.environ.get("SITE_URL2", None),
+]
+
+CORS_URLS_REGEX = r"^/api/.*$"

@@ -20,6 +20,7 @@ urlpatterns = [
         name="django.contrib.sitemaps.views.sitemap",
     ),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path("api/", include("apps.api.urls", namespace="apps.api")),
 ]
 
 urlpatterns += i18n_patterns(
@@ -34,4 +35,5 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += [
         re_path(r"^languages/", include("rosetta.urls")),
+        path('api-auth/', include('rest_framework.urls'))
     ]

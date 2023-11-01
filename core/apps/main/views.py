@@ -21,8 +21,8 @@ class HomeView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["categories"] = Category.objects.annotate(
             products_count=Count("product_category")).all()
-        context["new_products"] = Product.products.order_by('-created_at').all()[:6]
-        context["discounted_products"] = Product.products.filter(discount__gt=0).order_by('-updated_at')[
+        context["new_products"] = Product.products.list_queryset().order_by('-created_at').all()[:6]
+        context["discounted_products"] = Product.products.list_queryset().filter(discount__gt=0).order_by('-updated_at')[
             :6]
         return context
 

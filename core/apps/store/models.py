@@ -71,7 +71,7 @@ class ProductQuerySet(models.QuerySet):
         )
 
     def detail_queryset(self):
-        return self.select_related('category').prefetch_related(
+        return self.select_related('category').select_related('brand').prefetch_related(
             Prefetch('product_image', queryset=ProductImage.objects.filter(
                 is_feature=True), to_attr='image_feature'),
             Prefetch('product_image', to_attr='images')

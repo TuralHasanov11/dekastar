@@ -1,4 +1,6 @@
-﻿$(function () {
+﻿const csrftoken = document.getElementById("csrftoken").value
+
+$(function () {
 
     "use strict";
 
@@ -724,6 +726,28 @@
     if ($(".owl-slider").hasClass("owl-slider-fullscreen")) {
         $(".header-content .item").height($(window).height() - navHeight - 50);
     }
+
+    $('.add-favorite').on("click", async (event) => {
+        try {
+            const productId = $(event.currentTarget).data('product_id')
+
+            const response = await fetch($(event.currentTarget).hasClass('added') ? addToFavoritesURI : removeFromFavoritesURI, {
+                method: 'POST',
+                body: JSON.stringify({
+                    product_id: productId
+                }),
+                headers: { "X-CSRFToken": csrftoken, 'Content-Type': 'application/json' }
+            })
+
+            const data = await response.json()
+            
+            if(data?.added == true){
+                $(`[data-product_id='${productId}']`).addClass('added')
+            }else{
+                $(`[data-product_id='${productId}']`).removeClass('added')
+            }
+        } catch (error) {}
+    })
 
 });
 

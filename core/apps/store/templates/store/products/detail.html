@@ -1,0 +1,262 @@
+{% extends 'layouts/default.html' %} 
+{% load static %} 
+{% load i18n %} 
+{% block title %}{{product.name}}{% endblock title %} 
+{% block description %}{{product.name}}{% endblock description %}
+{% block content %}
+<section class="product pt-0">
+    <header>
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Library</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Data</li>
+            </ol>
+            <h2 class="title">{{product}}</h2>
+        </div>
+    </header>
+
+    <div class="main">
+        <div class="container">
+            <div class="row product-flex">
+
+                <div class="col-lg-4 product-flex-info">
+                    <div class="clearfix">
+
+                        <div class="clearfix">
+                            <div class="price">
+                                <span class="h3">
+                                    {% if product.discount_price %}$ {{product.discount_price}}{% endif %}
+                                    <small>$ {{product.regular_price}}</small>
+                                </span>
+                            </div>
+
+                            <hr />
+
+                            <div class="info-box">
+                                <span><strong>{% translate "Category" %}</strong></span>
+                                <span>{{product.category}}</span>
+                            </div>
+
+                            {% if product.brand %}
+                            <div class="info-box">
+                                <span><strong>{% translate "Brand" %}</strong></span>
+                                <span>{{product.brand}}</span>
+                            </div>
+                            {% endif %}
+                            
+                            <div class="info-box">
+                                <span><strong>Materials</strong></span>
+                                <span>Wood, Leather, Acrylic</span>
+                            </div>
+
+                            <hr />
+
+                            <div class="info-box">
+                                <span><strong>Available Colors</strong></span>
+                                <div class="product-colors clearfix">
+                                    <span class="color-btn color-btn-red"></span>
+                                    <span class="color-btn color-btn-blue checked"></span>
+                                    <span class="color-btn color-btn-green"></span>
+                                    <span class="color-btn color-btn-gray"></span>
+                                    <span class="color-btn color-btn-biege"></span>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div class="info-box">
+                                <span><strong>Choose size</strong></span>
+                                <div class="product-colors clearfix">
+                                    <span class="color-btn color-btn-biege">
+                                        <span class="product-size" data-text="">S</span>
+                                    </span>
+                                    <span class="color-btn color-btn-biege checked">M</span>
+                                    <span class="color-btn color-btn-biege">XL</span>
+                                    <span class="color-btn color-btn-biege">XXL</span>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div class="info-box">
+                                <span>
+                                    Quantity
+                                </span>
+                                <span>
+                                    <span class="row">
+                                        <span class="col-6">
+                                            <input type="number" value="1" class="form-control">
+                                        </span>
+                                        <span class="col-6">
+                                            <a href="#" class="btn btn-danger">Buy now</a>
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+
+                            <hr />
+
+                            <div class="info-box info-box-addto added">
+                                <span>
+                                    <i class="add"><i class="fa fa-heart-o"></i> {% translate "Add to favorites" %}</i>
+                                    <i class="added"><i class="fa fa-heart"></i> {% translate "Remove from favorites" %}</i>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 product-flex-gallery">
+                    <div class="owl-product-gallery owl-carousel owl-theme open-popup-gallery">
+                        {% for img in product.images %}
+                        <a href="{{img.image.url}}"><img src="{{img.image.url}}" alt="{{product}}" /></a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="product-details">
+
+    <div class="container">
+
+        <ul class="nav nav-pills nav-pills-flat justify-content-center" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link" id="tab-desc-tab" data-toggle="tab" href="#tab-desc" role="tab">
+                    {% translate "Description" %}
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade" id="tab-desc">
+                <div class="col-md-8 offset-md-2">
+                    {% comment %} Description {% endcomment %}
+                </div>
+            </div>
+        </div> 
+    </div>
+
+</section>
+
+<section class="products">
+
+    <header>
+        <div class="container">
+            <h2 class="title">{% translate "Related products" %}</h2>
+            <div class="text">
+                <p>{% translate "Check out our latest collections." %}</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="row">
+            {% for product in related_products %}
+            <div class="col-6 col-lg-3">
+                {% include "components/default/product.html" with product=product %}
+            </div>
+            {% endfor %}
+        </div> 
+
+        <div class="wrapper-more">
+            <a href="{% url 'apps.store:category-products' slug=product.category.slug %}" class="btn btn-main btn-sm">
+                {% translate 'View all related products' %}
+            </a>
+        </div>
+
+    </div> 
+
+</section>
+
+
+<div class="popup-main mfp-hide" id="productid1">
+
+    <div class="product">
+
+        <div class="popup-title">
+            <div class="h3 title">
+                {{product}}
+                <small>{{product.category}}</small>
+            </div>
+        </div>
+
+        <div class="owl-product-gallery owl-theme owl-carousel">
+            {% for img in product.images %}
+            <img src="{{img.image.url}}" alt="{{product}}" width="640" />
+            {% endfor %}
+        </div>
+
+        <div class="popup-content">
+            <div class="product-info-wrapper">
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <div class="info-box">
+                            <strong>{% translate "Brand" %}</strong>
+                            <span>{{product.brand}}</span>
+                        </div>
+                        <div class="info-box">
+                            <strong>Materials</strong>
+                            <span>Wood, Leather, Acrylic</span>
+                        </div>
+                        <div class="info-box">
+                            <strong>{% translate "Availability" %}</strong>
+                            <span><i class="fa fa-check-square-o"></i> {{product.in_stock_display_value}}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="info-box">
+                            <strong>Available Colors</strong>
+                            <div class="product-colors clearfix">
+                                <span class="color-btn color-btn-red"></span>
+                                <span class="color-btn color-btn-blue checked"></span>
+                                <span class="color-btn color-btn-green"></span>
+                                <span class="color-btn color-btn-gray"></span>
+                                <span class="color-btn color-btn-biege"></span>
+                            </div>
+                        </div>
+                        <div class="info-box">
+                            <strong>Choose size</strong>
+                            <div class="product-colors clearfix">
+                                <span class="color-btn color-btn-biege">S</span>
+                                <span class="color-btn color-btn-biege checked">M</span>
+                                <span class="color-btn color-btn-biege">XL</span>
+                                <span class="color-btn color-btn-biege">XXL</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> 
+            </div>
+        </div>
+
+        <div class="popup-table">
+            <div class="popup-cell">
+                <div class="price">
+                    <span class="h3">
+                        {% if product.discount > 0 %}
+                        $ {{product.discount_price}} <small>$ {{product.regular_price}}</small>
+                        {% else %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="popup-cell">
+                <div class="popup-buttons">
+                    <a href="javascript:void(0);"><span class="icon icon-cart"></span> <span class="hidden-xs">Buy</span></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

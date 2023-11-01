@@ -1,0 +1,30 @@
+{% extends 'layouts/default.html' %} 
+{% load static %} 
+{% load i18n %} 
+{% block title %}{% translate "Favorites" %}{% endblock title %} 
+{% block description %}{% translate "Favorites Page Description" %}{% endblock description %}
+{% block content %}
+<section class="products pt-0">
+    <header>
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Library</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Data</li>
+            </ol>
+            <h2 class="title">{% translate "Favorite Products" %}</h2>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            {% for product in favorites.products %}
+            <div class="col-6 col-lg-4">
+                {% include "components/default/product.html" with product=product %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</section>
+{% endblock content %}

@@ -1,5 +1,13 @@
 {% load static %}
-
+<input
+  id="csrftoken"
+  value="{{csrf_token}}"
+  type="hidden"
+/>
+<script>
+    const addToFavoritesURI = "{% url 'apps.api:store-favorites-add' %}"
+    const removeFromFavoritesURI = "{% url 'apps.api:store-favorites-remove' %}"
+</script>
 <script src="{% static 'js/default/jquery.min.js' %}"></script>
 <script src="{% static 'js/default/bootstrap.js' %}"></script>
 <script src="{% static 'js/default/include.js' %}"></script>
