@@ -1,0 +1,171 @@
+{% extends 'layouts/default.html' %} 
+{% load query_transform %}
+{% load static %} 
+{% load i18n %} 
+{% block title %}{% endblock title %} 
+{% block description %}{% endblock description %}
+{% block content %}
+<section class="products pt-0">
+    <header>
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Library</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Data</li>
+            </ol>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-3">
+
+                <div class="filters">
+
+                    <div class="filter-scroll-list">
+
+                        <div class="filter-header d-block d-sm-none">
+                            <span class="h4">{% translate "Filter products" %}</span>
+                            <br />{% translate "Select your options" %}
+                            <hr />
+                        </div>
+                    
+                        <div class="filter-box active">
+                            <div class="title">{% translate "Price" %}</div>
+                            <div class="filter-content">
+                                <div class="price-filter">
+                                    <input type="text" id="range-price-slider" value="" name="price_range" />
+                                </div>
+                                <button id="price_range" class="btn btn-outline-primary">{% translate "Filter" %}</button>
+                            </div>
+                        </div>
+
+                        <div class="filter-box active">
+                            <div class="title">
+                                {% translate "Category" %}
+                            </div>
+                            <div class="filter-content">
+                                <span class="checkbox">
+                                    <input type="radio" name="category" id="categoryAll" value="">
+                                    <label for="categoryAll">{% translate "All" %} <i>({{all_products_count}})</i></label>
+                                </span>
+                                {% for category in categories %}
+                                <span class="checkbox category-checkbox">
+                                    <input type="radio" name="category" id="category{{forloop.counter}}" value="{{category.id}}" {% if category.id == filter_form.category.value %}checked{% endif %}>
+                                    <label class="category-input-label" for="category{{forloop.counter}}">{{category}} <i>({{category.products_count}})</i></label>
+                                    <a href="?{% query_transform category=category.id %}" class="d-none category-change-link"></a>
+                                </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="filter-box active">
+                            <div class="title">
+                                {% translate "Brand" %}
+                            </div>
+                            <div class="filter-content">
+                                <span class="checkbox">
+                                    <input type="radio" name="brand" id="brandAll" value="">
+                                    <label for="brandAll">{% translate "All" %} <i>({{all_products_count}})</i></label>
+                                </span>
+                                {% for brand in brands %}
+                                <span class="checkbox brand-checkbox">
+                                    <input type="radio" name="brand" id="brand{{forloop.counter}}" value="{{brand.id}}">
+                                    <label class="brand-input-label" for="brand{{forloop.counter}}"> 
+                                        <span>{{brand}}</span>
+                                        <img src="{{brand.cover_image.url}}" alt="{{brand}}" width="64" height="48">
+                                        <i>({{brand.products_count}})</i>
+                                    </label>
+                                    <a href="?{% query_transform brand=brand.id %}" class="d-none brand-change-link"></a>
+                                </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="filter-box">
+                            <div class="title">
+                                {% translate "Availability" %}
+                            </div>
+                            <div class="filter-content">
+                                <span class="checkbox in-stock-checkbox">
+                                    <input type="checkbox" id="inStock">
+                                    <label for="inStock">{% translate "In stock" %} <i>({{in_stock_products_count}})</i></label>
+                                    <a href="?{% query_transform in_stock=1 %}" class="d-none in-stock-change-link"></a>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="toggle-filters-close btn btn-circle">
+                        <i class="icon icon-cross"></i>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+
+                <div class="sort-bar clearfix">
+
+                    <div class="sort-results pull-left">
+                        <select>
+                            <option value="1">10</option>
+                            <option value="2">50</option>
+                            <option value="3">100</option>
+                            <option value="">{% translate "All" %}</option>
+                        </select>
+                        <span>
+                            {% translate "Showing all" %} 
+                            <strong>{{products.object_list|length}}</strong> 
+                            of 
+                            <strong>{{products.count}}</strong> 
+                            {% translate "items" %}
+                        </span>
+                    </div>
+
+                    <div class="sort-options pull-right">
+
+                        <span class="d-none d-sm-inline-block">{% translate "Sort by" %}</span>
+
+                        <select>
+                            <option value="1">{% translate "Name" %}</option>
+                            <option value="3">{% translate "Price" %}: {% translate "lowest" %}</option>
+                            <option value="4">{% translate "Price" %}: {% translate "highest" %}</option>
+                        </select>
+
+                        <span class="grid-list">
+                            <a href="products-grid.html"><i class="fa fa-th-large"></i></a>
+                            <a href="products-list.html"><i class="fa fa-align-justify"></i></a>
+                            <a href="javascript:void(0);" class="toggle-filters-mobile d-inline-block d-md-none">
+                                <span class="spinner-grow spinner-grow-sm text-warning" role="status" aria-hidden="true"></span>
+                                <i class="fa fa-sliders"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    {% for product in products %}
+                    <div class="col-12">
+                        {% include "components/default/products/list-item.html" with product=product %}
+                    </div>
+                    {% endfor %}
+                </div> 
+
+                {% include "components/default/pagination.html" with pagination=products %}
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+{% include "components/default/featured_categories.html" with categories=categories %}
+
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'js/default/product-filter.js' %}"></script>
+{% endblock scripts %}

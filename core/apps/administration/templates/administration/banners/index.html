@@ -27,13 +27,13 @@
           {% csrf_token %} {{form.media}} 
           {% include "components/forms/hidden-fields.html" with hidden_fields=form.hidden_fields %}
           <div class="row gx-3 mb-4">
-            <div class="col-md-6 col-12">
+            <div class="col-md-6 col-12 mb-3">
               <label class="small mb-1" for="{{ form.image.id_for_label }}"
                 >{{ form.image.label }}</label
               >
               {{ form.image }} {{ form.image.errors }}
             </div>
-            <div class="col-md-6 col-12">
+            <div class="col-md-6 col-12 mb-3">
               <label class="small mb-1" for="{{ form.link.id_for_label }}"
                 >{{ form.link.label }}</label
               >
@@ -81,8 +81,8 @@
               <td>
                 <img
                   loading="lazy"
-                  width="30"
-                  height="30"
+                  width="96"
+                  height="64"
                   src="{{banner.image.url}}"
                   alt="{{banner.link}}"
                 />

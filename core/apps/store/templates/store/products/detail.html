@@ -161,7 +161,7 @@
         <div class="row">
             {% for product in related_products %}
             <div class="col-6 col-lg-3">
-                {% include "components/default/product.html" with product=product %}
+                {% include "components/default/products/grid-item.html" with product=product %}
             </div>
             {% endfor %}
         </div> 
@@ -177,7 +177,7 @@
 </section>
 
 
-<div class="popup-main mfp-hide" id="productid1">
+<div class="popup-main mfp-hide" id="productid{{product.id}}">
 
     <div class="product">
 

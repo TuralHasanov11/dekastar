@@ -202,7 +202,7 @@ class BannerForm(forms.ModelForm):
                'title': _('Please upload Image'),
                'multiple': False}), required=True)
     is_active = forms.BooleanField(label=_('Active'), widget=forms.CheckboxInput(
-        attrs={'class': 'form-check-input form-control-sm'}), initial=True)
+        attrs={'class': 'form-check-input'}), initial=True)
 
     class Meta:
         model = Banner

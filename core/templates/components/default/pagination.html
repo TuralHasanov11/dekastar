@@ -1,0 +1,55 @@
+{% load query_transform %} 
+{% if pagination.paginator.num_pages > 1 %}
+<div class="pagination-wrapper">
+  <ul class="pagination justify-content-center">
+    {% if pagination.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?{% query_transform page='1' %}">
+        &laquo;&laquo;
+      </a>
+    </li>
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="?{% query_transform page=pagination.previous_page_number %}"
+      >
+        &laquo;
+      </a>
+    </li>
+    {% endif %} 
+    {% for num in pagination.paginator.page_range %} 
+    {% if num > pagination.number|add:-3 and num < pagination.number|add:3 or num == pagination.paginator.num_pages or num == 1 %}
+    <li class="page-item">
+      <a
+        class="page-link {% if num == pagination.number %}active{% endif %}"
+        href="?{% query_transform page=num %}"
+      >
+        {{num}}
+      </a>
+    </li>
+    {% elif num > pagination.number|add:-4 and num < pagination.number|add:4 %}
+    <li class="page-item">
+      <a class="page-link" href="javascript:void(0)"> ... </a>
+    </li>
+    {% endif %} 
+    {% endfor %} 
+    {% if pagination.has_next %}
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="?{% query_transform page=pagination.next_page_number %}"
+        >&raquo;</a
+      >
+    </li>
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="?{% query_transform page=pagination.paginator.num_pages %}"
+      >
+        &raquo;&raquo;
+      </a>
+    </li>
+    {% endif %}
+  </ul>
+</div>
+{% endif %}

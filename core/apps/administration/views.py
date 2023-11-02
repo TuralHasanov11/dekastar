@@ -32,24 +32,33 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["creator_dashboards"] = [
-            {"name": _("Banners"), "route": reverse(
-                "apps.administration:banner-list-create")},
-            {"name": _("About Us"), "route": reverse(
-                "apps.administration:about")},
-            {"name": _("Privacy Policy"), "route": reverse(
-                "apps.administration:privacy-policy")},
-            {"name": _("Delivery Policy"), "route": reverse(
-                "apps.administration:delivery-policy")},
-            {"name": _("Contact"), "route": reverse(
-                "apps.administration:contact")},
-            {"name": _("Users"), "route": reverse(
-                "apps.administration:user-list")},
-            {"name": _("Categories"), "route": reverse(
-                "apps.administration:store-category-list-create")},
-            {"name": _("Brands"), "route": reverse(
-                "apps.administration:store-brand-list-create")},
-            {"name": _("Product"), "route": reverse(
-                "apps.administration:store-product-list")},
+            {
+                "name": _("Banners"),
+                "route": reverse("apps.administration:banner-list-create"),
+            },
+            {"name": _("About Us"), "route": reverse("apps.administration:about")},
+            {
+                "name": _("Privacy Policy"),
+                "route": reverse("apps.administration:privacy-policy"),
+            },
+            {
+                "name": _("Delivery Policy"),
+                "route": reverse("apps.administration:delivery-policy"),
+            },
+            {"name": _("Contact"), "route": reverse("apps.administration:contact")},
+            {"name": _("Users"), "route": reverse("apps.administration:user-list")},
+            {
+                "name": _("Categories"),
+                "route": reverse("apps.administration:store-category-list-create"),
+            },
+            {
+                "name": _("Brands"),
+                "route": reverse("apps.administration:store-brand-list-create"),
+            },
+            {
+                "name": _("Product"),
+                "route": reverse("apps.administration:store-product-list"),
+            },
         ]
         return context
 
@@ -63,25 +72,32 @@ class PrivacyPolicyView(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         if SiteText.objects.count() == 0:
             SiteText.objects.bulk_create(
-                [SiteText(language=lang[0]) for lang in settings.LANGUAGES])
-        site_texts = SiteText.objects.all().order_by(
-            'language').only('language', 'privacy_policy')
-        form = self.form_class(
-            initial=site_texts)
+                [SiteText(language=lang[0]) for lang in settings.LANGUAGES]
+            )
+        site_texts = (
+            SiteText.objects.all()
+            .order_by("language")
+            .only("language", "privacy_policy")
+        )
+        form = self.form_class(initial=site_texts)
         return render(request, self.template_name, {"form": form})
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(
-            initial=SiteText.objects.all().order_by('language').only('language', 'privacy_policy'), data=request.POST)
+            initial=SiteText.objects.all()
+            .order_by("language")
+            .only("language", "privacy_policy"),
+            data=request.POST,
+        )
         if form.is_valid():
             try:
                 form.save()
-                messages.success(request, _(
-                    'Privacy Policy texts were saved successfully!'))
+                messages.success(
+                    request, _("Privacy Policy texts were saved successfully!")
+                )
                 return redirect(self.redirect_url_name)
             except Exception:
-                messages.error(request, _(
-                    "Privacy Policy texts cannot be saved!"))
+                messages.error(request, _("Privacy Policy texts cannot be saved!"))
         messages.error(request, _("Privacy Policy texts cannot be saved!"))
         return render(request, self.template_name, {"form": form})
 
@@ -95,25 +111,30 @@ class DeliveryPolicyView(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         if SiteText.objects.count() == 0:
             SiteText.objects.bulk_create(
-                [SiteText(language=lang[0]) for lang in settings.LANGUAGES])
-        site_texts = SiteText.objects.all().order_by(
-            'language').only('language', 'delivery')
-        form = self.form_class(
-            initial=site_texts)
+                [SiteText(language=lang[0]) for lang in settings.LANGUAGES]
+            )
+        site_texts = (
+            SiteText.objects.all().order_by("language").only("language", "delivery")
+        )
+        form = self.form_class(initial=site_texts)
         return render(request, self.template_name, {"form": form})
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(
-            initial=SiteText.objects.all().order_by('language').only('language', 'delivery_policy'), data=request.POST)
+            initial=SiteText.objects.all()
+            .order_by("language")
+            .only("language", "delivery_policy"),
+            data=request.POST,
+        )
         if form.is_valid():
             try:
                 form.save()
-                messages.success(request, _(
-                    'Delivery Policy texts were saved successfully!'))
+                messages.success(
+                    request, _("Delivery Policy texts were saved successfully!")
+                )
                 return redirect(self.redirect_url_name)
             except Exception:
-                messages.error(request, _(
-                    "Delivery Policy texts cannot be saved!"))
+                messages.error(request, _("Delivery Policy texts cannot be saved!"))
         messages.error(request, _("Delivery Policy texts cannot be saved!"))
         return render(request, self.template_name, {"form": form})
 
@@ -127,21 +148,25 @@ class AboutView(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         if SiteText.objects.count() == 0:
             SiteText.objects.bulk_create(
-                [SiteText(language=lang[0]) for lang in settings.LANGUAGES])
-        site_texts = SiteText.objects.all().order_by(
-            'language').only('language', 'about')
-        form = self.form_class(
-            initial=site_texts)
+                [SiteText(language=lang[0]) for lang in settings.LANGUAGES]
+            )
+        site_texts = (
+            SiteText.objects.all().order_by("language").only("language", "about")
+        )
+        form = self.form_class(initial=site_texts)
         return render(request, self.template_name, {"form": form})
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(
-            initial=SiteText.objects.all().order_by('language').only('language', 'about'), data=request.POST)
+            initial=SiteText.objects.all()
+            .order_by("language")
+            .only("language", "about"),
+            data=request.POST,
+        )
         if form.is_valid():
             try:
                 form.save()
-                messages.success(request, _(
-                    'About Us texts were saved successfully!'))
+                messages.success(request, _("About Us texts were saved successfully!"))
                 return redirect(self.redirect_url_name)
             except Exception:
                 messages.error(request, _("About Us texts cannot be saved!"))
@@ -160,24 +185,30 @@ class ContactView(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         if CompanyInfo.objects.count() == 0:
             CompanyInfo.objects.bulk_create(
-                [CompanyInfo(language=lang[0]) for lang in settings.LANGUAGES])
+                [CompanyInfo(language=lang[0]) for lang in settings.LANGUAGES]
+            )
         social_media_link_form = self.social_media_link_form_class()
         contact_email_form = self.contact_email_form_class()
         contact_phone_form = self.contact_phone_form_class()
         company_info_form = self.company_info_form_class(
-            initial=CompanyInfo.objects.all())
+            initial=CompanyInfo.objects.all()
+        )
         social_media_links = SocialMediaLink.objects.all()
         contact_emails = ContactEmail.objects.all()
         contact_phones = ContactPhone.objects.all()
-        return render(request, self.template_name, {
-            "social_media_link_form": social_media_link_form,
-            "contact_email_form": contact_email_form,
-            "company_info_form": company_info_form,
-            "contact_phone_form": contact_phone_form,
-            "social_media_links": social_media_links,
-            "contact_emails": contact_emails,
-            "contact_phones": contact_phones,
-        })
+        return render(
+            request,
+            self.template_name,
+            {
+                "social_media_link_form": social_media_link_form,
+                "contact_email_form": contact_email_form,
+                "company_info_form": company_info_form,
+                "contact_phone_form": contact_phone_form,
+                "social_media_links": social_media_links,
+                "contact_emails": contact_emails,
+                "contact_phones": contact_phones,
+            },
+        )
 
 
 class ContactEmailCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -228,8 +259,7 @@ class SocialMediaLinkCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateV
 
 class SocialMediaLinkDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = SocialMediaLink
-    success_message = _(
-        "Social media link was deleted successfully!")
+    success_message = _("Social media link was deleted successfully!")
 
     def get_success_url(self) -> str:
         return reverse("apps.administration:contact") + "#social-media-link-form"
@@ -243,13 +273,11 @@ class CompanyInfoCreateView(LoginRequiredMixin, SuccessMessageMixin, TemplateVie
     redirect_url_name = "apps.administration:contact"
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(
-            initial=CompanyInfo.objects.all(), data=request.POST)
+        form = self.form_class(initial=CompanyInfo.objects.all(), data=request.POST)
         if form.is_valid():
             try:
                 form.save()
-                messages.success(request, _(
-                    'Company info was saved successfully!'))
+                messages.success(request, _("Company info was saved successfully!"))
                 return redirect(self.redirect_url_name)
             except Exception:
                 messages.error(request, _("Company info cannot be saved!"))
@@ -277,16 +305,15 @@ class SiteImagesView(LoginRequiredMixin, TemplateView):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(
-            instance=SiteText.objects.first(), data=request.POST, files=request.FILES)
+            instance=SiteText.objects.first(), data=request.POST, files=request.FILES
+        )
         if form.is_valid():
             try:
                 form.save()
-                messages.success(request, _(
-                    'Site images were saved successfully!'))
+                messages.success(request, _("Site images were saved successfully!"))
                 return redirect(self.redirect_url_name)
             except Exception:
-                messages.error(request, _(
-                    "Site images cannot be saved!"))
+                messages.error(request, _("Site images cannot be saved!"))
         messages.error(request, _("Site images cannot be saved!"))
         return render(request, self.template_name, {"form": form})
 
@@ -294,10 +321,9 @@ class SiteImagesView(LoginRequiredMixin, TemplateView):
 class BannerListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Banner
     form_class = BannerForm
-    template_name = 'administration/banners/index.html'
+    template_name = "administration/banners/index.html"
     success_message = _("Banner was created successfully!")
-    success_url = reverse_lazy(
-        "apps.administration:banner-list-create")
+    success_url = reverse_lazy("apps.administration:banner-list-create")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -308,22 +334,25 @@ class BannerListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class BannerUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = BannerForm
     model = Banner
-    template_name = 'administration/banners/edit.html'
-    context_object_name = 'banner'
+    template_name = "administration/banners/edit.html"
+    context_object_name = "banner"
 
     def post(self, request, pk):
         banner = self.model.objects.get(pk=pk)
-        form = self.form_class(
-            instance=banner, data=request.POST, files=request.FILES)
-        if self.request.POST.get('_method', None) == 'delete':
+        form = self.form_class(instance=banner, data=request.POST, files=request.FILES)
+        if self.request.POST.get("_method", None) == "delete":
             banner.delete()
             messages.success(request, _("Banner was deleted successfully"))
             return redirect(reverse("apps.administration:banner-list-create"))
         if form.is_valid():
             form.save()
             messages.success(request, _("Banner was updated successfully"))
-            return redirect(reverse("apps.administration:banner-update-delete", kwargs={"pk": banner.pk}))
-        return render(request, self.template_name, {'form': form, 'banner': banner})
+            return redirect(
+                reverse(
+                    "apps.administration:banner-update-delete", kwargs={"pk": banner.pk}
+                )
+            )
+        return render(request, self.template_name, {"form": form, "banner": banner})
 
 
 # AUTH
@@ -342,13 +371,13 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, {"form": form})
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(
-            instance=request.user, data=request.POST)
+        form = self.form_class(instance=request.user, data=request.POST)
         if form.is_valid():
             try:
                 form.save()
-                messages.success(request, _(
-                    'User information were saved successfully!'))
+                messages.success(
+                    request, _("User information were saved successfully!")
+                )
                 return redirect(self.redirect_url_name)
             except Exception:
                 messages.error(request, _("User information cannot be saved!"))
@@ -360,45 +389,44 @@ class LoginView(auth_views.LoginView):
     authentication_form = LoginForm
     redirect_field_name = reverse_lazy("apps.administration:index")
     redirect_authenticated_user = True
-    template_name = 'administration/auth/login.html'
+    template_name = "administration/auth/login.html"
 
 
 class PasswordChangeView(LoginRequiredMixin, auth_views.PasswordChangeView):
-    template_name = 'administration/auth/password-change.html'
+    template_name = "administration/auth/password-change.html"
     success_url = reverse_lazy("apps.administration:auth-profile")
     form_class = PasswordChangeForm
 
 
 class UserListView(LoginRequiredMixin, ListView):
     model = get_user_model()
-    template_name = 'administration/users/list.html'
+    template_name = "administration/users/list.html"
     context_object_name = "users"
 
 
 class UserCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = get_user_model()
     form_class = UserCreateForm
-    login_url = reverse_lazy('apps.administration:index')
-    template_name = 'administration/users/create.html'
+    login_url = reverse_lazy("apps.administration:index")
+    template_name = "administration/users/create.html"
     success_message = _("User was created successfully!")
-    success_url = reverse_lazy('apps.administration:user-list')
+    success_url = reverse_lazy("apps.administration:user-list")
 
 
 class UserDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = get_user_model()
     queryset = get_user_model().objects.filter(is_superuser=False).all()
     success_message = _("User was deleted successfully!")
-    success_url = reverse_lazy('apps.administration:user-list')
+    success_url = reverse_lazy("apps.administration:user-list")
 
 
 # STORE
 class CategoryListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Category
     form_class = CategoryForm
-    template_name = 'administration/store/categories/index.html'
+    template_name = "administration/store/categories/index.html"
     success_message = _("Category was created successfully!")
-    success_url = reverse_lazy(
-        "apps.administration:store-category-list-create")
+    success_url = reverse_lazy("apps.administration:store-category-list-create")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -409,37 +437,45 @@ class CategoryListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView
 class CategoryUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = CategoryForm
     model = Category
-    template_name = 'administration/store/categories/edit.html'
-    context_object_name = 'category'
+    template_name = "administration/store/categories/edit.html"
+    context_object_name = "category"
 
     def post(self, request, pk):
         category = self.model.objects.get(pk=pk)
         form = self.form_class(request.POST, instance=category)
         try:
-            if self.request.POST.get('_method', None) == 'delete':
+            if self.request.POST.get("_method", None) == "delete":
                 category.delete()
-                messages.success(request, _(
-                    "Category was deleted successfully"))
-                return redirect(reverse("apps.administration:store-category-list-create"))
+                messages.success(request, _("Category was deleted successfully"))
+                return redirect(
+                    reverse("apps.administration:store-category-list-create")
+                )
             if form.is_valid():
                 form.save()
-                messages.success(request, _(
-                    "Category was updated successfully"))
-                return redirect(reverse("apps.administration:store-category-update-delete", kwargs={"pk": category.pk}))
+                messages.success(request, _("Category was updated successfully"))
+                return redirect(
+                    reverse(
+                        "apps.administration:store-category-update-delete",
+                        kwargs={"pk": category.pk},
+                    )
+                )
         except ProtectedError:
-            messages.error(request, _(
-                "Category is depended on another category"))
-            return redirect(reverse("apps.administration:store-category-update-delete", kwargs={"pk": category.pk}))
-        return render(request, self.template_name, {'form': form, 'category': category})
+            messages.error(request, _("Category is depended on another category"))
+            return redirect(
+                reverse(
+                    "apps.administration:store-category-update-delete",
+                    kwargs={"pk": category.pk},
+                )
+            )
+        return render(request, self.template_name, {"form": form, "category": category})
 
 
 class BrandListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Brand
     form_class = BrandForm
-    template_name = 'administration/store/brands/index.html'
+    template_name = "administration/store/brands/index.html"
     success_message = _("Brand was created successfully!")
-    success_url = reverse_lazy(
-        "apps.administration:store-brand-list-create")
+    success_url = reverse_lazy("apps.administration:store-brand-list-create")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -450,36 +486,42 @@ class BrandListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class BrandUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = BrandForm
     model = Brand
-    template_name = 'administration/store/brands/edit.html'
-    context_object_name = 'brand'
+    template_name = "administration/store/brands/edit.html"
+    context_object_name = "brand"
 
     def post(self, request, pk):
         brand = self.model.objects.get(pk=pk)
-        form = self.form_class(
-            instance=brand, data=request.POST, files=request.FILES)
-        if self.request.POST.get('_method', None) == 'delete':
+        form = self.form_class(instance=brand, data=request.POST, files=request.FILES)
+        if self.request.POST.get("_method", None) == "delete":
             brand.delete()
             messages.success(request, _("Brand was deleted successfully"))
             return redirect(reverse("apps.administration:store-brand-list-create"))
         if form.is_valid():
             form.save()
             messages.success(request, _("Brand was updated successfully"))
-            return redirect(reverse("apps.administration:store-brand-update-delete", kwargs={"pk": brand.pk}))
-        return render(request, self.template_name, {'form': form, 'brand': brand})
+            return redirect(
+                reverse(
+                    "apps.administration:store-brand-update-delete",
+                    kwargs={"pk": brand.pk},
+                )
+            )
+        return render(request, self.template_name, {"form": form, "brand": brand})
 
 
 class ProductListView(LoginRequiredMixin, ListView):
     model = Product
-    template_name = 'administration/store/products/list.html'
-    context_object_name = 'products'
-    queryset = model.admin_products.all()
+    template_name = "administration/store/products/list.html"
+    context_object_name = "products"
+
+    def get_queryset(self):
+        return self.model.admin_products.list_queryset().all()
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
-    template_name = 'administration/store/products/create.html'
+    template_name = "administration/store/products/create.html"
 
 
 class ProductUpdateDeleteView(LoginRequiredMixin, UpdateView):
     model = Product
-    template_name = 'administration/store/products/edit.html'
+    template_name = "administration/store/products/edit.html"

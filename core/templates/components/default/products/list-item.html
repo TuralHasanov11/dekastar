@@ -1,0 +1,39 @@
+{% load i18n %}
+<article>
+  <div class="info">
+    <span
+      data-product_id="{{product.pk}}"
+      class="add-favorite {% if product.id in favorites.favorites %}added{% endif %}"
+    >
+      <a
+        href="javascript:void(0);"
+        data-title="{% translate 'Add to favorites' %}"
+        data-title-added="{% translate 'Added to favorites list' %}"
+      >
+        <i class="icon icon-heart"></i>
+      </a>
+    </span>
+  </div>
+  <div class="btn btn-add">
+    <i class="icon icon-cart"></i>
+  </div>
+  <div class="figure-list">
+    {% if product.discount %}<span class="badge badge-warning"
+      >-{{product.discount}}%</span
+    >{% endif %}
+    <div class="image">
+      <a href="{% url 'apps.store:product-detail' slug=product.slug %}">
+        <img src="{{product.get_image_feature}}" alt="{{product}}" />
+      </a>
+    </div>
+    <div class="text">
+      <h2 class="title h4">
+        <a href="{% url 'apps.store:product-detail' slug=product.slug %}"
+          >{{product}}</a
+        >
+      </h2>
+      <sub>$ {{product.regular_price}}</sub>
+      {% if product.discount_price %}<sup>$ {{product.discount_price}}</sup>{% endif %}
+    </div>
+  </div>
+</article>
