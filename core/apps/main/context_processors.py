@@ -1,6 +1,8 @@
-from apps.main.models import SocialMediaLink
+from apps.main.models import (CompanyInfo, ContactEmail, ContactPhone,
+                              SocialMediaLink)
 from apps.store.models import Category
 from django.urls import reverse
+from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
 
@@ -31,6 +33,11 @@ def default_header_menu(request):
 
 def default_footer_menu(request):
     categories = Category.objects.all()
+    contact_phone = ContactPhone.objects.first()
+    contact_email = ContactEmail.objects.first()
+    address = (
+        CompanyInfo.objects.filter(language=get_language()).only("address").first()
+    )
     return {
         "default_footer_menu": [
             {
@@ -64,9 +71,8 @@ def default_footer_menu(request):
             {
                 "title": _("Contact Us"),
                 "children": [
-                    {"title": _("Telephone"), "route": ""},
-                    {"title": _("Address"), "route": ""},
-                    {"title": _("E-mail"), "route": ""},
+                    {"title": _("Telephone"), "route": f"tel:{contact_phone.phone}"},
+                    {"title": _("E-mail"), "route": f"mailto:{contact_email.email}"},
                 ],
             },
         ]

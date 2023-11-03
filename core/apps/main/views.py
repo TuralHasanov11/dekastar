@@ -1,8 +1,7 @@
 from typing import Any
 
 from apps.main.forms import ContactForm
-from apps.main.models import (Banner, CompanyInfo, ContactEmail, ContactPhone,
-                              SiteText)
+from apps.main.models import Banner, CompanyInfo, ContactEmail, ContactPhone, SiteText
 from apps.store.models import Category, Product
 from django.contrib import messages
 from django.core.mail import BadHeaderError
@@ -16,56 +15,75 @@ from django.views.generic import TemplateView
 
 class HomeView(TemplateView):
     template_name = "main/index.html"
-    http_method_names = ['get']
+    http_method_names = ["get"]
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["categories"] = Category.objects.annotate(
-            products_count=Count("product_category")).all()
-        context["new_products"] = Product.products.list_queryset().order_by('-created_at').all()[:6]
-        context["discounted_products"] = Product.products.list_queryset().filter(discount__gt=0).order_by('-updated_at')[
-            :6]
-        context["banners"] = Banner.objects.filter(is_active=True).order_by('-id')
+            products_count=Count("product_category")
+        ).all()
+        context["new_products"] = (
+            Product.products.list_queryset().order_by("-created_at").all()[:6]
+        )
+        context["discounted_products"] = (
+            Product.products.list_queryset()
+            .filter(discount__gt=0)
+            .order_by("-updated_at")[:6]
+        )
+        context["banners"] = Banner.objects.filter(is_active=True).order_by("-id")
         return context
 
 
 class PrivacyPolicyView(TemplateView):
     template_name = "main/privacy-policy.html"
-    http_method_names = ['get']
+    http_method_names = ["get"]
 
     def get(self, request, *args, **kwargs):
-        site_text = SiteText.objects.filter(language=get_language()).only(
-            'language', 'privacy_policy').first()
-        return render(request, self.template_name, {'privacy_policy': site_text.privacy_policy})
+        site_text = (
+            SiteText.objects.filter(language=get_language())
+            .only("language", "privacy_policy")
+            .first()
+        )
+        return render(
+            request, self.template_name, {"privacy_policy": site_text.privacy_policy}
+        )
 
 
 class DeliveryPolicyView(TemplateView):
     template_name = "main/delivery-policy.html"
-    http_method_names = ['get']
+    http_method_names = ["get"]
 
     def get(self, request, *args, **kwargs):
-        site_text = SiteText.objects.filter(language=get_language()).only(
-            'language', 'delivery_policy').first()
-        return render(request, self.template_name, {'delivery_policy': site_text.delivery_policy})
+        site_text = (
+            SiteText.objects.filter(language=get_language())
+            .only("language", "delivery_policy")
+            .first()
+        )
+        return render(
+            request, self.template_name, {"delivery_policy": site_text.delivery_policy}
+        )
 
 
 class ContactView(TemplateView):
     template_name = "main/contact.html"
     form_class = ContactForm
-    http_method_names = ['get', 'post']
+    http_method_names = ["get", "post"]
 
     def get(self, request, *args, **kwargs):
         form = self.form_class()
         contact_emails = ContactEmail.objects.all()
         contact_phones = ContactPhone.objects.all()
-        company_info = CompanyInfo.objects.filter(
-            language=get_language()).first()
-        return render(request, self.template_name, {
-            "form": form,
-            "contact_emails": contact_emails,
-            "contact_phones": contact_phones,
-            "company_info": company_info
-        })
+        company_info = CompanyInfo.objects.filter(language=get_language()).first()
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form,
+                "contact_emails": contact_emails,
+                "contact_phones": contact_phones,
+                "company_info": company_info,
+            },
+        )
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
@@ -87,8 +105,8 @@ class ContactView(TemplateView):
                 # )
                 # msg.content_subtype = "html"
                 # msg.send()
-                messages.success(request, _('Message was sent successfully!'))
-                return redirect(reverse("apps.main:contact")+"#contact-form")
+                messages.success(request, _("Message was sent successfully!"))
+                return redirect(reverse("apps.main:contact") + "#contact-form")
             except BadHeaderError:
                 messages.error(request, _("Message cannot be sent!"))
         messages.error(request, _("Message cannot be sent!"))
@@ -97,9 +115,12 @@ class ContactView(TemplateView):
 
 class AboutView(TemplateView):
     template_name = "main/about.html"
-    http_method_names = ['get']
+    http_method_names = ["get"]
 
     def get(self, request, *args, **kwargs):
-        site_text = SiteText.objects.filter(language=get_language()).only(
-            'language', 'about').first()
-        return render(request, self.template_name, {'about': site_text.about})
+        site_text = (
+            SiteText.objects.filter(language=get_language())
+            .only("language", "about")
+            .first()
+        )
+        return render(request, self.template_name, {"about": site_text.about})

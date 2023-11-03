@@ -1,15 +1,31 @@
 from typing import Any
 
-from apps.administration.forms import (AboutTextFormSet, BannerForm, BrandForm,
-                                       CategoryForm, CompanyInfoFormSet,
-                                       ContactEmailForm, ContactPhoneForm,
-                                       DeliveryPolicyTextFormSet, LoginForm,
-                                       PasswordChangeForm,
-                                       PrivacyPolicyTextFormSet, SiteImageForm,
-                                       SocialMediaLinkForm, UserCreateForm,
-                                       UserUpdateForm)
-from apps.main.models import (Banner, CompanyInfo, ContactEmail, ContactPhone,
-                              SiteImage, SiteText, SocialMediaLink)
+from apps.administration.forms import (
+    AboutTextFormSet,
+    BannerForm,
+    BrandForm,
+    CategoryForm,
+    CompanyInfoFormSet,
+    ContactEmailForm,
+    ContactPhoneForm,
+    DeliveryPolicyTextFormSet,
+    LoginForm,
+    PasswordChangeForm,
+    PrivacyPolicyTextFormSet,
+    SiteImageForm,
+    SocialMediaLinkForm,
+    UserCreateForm,
+    UserUpdateForm,
+)
+from apps.main.models import (
+    Banner,
+    CompanyInfo,
+    ContactEmail,
+    ContactPhone,
+    SiteImage,
+    SiteText,
+    SocialMediaLink,
+)
 from apps.store.models import Brand, Category, Product
 from django.conf import settings
 from django.contrib import messages
@@ -442,7 +458,7 @@ class CategoryUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateVi
 
     def post(self, request, pk):
         category = self.model.objects.get(pk=pk)
-        form = self.form_class(request.POST, instance=category)
+        form = self.form_class(request.POST, instance=category, files=request.FILES)
         try:
             if self.request.POST.get("_method", None) == "delete":
                 category.delete()

@@ -1,20 +1,19 @@
 {
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  },
   // "editor.formatOnSave": true,
-  "python.formatting.provider": "autopep8",
-  "python.linting.enabled": true,
-  "python.linting.lintOnSave": true,
   "files.associations": {
     "**/*.html": "html",
     "**/templates/**/*.html": "django-html",
     "**/templates/**/*": "django-txt",
     "**/requirements{/**,*}.{txt,in}": "pip-requirements"
   },
-  "python.linting.flake8Enabled": true,
-  "python.linting.flake8Args": ["--max-line-length", "150"],
-  "[python]": {
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": true
-    }
-  },
-  "css.format.enable": true
+  "css.format.enable": true,
+  "isort.args": ["--profile", "black"],
+  "black-formatter.args": ["--line-length", "88"],
+  "flake8.args": ["--max-line-length", "88"]
 }

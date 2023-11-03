@@ -1,0 +1,104 @@
+{% load i18n %}
+<div class="filters">
+  <div class="filter-scroll-list">
+    <div class="filter-header d-block d-sm-none">
+      <span class="h4">{% translate "Filter products" %}</span>
+      <br />{% translate "Select your options" %}
+      <hr />
+    </div>
+
+    <div class="filter-box active">
+      <div class="title">{% translate "Price" %}</div>
+      <div class="filter-content">
+        <div class="price-filter">
+          <input
+            type="text"
+            id="range-price-slider"
+            value=""
+            name="price_range"
+          />
+        </div>
+        <button id="price_range" class="btn btn-outline-primary">
+          {% translate "Filter" %}
+        </button>
+      </div>
+    </div>
+
+    <div class="filter-box active">
+      <div class="title">{% translate "Category" %}</div>
+      <div class="filter-content">
+        <span class="checkbox category-checkbox">
+          <input
+            type="radio"
+            name="category"
+            id="categoryAll"
+            value=""
+            {%if not form.category.value %}checked="checked"{% endif %}
+          />
+          <label for="categoryAll"
+            >{% translate "All" %} <i>({{all_products_count}})</i></label
+          >
+        </span>
+        {% for category in categories %}
+        <span class="checkbox category-checkbox">
+          <input type="radio" name="category" id="category{{forloop.counter}}" value="{{category.id}}" 
+            {% if category.id|stringformat:"i" == form.category.value %}checked="checked"{% endif %}>
+          <label class="category-input-label" for="category{{forloop.counter}}"
+            >{{category}} <i>({{category.products_count}})</i></label
+          >
+        </span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="filter-box active">
+      <div class="title">{% translate "Brand" %}</div>
+      <div class="filter-content">
+        <span class="checkbox">
+          <input
+            type="radio"
+            name="brand"
+            id="brandAll"
+            value=""
+            {% if not form.category.value %}checked="checked"{% endif %}
+          />
+          <label for="brandAll"
+            >{% translate "All" %} <i>({{all_products_count}})</i></label
+          >
+        </span>
+        {% for brand in brands %}
+        <span class="checkbox brand-checkbox">
+          <input type="radio" name="brand" id="brand{{forloop.counter}}" value="{{brand.id}}" \
+            {% if brand.id|stringformat:"i" == form.brand.value %}checked="checked"{% endif %}>
+          <label class="brand-input-label" for="brand{{forloop.counter}}">
+            <span>{{brand}}</span>
+            <img
+              src="{{brand.cover_image.url}}"
+              alt="{{brand}}"
+              width="64"
+              height="48"
+            />
+            <i>({{brand.products_count}})</i>
+          </label>
+        </span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="filter-box">
+      <div class="title">{% translate "Availability" %}</div>
+      <div class="filter-content">
+        <span class="checkbox in-stock-checkbox">
+          {{form.in_stock}}
+          <label for="inStock"
+            >{% translate "In stock" %}
+            <i>({{in_stock_products_count}})</i></label
+          >
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="toggle-filters-close btn btn-circle">
+    <i class="icon icon-cross"></i>
+  </div>
+</div>

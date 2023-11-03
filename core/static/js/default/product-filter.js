@@ -8,15 +8,28 @@ $(window).on('load', function () {
 });
 
 $(document).ready(function () {
-    $('.category-input-label').on('click', event => {
-        window.location.href = $(event.currentTarget).closest('.category-checkbox').find('.category-change-link').attr('href');
+    $('.category-checkbox,.brand-checkbox').on('click', event => {
+        const element = $(event.currentTarget).find('input');
+        filterPage($(element).attr('name'), $(element).val())
     })
 
-    $('#inStock').on('click', event => {
-        window.location.href = $(event.currentTarget).closest('.in-stock-checkbox').find('.in-stock-change-link').attr('href');
+    $('.in-stock-checkbox').on('click', event => {
+        const element = $(event.currentTarget).find('input')
+        filterPage($(element).attr('name'), $(element).prop("checked") ? 1 : 0)
     })
 
-    $('.brand-input-label').on('click', event => {
-        window.location.href = $(event.currentTarget).closest('.brand-checkbox').find('.brand-change-link').attr('href');
+    $('#paginateByInput, #orderByInput').on('change', (event) => {
+        filterPage($(event.currentTarget).attr("name"), $(event.currentTarget)?.val())
     })
+
+    function filterPage(inputName, value) {
+        const url = new URL(window.location.href);
+        const params = url.searchParams;
+        if (value) {
+            params.set(inputName, value)
+        } else {
+            params.delete(inputName)
+        }
+        window.location.search = params.toString()
+    }
 });
