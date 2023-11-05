@@ -7,11 +7,7 @@
 <section class="products pt-0">
     <header>
         <div class="container">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Library</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data</li>
-            </ol>
+            {% include "components/default/breadcrumb.html" with breadcrumb=breadcrumb %}
             <h2 class="title">{% translate "Favorite Products" %}</h2>
         </div>
     </header>

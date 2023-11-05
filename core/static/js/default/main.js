@@ -1,4 +1,5 @@
 ﻿const csrftoken = document.getElementById("csrftoken").value
+let maxPrice = 0, minPrice = 0
 
 $(function () {
 
@@ -508,11 +509,15 @@ $(function () {
         type: "double",
         min: 0,
         max: 2000,
-        //grid: true,
-        from: 500,
-        to: 1500,
-        prefix: "$"
-        //force_edges: true
+        grid: true,
+        from: $("input[name='min_price']").val(),
+        to: $("input[name='max_price']").val(),
+        prefix: "&#x20BC;",
+        //force_edges: true,
+        onFinish: function (data) {            
+            maxPrice = data.to
+            minPrice = data.from
+        },
     });
 
     // Team members hover effect

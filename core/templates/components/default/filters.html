@@ -10,17 +10,7 @@
     <div class="filter-box active">
       <div class="title">{% translate "Price" %}</div>
       <div class="filter-content">
-        <div class="price-filter">
-          <input
-            type="text"
-            id="range-price-slider"
-            value=""
-            name="price_range"
-          />
-        </div>
-        <button id="price_range" class="btn btn-outline-primary">
-          {% translate "Filter" %}
-        </button>
+        {% include "components/forms/price-filter.html" with max_price=form.max_price min_price=form.min_price %}
       </div>
     </div>
 

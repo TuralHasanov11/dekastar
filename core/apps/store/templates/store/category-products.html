@@ -7,37 +7,35 @@
 <section class="products pt-0">
     <header>
         <div class="container">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Library</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data</li>
-            </ol>
+            {% include "components/default/breadcrumb.html" with breadcrumb=breadcrumb %}
         </div>
     </header>
 
     <div class="container">
-
         <div class="row">
-
             <div class="col-lg-3">
                 {% include "components/default/filters.html" with brands=brands categories=categories form=filter_form in_stock_products_count=in_stock_products_count %}                
             </div>
 
             <div class="col-lg-9">
-
                 {% include "components/default/sort-bar.html" with form=filter_form per_page=products.object_list|length total=products.count%}
 
                 <div class="row">
                     {% for product in products %}
+                    {% if filter_form.view.value == 'grid' %}
+                    <div class="col-12 col-lg-6">
+                        {% include "components/default/products/grid-item.html" with product=product %}
+                    </div>
+                    {% else %}
                     <div class="col-12">
                         {% include "components/default/products/list-item.html" with product=product %}
                     </div>
+                    {% endif %}
                     {% endfor %}
                 </div> 
 
                 {% include "components/default/pagination.html" with pagination=products %}
             </div>
-
         </div>
     </div>
 

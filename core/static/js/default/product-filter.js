@@ -8,11 +8,11 @@ $(window).on('load', function () {
 });
 
 $(document).ready(function () {
-    
+
     $('.brand-checkbox').on('click', event => {
         event.stopPropagation();
         const element = $(event.currentTarget).find('>input');
-        filterPage($(element).attr('name'), $(element).val()) 
+        filterPage({[$(element).attr('name')]: $(element).val()})
     })
 
     $('.category-checkbox').on('click', event => {
@@ -22,21 +22,29 @@ $(document).ready(function () {
 
     $('.in-stock-checkbox').on('click', event => {
         const element = $(event.currentTarget).find('input')
-        filterPage($(element).attr('name'), $(element).prop("checked") ? 1 : 0)
+        filterPage({[$(element).attr('name')]: $(element).prop("checked") ? 1 : 0})
     })
 
     $('#paginateByInput, #orderByInput').on('change', (event) => {
-        filterPage($(event.currentTarget).attr("name"), $(event.currentTarget)?.val())
+        filterPage({[$(event.currentTarget).attr("name")]: $(event.currentTarget)?.val()})
     })
 
-    function filterPage(inputName, value) {
+    $("#priceRangeSubmitBtn").on('click', (event) => {
+        event.preventDefault()
+        console.log(minPrice, maxPrice)
+        filterPage({ "min_price": minPrice, "max_price": maxPrice })
+    })
+
+    function filterPage(query) {
         const url = new URL(window.location.href);
         const params = url.searchParams;
-        if (value) {
-            params.set(inputName, value)
-        } else {
-            params.delete(inputName)
-        }
+        Object.keys(query).forEach(key => {
+            if (query[key]) {
+                params.set(key, query[key])
+            } else {
+                params.delete(key)
+            }
+        })
         window.location.search = params.toString()
     }
 });

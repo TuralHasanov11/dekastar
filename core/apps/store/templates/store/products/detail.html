@@ -8,11 +8,7 @@
 <section class="product pt-0">
     <header>
         <div class="container">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Library</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data</li>
-            </ol>
+            {% include "components/default/breadcrumb.html" with breadcrumb=breadcrumb %}
             <h2 class="title">{{product}}</h2>
         </div>
     </header>
@@ -48,7 +44,8 @@
 
                             <div class="info-box">
                                 <strong>{% translate "Availability" %}</strong>
-                                <span class="font-weight-bold text-danger"><i class="{% if product.in_stock %}fa fa-check-square-o{% endif %}"></i> 
+                                <span class="font-weight-bold {% if not product.in_stock %}text-danger{% endif %}">
+                                    {% if product.in_stock %}<i class="fa fa-check-square-o"></i>{% endif %} 
                                     {{product.in_stock|in_stock_display}}
                                 </span>
                             </div>
