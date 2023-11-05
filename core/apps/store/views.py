@@ -1,5 +1,6 @@
 from typing import Any
 
+from apps.store import filters
 from apps.store.forms import ProductFilterForm
 from apps.store.models import Brand, Category, Product
 from django.core import paginator
@@ -16,11 +17,21 @@ class CategoryProductsView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         form = self.form_class(self.request.GET)
+        products = Product.products.list_queryset().all()
         if form.is_valid():
-            print(form.cleaned_data)
+            products = filters.OrderingFilter(
+                filters.InStockFilter(
+                    filters.BrandFilter(
+                        filters.CategoryFilter(products, form.cleaned_data).queryset,
+                        form.cleaned_data,
+                    ).queryset,
+                    form.cleaned_data,
+                ).queryset,
+                form.cleaned_data,
+            ).queryset
 
         context["products"] = paginator.Paginator(
-            Product.products.list_queryset().all(),
+            products,
             self.request.GET.get("paginate_by", self.paginate_by),
         ).get_page(self.request.GET.get("page", 1))
         context["categories"] = Category.objects.annotate(
