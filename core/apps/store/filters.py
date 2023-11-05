@@ -31,12 +31,13 @@ class CategoryFilter(Filter):
 
     @property
     def queryset(self) -> QuerySet:
-        if "category" in self._data:
+        if "category" in self._data and self._data.get("category"):
             current_category = next(
                 filter(
                     lambda category: category.slug == self._data.get("category"),
                     self._categories,
-                )
+                ),
+                None,
             )
             if current_category is not None:
                 filteredCategoryIds = [

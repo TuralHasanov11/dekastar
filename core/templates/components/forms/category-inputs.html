@@ -12,6 +12,7 @@
   <label for="categoryAll"
     >{% translate "All" %} <i>({{all_products_count}})</i></label
   >
+  <a href="{% url 'apps.store:category-products'%}" class="d-none"></a>
 </span>
 {% recursetree categories %}
 <span class="checkbox">
