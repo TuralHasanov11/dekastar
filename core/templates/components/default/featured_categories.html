@@ -20,7 +20,7 @@
         {% for category in categories %}
         <div class="col-md-4">
           <article data-3d>
-            <a href="{% url 'apps.store:category-products' slug=category.slug %}">
+            <a href="{% url 'apps.store:category-products' category=category.slug %}">
               <div class="image">
                 <img src="{{category.cover_image.url}}" alt="{{category}}" />
               </div>

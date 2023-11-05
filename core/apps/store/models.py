@@ -36,7 +36,7 @@ class Category(MPTTModel):
         return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse("apps.store:category-products", kwargs={"slug": self.slug})
+        return reverse("apps.store:category-products", kwargs={"category": self.slug})
 
 
 def brand_image_path(instance, filename):
@@ -107,6 +107,9 @@ class ProductManager(models.Manager):
 
     def list_queryset(self):
         return self.get_queryset().list_queryset()
+    
+    def count_queryset(self):
+        return self.get_queryset().count()
 
     def detail_queryset(self):
         return self.get_queryset().detail_queryset()

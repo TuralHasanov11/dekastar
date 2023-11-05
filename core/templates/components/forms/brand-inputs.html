@@ -1,0 +1,29 @@
+{% load i18n %}
+<span class="checkbox brand-checkbox">
+    <input
+        type="radio"
+        name="brand"
+        id="brandAll"
+        value=""
+        {% if not current_brand.value %}checked="checked"{% endif %}
+    />
+    <label for="brandAll"
+        >{% translate "All" %} <i>({{all_products_count}})</i></label
+    >
+</span>
+{% for brand in brands %}
+<span class="checkbox brand-checkbox">
+    <input type="radio" name="brand" id="brand{{brand.id}}" value="{{brand.id}}" 
+        {% if brand.id|stringformat:"i" == current_brand.value %}checked="checked"{% endif %}>
+    <label class="brand-input-label" for="brand{{brand.id}}">
+        <span>{{brand}}</span>
+        <img
+            src="{{brand.cover_image.url}}"
+            alt="{{brand}}"
+            width="64"
+            height="48"
+        />
+        <i>({{brand.products_count}})</i>
+    </label>
+</span>
+{% endfor %}

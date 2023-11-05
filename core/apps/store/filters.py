@@ -19,16 +19,33 @@ class Filter(ABC):
 class OrderingFilter(Filter):
     @property
     def queryset(self) -> QuerySet:
-        if "order_by" in self._data:
+        if "order_by" in self._data and self._data["order_by"]:
             self._queryset = self._queryset.order_by(self._data["order_by"])
         return self._queryset
 
 
 class CategoryFilter(Filter):
+    def __init__(self, queryset: QuerySet, data, categories):
+        super().__init__(queryset, data)
+        self._categories = categories
+
     @property
     def queryset(self) -> QuerySet:
-        if "category" in self._data and type(self._data["category"]) is int:
-            self._queryset = self._queryset.filter(category=self._data["category"])
+        if "category" in self._data:
+            current_category = next(
+                filter(
+                    lambda category: category.slug == self._data.get("category"),
+                    self._categories,
+                )
+            )
+            if current_category is not None:
+                filteredCategoryIds = [
+                    cat.id
+                    for cat in current_category.get_descendants(include_self=True)
+                ]
+                self._queryset = self._queryset.filter(
+                    category__id__in=filteredCategoryIds
+                )
         return self._queryset
 
 

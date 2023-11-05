@@ -27,61 +27,14 @@
     <div class="filter-box active">
       <div class="title">{% translate "Category" %}</div>
       <div class="filter-content">
-        <span class="checkbox category-checkbox">
-          <input
-            type="radio"
-            name="category"
-            id="categoryAll"
-            value=""
-            {%if not form.category.value %}checked="checked"{% endif %}
-          />
-          <label for="categoryAll"
-            >{% translate "All" %} <i>({{all_products_count}})</i></label
-          >
-        </span>
-        {% for category in categories %}
-        <span class="checkbox category-checkbox">
-          <input type="radio" name="category" id="category{{forloop.counter}}" value="{{category.id}}" 
-            {% if category.id|stringformat:"i" == form.category.value %}checked="checked"{% endif %}>
-          <label class="category-input-label" for="category{{forloop.counter}}"
-            >{{category}} <i>({{category.products_count}})</i></label
-          >
-        </span>
-        {% endfor %}
+        {% include "components/forms/category-inputs.html" with categories=categories current_category=form.category %}
       </div>
     </div>
 
     <div class="filter-box active">
       <div class="title">{% translate "Brand" %}</div>
       <div class="filter-content">
-        <span class="checkbox brand-checkbox">
-          <input
-            type="radio"
-            name="brand"
-            id="brandAll"
-            value=""
-            {% if not form.category.value %}checked="checked"{% endif %}
-          />
-          <label for="brandAll"
-            >{% translate "All" %} <i>({{all_products_count}})</i></label
-          >
-        </span>
-        {% for brand in brands %}
-        <span class="checkbox brand-checkbox">
-          <input type="radio" name="brand" id="brand{{forloop.counter}}" value="{{brand.id}}" \
-            {% if brand.id|stringformat:"i" == form.brand.value %}checked="checked"{% endif %}>
-          <label class="brand-input-label" for="brand{{forloop.counter}}">
-            <span>{{brand}}</span>
-            <img
-              src="{{brand.cover_image.url}}"
-              alt="{{brand}}"
-              width="64"
-              height="48"
-            />
-            <i>({{brand.products_count}})</i>
-          </label>
-        </span>
-        {% endfor %}
+        {% include "components/forms/brand-inputs.html" with brands=brands current_brand=form.brand %}
       </div>
     </div>
 

@@ -8,9 +8,16 @@ $(window).on('load', function () {
 });
 
 $(document).ready(function () {
-    $('.category-checkbox,.brand-checkbox').on('click', event => {
-        const element = $(event.currentTarget).find('input');
-        filterPage($(element).attr('name'), $(element).val())
+    
+    $('.brand-checkbox').on('click', event => {
+        event.stopPropagation();
+        const element = $(event.currentTarget).find('>input');
+        filterPage($(element).attr('name'), $(element).val()) 
+    })
+
+    $('.category-checkbox').on('click', event => {
+        event.stopPropagation();
+        window.location.href = $(event.currentTarget).find('a').attr('href');
     })
 
     $('.in-stock-checkbox').on('click', event => {

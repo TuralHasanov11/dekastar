@@ -1,5 +1,4 @@
-from apps.main.models import (CompanyInfo, ContactEmail, ContactPhone,
-                              SocialMediaLink)
+from apps.main.models import CompanyInfo, ContactEmail, ContactPhone, SocialMediaLink
 from apps.store.models import Category
 from django.urls import reverse
 from django.utils.translation import get_language
@@ -19,7 +18,7 @@ def default_header_menu(request):
                         "title": category.name,
                         "route": reverse(
                             "apps.store:category-products",
-                            kwargs={"slug": category.slug},
+                            kwargs={"category": category.slug},
                         ),
                     }
                     for category in categories
@@ -47,7 +46,7 @@ def default_footer_menu(request):
                         "title": category.name,
                         "route": reverse(
                             "apps.store:category-products",
-                            kwargs={"slug": category.slug},
+                            kwargs={"category": category.slug},
                         ),
                     }
                     for category in categories

@@ -21,11 +21,13 @@ class ProductFilterForm(forms.Form):
         ("list", _("List")),
     ]
 
-    category = forms.IntegerField(required=False)
+    category = forms.SlugField(required=False, initial=None)
     in_stock = forms.BooleanField(
-        required=False, widget=forms.CheckboxInput(attrs={"id": "inStock"}), initial=0
+        required=False,
+        widget=forms.CheckboxInput(attrs={"id": "inStock"}),
+        initial=False,
     )
-    brand = forms.IntegerField(required=False)
+    brand = forms.IntegerField(required=False, initial=None)
     paginate_by = forms.ChoiceField(
         required=False,
         choices=PAGINATE_BY_CHOICES,
@@ -35,11 +37,9 @@ class ProductFilterForm(forms.Form):
         required=False,
         choices=ORDER_BY_CHOICES,
         widget=forms.Select(attrs={"id": "orderByInput"}),
+        initial=None,
     )
-    view = forms.ChoiceField(
-        required=False,
-        choices=VIEW_CHOICES,
-    )
+    view = forms.ChoiceField(required=False, choices=VIEW_CHOICES, initial=None)
 
     class Meta:
         fields = ("category", "in_stock", "brand", "paginate_by", "order_by", "view")

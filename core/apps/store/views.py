@@ -15,14 +15,27 @@ class CategoryProductsView(TemplateView):
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
+        query_params = self.request.GET.copy()
+        query_params.update(kwargs)
+        form = self.form_class(query_params)
 
-        form = self.form_class(self.request.GET)
+        context["categories"] = Category.objects.add_related_count(
+            Category.objects.all(),
+            Product,
+            "category",
+            "products_count",
+            cumulative=True,
+        )
+
         products = Product.products.list_queryset().all()
+
         if form.is_valid():
             products = filters.OrderingFilter(
                 filters.InStockFilter(
                     filters.BrandFilter(
-                        filters.CategoryFilter(products, form.cleaned_data).queryset,
+                        filters.CategoryFilter(
+                            products, form.cleaned_data, context["categories"]
+                        ).queryset,
                         form.cleaned_data,
                     ).queryset,
                     form.cleaned_data,
@@ -32,17 +45,13 @@ class CategoryProductsView(TemplateView):
 
         context["products"] = paginator.Paginator(
             products,
-            self.request.GET.get("paginate_by", self.paginate_by),
-        ).get_page(self.request.GET.get("page", 1))
-        context["categories"] = Category.objects.annotate(
-            products_count=Count("product_category")
-        ).all()
+            query_params.get("paginate_by", self.paginate_by),
+        ).get_page(query_params.get("page", 1))
+
         context["brands"] = Brand.objects.annotate(
             products_count=Count("product_brand")
         ).all()
-        context["all_products_count"] = sum(
-            [category.products_count for category in context["categories"]]
-        )
+        context["all_products_count"] = Product.products.count_queryset()
         context["in_stock_products_count"] = (
             Product.products.list_queryset().filter(in_stock=True).count()
         )

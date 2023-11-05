@@ -135,7 +135,7 @@
         </div> 
 
         <div class="wrapper-more">
-            <a href="{% url 'apps.store:category-products' slug=product.category.slug %}" class="btn btn-main btn-sm">
+            <a href="{% url 'apps.store:category-products' category=product.category.slug %}" class="btn btn-main btn-sm">
                 {% translate 'View all related products' %}
             </a>
         </div>
