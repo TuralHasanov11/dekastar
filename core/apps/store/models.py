@@ -198,8 +198,9 @@ class ProductAdminManager(models.Manager):
 
 
 class Product(models.Model):
-    slug = models.SlugField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True)
+    # code = models.CharField(max_length=100, null=True, blank=True)
     brand = models.ForeignKey(
         Brand,
         related_name="product_brand",
@@ -282,3 +283,11 @@ class ProductImage(models.Model):
 
     class Meta:
         ordering = ("-is_feature",)
+
+
+class ProductInformation(models.Model):
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="product_information"
+    )
+    language = custom_model_fields.LanguageField()
+    text = models.TextField(blank=True, null=True)

@@ -565,7 +565,7 @@ class ProductListView(LoginRequiredMixin, ListView):
         return self.model.admin_products.list_queryset().all()
 
 
-class ProductCreateView(LoginRequiredMixin, CreateView):
+class ProductCreateView(LoginRequiredMixin, TemplateView):
     model = Product
     template_name = "administration/store/products/create.html"
 

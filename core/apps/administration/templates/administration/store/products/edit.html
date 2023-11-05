@@ -1,0 +1,49 @@
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Edit Product" %}{% endblock title %}
+{% block content %}
+<main>
+  <header
+    class="page-header page-header-compact page-header-light border-bottom bg-white mb-4"
+  >
+    <div class="container-fluid px-4">
+      <div class="page-header-content">
+        <div class="row align-items-center justify-content-between pt-3">
+          <div class="col-auto mb-3">
+            <h1 class="page-header-title">
+              <div class="page-header-icon">
+                <i data-feather="file-plus"></i>
+              </div>
+              {% translate "Edit Product" %}
+            </h1>
+          </div>
+          <div class="col-12 col-xl-auto mb-3">
+            <div class="d-flex justify-content-center">
+              <a
+                class="btn btn-sm btn-light text-primary mx-2"
+                href="{% url 'apps.administration:store-product-list' %}"
+              >
+                <i class="me-1" data-feather="list"></i>
+                {% translate "Back to Product List" %}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container-fluid px-4">
+    {% include 'components/messages.html' with messages=messages %}
+    <div class="card mb-4">
+        <div class="card-header">{% translate "Edit Product" %}</div>
+        <div class="card-body">
+            
+        </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
+
+{% block scripts %}
+<script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+{% endblock scripts %}

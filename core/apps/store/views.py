@@ -89,7 +89,7 @@ class ProductDetailView(DetailView):
     template_name = "store/products/detail.html"
     context_object_name = "product"
     queryset = model.products.detail_queryset()
-    related_product_count = 10
+    related_product_count = 8
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
