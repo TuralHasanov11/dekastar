@@ -1,0 +1,22 @@
+{% load i18n %}
+<article data-3d>
+  <a href="{% url 'apps.store:category-products' category=category.slug %}">
+    <div class="image">
+      <img
+        src="{{category.cover_image.url}}"
+        alt="{{category.category_name}}"
+      />
+    </div>
+    <div class="entry entry-block">
+      <div class="label">
+        {{category.products_count}} {% translate "products" %}
+      </div>
+      <div class="title">
+        <h2 class="h4">{{category.category_name}}</h2>
+      </div>
+    </div>
+    <div class="show-more">
+      <span class="btn btn-clean">{% translate "Shop now" %}</span>
+    </div>
+  </a>
+</article>

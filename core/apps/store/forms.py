@@ -40,6 +40,17 @@ class ProductFilterForm(forms.Form):
         initial=None,
     )
     view = forms.ChoiceField(required=False, choices=VIEW_CHOICES, initial=None)
+    min_price = forms.IntegerField(required=False, initial=None)
+    max_price = forms.IntegerField(required=False, initial=None)
 
     class Meta:
-        fields = ("category", "in_stock", "brand", "paginate_by", "order_by", "view")
+        fields = (
+            "category",
+            "in_stock",
+            "brand",
+            "paginate_by",
+            "order_by",
+            "view",
+            "min_price",
+            "max_price",
+        )

@@ -7,9 +7,9 @@
 {% block content %}
 {% include "components/default/slider.html" with banners=banners %}
 
-{% include "components/default/featured_categories.html" with categories=categories %}
+{% include "components/default/categories/featured_categories.html" with categories=categories %}
 
-{% include "components/default/discounted_products.html" with products=discounted_products%}
+{% include "components/default/products/discounted_products.html" with products=discounted_products%}
 
-{% include "components/default/new_products.html" with products=new_products%}
+{% include "components/default/products/new_products.html" with products=new_products%}
 {% endblock content %}

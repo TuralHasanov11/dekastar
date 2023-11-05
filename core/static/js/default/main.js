@@ -727,7 +727,7 @@ $(function () {
         $(".header-content .item").height($(window).height() - navHeight - 50);
     }
 
-    $('.add-favorite').on("click", async (event) => {
+    $('.toggle-favorite').on("click", async (event) => {
         try {
             const productId = $(event.currentTarget).data('product_id')
 

@@ -20,7 +20,7 @@
     <input type="radio" name="category" id="category{{node.id}}" value="{{node.slug}}" 
     {% if node.slug == current_category.value %}checked="checked"{% endif %}>
     <label class="category-input-label" for="category{{node.id}}"
-      >{{node.name}} <i>({{node.products_count}})</i></label
+      >{{node.category_name}} <i>({{node.products_count}})</i></label
     >
     <a href="{% url 'apps.store:category-products' category=node.slug %}" class="d-none"></a>
   </span>

@@ -3,8 +3,41 @@ from django.db import models
 from django.db.models import Prefetch
 from django.template.defaultfilters import slugify
 from django.urls import reverse
+from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
+from shared import custom_model_fields
+
+
+class CategoryQuerySet(models.QuerySet):
+    def list_queryset(self):
+        return self.prefetch_related(
+            Prefetch(
+                "category_attribute",
+                queryset=CategoryAttribute.objects.filter(language=get_language()),
+                to_attr="attribute",
+            ),
+        )
+
+    def detail_queryset(self):
+        return self.prefetch_related(
+            Prefetch(
+                "category_attribute",
+                queryset=CategoryAttribute.objects.filter(language=get_language()),
+                to_attr="attribute",
+            ),
+        )
+
+
+class CategoryManager(models.Manager):
+    def get_queryset(self):
+        return CategoryQuerySet(self.model, using=self._db)
+
+    def list_queryset(self):
+        return self.get_queryset().list_queryset()
+
+    def detail_queryset(self):
+        return self.get_queryset().detail_queryset()
 
 
 def category_image_path(instance, filename):
@@ -21,12 +54,24 @@ class Category(MPTTModel):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    categories = CategoryManager()
+
     class MPTTMeta:
         order_insertion_by = ["name"]
 
     class Meta:
         ordering = ["name"]
         verbose_name_plural = _("Categories")
+
+    @property
+    def category_name(self) -> str:
+        return (
+            self.attribute[0].name
+            if hasattr(self, "attribute")
+            and len(self.attribute) > 0
+            and self.attribute[0].name
+            else self.name
+        )
 
     def __str__(self):
         return self.name
@@ -41,6 +86,17 @@ class Category(MPTTModel):
 
 def brand_image_path(instance, filename):
     return f"brands/{instance.slug}/{filename}"
+
+
+class CategoryAttribute(models.Model):
+    category = models.ForeignKey(
+        Category, related_name="category_attribute", on_delete=models.CASCADE
+    )
+    name = models.CharField(max_length=255, null=True, blank=True)
+    language = custom_model_fields.LanguageField()
+
+    def __str__(self):
+        return self.name
 
 
 class Brand(models.Model):
@@ -64,7 +120,12 @@ class Brand(models.Model):
 
 class ProductQuerySet(models.QuerySet):
     def list_queryset(self):
-        return self.select_related("category").prefetch_related(
+        return self.prefetch_related(
+            Prefetch(
+                "category",
+                queryset=Category.categories.list_queryset(),
+            ),
+        ).prefetch_related(
             Prefetch(
                 "product_image",
                 queryset=ProductImage.objects.filter(is_feature=True),
@@ -74,7 +135,12 @@ class ProductQuerySet(models.QuerySet):
 
     def detail_queryset(self):
         return (
-            self.select_related("category")
+            self.prefetch_related(
+                Prefetch(
+                    "category",
+                    queryset=Category.categories.list_queryset(),
+                ),
+            )
             .select_related("brand")
             .prefetch_related(
                 Prefetch(
@@ -89,7 +155,12 @@ class ProductQuerySet(models.QuerySet):
 
 class ProductAdminQuerySet(models.QuerySet):
     def list_queryset(self):
-        return self.select_related("category").prefetch_related(
+        return self.prefetch_related(
+            Prefetch(
+                "category",
+                queryset=Category.categories.list_queryset(),
+            ),
+        ).prefetch_related(
             Prefetch(
                 "product_image",
                 queryset=ProductImage.objects.filter(is_feature=True),
@@ -107,7 +178,7 @@ class ProductManager(models.Manager):
 
     def list_queryset(self):
         return self.get_queryset().list_queryset()
-    
+
     def count_queryset(self):
         return self.get_queryset().count()
 
@@ -170,10 +241,6 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse("apps.store:product-detail", kwargs={"slug": self.slug})
-
-    @property
-    def in_stock_display_value(self):
-        return _("In Stock") if self.in_stock else _("Not in Stock")
 
     @property
     def get_image_feature(self):

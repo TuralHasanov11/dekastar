@@ -20,7 +20,7 @@ class CategoryProductsView(TemplateView):
         form = self.form_class(query_params)
 
         context["categories"] = Category.objects.add_related_count(
-            Category.objects.all(),
+            Category.categories.list_queryset().all(),
             Product,
             "category",
             "products_count",
@@ -34,7 +34,9 @@ class CategoryProductsView(TemplateView):
                 filters.InStockFilter(
                     filters.BrandFilter(
                         filters.CategoryFilter(
-                            products, form.cleaned_data, context["categories"]
+                            filters.PriceFilter(products, form.cleaned_data).queryset,
+                            form.cleaned_data,
+                            context["categories"],
                         ).queryset,
                         form.cleaned_data,
                     ).queryset,

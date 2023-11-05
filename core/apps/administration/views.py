@@ -4,6 +4,7 @@ from apps.administration.forms import (
     AboutTextFormSet,
     BannerForm,
     BrandForm,
+    CategoryAttributeFormSet,
     CategoryForm,
     CompanyInfoFormSet,
     ContactEmailForm,
@@ -26,7 +27,7 @@ from apps.main.models import (
     SiteText,
     SocialMediaLink,
 )
-from apps.store.models import Brand, Category, Product
+from apps.store.models import Brand, Category, CategoryAttribute, Product
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -72,7 +73,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                 "route": reverse("apps.administration:store-brand-list-create"),
             },
             {
-                "name": _("Product"),
+                "name": _("Products"),
                 "route": reverse("apps.administration:store-product-list"),
             },
         ]
@@ -452,13 +453,38 @@ class CategoryListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView
 
 class CategoryUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = CategoryForm
+    attribute_form_class = CategoryAttributeFormSet
     model = Category
     template_name = "administration/store/categories/edit.html"
     context_object_name = "category"
 
+    def get_queryset(self):
+        return super().get_queryset().prefetch_related("category_attribute")
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        if (
+            not hasattr(self.get_object(), "category_attribute")
+            or not len(self.get_object().category_attribute.all()) > 0
+        ):
+            attributes = CategoryAttribute.objects.bulk_create(
+                [
+                    CategoryAttribute(language=lang[0], category=self.get_object())
+                    for lang in settings.LANGUAGES
+                ]
+            )
+        else:
+            attributes = self.get_object().category_attribute.all()
+        context["attribute_form"] = self.attribute_form_class(initial=attributes)
+        return context
+
     def post(self, request, pk):
         category = self.model.objects.get(pk=pk)
         form = self.form_class(request.POST, instance=category, files=request.FILES)
+        attribute_form = self.attribute_form_class(
+            data=self.request.POST,
+            initial=self.get_object().category_attribute.all(),
+        )
         try:
             if self.request.POST.get("_method", None) == "delete":
                 category.delete()
@@ -467,14 +493,16 @@ class CategoryUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateVi
                     reverse("apps.administration:store-category-list-create")
                 )
             if form.is_valid():
-                form.save()
-                messages.success(request, _("Category was updated successfully"))
-                return redirect(
-                    reverse(
-                        "apps.administration:store-category-update-delete",
-                        kwargs={"pk": category.pk},
+                category = form.save()
+                if attribute_form.is_valid():
+                    attribute_form.save()
+                    messages.success(request, _("Category was updated successfully"))
+                    return redirect(
+                        reverse(
+                            "apps.administration:store-category-update-delete",
+                            kwargs={"pk": category.pk},
+                        )
                     )
-                )
         except ProtectedError:
             messages.error(request, _("Category is depended on another category"))
             return redirect(
@@ -483,7 +511,11 @@ class CategoryUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateVi
                     kwargs={"pk": category.pk},
                 )
             )
-        return render(request, self.template_name, {"form": form, "category": category})
+        return render(
+            request,
+            self.template_name,
+            {"form": form, "category": category, "attribute_form": attribute_form},
+        )
 
 
 class BrandListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):

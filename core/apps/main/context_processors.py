@@ -1,12 +1,11 @@
-from apps.main.models import CompanyInfo, ContactEmail, ContactPhone, SocialMediaLink
+from apps.main.models import ContactEmail, ContactPhone, SocialMediaLink
 from apps.store.models import Category
 from django.urls import reverse
-from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
 
 def default_header_menu(request):
-    categories = Category.objects.all()
+    categories = Category.categories.list_queryset().all()
     return {
         "default_header_menu": [
             {"title": _("Home"), "route": reverse("apps.main:index")},
@@ -15,7 +14,7 @@ def default_header_menu(request):
                 "route": reverse("apps.store:category-products"),
                 "children": [
                     {
-                        "title": category.name,
+                        "title": category.category_name,
                         "route": reverse(
                             "apps.store:category-products",
                             kwargs={"category": category.slug},
@@ -31,19 +30,16 @@ def default_header_menu(request):
 
 
 def default_footer_menu(request):
-    categories = Category.objects.all()
+    categories = Category.categories.list_queryset().all()
     contact_phone = ContactPhone.objects.first()
     contact_email = ContactEmail.objects.first()
-    address = (
-        CompanyInfo.objects.filter(language=get_language()).only("address").first()
-    )
     return {
         "default_footer_menu": [
             {
                 "title": _("Categories"),
                 "children": [
                     {
-                        "title": category.name,
+                        "title": category.category_name,
                         "route": reverse(
                             "apps.store:category-products",
                             kwargs={"category": category.slug},

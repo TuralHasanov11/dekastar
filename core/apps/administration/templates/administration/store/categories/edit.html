@@ -69,6 +69,28 @@
                       {{ form.parent.errors }}
                   </div>
                 </div>
+                <hr />
+                {{ attribute_form.management_form }}
+                <div class="row">
+                  {% for form_item in attribute_form %}
+                    <div class="col col-lg-4">
+                      {% include "components/forms/hidden-fields.html" with hidden_fields=form_item.hidden_fields %}
+                      {{form_item.non_field_errors}} 
+                      {{form_item.non_form_errors}} 
+                      {{ form_item.media }}
+                      <div class="mb-3">
+                          <label class="mb-1 small" for="{{form_item.name.id_for_label}}">{{form_item.name.label}}</label>
+                          {{form_item.name}}
+                          {{ form_item.name.errors  }}
+                      </div>
+                      <div class="mb-3">
+                          {{form_item.language}}
+                          {{form_item.language.errors}}
+                      </div>
+                      <hr>
+                    </div>
+                  {% endfor %}
+                </div>
                 {{form.non_field_errors}} 
                 {{form.non_form_errors}} 
                 <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>

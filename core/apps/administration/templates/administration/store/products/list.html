@@ -57,7 +57,7 @@
             {% for product in products %}
             <tr>
               <td>{{product.name}}</td>
-              <td>{{product.category}}</td>
+              <td><a href="{% url 'apps.administration:store-category-update-delete' pk=product.category.pk %}">{{product.category.category_name}}</a></td>
               <td>{{product.regular_price}}</td>
               <td>{{product.discount}}</td>
               <td><img loading="lazy" width="30" height="30" src="{{product.get_image_feature}}" alt="{{product}}"></td>

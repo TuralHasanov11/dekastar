@@ -1,0 +1,28 @@
+{% load i18n %} 
+
+<section class="blog blog-block">
+  <header>
+    <div class="container">
+      <h2 class="title">{% translate "Featured categories" %}</h2>
+      <div class="text">
+        <p>
+          <a href="{% url 'apps.store:category-products' %}" class="btn btn-main"
+            >{% translate "View more" %}</a
+          >
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="scroll-wrapper">
+      <div class="row scroll text-center">
+        {% for category in categories %}
+        <div class="col-md-4">
+          {% include "components/default/categories/category.html" with category=category %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
