@@ -1,4 +1,5 @@
-from apps.store.models import Brand, Category, CategoryAttribute, Product, ProductImage
+from apps.store.models import (Brand, Category, CategoryAttribute, Product,
+                               ProductImage)
 from django.contrib import admin
 from mptt.admin import DraggableMPTTAdmin
 

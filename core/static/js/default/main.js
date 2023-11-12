@@ -471,7 +471,7 @@ $(function () {
         }
     });
 
-    // Coupon code 
+    // Coupon code
     // ----------------------------------------------------------------
 
     $(".form-coupon").hide();
@@ -514,7 +514,7 @@ $(function () {
         to: $("input[name='max_price']").val(),
         prefix: "&#x20BC;",
         //force_edges: true,
-        onFinish: function (data) {            
+        onFinish: function (data) {
             maxPrice = data.to
             minPrice = data.from
         },
@@ -745,7 +745,7 @@ $(function () {
             })
 
             const data = await response.json()
-            
+
             if(data?.added == true){
                 $(`[data-product_id='${productId}']`).addClass('added')
             }else{
@@ -787,6 +787,3 @@ $(window).on('load', function () {
     }
 
 });
-
-
-

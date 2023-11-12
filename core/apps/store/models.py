@@ -15,7 +15,7 @@ class CategoryQuerySet(models.QuerySet):
             Prefetch(
                 "category_attribute",
                 queryset=CategoryAttribute.objects.filter(language=get_language()),
-                to_attr="attribute",
+                to_attr="attribute"
             ),
         )
 
@@ -24,7 +24,7 @@ class CategoryQuerySet(models.QuerySet):
             Prefetch(
                 "category_attribute",
                 queryset=CategoryAttribute.objects.filter(language=get_language()),
-                to_attr="attribute",
+                to_attr="attribute"
             ),
         )
 
@@ -47,13 +47,12 @@ def category_image_path(instance, filename):
 class Category(MPTTModel):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
-    parent = TreeForeignKey(
-        "self", on_delete=models.PROTECT, related_name="children", null=True, blank=True
-    )
+    parent = TreeForeignKey("self", on_delete=models.PROTECT, related_name="children", null=True, blank=True)
     cover_image = models.ImageField(upload_to=category_image_path)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    objects = models.Manager()
     categories = CategoryManager()
 
     class MPTTMeta:
@@ -89,11 +88,11 @@ def brand_image_path(instance, filename):
 
 
 class CategoryAttribute(models.Model):
-    category = models.ForeignKey(
-        Category, related_name="category_attribute", on_delete=models.CASCADE
-    )
+    category = models.ForeignKey(Category, related_name="category_attribute", on_delete=models.CASCADE)
     name = models.CharField(max_length=255, null=True, blank=True)
     language = custom_model_fields.LanguageField()
+
+    objects = models.Manager()
 
     def __str__(self):
         return self.name
@@ -105,6 +104,8 @@ class Brand(models.Model):
     cover_image = models.ImageField(upload_to=brand_image_path)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = models.Manager()
 
     class Meta:
         ordering = ["name"]
@@ -149,6 +150,10 @@ class ProductQuerySet(models.QuerySet):
                     to_attr="image_feature",
                 ),
                 Prefetch("product_image", to_attr="images"),
+                Prefetch(
+                    "product_information",
+                    queryset=ProductInformation.objects.filter(language=get_language()),
+                ),
             )
         )
 
@@ -198,9 +203,9 @@ class ProductAdminManager(models.Manager):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
-    # code = models.CharField(max_length=100, null=True, blank=True)
+    code = models.CharField(max_length=100, null=True, blank=True)
     brand = models.ForeignKey(
         Brand,
         related_name="product_brand",
@@ -223,9 +228,7 @@ class Product(models.Model):
         validators=[MaxValueValidator(99), MinValueValidator(0)],
         null=True,
     )
-    discount_price = models.DecimalField(
-        default=0, blank=True, max_digits=6, decimal_places=2
-    )
+    discount_price = models.DecimalField(default=0, blank=True, max_digits=6, decimal_places=2)
     in_stock = models.BooleanField(default=True)
     created_at = models.DateTimeField(
         auto_now_add=True,
@@ -247,9 +250,17 @@ class Product(models.Model):
     def get_image_feature(self):
         return (
             self.image_feature[0].image.url
-            if hasattr(self, "image_feature")
-            and len(self.image_feature) > 0
-            and self.image_feature[0].image
+            if hasattr(self, "image_feature") and len(self.image_feature) > 0 and self.image_feature[0].image
+            else ""
+        )
+
+    @property
+    def get_information(self):
+        return (
+            self.product_information[0].text
+            if hasattr(self, "product_information")
+            and len(self.product_information) > 0
+            and self.product_information[0].text
             else ""
         )
 
@@ -259,12 +270,6 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        if self.discount is not None:
-            self.discount_price = (
-                self.regular_price - self.regular_price * self.discount / 100
-            )
-        else:
-            self.discount_price = self.regular_price
         return super().save(*args, **kwargs)
 
 
@@ -273,21 +278,21 @@ def product_image_path(instance, filename):
 
 
 class ProductImage(models.Model):
-    product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, related_name="product_image"
-    )
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_image")
     image = models.ImageField(upload_to=product_image_path, null=True, blank=True)
     is_feature = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = models.Manager()
 
     class Meta:
         ordering = ("-is_feature",)
 
 
 class ProductInformation(models.Model):
-    product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, related_name="product_information"
-    )
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_information")
     language = custom_model_fields.LanguageField()
-    text = models.TextField(blank=True, null=True)
+    text = custom_model_fields.TextUploadingField()
+
+    objects = models.Manager()

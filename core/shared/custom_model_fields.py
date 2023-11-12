@@ -1,4 +1,5 @@
-from ckeditor.fields import RichTextField
+from ckeditor import fields as ckeditor_fields
+from ckeditor_uploader import fields as ckeditor_uploader_fields
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -30,9 +31,16 @@ class UpdatedAtField(models.DateTimeField):
         super().__init__(*args, **kwargs)
 
 
-class TextField(RichTextField):
+class TextField(ckeditor_fields.RichTextField):
     description = _("Text field")
 
+    def __init__(self, *args, **kwargs):
+        kwargs['null'] = True
+        kwargs['blank'] = True
+        super().__init__(*args, **kwargs)
+
+
+class TextUploadingField(ckeditor_uploader_fields.RichTextUploadingField):
     def __init__(self, *args, **kwargs):
         kwargs['null'] = True
         kwargs['blank'] = True

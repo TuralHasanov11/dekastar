@@ -1,4 +1,4 @@
-{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% extends "layouts/admin.html" %} {% load static %} {% load i18n %}
 {% block title %}{% translate "Edit Product" %}{% endblock title %}
 {% block content %}
 <main>
@@ -25,6 +25,16 @@
                 <i class="me-1" data-feather="list"></i>
                 {% translate "Back to Product List" %}
               </a>
+              <form class="delete-form" method="post">
+                {% csrf_token %}
+                <div class="d-inline-block">
+                  <button type="submit" class="btn btn-sm btn-danger">
+                    <i class="me-1" data-feather="trash-2"></i>
+                    {% translate "Delete Product" %}
+                  </button>
+                </div>
+                <input type="hidden" name="_method" value="delete">
+              </form>
             </div>
           </div>
         </div>
@@ -33,17 +43,134 @@
   </header>
 
   <div class="container-fluid px-4">
-    {% include 'components/messages.html' with messages=messages %}
+    {% include "components/messages.html" with messages=messages %}
     <div class="card mb-4">
         <div class="card-header">{% translate "Edit Product" %}</div>
         <div class="card-body">
-            
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% include "components/forms/hidden-fields.html" with hidden_fields=form.hidden_fields %}
+            {{form.non_field_errors}}
+            {{form.non_form_errors}}
+            {{ form.media }}
+            <div class="row g-3 align-items-center mb-4">
+              <div class="col-12 col-md-6 col-xl-4">
+                  <label class="mb-1 small" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                  {{ form.name }}
+                  {{ form.name.errors }}
+              </div>
+              <div class="col-12 col-md-6 col-xl-4">
+                <label class="mb-1 small" for="{{ form.code.id_for_label }}">{{ form.code.label }}</label>
+                {{ form.code }}
+                {{ form.code.errors }}
+              </div>
+              <div class="col-12 col-md-6 col-xl-4">
+                  <label class="mb-1 small" for="{{ form.category.id_for_label }}">{{ form.category.label }}</label>
+                  {{ form.category }}
+                  {{ form.category.errors }}
+              </div>
+              <div class="col-12 col-md-6 col-xl-4">
+                <label class="mb-1 small" for="{{ form.brand.id_for_label }}">{{ form.brand.label }}</label>
+                {{ form.brand }}
+                {{ form.brand.errors }}
+              </div>
+              <div class="col-12 col-md-6 col-xl-4">
+                  <label class="mb-1 small" for="{{ form.regular_price.id_for_label }}">{{ form.regular_price.label }}</label>
+                  {{ form.regular_price }}
+                  {{ form.regular_price.errors }}
+              </div>
+              <div class="col-12  col-md-6 col-xl-4">
+                  <label class="mb-1 small" for="{{ form.discount.id_for_label }}">{{ form.discount.label }}</label>
+                  {{ form.discount }}
+                  {{ form.discount.errors }}
+              </div>
+              <div class="col-12 col-md-6 col-xl-4">
+                  <label class="mb-1 small" for="{{ form.discount_price.id_for_label }}">{{ form.discount_price.label }}</label>
+                  {{ form.discount_price }}
+                  {{ form.discount_price.errors }}
+              </div>
+              <div class="col-12 col-md-6 col-xl-4">
+                <label class="mb-1 small" for="{{ form.in_stock.id_for_label }}">{{ form.in_stock.label }}</label>
+                {{ form.in_stock }}
+                {{ form.in_stock.errors }}
+              </div>
+              <div class="col-12 col-md-6 col-xl-4">
+                <label class="mb-1 small" for="{{ form.is_active.id_for_label }}">{{ form.is_active.label }}</label>
+                {{ form.is_active }}
+                {{ form.is_active.errors }}
+              </div>
+            </div>
+
+            <div class="card mb-4">
+              <div class="card-header">{% translate "Images" %}</div>
+              <div class="card-body">
+                  {{ product_image_formset.management_form }}
+                  {{ product_image_formset.media}}
+                  {% for formset_item in product_image_formset %}
+                  {% include "components/forms/hidden-fields.html" with hidden_fields=formset_item.hidden_fields %}
+                  {{formset_item.non_field_errors}}
+                  {{formset_item.non_form_errors}}
+                  <div class="form-check mb-3">
+                    <label
+                      class="form-check-label text-danger"
+                      for="{{ formset_item.DELETE.id_for_label }}"
+                      >{{ formset_item.DELETE.label }}
+                    </label>
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      name="{{ formset_item.DELETE.html_name }}"
+                      id="{{ formset_item.DELETE.id_for_label }}"
+                    />
+                    {{ formset_item.DELETE.errors }}
+                  </div>
+                  {% if formset_item.image.value %}
+                  <img loading="lazy" src="{{formset_item.image.value.url}}" width="80" height="80" class="mt-3">
+                  {% endif %}
+                  <div class="mb-4">
+                      <label class="mb-1 small" for="{{ formset_item.image.id_for_label }}">{{ formset_item.image.label }}</label>
+                      {{ formset_item.image }}
+                      {{ formset_item.image.errors }}
+                  </div>
+                  <div class="mb-4">
+                      <label class="mb-1 small" for="{{ formset_item.is_feature.id_for_label }}">{{ formset_item.is_feature.label }}?</label>
+                      {{ formset_item.is_feature }}
+                      {{ formset_item.is_feature.errors }}
+                  </div>
+                  {% endfor %}
+              </div>
+            </div>
+
+            <div class="card mb-4">
+              <div class="card-header">{% translate "Information" %}</div>
+              <div class="card-body">
+                  {{ product_information_formset.management_form }}
+                  {{ product_information_formset.media}}
+                  {% for formset_item in product_information_formset %}
+                  {% include "components/forms/hidden-fields.html" with hidden_fields=formset_item.hidden_fields %}
+                  {{formset_item.non_field_errors}}
+                  {{formset_item.non_form_errors}}
+                  <div class="mb-4">
+                      <label class="mb-1 small" for="{{ formset_item.language.id_for_label }}">{{ formset_item.language.label }}</label>
+                      {{ formset_item.language }}
+                      {{ formset_item.language.errors }}
+                  </div>
+                  <div class="mb-4">
+                      <label class="mb-1 small" for="{{ formset_item.text.id_for_label }}">{{ formset_item.text.label }}?</label>
+                      {{ formset_item.text }}
+                      {{ formset_item.text.errors }}
+                  </div>
+                  {% endfor %}
+              </div>
+            </div>
+
+            <button class="btn btn-sm btn-success" type="submit">
+              <i class="me-1" data-feather="edit"></i>
+              {% translate "Save" %}
+            </button>
+          </form>
         </div>
     </div>
   </div>
 </main>
 {% endblock content %}
-
-{% block scripts %}
-<script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
-{% endblock scripts %}

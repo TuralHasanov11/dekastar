@@ -470,7 +470,7 @@ $(function () {
         }
     });
 
-    // Coupon code 
+    // Coupon code
     // ----------------------------------------------------------------
 
     $(".form-coupon").hide();
@@ -740,7 +740,7 @@ $(function () {
             })
 
             const data = await response.json()
-            
+
             if(data?.added == true){
                 $(`[data-product_id='${productId}']`).addClass('added')
             }else{
@@ -782,6 +782,3 @@ $(window).on('load', function () {
     }
 
 });
-
-
-

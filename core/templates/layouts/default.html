@@ -16,7 +16,7 @@
 
     {% include "components/default/imports/links.html" %}
     {% block stylesheet %}{% endblock stylesheet %}
-    
+
     <title>{% block title %}{% endblock title %} | {{config.app.name}}</title>
   </head>
   <body>
@@ -25,12 +25,12 @@
     <div class="wrapper">
       {% include "components/default/header.html" %}
 
-      {% block content %} 
-      {% endblock content %} 
+      {% block content %}
+      {% endblock content %}
 
       {% include "components/default/footer.html" %}
     </div>
-    
+
     {% include "components/default/imports/scripts.html" %}
     {% block scripts %}{% endblock scripts %}
   </body>

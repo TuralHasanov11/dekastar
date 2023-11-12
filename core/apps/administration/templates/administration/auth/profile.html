@@ -1,6 +1,6 @@
 
 
-{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% extends "layouts/admin.html" %} {% load static %} {% load i18n %}
 {% block title %}{% translate "Profile" %}{% endblock title %}
 {% block content %}
 
@@ -30,39 +30,39 @@
         </div>
     </header>
     <div class="container-xl px-4 mt-4">
-        {% include 'components/messages.html' with messages=messages %}
+        {% include "components/messages.html" with messages=messages %}
                 <div class="card mb-4">
                     <div class="card-header">{% translate "Account Details" %}</div>
                     <div class="card-body">
-                        <form method="POST">
-                            {% csrf_token %} {% include "components/forms/hidden-fields.html" with hidden_fields=form.hidden_fields %} 
+                        <form method="post">
+                            {% csrf_token %} {% include "components/forms/hidden-fields.html" with hidden_fields=form.hidden_fields %}
                             {{form.errors}}
-                            {{form.non_form_errors}} 
+                            {{form.non_form_errors}}
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
-                                    {{ form.username }} 
+                                    {{ form.username }}
                                     {{ form.username.errors  }}
                                 </div>
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
-                                    {{ form.email }} 
+                                    {{ form.email }}
                                     {{ form.email.errors  }}
                                 </div>
                             </div>
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
-                                    {{ form.first_name }} 
+                                    {{ form.first_name }}
                                     {{ form.first_name.errors  }}
                                 </div>
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
-                                    {{ form.last_name }} 
+                                    {{ form.last_name }}
                                     {{ form.last_name.errors  }}
                                 </div>
                             </div>
-                            {{form.non_field_errors}} 
+                            {{form.non_field_errors}}
                             {{form.non_form_errors}}
                             <button class="btn btn-primary" type="submit">{% translate "Save" %}</button>
                         </form>
@@ -71,16 +71,3 @@
     </div>
 </main>
 {% endblock content %}
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -6,9 +6,9 @@
         {% translate "Account" %}
       </div>
       {% for item in admin_menu %}
-      <a class="nav-link mb-2" href="{{item.route}}">
+      <a class="nav-link mb-2" href="{{ item.route }}">
         <div class="nav-link-icon"><i data-feather="{{item.icon}}"></i></div>
-        {{item.title}}
+        {{ item.title }}
       </a>
       {% endfor %}
     </div>

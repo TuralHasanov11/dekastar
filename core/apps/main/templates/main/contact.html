@@ -1,8 +1,8 @@
-{% extends 'layouts/default.html' %} 
-{% load static %} 
-{% load i18n %} 
-{% block title %}{% translate "Contact Page Description" %}{% endblock title %} 
-{% block description %}{% translate "Contact Page Description" %}{% endblock description %} 
+{% extends "layouts/default.html" %}
+{% load static %}
+{% load i18n %}
+{% block title %}{% translate "Contact Page Description" %}{% endblock title %}
+{% block description %}{% translate "Contact Page Description" %}{% endblock description %}
 {% block content %}
 <section class="contact">
 
@@ -90,10 +90,10 @@
 
             <div id="contact-form" class="contact-form-wrapper">
               <div class="contact-form clearfix">
-                {% include 'components/messages.html' with messages=messages %}
+                {% include "components/messages.html" with messages=messages %}
 
-                <form method="POST">
-                  {% csrf_token %} 
+                <form method="post">
+                  {% csrf_token %}
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">

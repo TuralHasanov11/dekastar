@@ -1,5 +1,5 @@
-{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
-{% block title %}{% translate "Contact Info" %}{% endblock title %} 
+{% extends "layouts/admin.html" %} {% load static %} {% load i18n %}
+{% block title %}{% translate "Contact Info" %}{% endblock title %}
 {% block content %}
 <main>
   <header
@@ -20,12 +20,12 @@
   </header>
 
   <div class="container-fluid px-4">
-    {% include 'components/messages.html' with messages=messages %}
+    {% include "components/messages.html" with messages=messages %}
     <div class="card mb-3">
       <div class="card-header">{% translate "Contact Emails" %}</div>
       <div class="card-body">
-        <form id="contact-email-form" method="POST" action="{% url 'apps.administration:contact-email-create' %}" class="mb-3">
-          {{contact_email_form.errors}} {% csrf_token %} 
+        <form id="contact-email-form" method="post" action="{% url 'apps.administration:contact-email-create' %}" class="mb-3">
+          {{contact_email_form.errors}} {% csrf_token %}
           {% include "components/forms/hidden-fields.html" with hidden_fields=contact_email_form.hidden_fields %}
           <div class="row gx-3 mb-4">
             <div class="col-md-6">
@@ -63,7 +63,7 @@
                 <form
                   class="delete-form"
                   action="{% url 'apps.administration:contact-email-delete' pk=email.pk %}"
-                  method="POST"
+                  method="post"
                 >
                   {% csrf_token %}
                   <button
@@ -86,8 +86,8 @@
     <div class="card mb-3">
       <div class="card-header">{% translate "Contact Phones" %}</div>
       <div class="card-body">
-        <form id="contact-phone-form" method="POST" action="{% url 'apps.administration:contact-phone-create' %}" class="mb-3">
-          {{contact_phone_form.errors}} {% csrf_token %} 
+        <form id="contact-phone-form" method="post" action="{% url 'apps.administration:contact-phone-create' %}" class="mb-3">
+          {{contact_phone_form.errors}} {% csrf_token %}
           {% include "components/forms/hidden-fields.html" with hidden_fields=contact_phone_form.hidden_fields %}
           <div class="row gx-3 mb-4">
             <div class="col-md-6">
@@ -125,7 +125,7 @@
                 <form
                   class="delete-form"
                   action="{% url 'apps.administration:contact-phone-delete' pk=phone.pk %}"
-                  method="POST"
+                  method="post"
                 >
                   {% csrf_token %}
                   <button
@@ -148,8 +148,8 @@
     <div class="card mb-3">
       <div class="card-header">{% translate "Social Media Links" %}</div>
       <div class="card-body">
-        <form id="social-media-link-form" method="POST" action="{% url 'apps.administration:social-media-link-create' %}" class="mb-3">
-          {{social_media_link_form.errors}} {% csrf_token %} 
+        <form id="social-media-link-form" method="post" action="{% url 'apps.administration:social-media-link-create' %}" class="mb-3">
+          {{social_media_link_form.errors}} {% csrf_token %}
           {% include "components/forms/hidden-fields.html" with hidden_fields=social_media_link_form.hidden_fields %}
           <div class="row gx-3 mb-4">
             <div class="col-md-6">
@@ -196,7 +196,7 @@
                 <form
                   class="delete-form"
                   action="{% url 'apps.administration:social-media-link-delete' pk=link.pk %}"
-                  method="POST"
+                  method="post"
                 >
                   {% csrf_token %}
                   <button
@@ -219,14 +219,14 @@
     <div class="card mb-3">
       <div class="card-header">{% translate "Company Info" %}</div>
       <div class="card-body">
-        <form id="company-info-form" method="POST" action="{% url 'apps.administration:company-info-create' %}" enctype="multipart/form-data">
+        <form id="company-info-form" method="post" action="{% url 'apps.administration:company-info-create' %}" enctype="multipart/form-data">
           {% csrf_token %}
           {{ company_info_form.management_form }}
           {% for form_item in company_info_form %}
           <div>
             {% include "components/forms/hidden-fields.html" with hidden_fields=form_item.hidden_fields %}
-            {{form_item.non_field_errors}} 
-            {{form_item.non_form_errors}} 
+            {{form_item.non_field_errors}}
+            {{form_item.non_form_errors}}
             {{ form_item.media }}
             {% if form_item.language.value %}
             <div class="mb-3 d-none">

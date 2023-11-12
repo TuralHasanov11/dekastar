@@ -1,5 +1,5 @@
-{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
-{% block title %}{% translate "User List" %}{% endblock title %} 
+{% extends "layouts/admin.html" %} {% load static %} {% load i18n %}
+{% block title %}{% translate "User List" %}{% endblock title %}
 {% block content %}
 <main>
   <header
@@ -29,7 +29,7 @@
   </header>
 
   <div class="container-fluid px-4">
-    {% include 'components/messages.html' with messages=messages %}
+    {% include "components/messages.html" with messages=messages %}
     <div class="card">
       <div class="card-body">
         <table id="datatablesSimple" class="entry-table">
@@ -50,13 +50,13 @@
           <tbody>
             {% for user in users %}
             <tr>
-              <td>{{user.username}}</td>
-              <td>{{user.email}}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
               <td>
                 <form
                   class="delete-form"
                   action="{% url 'apps.administration:user-delete' pk=user.pk %}"
-                  method="POST"
+                  method="post"
                 >
                   {% csrf_token %}
                   <button

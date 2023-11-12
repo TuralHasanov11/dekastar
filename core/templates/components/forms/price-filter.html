@@ -1,7 +1,15 @@
 {% load i18n %}
 <div class="price-filter">
-    <input type="hidden" name="min_price" value="{{min_price.value|default:200}}">
-    <input type="hidden" name="max_price" value="{{max_price.value|default:500}}">
+  <input
+    type="hidden"
+    name="min_price"
+    value="{{ min_price.value|default:200 }}"
+  />
+  <input
+    type="hidden"
+    name="max_price"
+    value="{{ max_price.value|default:500 }}"
+  />
   <input
     type="text"
     id="range-price-slider"

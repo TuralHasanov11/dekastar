@@ -1,7 +1,8 @@
 from typing import Any
 
 from apps.main.forms import ContactForm
-from apps.main.models import Banner, CompanyInfo, ContactEmail, ContactPhone, SiteText
+from apps.main.models import (Banner, CompanyInfo, ContactEmail, ContactPhone,
+                              SiteText)
 from apps.store.models import Category, Product
 from django.contrib import messages
 from django.core.mail import BadHeaderError
@@ -38,7 +39,7 @@ class PrivacyPolicyView(TemplateView):
     template_name = "main/privacy-policy.html"
     http_method_names = ["get"]
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         site_text = (
             SiteText.objects.filter(language=get_language())
             .only("language", "privacy_policy")
@@ -53,7 +54,7 @@ class DeliveryPolicyView(TemplateView):
     template_name = "main/delivery-policy.html"
     http_method_names = ["get"]
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         site_text = (
             SiteText.objects.filter(language=get_language())
             .only("language", "delivery_policy")
@@ -69,7 +70,7 @@ class ContactView(TemplateView):
     form_class = ContactForm
     http_method_names = ["get", "post"]
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         form = self.form_class()
         contact_emails = ContactEmail.objects.all()
         contact_phones = ContactPhone.objects.all()
@@ -85,7 +86,7 @@ class ContactView(TemplateView):
             },
         )
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
             # data = form.cleaned_data
@@ -117,7 +118,7 @@ class AboutView(TemplateView):
     template_name = "main/about.html"
     http_method_names = ["get"]
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         site_text = (
             SiteText.objects.filter(language=get_language())
             .only("language", "about")

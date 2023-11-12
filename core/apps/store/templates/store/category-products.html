@@ -1,7 +1,7 @@
-{% extends 'layouts/default.html' %} 
-{% load static %} 
-{% load i18n %} 
-{% block title %}{% endblock title %} 
+{% extends "layouts/default.html" %}
+{% load static %}
+{% load i18n %}
+{% block title %}{% endblock title %}
 {% block description %}{% endblock description %}
 {% block content %}
 <section class="products pt-0">
@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
-                {% include "components/default/filters.html" with brands=brands categories=categories form=filter_form in_stock_products_count=in_stock_products_count %}                
+                {% include "components/default/filters.html" with brands=brands categories=categories form=filter_form in_stock_products_count=in_stock_products_count %}
             </div>
 
             <div class="col-lg-9">
@@ -32,7 +32,7 @@
                     </div>
                     {% endif %}
                     {% endfor %}
-                </div> 
+                </div>
 
                 {% include "components/default/pagination.html" with pagination=products %}
             </div>

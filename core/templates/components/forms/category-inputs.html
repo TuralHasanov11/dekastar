@@ -17,7 +17,7 @@
 {% recursetree categories %}
 <span class="checkbox">
   <span class="category-checkbox">
-    <input type="radio" name="category" id="category{{node.id}}" value="{{node.slug}}" 
+    <input type="radio" name="category" id="category{{node.id}}" value="{{node.slug}}"
     {% if node.slug == current_category.value %}checked="checked"{% endif %}>
     <label class="category-input-label" for="category{{node.id}}"
       >{{node.category_name}} <i>({{node.products_count}})</i></label

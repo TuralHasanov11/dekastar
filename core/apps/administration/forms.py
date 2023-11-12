@@ -1,13 +1,7 @@
-from apps.main.models import (
-    Banner,
-    CompanyInfo,
-    ContactEmail,
-    ContactPhone,
-    SiteImage,
-    SiteText,
-    SocialMediaLink,
-)
-from apps.store.models import Brand, Category, CategoryAttribute
+from apps.main.models import (Banner, CompanyInfo, ContactEmail, ContactPhone,
+                              SiteImage, SiteText, SocialMediaLink)
+from apps.store.models import (Brand, Category, CategoryAttribute, Product,
+                               ProductImage, ProductInformation)
 from django import forms
 from django.conf import settings
 from django.contrib.auth import forms as auth_forms
@@ -216,7 +210,7 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class AboutTextForm(forms.ModelForm):
-    language = custom_form_fields.LanguageField()
+    language = custom_form_fields.LanguageField(disabled=True)
     about = custom_form_fields.TextField(label=_("About"))
 
     class Meta:
@@ -230,7 +224,7 @@ AboutTextFormSet = forms.modelformset_factory(
 
 
 class PrivacyPolicyTextForm(forms.ModelForm):
-    language = custom_form_fields.LanguageField()
+    language = custom_form_fields.LanguageField(disabled=True)
     privacy_policy = custom_form_fields.TextField(label=_("Privacy Policy"))
 
     class Meta:
@@ -244,7 +238,7 @@ PrivacyPolicyTextFormSet = forms.modelformset_factory(
 
 
 class DeliveryPolicyTextForm(forms.ModelForm):
-    language = custom_form_fields.LanguageField()
+    language = custom_form_fields.LanguageField(disabled=True)
     delivery_policy = custom_form_fields.TextField(label=_("Delivery Policy"))
 
     class Meta:
@@ -308,7 +302,7 @@ class ContactPhoneForm(forms.ModelForm):
 
 
 class CompanyInfoForm(forms.ModelForm):
-    language = custom_form_fields.LanguageField()
+    language = custom_form_fields.LanguageField(disabled=True)
     address = forms.CharField(
         label=_("Address"),
         widget=forms.Textarea(
@@ -474,7 +468,7 @@ class CategoryForm(forms.ModelForm):
 
 
 class CategoryAttributeForm(forms.ModelForm):
-    language = custom_form_fields.LanguageField()
+    language = custom_form_fields.LanguageField(disabled=True)
     name = forms.CharField(
         required=True,
         label=_("Name"),
@@ -524,3 +518,160 @@ class BrandForm(forms.ModelForm):
     class Meta:
         model = Brand
         fields = ("name", "cover_image")
+
+
+class ProductForm(forms.ModelForm):
+    name = forms.CharField(
+        label=_("Name"),
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control form-control-sm",
+                "placeholder": _("Name"),
+                "title": _("Please enter name"),
+            }
+        ),
+    )
+    code = forms.CharField(
+        label=_("Code"),
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control form-control-sm",
+                "placeholder": _("Code"),
+                "title": _("Please enter code"),
+            }
+        ),
+    )
+    category = forms.ModelChoiceField(
+        label=_("Category"),
+        widget=forms.Select(
+            attrs={
+                "class": "form-select form-select-sm",
+                "title": _("Please select category"),
+            }
+        ),
+        queryset=Category.objects.all(),
+    )
+    brand = forms.ModelChoiceField(
+        label=_("Brand"),
+        widget=forms.Select(
+            attrs={
+                "class": "form-select form-select-sm",
+                "title": _("Please select brand"),
+            }
+        ),
+        queryset=Brand.objects.all(),
+    )
+    regular_price = forms.DecimalField(
+        label=_("Regular Price"),
+        widget=forms.NumberInput(
+            attrs={
+                "class": "form-control form-control-sm",
+                "placeholder": _("Regular Price"),
+                "title": _("Please enter regular price"),
+            }
+        ),
+    )
+    discount = forms.IntegerField(
+        label=_("Discount"),
+        widget=forms.NumberInput(
+            attrs={
+                "class": "form-control form-control-sm",
+                "placeholder": _("Discount"),
+                "title": _("Please enter discount"),
+            }
+        ),
+        initial=0,
+        required=False,
+    )
+    discount_price = forms.DecimalField(
+        label=_("Discount Price"),
+        widget=forms.NumberInput(
+            attrs={
+                "class": "form-control form-control-sm",
+                "placeholder": _("Discount Price"),
+                "title": _("Please enter discount price"),
+            }
+        ),
+    )
+    in_stock = forms.BooleanField(
+        label=_("In Stock"),
+        widget=forms.CheckboxInput(
+            attrs={"class": "form-check-input", "placeholder": _("In Stock")}
+        ),
+        required=False,
+        initial=True,
+    )
+    is_active = forms.BooleanField(
+        label=_("Is Active"),
+        widget=forms.CheckboxInput(
+            attrs={"class": "form-check-input", "placeholder": _("Is Active")}
+        ),
+        required=False,
+        initial=True,
+    )
+
+    class Meta:
+        model = Product
+        fields = (
+            "name",
+            "code",
+            "category",
+            "brand",
+            "regular_price",
+            "discount",
+            "discount_price",
+            "in_stock",
+            "is_active",
+        )
+
+
+class ProductImageForm(forms.ModelForm):
+    image = forms.ImageField(
+        label=_("Image"),
+        widget=forms.ClearableFileInput(
+            attrs={
+                "class": "form-control form-control-sm",
+                "placeholder": _("Image"),
+                "title": _("Please upload image"),
+                "multiple": False,
+            }
+        ),
+        required=False,
+    )
+    is_feature = forms.BooleanField(
+        label=_("Is Feature"),
+        widget=forms.CheckboxInput(attrs={"class": "form-check-input"}),
+        required=False,
+    )
+
+    class Meta:
+        model = ProductImage
+        fields = ("image", "is_feature")
+
+
+ProductImageFormSet = forms.inlineformset_factory(
+    parent_model=Product,
+    model=ProductImage,
+    form=ProductImageForm,
+    can_delete=True,
+    min_num=3,
+    extra=1,
+)
+
+
+class ProductInformationForm(forms.ModelForm):
+    language = custom_form_fields.LanguageField()
+    text = custom_form_fields.TextUploadingField(label=_("Text"))
+
+    class Meta:
+        model = ProductInformation
+        fields = ("language", "text")
+
+
+ProductInformationFormSet = forms.inlineformset_factory(
+    parent_model=Product,
+    model=ProductInformation,
+    form=ProductInformationForm,
+    min_num=len(settings.LANGUAGES),
+    max_num=len(settings.LANGUAGES),
+)

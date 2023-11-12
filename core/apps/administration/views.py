@@ -1,39 +1,27 @@
 from typing import Any
 
-from apps.administration.forms import (
-    AboutTextFormSet,
-    BannerForm,
-    BrandForm,
-    CategoryAttributeFormSet,
-    CategoryForm,
-    CompanyInfoFormSet,
-    ContactEmailForm,
-    ContactPhoneForm,
-    DeliveryPolicyTextFormSet,
-    LoginForm,
-    PasswordChangeForm,
-    PrivacyPolicyTextFormSet,
-    SiteImageForm,
-    SocialMediaLinkForm,
-    UserCreateForm,
-    UserUpdateForm,
-)
-from apps.main.models import (
-    Banner,
-    CompanyInfo,
-    ContactEmail,
-    ContactPhone,
-    SiteImage,
-    SiteText,
-    SocialMediaLink,
-)
-from apps.store.models import Brand, Category, CategoryAttribute, Product
+from apps.administration.forms import (AboutTextFormSet, BannerForm, BrandForm,
+                                       CategoryAttributeFormSet, CategoryForm,
+                                       CompanyInfoFormSet, ContactEmailForm,
+                                       ContactPhoneForm,
+                                       DeliveryPolicyTextFormSet, LoginForm,
+                                       PasswordChangeForm,
+                                       PrivacyPolicyTextFormSet, ProductForm,
+                                       ProductImageFormSet,
+                                       ProductInformationFormSet,
+                                       SiteImageForm, SocialMediaLinkForm,
+                                       UserCreateForm, UserUpdateForm)
+from apps.main.models import (Banner, CompanyInfo, ContactEmail, ContactPhone,
+                              SiteImage, SiteText, SocialMediaLink)
+from apps.store.models import (Brand, Category, CategoryAttribute, Product,
+                               ProductImage, ProductInformation)
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db import transaction
 from django.db.models.deletion import ProtectedError
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
@@ -86,7 +74,7 @@ class PrivacyPolicyView(LoginRequiredMixin, TemplateView):
     form_class = PrivacyPolicyTextFormSet
     redirect_url_name = "apps.administration:privacy-policy"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         if SiteText.objects.count() == 0:
             SiteText.objects.bulk_create(
                 [SiteText(language=lang[0]) for lang in settings.LANGUAGES]
@@ -99,7 +87,7 @@ class PrivacyPolicyView(LoginRequiredMixin, TemplateView):
         form = self.form_class(initial=site_texts)
         return render(request, self.template_name, {"form": form})
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         form = self.form_class(
             initial=SiteText.objects.all()
             .order_by("language")
@@ -125,7 +113,7 @@ class DeliveryPolicyView(LoginRequiredMixin, TemplateView):
     form_class = DeliveryPolicyTextFormSet
     redirect_url_name = "apps.administration:delivery-policy"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         if SiteText.objects.count() == 0:
             SiteText.objects.bulk_create(
                 [SiteText(language=lang[0]) for lang in settings.LANGUAGES]
@@ -136,7 +124,7 @@ class DeliveryPolicyView(LoginRequiredMixin, TemplateView):
         form = self.form_class(initial=site_texts)
         return render(request, self.template_name, {"form": form})
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         form = self.form_class(
             initial=SiteText.objects.all()
             .order_by("language")
@@ -162,7 +150,7 @@ class AboutView(LoginRequiredMixin, TemplateView):
     form_class = AboutTextFormSet
     redirect_url_name = "apps.administration:about"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         if SiteText.objects.count() == 0:
             SiteText.objects.bulk_create(
                 [SiteText(language=lang[0]) for lang in settings.LANGUAGES]
@@ -173,7 +161,7 @@ class AboutView(LoginRequiredMixin, TemplateView):
         form = self.form_class(initial=site_texts)
         return render(request, self.template_name, {"form": form})
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         form = self.form_class(
             initial=SiteText.objects.all()
             .order_by("language")
@@ -199,7 +187,7 @@ class ContactView(LoginRequiredMixin, TemplateView):
     contact_email_form_class = ContactEmailForm
     company_info_form_class = CompanyInfoFormSet
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         if CompanyInfo.objects.count() == 0:
             CompanyInfo.objects.bulk_create(
                 [CompanyInfo(language=lang[0]) for lang in settings.LANGUAGES]
@@ -289,7 +277,7 @@ class CompanyInfoCreateView(LoginRequiredMixin, SuccessMessageMixin, TemplateVie
     success_message = _("Company info was saved successfully!")
     redirect_url_name = "apps.administration:contact"
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         form = self.form_class(initial=CompanyInfo.objects.all(), data=request.POST)
         if form.is_valid():
             try:
@@ -311,7 +299,7 @@ class SiteImagesView(LoginRequiredMixin, TemplateView):
     form_class = SiteImageForm
     redirect_url_name = "apps.administration:site-images"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         try:
             site_image = SiteImage.objects.first()
         except SiteImage.DoesNotExist:
@@ -320,7 +308,7 @@ class SiteImagesView(LoginRequiredMixin, TemplateView):
         form = self.form_class(instance=site_image)
         return render(request, self.template_name, {"form": form})
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         form = self.form_class(
             instance=SiteText.objects.first(), data=request.POST, files=request.FILES
         )
@@ -383,11 +371,11 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     form_class = UserUpdateForm
     redirect_url_name = "apps.administration:auth-profile"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         form = self.form_class(instance=request.user)
         return render(request, self.template_name, {"form": form})
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         form = self.form_class(instance=request.user, data=request.POST)
         if form.is_valid():
             try:
@@ -478,6 +466,7 @@ class CategoryUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateVi
         context["attribute_form"] = self.attribute_form_class(initial=attributes)
         return context
 
+    @transaction.atomic
     def post(self, request, pk):
         category = self.model.objects.get(pk=pk)
         form = self.form_class(request.POST, instance=category, files=request.FILES)
@@ -565,11 +554,116 @@ class ProductListView(LoginRequiredMixin, ListView):
         return self.model.admin_products.list_queryset().all()
 
 
-class ProductCreateView(LoginRequiredMixin, TemplateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
+    form_class = ProductForm
+    product_information_form_class = ProductInformationFormSet
+    product_image_form_class = ProductImageFormSet
     template_name = "administration/store/products/create.html"
+    success_message = _("Product was added successfully!")
+    success_url = reverse_lazy("apps.administration:store-product-list")
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["product_information_formset"] = self.product_information_form_class(
+            queryset=ProductInformation.objects.none()
+        )
+        context["product_image_formset"] = self.product_image_form_class(
+            queryset=ProductImage.objects.none()
+        )
+        return context
+
+    @transaction.atomic
+    def post(self, request):
+        form = self.form_class(data=request.POST, files=request.FILES)
+        product_image_formset = self.product_image_form_class(
+            queryset=ProductImage.objects.none()
+        )
+        product_information_formset = self.product_information_form_class(
+            queryset=ProductInformation.objects.none()
+        )
+        if form.is_valid():
+            product = form.save()
+            product_image_formset = self.product_image_form_class(
+                instance=product, data=self.request.POST, files=self.request.FILES
+            )
+            product_information_formset = self.product_information_form_class(
+                instance=product, data=self.request.POST, files=self.request.FILES
+            )
+            if (
+                product_image_formset.is_valid()
+                and product_information_formset.is_valid()
+            ):
+                product_image_formset.save()
+                product_information_formset.save()
+                messages.success(request, _("Product was created successfully"))
+                return redirect(self.success_url)
+        messages.error(request, _("Product cannot be created"))
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form,
+                "product_image_formset": product_image_formset,
+                "product_information_formset": product_information_formset,
+            },
+        )
 
 
 class ProductUpdateDeleteView(LoginRequiredMixin, UpdateView):
     model = Product
+    form_class = ProductForm
+    product_information_form_class = ProductInformationFormSet
+    product_image_form_class = ProductImageFormSet
     template_name = "administration/store/products/edit.html"
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["product_information_formset"] = self.product_information_form_class(
+            instance=self.get_object()
+        )
+        context["product_image_formset"] = self.product_image_form_class(
+            instance=self.get_object()
+        )
+        return context
+
+    @transaction.atomic
+    def post(self, request, pk):
+        product = self.model.objects.get(pk=pk)
+        form = self.form_class(instance=product, data=request.POST, files=request.FILES)
+        product_image_formset = self.product_image_form_class(
+            instance=product, data=self.request.POST, files=request.FILES
+        )
+        product_information_formset = self.product_information_form_class(
+            instance=product, data=self.request.POST, files=request.FILES
+        )
+        if self.request.POST.get("_method", None) == "delete":
+            product.delete()
+            messages.success(request, _("Product was deleted successfully"))
+            return redirect(reverse("apps.administration:store-product-list"))
+        if (
+            form.is_valid()
+            and product_image_formset.is_valid()
+            and product_information_formset.is_valid()
+        ):
+            form.save()
+            product_image_formset.save()
+            product_information_formset.save()
+            messages.success(request, _("Product was updated successfully"))
+            return redirect(
+                reverse(
+                    "apps.administration:store-product-update-delete",
+                    kwargs={"pk": product.pk},
+                )
+            )
+        messages.error(request, _("Product cannot be updated"))
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form,
+                "product": product,
+                "product_image_formset": product_image_formset,
+                "product_information_formset": product_information_formset,
+            },
+        )

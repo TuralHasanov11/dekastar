@@ -1,5 +1,5 @@
-{% extends 'layouts/authentication.html' %} {% load static %} {% load i18n %} 
-{%block title %}{% translate "Login" %}{% endblock title %} 
+{% extends "layouts/authentication.html" %} {% load static %} {% load i18n %}
+{%block title %}{% translate "Login" %}{% endblock title %}
 {% block content %}
 <main>
   <div class="container-xl px-4">
@@ -10,7 +10,7 @@
             <h3 class="fw-light my-4">{% translate "Login" %}</h3>
           </div>
           <div class="card-body">
-            <form method="POST">
+            <form method="post">
               {% csrf_token %}
               <div class="mb-3">
                 <label class="small mb-1" for="{{form.username.id_for_label}}"
@@ -24,7 +24,7 @@
                 >
                 {{form.password}} {{form.password.errors}}
               </div>
-              {% include "components/forms/hidden-fields.html" with hidden_fields=form.hidden_fields %} 
+              {% include "components/forms/hidden-fields.html" with hidden_fields=form.hidden_fields %}
               {{form.non_form_errors}}
               {{form.non_field_errors}}
               <div

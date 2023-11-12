@@ -1,8 +1,8 @@
-{% extends 'layouts/default.html' %} 
-{% load static %} 
-{% load i18n %} 
-{% block title %}{% translate "Home Page Description" %}{% endblock title %} 
-{% block description %}{% translate "Home Page Description" %}{% endblock description %} 
+{% extends "layouts/default.html" %}
+{% load static %}
+{% load i18n %}
+{% block title %}{% translate "Home Page Description" %}{% endblock title %}
+{% block description %}{% translate "Home Page Description" %}{% endblock description %}
 
 {% block content %}
 {% include "components/default/slider.html" with banners=banners %}

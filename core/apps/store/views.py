@@ -64,12 +64,12 @@ class CategoryProductsView(TemplateView):
         ]
 
         if kwargs.get("category", None) is not None:
-            ancestorCategories = (
+            ancestor_categories = (
                 Category.categories.list_queryset()
                 .get(slug=kwargs.get("category"))
                 .get_ancestors(ascending=False, include_self=True)
             )
-            if ancestorCategories and len(ancestorCategories) > 0:
+            if ancestor_categories and len(ancestor_categories) > 0:
                 context["breadcrumb"] += [
                     {
                         "route": reverse(
@@ -78,7 +78,7 @@ class CategoryProductsView(TemplateView):
                         ),
                         "title": category.category_name,
                     }
-                    for category in ancestorCategories
+                    for category in ancestor_categories
                 ]
 
         return context
@@ -101,11 +101,11 @@ class ProductDetailView(DetailView):
             {"route": reverse("apps.store:category-products"), "title": _("Products")},
         ]
 
-        ancestorCategories = self.get_object().category.get_ancestors(
+        ancestor_categories = self.get_object().category.get_ancestors(
             ascending=False, include_self=True
         )
 
-        if ancestorCategories and len(ancestorCategories) > 0:
+        if ancestor_categories and len(ancestor_categories) > 0:
             context["breadcrumb"] += [
                 {
                     "route": reverse(
@@ -114,7 +114,7 @@ class ProductDetailView(DetailView):
                     ),
                     "title": category.category_name,
                 }
-                for category in ancestorCategories
+                for category in ancestor_categories
             ]
 
         context["breadcrumb"].append(

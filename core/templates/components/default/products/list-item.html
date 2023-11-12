@@ -3,13 +3,13 @@
 <article>
   <div class="info">
     <span
-      data-product_id="{{product.pk}}"
+      data-product_id="{{ product.pk }}"
       class="add-favorite toggle-favorite {% if product.id in favorites.favorites %}added{% endif %}"
     >
       <a
         href="javascript:void(0);"
-        data-title="{% translate 'Add to favorites' %}"
-        data-title-added="{% translate 'Added to favorites list' %}"
+        data-title="{% translate "Add to favorites" %}"
+        data-title-added="{% translate "Add to favorites list" %}"
       >
         <i class="icon icon-heart"></i>
       </a>
@@ -17,14 +17,14 @@
   </div>
   <div class="figure-list">
     {% if product.discount %}<span class="badge badge-warning"
-      >-{{product.discount}}%</span
+      >-{{ product.discount }}%</span
     >{% endif %}
     {% if not product.in_stock %}
-    <span class="badge badge-secondary">{{product.in_stock|in_stock_display}}</span>
+    <span class="badge badge-secondary">{{ product.in_stock|in_stock_display }}</span>
     {% endif %}
     <div class="image">
       <a href="{% url 'apps.store:product-detail' slug=product.slug %}">
-        <img src="{{product.get_image_feature}}" alt="{{product}}" />
+        <img src="{{ product.get_image_feature }}" alt="{{ product }}" />
       </a>
     </div>
     <div class="text">
@@ -34,9 +34,9 @@
         >
       </h2>
       {% if product.discount %}
-      <sub>$ {{product.regular_price}}</sub><sup>$ {{product.discount_price}}</sup>
+      <sub>$ {{ product.regular_price }}</sub><sup>$ {{ product.discount_price }}</sup>
       {% else %}
-      <sup>$ {{product.regular_price}}</sup>
+      <sup>$ {{ product.regular_price }}</sup>
       {% endif %}
     </div>
   </div>

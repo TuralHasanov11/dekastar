@@ -1,4 +1,4 @@
-{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% extends "layouts/admin.html" %} {% load static %} {% load i18n %}
 {% block title %}{% translate "Edit Category" %}{% endblock title %}
 {% block content %}
 <main>
@@ -25,7 +25,7 @@
                 <i class="me-1" data-feather="list"></i>
                 {% translate "Back to Category List" %}
               </a>
-              <form class="delete-form" method="POST">
+              <form class="delete-form" method="post">
                 {% csrf_token %}
                 <div class="d-inline-block">
                   <button type="submit" class="btn btn-sm btn-danger">
@@ -33,7 +33,7 @@
                     {% translate "Delete Category" %}
                   </button>
                 </div>
-                <input type="hidden" name="_method" value="delete">            
+                <input type="hidden" name="_method" value="delete">
               </form>
             </div>
           </div>
@@ -43,29 +43,29 @@
   </header>
 
   <div class="container-fluid px-4">
-    {% include 'components/messages.html' with messages=messages %}
+    {% include "components/messages.html" with messages=messages %}
     <div class="card mb-4">
         <div class="card-header">{% translate "Edit Category" %}</div>
         <div class="card-body">
-            <form method="post" enctype="multipart/form-data"> 
+            <form method="post" enctype="multipart/form-data">
                 {{form.media}}
                 {% csrf_token %}
                 {% include "components/forms/hidden-fields.html" with hidden_fields=form.hidden_fields %}
                 <div class="row g-3 mb-3">
                   <div class="col-12 col-md-4">
                     <label class="small mb-1" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
-                    {{ form.name }} 
+                    {{ form.name }}
                     {{ form.name.errors }}
                   </div>
                   <div class="col-12 col-md-4">
                     <label class="small mb-1" for="{{ form.cover_image.id_for_label }}">{{ form.cover_image.label }}</label>
-                    {{ form.cover_image }} 
+                    {{ form.cover_image }}
                     {{ form.cover_image.errors }}
                     <img loading="lazy" src="{{category.cover_image.url}}" width="64" height="64" class="mt-3">
                   </div>
                   <div class="col-12 col-md-4">
                       <label class="small mb-1" for="{{ form.parent.id_for_label }}">{{ form.parent.label }}</label>
-                      {{ form.parent }} 
+                      {{ form.parent }}
                       {{ form.parent.errors }}
                   </div>
                 </div>
@@ -75,8 +75,8 @@
                   {% for form_item in attribute_form %}
                     <div class="col col-lg-4">
                       {% include "components/forms/hidden-fields.html" with hidden_fields=form_item.hidden_fields %}
-                      {{form_item.non_field_errors}} 
-                      {{form_item.non_form_errors}} 
+                      {{form_item.non_field_errors}}
+                      {{form_item.non_form_errors}}
                       {{ form_item.media }}
                       <div class="mb-3">
                           <label class="mb-1 small" for="{{form_item.name.id_for_label}}">{{form_item.name.label}}</label>
@@ -91,8 +91,8 @@
                     </div>
                   {% endfor %}
                 </div>
-                {{form.non_field_errors}} 
-                {{form.non_form_errors}} 
+                {{form.non_field_errors}}
+                {{form.non_form_errors}}
                 <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
             </form>
         </div>

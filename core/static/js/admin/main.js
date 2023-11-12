@@ -38,7 +38,7 @@ window.addEventListener('DOMContentLoaded', event => {
     if (activatedPath) {
         activatedPath = activatedPath[0];
     } else {
-        activatedPath = 'index.html';
+        activatedPath = 'index.html";
     }
 
     const targetAnchors = document.body.querySelectorAll('[href="' + activatedPath + '"].nav-link');

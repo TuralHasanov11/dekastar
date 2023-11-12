@@ -1,5 +1,5 @@
-{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
-{% block title %}{% translate "Add User" %}{% endblock title %} 
+{% extends "layouts/admin.html" %} {% load static %} {% load i18n %}
+{% block title %}{% translate "Add User" %}{% endblock title %}
 {% block content %}
 <main>
   <header
@@ -33,8 +33,8 @@
     <div class="card mb-4">
       <div class="card-header">{% translate "Account Details" %}</div>
       <div class="card-body">
-        <form method="POST">
-          {{form.errors}} {% csrf_token %} 
+        <form method="post">
+          {{form.errors}} {% csrf_token %}
           {% include "components/forms/hidden-fields.html" with hidden_fields=form.hidden_fields %}
           <div class="row gx-3 mb-4">
             <div class="col-md-6">

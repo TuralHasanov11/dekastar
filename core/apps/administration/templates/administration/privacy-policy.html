@@ -1,5 +1,5 @@
 
-{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% extends "layouts/admin.html" %} {% load static %} {% load i18n %}
 {% block title %}{% translate "Privacy Policy Texts" %}{% endblock title %}
 {% block content %}
 <header class="page-header page-header-dark bg-gradient-danger-to-secondary pb-10">
@@ -19,16 +19,16 @@
 <div class="container-xl px-4 mt-n10">
     <div class="card">
         <div class="card-body">
-            {% include 'components/messages.html' with messages=messages %}
-            <form method="POST" action="{% url 'apps.administration:privacy-policy' %}" enctype="multipart/form-data">
+            {% include "components/messages.html" with messages=messages %}
+            <form method="post" action="{% url 'apps.administration:privacy-policy' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.management_form }}
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                     {% for lang in languages %}
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link {% if forloop.counter == 1 %}active{% endif %}" id="pills-{{forloop.counter}}-tab" 
-                                data-bs-toggle="pill" data-bs-target="#pills-{{forloop.counter}}" type="button" role="tab" 
-                                aria-controls="pills-{{forloop.counter}}" 
+                        <button class="nav-link {% if forloop.counter == 1 %}active{% endif %}" id="pills-{{ forloop.counter }}-tab"
+                                data-bs-toggle="pill" data-bs-target="#pills-{{ forloop.counter }}" type="button" role="tab"
+                                aria-controls="pills-{{ forloop.counter }}"
                                 aria-selected="{% if forloop.counter == 1 %}true{% else %}false{% endif %}"
                             >
                             {{lang.name_local}}
@@ -38,12 +38,12 @@
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
                     {% for form_item in form %}
-                    <div class="tab-pane fade show {% if forloop.counter == 1 %}active{% endif %}" id="pills-{{forloop.counter}}" 
-                        role="tabpanel" aria-labelledby="pills-{{forloop.counter}}-tab" tabindex="0"
+                    <div class="tab-pane fade show {% if forloop.counter == 1 %}active{% endif %}" id="pills-{{ forloop.counter }}"
+                        role="tabpanel" aria-labelledby="pills-{{ forloop.counter }}-tab" tabindex="0"
                     >
                     {% include "components/forms/hidden-fields.html" with hidden_fields=form_item.hidden_fields %}
-                    {{form_item.non_field_errors}} 
-                    {{form_item.non_form_errors}} 
+                    {{form_item.non_field_errors}}
+                    {{form_item.non_form_errors}}
                     {{ form_item.media }}
                     <div class="mb-3 d-none">
                         <h5 class="text-primary mb-1">{{form_item.language.label}} - {{form_item.language.value|upper}}</h5>
@@ -69,14 +69,3 @@
     </div>
 </div>
 {% endblock content %}
-
-
-
-
-
-
-
-
-
-
-

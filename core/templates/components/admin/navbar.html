@@ -81,7 +81,7 @@
         </a>
         <form
           action="{% url 'apps.administration:auth-logout' %}"
-          method="POST"
+          method="post"
         >
           {% csrf_token %}
           <button type="submit" class="dropdown-item">

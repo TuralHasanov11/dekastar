@@ -1,5 +1,5 @@
-{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
-{% block title %}{% translate "Banner List" %}{% endblock title %} 
+{% extends "layouts/admin.html" %} {% load static %} {% load i18n %}
+{% block title %}{% translate "Banner List" %}{% endblock title %}
 {% block content %}
 <main>
   <header
@@ -23,8 +23,8 @@
     <div class="card mb-4">
       <div class="card-header">{% translate "Add Banner" %}</div>
       <div class="card-body">
-        <form method="POST" enctype="multipart/form-data">
-          {% csrf_token %} {{form.media}} 
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %} {{form.media}}
           {% include "components/forms/hidden-fields.html" with hidden_fields=form.hidden_fields %}
           <div class="row gx-3 mb-4">
             <div class="col-md-6 col-12 mb-3">
@@ -55,7 +55,7 @@
         </form>
       </div>
     </div>
-    {% include 'components/messages.html' with messages=messages %}
+    {% include "components/messages.html" with messages=messages %}
     <div class="card">
       <div class="card-body">
         <table id="datatablesSimple" class="entry-table">
@@ -98,7 +98,7 @@
                 <form
                   class="delete-form"
                   action="{% url 'apps.administration:banner-update-delete' pk=banner.pk %}"
-                  method="POST"
+                  method="post"
                 >
                   {% csrf_token %}
                   <button

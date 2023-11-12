@@ -13,6 +13,8 @@ class SiteText(models.Model):
     created_at = custom_model_fields.CreatedAtField()
     updated_at = custom_model_fields.UpdatedAtField()
 
+    objects = models.Manager()
+
     class Meta:
         verbose_name_plural = "Site Texts"
 
@@ -30,6 +32,8 @@ class SocialMediaLink(models.Model):
     platform = models.CharField(max_length=50, choices=Platforms.choices)
     link = models.URLField()
 
+    objects = models.Manager()
+
     class Meta:
         verbose_name_plural = _("Social Media links")
 
@@ -40,6 +44,8 @@ class SocialMediaLink(models.Model):
 class ContactEmail(models.Model):
     email = models.EmailField()
 
+    objects = models.Manager()
+
     class Meta:
         verbose_name_plural = _("Contact Emails")
 
@@ -49,6 +55,8 @@ class ContactEmail(models.Model):
 
 class ContactPhone(models.Model):
     phone = models.CharField(max_length=30)
+
+    objects = models.Manager()
 
     class Meta:
         verbose_name_plural = _("Contact Phones")
@@ -62,6 +70,8 @@ class CompanyInfo(models.Model):
     address = models.TextField()
     working_hours = models.CharField(max_length=255)
 
+    objects = models.Manager()
+
     def __str__(self):
         return self.address
 
@@ -71,6 +81,8 @@ class SiteImage(models.Model):
     about_image = models.ImageField(upload_to="site/", null=True, blank=True)
     privacy_policy_image = models.ImageField(upload_to="site/", null=True, blank=True)
     delivery_policy_image = models.ImageField(upload_to="site/", null=True, blank=True)
+
+    objects = models.Manager()
 
     class Meta:
         verbose_name_plural = _("Site Images")
@@ -111,3 +123,5 @@ class Banner(models.Model):
 
     class Meta:
         verbose_name_plural = _("Banners")
+
+    objects = models.Manager()

@@ -91,7 +91,7 @@ var jush = {
 		}
 		return new RegExp(re.join('|'), 'gi');
 	},
-	
+
 	highlight_states: function (states, text, in_php, escape) {
 		var php = /<\?(?!xml)(?:php)?|<script\s+language\s*=\s*(?:"php"|'php'|php)\s*>/i; // asp_tags=0, short_open_tag=1
 		var num = /(?:\b[0-9]+\.?[0-9]*|\.[0-9]+)(?:[eE][+-]?[0-9]+)?/;
@@ -108,7 +108,7 @@ var jush = {
 			att_quo: { php: php, 2: /"/ },
 			att_apo: { php: php, 2: /'/ },
 			att_val: { php: php, 2: /(?=>|\s)|$/ },
-			
+
 			css: { php: php, quo: /"/, apo: /'/, com: /\/\*/, css_at: /(@)([^;\s{]+)/, css_pro: /\{/, 2: /(<)(\/style)(>)/i },
 			css_at: { php: php, quo: /"/, apo: /'/, com: /\/\*/, css_at2: /\{/, 1: /;/ },
 			css_at2: { php: php, quo: /"/, apo: /'/, com: /\/\*/, css_at: /@/, css_pro: /\{/, 2: /}/ },
@@ -122,12 +122,12 @@ var jush = {
 			one: { 1: /\n/ },
 			clr: { 1: /(?=[^a-fA-F0-9])|$/ },
 			num: { 1: /()/ },
-			
+
 			js: { php: php, quo: /"/, apo: /'/, js_one: /\/\//, com: /\/\*/, js_reg: /\//, num: num, js_write: /(\b)(write(?:ln)?)(\()/, 2: /(<)(\/script)(>)/i },
 			js_write: { php: php, quo: /"/, apo: /'/, js_one: /\/\//, com: /\/\*/, js_reg: /\//, num: num, js_write: /\(/, 1: /\)/, 3: /(<)(\/script)(>)/i },
 			js_one: { php: php, 1: /\n/, 2: /(<)(\/script)(>)/i },
 			js_reg: { php: php, esc: /\\/, 1: /\/[a-z]*/i }, //! highlight regexp
-			
+
 			php: { php_quo: /"/, php_apo: /'/, php_bac: /`/, php_one: /\/\/|#/, php_com: /\/\*/, php_eot: /<<<[ \t]*/, php_new: /(\b)(new)\b/i, php_sql: new RegExp('(\\b)(' + this.sql_function + ')(\\s*\\()', 'i'), php_sqlite: new RegExp('(\\b)(' + this.sqlite_function + ')(\\s*\\()', 'i'), php_pgsql: new RegExp('(\\b)(' + this.pgsql_function + ')(\\s*\\()', 'i'), php_echo: /(\b)(echo|print)\b/i, php_halt: /(\b)(__halt_compiler)(\s*\(\s*\))/i, php_var: /\$/, num: num, php_phpini: /(\b)(ini_get|ini_set)(\s*\()/i, 1: /\?>|<\/script>/i }, //! matches ::echo
 			php_quo_var: { php_quo: /"/, php_apo: /'/, php_bac: /`/, php_one: /\/\/|#/, php_com: /\/\*/, php_eot: /<<<[ \t]*/, php_new: /(\b)(new)\b/i, php_sql: new RegExp('(\\b)(' + this.sql_function + ')(\\s*\\()', 'i'), php_sqlite: new RegExp('(\\b)(' + this.sqlite_function + ')(\\s*\\()', 'i'), php_pgsql: new RegExp('(\\b)(' + this.pgsql_function + ')(\\s*\\()', 'i'), 1: /}/ },
 			php_echo: { php_quo: /"/, php_apo: /'/, php_bac: /`/, php_one: /\/\/|#/, php_com: /\/\*/, php_eot: /<<<[ \t]*/, php_new: /(\b)(new)\b/i, php_sql: new RegExp('(\\b)(' + this.sql_function + ')(\\s*\\()', 'i'), php_sqlite: new RegExp('(\\b)(' + this.sqlite_function + ')(\\s*\\()', 'i'), php_pgsql: new RegExp('(\\b)(' + this.pgsql_function + ')(\\s*\\()', 'i'), php_echo: /\(/, php_var: /\$/, num: num, php_phpini: /(\b)(ini_get|ini_set)(\s*\()/i, 1: /\)|;/, 2: /\?>|<\/script>/i },
@@ -147,9 +147,9 @@ var jush = {
 			php_halt: { php_halt_one: /\/\/|#/, php_com: /\/\*/, php_halt2: /;|\?>\n?/ },
 			php_halt_one: { 1: /\n/, php_halt2: /\?>\n?/ },
 			php_halt2: { 3: /$/ },
-			
+
 			phpini: { 0: /$/ },
-			
+
 			py: { one: /#/, py_rlapo: /u?r'''/i, py_rlquo: /u?r"""/i, py_rapo: /u?r'/i, py_rquo: /u?r"/i, py_lapo: /u?'''/i, py_lquo: /u?"""/i, apo: /u?'/i, quo: /u?"/i, num: num },
 			py_rlapo: { 1: /'''/ },
 			py_rlquo: { 1: /"""/ },
@@ -157,7 +157,7 @@ var jush = {
 			py_rquo: { 1: /"/ },
 			py_lapo: { esc: /\\/, 1: /'''/ },
 			py_lquo: { esc: /\\/, 1: /"""/ },
-			
+
 			sql: { sql_apo: /'/, sql_quo: /"/, bac: /`/, one: /-- |#|--(?=\n|$)/, com: /\/\*/, sql_var: /\B@/, num: num },
 			sqlite: { sqlite_apo: /'/, sqlite_quo: /"/, bra: /\[/, one: /--/, com: /\/\*/, sql_var: /[:@$]/, num: num },
 			pgsql: { sql_apo: /'/, sqlite_quo: /"/, sql_eot: /\$/, one: /--/, com_nest: /\/\*/, num: num }, // standard_conforming_strings=off
@@ -171,7 +171,7 @@ var jush = {
 			com_nest: { com_nest: /\/\*/, 1: /\*\// },
 			bac: { 1: /`/ },
 			bra: { 1: /]/ },
-			
+
 			cnf: { quo: /"/, one: /#/, cnf_php: /(\b)(PHPIniDir)([ \t]+)/i, cnf_phpini: /(\b)(php_value|php_flag|php_admin_value|php_admin_flag)([ \t]+)/i },
 			cnf_php: { 1: /()/ },
 			cnf_phpini: { cnf_phpini_val: /[ \t]/ },
@@ -197,7 +197,7 @@ var jush = {
 					//~ console.log(states + ' (' + key + '): ' + text.substring(start).replace(/\n/g, '\\n'));
 					var division = match.index + (key == 'php_halt2' ? match[0].length : 0);
 					var s = text.substring(start, division);
-					
+
 					// highlight children
 					var prev_state = states[states.length - 2];
 					if ((state == 'att_quo' || state == 'att_apo' || state == 'att_val') && (prev_state == 'att_js' || prev_state == 'att_css' || /^\s*javascript:/i.test(s))) { // javascript: - easy but without own state //! should be checked only in %URI;
@@ -245,7 +245,7 @@ var jush = {
 					child_states = s_states[1];
 					s = this.keywords_links(state, s);
 					ret.push(s);
-					
+
 					s = text.substring(division, match.index + match[0].length);
 					s = (m.length < 3 ? (s ? '<span class="jush-op">' + this.htmlspecialchars(escape ? escape(s) : s) + '</span>' : '') : (m[1] ? '<span class="jush-op">' + this.htmlspecialchars(escape ? escape(m[1]) : m[1]) + '</span>' : '') + this.htmlspecialchars(escape ? escape(m[2]) : m[2]) + (m[3] ? '<span class="jush-op">' + this.htmlspecialchars(escape ? escape(m[3]) : m[3]) + '</span>' : ''));
 					if (isNaN(+key)) {
@@ -330,37 +330,37 @@ var jush = {
 	htmlspecialchars: function (string) {
 		return string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 	},
-	
+
 	htmlspecialchars_quo: function (string) {
 		return jush.htmlspecialchars(string).replace(/"/g, '&quot;'); // jush - this.htmlspecialchars_quo is passed as reference
 	},
-	
+
 	htmlspecialchars_apo: function (string) {
 		return jush.htmlspecialchars(string).replace(/'/g, '&#39;');
 	},
-	
+
 	htmlspecialchars_quo_apo: function (string) {
 		return jush.htmlspecialchars_quo(string).replace(/'/g, '&#39;');
 	},
-	
+
 	html_entity_decode: function (string) {
 		return string.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#(?:([0-9]+)|x([0-9a-f]+));/gi, function (str, p1, p2) { //! named entities
 			return String.fromCharCode(p1 ? p1 : parseInt(p2, 16));
 		}).replace(/&amp;/g, '&');
 	},
-	
+
 	addslashes: function (string) {
 		return string.replace(/\\/g, '\\$&');
 	},
-	
+
 	addslashes_apo: function (string) {
 		return string.replace(/[\\']/g, '\\$&');
 	},
-	
+
 	addslashes_quo: function (string) {
 		return string.replace(/[\\"]/g, '\\$&');
 	},
-	
+
 	stripslashes: function (string) {
 		return string.replace(/\\([\\"'])/g, '$1');
 	}
@@ -386,7 +386,7 @@ jush.urls = {
 	php_halt: 'http://www.php.net/$key.halt-compiler',
 	cnf_php: 'http://www.php.net/$key',
 	cnf_phpini: 'http://www.php.net/configuration.changes#$key',
-	
+
 	// [0] is base, other elements correspond to () in jush.links2, $key stands for text of selected element, $1 stands for found string
 	php: [ 'http://www.php.net/$key',
 		'function.$1', 'control-structures.alternative-syntax', 'control-structures.$1', 'control-structures.do.while', 'control-structures.foreach', 'control-structures.switch', 'language.functions#functions.user-defined', 'language.oop', 'language.constants.predefined', 'language.exceptions', 'language.oop5.$1', 'language.oop5.basic#language.oop5.basic.$1', 'language.oop5.cloning', 'language.oop5.constants', 'language.oop5.interfaces', 'language.oop5.visibility', 'language.operators.logical', 'language.variables.scope#language.variables.scope.$1', 'language.namespaces',
@@ -396,26 +396,26 @@ jush.urls = {
 	phpini: [ 'http://www.php.net/$key',
 		'features.safe-mode#ini.$1', 'ini.core#ini.$1', 'apache.configuration#ini.$1', 'apc.configuration#ini.$1', 'apd.configuration#ini.$1', 'bc.configuration#ini.$1', 'com.configuration#ini.$1', 'datetime.configuration#ini.$1', 'dbx.configuration#ini.$1', 'errorfunc.configuration#ini.$1', 'exif.configuration#ini.$1', 'expect.configuration#ini.$1', 'filesystem.configuration#ini.$1', 'ibase.configuration#ini.$1', 'ibm-db2.configuration#ini.$1', 'ifx.configuration#ini.$1', 'image.configuration#ini.image.jpeg-ignore-warning', 'info.configuration#ini.$1', 'mail.configuration#ini.$1', 'mail.configuration#ini.smtp', 'maxdb.configuration#ini.$1', 'mbstring.configuration#ini.$1', 'mime-magic.configuration#ini.$1', 'misc.configuration#ini.$1', 'misc.configuration#ini.syntax-highlighting', 'msql.configuration#ini.$1', 'mysql.configuration#ini.$1', 'mysqli.configuration#ini.$1', 'network.configuration#ini.$1', 'nsapi.configuration#ini.$1', 'oci8.configuration#ini.$1', 'outcontrol.configuration#ini.$1', 'pcre.configuration#ini.$1', 'pdo-odbc.configuration#ini.$1', 'pgsql.configuration#ini.$1', 'runkit.configuration#ini.$1', 'session.configuration#ini.$1', 'soap.configuration#ini.$1', 'sqlite.configuration#ini.$1', 'sybase.configuration#ini.$1', 'tidy.configuration#ini.$1', 'unicode.configuration#ini.$1', 'odbc.configuration#ini.$1', 'zlib.configuration#ini.$1'
 	],
-	py: [ 'http://docs.python.org/lib/$key.html',
+	py: [ 'http://docs.python.org/lib/$key.html",
 		'browser-controllers', 'built-in-funcs', 'csv-contents', 'ctypes-foreign-functions', 'ctypes-function-prototypes', 'ctypes-utility-functions', 'curses-functions', 'cursespanel-functions', 'decimal-decimal', 'defaultdict-objects', 'deque-objects', 'doctest-basic-api', 'doctest-debugging', 'doctest-options', 'doctest-unittest-api', 'elementtree-functions', 'inspect-classes-functions', 'inspect-source', 'inspect-stack', 'inspect-types', 'itertools-functions', 'logging-config-api', 'module--winreg', 'module-Bastion', 'module-aifc', 'module-al', 'module-anydbm', 'module-array', 'module-asyncore', 'module-atexit', 'module-audioop', 'module-base64', 'module-binascii', 'module-binhex', 'module-bisect', 'module-bsddb', 'module-calendar', 'module-cd', 'module-cgitb', 'module-cmath', 'module-code', 'module-codecs', 'module-codeop', 'module-colorsys', 'module-commands', 'module-compileall', 'module-compiler', 'module-compiler.visitor', 'module-contextlib', 'module-copyreg', 'module-crypt', 'module-curses.ascii', 'module-curses.textpad', 'module-curses.wrapper', 'module-dbhash', 'module-dbm', 'module-difflib', 'module-dircache', 'module-dis', 'module-dl', 'module-dumbdbm', 'module-email.charset', 'module-email.encoders', 'module-email.header', 'module-email.iterators', 'module-email.utils', 'module-encodings.idna', 'module-fcntl', 'module-filecmp', 'module-fileinput', 'module-fm', 'module-fnmatch', 'module-fpectl', 'module-fpformat', 'module-functools', 'module-gc', 'module-gdbm', 'module-getopt', 'module-getpass', 'module-gl', 'module-glob', 'module-gopherlib', 'module-grp', 'module-gzip', 'module-heapq', 'module-hmac', 'module-hotshot.stats', 'module-imageop', 'module-imaplib', 'module-imgfile', 'module-imghdr', 'module-imp', 'module-jpeg', 'module-keyword', 'module-linecache', 'module-locale', 'module-logging', 'module-mailcap', 'module-marshal', 'module-math', 'module-md5', 'module-mimetools', 'module-mimetypes', 'module-mimify', 'module-mmap', 'module-modulefinder', 'module-msilib', 'module-new', 'module-nis', 'module-operator', 'module-os.path', 'module-ossaudiodev', 'module-pdb', 'module-pickletools', 'module-pkgutil', 'module-popen2', 'module-posixfile', 'module-pprint', 'module-profile', 'module-pty', 'module-pwd', 'module-pyclbr', 'module-pycompile', 'module-quopri', 'module-random', 'module-readline', 'module-repr', 'module-rfc822', 'module-rgbimg', 'module-runpy', 'module-select', 'module-sha', 'module-shelve', 'module-shlex', 'module-shutil', 'module-signal', 'module-sndhdr', 'module-socket', 'module-spwd', 'module-stat', 'module-stringprep', 'module-struct', 'module-sunau', 'module-sunaudiodev', 'module-sys', 'module-syslog', 'module-tabnanny', 'module-tarfile', 'module-tempfile', 'module-termios', 'module-test.testsupport', 'module-textwrap', 'module-thread', 'module-threading', 'module-time', 'module-token', 'module-tokenize', 'module-traceback', 'module-tty', 'module-turtle', 'module-unicodedata', 'module-urllib', 'module-urllib2', 'module-urlparse', 'module-uu', 'module-uuid', 'module-wave', 'module-weakref', 'module-webbrowser', 'module-whichdb', 'module-winsound', 'module-wsgiref.simpleserver', 'module-wsgiref.util', 'module-wsgiref.validate', 'module-xml.dom.minidom', 'module-xml.dom.pulldom', 'module-xml.parsers.expat', 'module-xml.sax', 'module-xml.sax.saxutils', 'module-zipfile', 'module-zlib', 'msvcrt-console', 'msvcrt-files', 'msvcrt-other', 'node150', 'node217', 'node304', 'node317', 'node41', 'node42', 'node442', 'node443', 'node444', 'node445', 'node446', 'node447', 'node46', 'node522', 'node523', 'node530', 'node553', 'node563', 'node634', 'node635', 'node658', 'node686', 'node732', 'node733', 'node860', 'node861', 'node862', 'node908', 'non-essential-built-in-funcs', 'os-fd-ops', 'os-file-dir', 'os-miscfunc', 'os-newstreams', 'os-path', 'os-process', 'os-procinfo', 'sqlite3-Module-Contents', 'unittest-contents', 'warning-functions'
 	],
 	sql: [ 'http://dev.mysql.com/doc/mysql/en/$key',
-		'$1.html', 'commit.html', 'savepoints.html', 'lock-tables.html',
-		'numeric-type-overview.html', 'date-and-time-type-overview.html', 'string-type-overview.html',
-		'comparison-operators.html#operator_$1', 'comparison-operators.html#function_$1', 'any-in-some-subqueries.html', 'row-subqueries.html', 'group-by-modifiers.html', 'string-comparison-functions.html#operator_$1', 'logical-operators.html#operator_$1', 'control-flow-functions.html#operator_$1', 'arithmetic-functions.html#operator_$1', 'cast-functions.html#operator_$1',
+		'$1.html", 'commit.html", 'savepoints.html", 'lock-tables.html",
+		'numeric-type-overview.html", 'date-and-time-type-overview.html", 'string-type-overview.html",
+		'comparison-operators.html#operator_$1', 'comparison-operators.html#function_$1', 'any-in-some-subqueries.html", 'row-subqueries.html", 'group-by-modifiers.html", 'string-comparison-functions.html#operator_$1', 'logical-operators.html#operator_$1', 'control-flow-functions.html#operator_$1', 'arithmetic-functions.html#operator_$1', 'cast-functions.html#operator_$1',
 		'', // keywords without link
 		'comparison-operators.html#function_$1', 'control-flow-functions.html#function_$1', 'string-functions.html#function_$1', 'string-comparison-functions.html#function_$1', 'mathematical-functions.html#function_$1', 'date-and-time-functions.html#function_$1', 'cast-functions.html#function_$1', 'xml-functions.html#function_$1', 'bit-functions.html#function_$1', 'encryption-functions.html#function_$1', 'information-functions.html#function_$1', 'miscellaneous-functions.html#function_$1', 'group-by-functions.html#function_$1',
 		'fulltext-search.html#$1'
 	],
 	sqlite: [ 'http://www.sqlite.org/$key',
-		'lang_$1.html', 'pragma.html', 'lang_createvtab.html', 'lang_transaction.html',
-		'lang_createindex.html', 'lang_createtable.html', 'lang_createtrigger.html', 'lang_createview.html', 'lang_expr.html#$1',
+		'lang_$1.html", 'pragma.html", 'lang_createvtab.html", 'lang_transaction.html",
+		'lang_createindex.html", 'lang_createtable.html", 'lang_createtrigger.html", 'lang_createview.html", 'lang_expr.html#$1',
 		'lang_expr.html#corefunctions', 'cvstrac/wiki?p=DateAndTimeFunctions#$1', 'lang_expr.html#aggregatefunctions'
 	],
 	pgsql: [ 'http://www.postgresql.org/docs/8.2/static/$key',
-		'sql-$1.html', 'sql-$1.html', 'sql-alteropclass.html', 'sql-createopclass.html', 'sql-dropopclass.html',
-		'functions-datetime.html', 'functions-info.html', 'functions-logical.html', 'functions-comparison.html', 'functions-matching.html', 'functions-conditional.html', 'functions-subquery.html',
-		'functions-math.html', 'functions-string.html', 'functions-binarystring.html', 'functions-formatting.html', 'functions-datetime.html', 'functions-geometry.html', 'functions-net.html', 'functions-sequence.html', 'functions-array.html', 'functions-aggregate.html', 'functions-srf.html', 'functions-info.html', 'functions-admin.html'
+		'sql-$1.html", 'sql-$1.html", 'sql-alteropclass.html", 'sql-createopclass.html", 'sql-dropopclass.html",
+		'functions-datetime.html", 'functions-info.html", 'functions-logical.html", 'functions-comparison.html", 'functions-matching.html", 'functions-conditional.html", 'functions-subquery.html",
+		'functions-math.html", 'functions-string.html", 'functions-binarystring.html", 'functions-formatting.html", 'functions-datetime.html", 'functions-geometry.html", 'functions-net.html", 'functions-sequence.html", 'functions-array.html", 'functions-aggregate.html", 'functions-srf.html", 'functions-info.html", 'functions-admin.html"
 	],
 	cnf: [ 'http://httpd.apache.org/docs/2.2/mod/$key.html#$1',
 		'beos', 'core', 'mod_actions', 'mod_alias', 'mod_auth_basic', 'mod_auth_digest', 'mod_authn_alias', 'mod_authn_anon', 'mod_authn_dbd', 'mod_authn_dbm', 'mod_authn_default', 'mod_authn_file', 'mod_authnz_ldap', 'mod_authz_dbm', 'mod_authz_default', 'mod_authz_groupfile', 'mod_authz_host', 'mod_authz_owner', 'mod_authz_user', 'mod_autoindex', 'mod_cache', 'mod_cern_meta', 'mod_cgi', 'mod_cgid', 'mod_dav', 'mod_dav_fs', 'mod_dav_lock', 'mod_dbd', 'mod_deflate', 'mod_dir', 'mod_disk_cache', 'mod_dumpio', 'mod_echo', 'mod_env', 'mod_example', 'mod_expires', 'mod_ext_filter', 'mod_file_cache', 'mod_filter', 'mod_headers', 'mod_charset_lite', 'mod_ident', 'mod_imagemap', 'mod_include', 'mod_info', 'mod_isapi', 'mod_ldap', 'mod_log_config', 'mod_log_forensic', 'mod_mem_cache', 'mod_mime', 'mod_mime_magic', 'mod_negotiation', 'mod_nw_ssl', 'mod_proxy', 'mod_rewrite', 'mod_setenvif', 'mod_so', 'mod_speling', 'mod_ssl', 'mod_status', 'mod_substitute', 'mod_suexec', 'mod_userdir', 'mod_usertrack', 'mod_version', 'mod_vhost_alias', 'mpm_common', 'mpm_netware', 'mpm_winnt', 'prefork'

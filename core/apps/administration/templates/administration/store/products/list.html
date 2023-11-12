@@ -1,5 +1,5 @@
-{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
-{% block title %}{% translate "Product List" %}{% endblock title %} 
+{% extends "layouts/admin.html" %} {% load static %} {% load i18n %}
+{% block title %}{% translate "Product List" %}{% endblock title %}
 {% block content %}
 <main>
   <header
@@ -29,7 +29,7 @@
   </header>
 
   <div class="container-fluid px-4">
-    {% include 'components/messages.html' with messages=messages %}
+    {% include "components/messages.html" with messages=messages %}
     <div class="card">
       <div class="card-body">
         <table id="datatablesSimple" class="entry-table">
@@ -66,7 +66,7 @@
                 {% comment %} <form
                   class="delete-form"
                   action="{% url 'apps.administration:store-category-update-delete' pk=category.pk %}"
-                  method="POST"
+                  method="post"
                 >
                   {% csrf_token %}
                   <button
@@ -75,7 +75,7 @@
                   >
                     {% translate "Delete" %}
                   </button>
-                  <input type="hidden" name="_method" value="delete">           
+                  <input type="hidden" name="_method" value="delete">
                 </form> {% endcomment %}
               </td>
             </tr>
