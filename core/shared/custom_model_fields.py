@@ -45,3 +45,8 @@ class TextUploadingField(ckeditor_uploader_fields.RichTextUploadingField):
         kwargs['null'] = True
         kwargs['blank'] = True
         super().__init__(*args, **kwargs)
+
+
+class ProductQuantityType(models.TextChoices):
+    SQUARE_METER = "SQUARE_METER", _("Square Meter")
+    NUMBER = "NUMBER", _("Number")

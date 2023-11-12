@@ -1,5 +1,6 @@
 from apps.main.models import ContactEmail, ContactPhone, SocialMediaLink
 from apps.store.models import Category
+from django.conf import settings
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -76,3 +77,7 @@ def default_footer_menu(request):
 
 def default_footer_social_links(request):
     return {"default_footer_social_links": SocialMediaLink.objects.all()}
+
+
+def whatsapp_number(request):
+    return {"whatsapp_number": settings.WHATSAPP_NUMBER}

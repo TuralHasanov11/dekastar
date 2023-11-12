@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "apps.main",
     "apps.administration",
     "apps.store",
+    "apps.orders",
     "apps.api",
 ]
 
@@ -89,6 +90,7 @@ TEMPLATES = [
                 "apps.main.context_processors.default_header_menu",
                 "apps.main.context_processors.default_footer_menu",
                 "apps.main.context_processors.default_footer_social_links",
+                "apps.main.context_processors.whatsapp_number",
                 "apps.administration.context_processors.admin_menu",
                 "apps.store.context_processors.favorites",
             ],
@@ -404,3 +406,6 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
 ]
 
 CORS_URLS_REGEX = r"^/api/.*$"
+
+
+WHATSAPP_NUMBER = os.environ.get("WHATSAPP_NUMBER", "")

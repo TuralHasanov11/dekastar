@@ -52,7 +52,6 @@ class Category(MPTTModel):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    objects = models.Manager()
     categories = CategoryManager()
 
     class MPTTMeta:
@@ -153,6 +152,7 @@ class ProductQuerySet(models.QuerySet):
                 Prefetch(
                     "product_information",
                     queryset=ProductInformation.objects.filter(language=get_language()),
+                    to_attr="information"
                 ),
             )
         )
@@ -230,6 +230,9 @@ class Product(models.Model):
     )
     discount_price = models.DecimalField(default=0, blank=True, max_digits=6, decimal_places=2)
     in_stock = models.BooleanField(default=True)
+    quantity_type = models.CharField(max_length=50,
+                                     choices=custom_model_fields.ProductQuantityType.choices,
+                                     default=custom_model_fields.ProductQuantityType.NUMBER)
     created_at = models.DateTimeField(
         auto_now_add=True,
         editable=False,
@@ -257,10 +260,10 @@ class Product(models.Model):
     @property
     def get_information(self):
         return (
-            self.product_information[0].text
-            if hasattr(self, "product_information")
-            and len(self.product_information) > 0
-            and self.product_information[0].text
+            self.information[0].text
+            if hasattr(self, "information")
+            and len(self.information) > 0
+            and self.information[0].text
             else ""
         )
 

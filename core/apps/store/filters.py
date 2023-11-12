@@ -61,7 +61,7 @@ class InStockFilter(Filter):
 class BrandFilter(Filter):
     @property
     def queryset(self) -> QuerySet:
-        if "brand" in self._data and isinstance(self._data["brand"]) is int:
+        if "brand" in self._data and isinstance(self._data["brand"], int):
             self._queryset = self._queryset.filter(brand=self._data["brand"])
         return self._queryset
 
@@ -72,18 +72,18 @@ class PriceFilter(Filter):
         if (
             "min_price" in self._data
             and "max_price" in self._data
-            and isinstance(self._data["min_price"]) is int
-            and isinstance(self._data["max_price"]) is int
+            and isinstance(self._data["min_price"], int)
+            and isinstance(self._data["max_price"], int)
         ):
             self._queryset = self._queryset.filter(
                 discount_price__lte=self._data["max_price"],
                 discount_price__gte=self._data["min_price"],
             )
-        elif "min_price" in self._data and isinstance(self._data["min_price"]) is int:
+        elif "min_price" in self._data and isinstance(self._data["min_price"], int):
             self._queryset = self._queryset.filter(
                 discount_price__gte=self._data["min_price"],
             )
-        elif "max_price" in self._data and isinstance(self._data["max_price"]) is int:
+        elif "max_price" in self._data and isinstance(self._data["max_price"], int):
             self._queryset = self._queryset.filter(
                 discount_price__lte=self._data["max_price"],
             )

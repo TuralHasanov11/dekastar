@@ -1,16 +1,6 @@
 from typing import Any
 
-from apps.administration.forms import (AboutTextFormSet, BannerForm, BrandForm,
-                                       CategoryAttributeFormSet, CategoryForm,
-                                       CompanyInfoFormSet, ContactEmailForm,
-                                       ContactPhoneForm,
-                                       DeliveryPolicyTextFormSet, LoginForm,
-                                       PasswordChangeForm,
-                                       PrivacyPolicyTextFormSet, ProductForm,
-                                       ProductImageFormSet,
-                                       ProductInformationFormSet,
-                                       SiteImageForm, SocialMediaLinkForm,
-                                       UserCreateForm, UserUpdateForm)
+from apps.administration import forms
 from apps.main.models import (Banner, CompanyInfo, ContactEmail, ContactPhone,
                               SiteImage, SiteText, SocialMediaLink)
 from apps.store.models import (Brand, Category, CategoryAttribute, Product,
@@ -71,7 +61,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 class PrivacyPolicyView(LoginRequiredMixin, TemplateView):
     template_name = "administration/privacy-policy.html"
     http_method_names = ["get", "post"]
-    form_class = PrivacyPolicyTextFormSet
+    form_class = forms.PrivacyPolicyTextFormSet
     redirect_url_name = "apps.administration:privacy-policy"
 
     def get(self, request):
@@ -110,7 +100,7 @@ class PrivacyPolicyView(LoginRequiredMixin, TemplateView):
 class DeliveryPolicyView(LoginRequiredMixin, TemplateView):
     template_name = "administration/delivery-policy.html"
     http_method_names = ["get", "post"]
-    form_class = DeliveryPolicyTextFormSet
+    form_class = forms.DeliveryPolicyTextFormSet
     redirect_url_name = "apps.administration:delivery-policy"
 
     def get(self, request):
@@ -147,7 +137,7 @@ class DeliveryPolicyView(LoginRequiredMixin, TemplateView):
 class AboutView(LoginRequiredMixin, TemplateView):
     template_name = "administration/about.html"
     http_method_names = ["get", "post"]
-    form_class = AboutTextFormSet
+    form_class = forms.AboutTextFormSet
     redirect_url_name = "apps.administration:about"
 
     def get(self, request):
@@ -182,10 +172,10 @@ class AboutView(LoginRequiredMixin, TemplateView):
 class ContactView(LoginRequiredMixin, TemplateView):
     template_name = "administration/contact.html"
     http_method_names = ["get"]
-    social_media_link_form_class = SocialMediaLinkForm
-    contact_phone_form_class = ContactPhoneForm
-    contact_email_form_class = ContactEmailForm
-    company_info_form_class = CompanyInfoFormSet
+    social_media_link_form_class = forms.SocialMediaLinkForm
+    contact_phone_form_class = forms.ContactPhoneForm
+    contact_email_form_class = forms.ContactEmailForm
+    company_info_form_class = forms.CompanyInfoFormSet
 
     def get(self, request):
         if CompanyInfo.objects.count() == 0:
@@ -218,7 +208,7 @@ class ContactView(LoginRequiredMixin, TemplateView):
 
 class ContactEmailCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = ContactEmail
-    form_class = ContactEmailForm
+    form_class = forms.ContactEmailForm
     http_method_names = ["post"]
     success_message = _("Contact email was added successfully!")
 
@@ -236,7 +226,7 @@ class ContactEmailDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView
 
 class ContactPhoneCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = ContactPhone
-    form_class = ContactPhoneForm
+    form_class = forms.ContactPhoneForm
     http_method_names = ["post"]
     success_message = _("Contact phone was added successfully!")
 
@@ -254,7 +244,7 @@ class ContactPhoneDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView
 
 class SocialMediaLinkCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = SocialMediaLink
-    form_class = SocialMediaLinkForm
+    form_class = forms.SocialMediaLinkForm
     http_method_names = ["post"]
     success_message = _("Social media link was added successfully!")
 
@@ -272,7 +262,7 @@ class SocialMediaLinkDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteV
 
 class CompanyInfoCreateView(LoginRequiredMixin, SuccessMessageMixin, TemplateView):
     model = CompanyInfo
-    form_class = CompanyInfoFormSet
+    form_class = forms.CompanyInfoFormSet
     http_method_names = ["post"]
     success_message = _("Company info was saved successfully!")
     redirect_url_name = "apps.administration:contact"
@@ -296,7 +286,7 @@ class CompanyInfoCreateView(LoginRequiredMixin, SuccessMessageMixin, TemplateVie
 class SiteImagesView(LoginRequiredMixin, TemplateView):
     template_name = "administration/site-images.html"
     http_method_names = ["get", "post"]
-    form_class = SiteImageForm
+    form_class = forms.SiteImageForm
     redirect_url_name = "apps.administration:site-images"
 
     def get(self, request):
@@ -325,7 +315,7 @@ class SiteImagesView(LoginRequiredMixin, TemplateView):
 
 class BannerListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Banner
-    form_class = BannerForm
+    form_class = forms.BannerForm
     template_name = "administration/banners/index.html"
     success_message = _("Banner was created successfully!")
     success_url = reverse_lazy("apps.administration:banner-list-create")
@@ -337,7 +327,7 @@ class BannerListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
 
 class BannerUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    form_class = BannerForm
+    form_class = forms.BannerForm
     model = Banner
     template_name = "administration/banners/edit.html"
     context_object_name = "banner"
@@ -368,7 +358,7 @@ class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = "administration/auth/profile.html"
     http_method_names = ["get", "post"]
-    form_class = UserUpdateForm
+    form_class = forms.UserUpdateForm
     redirect_url_name = "apps.administration:auth-profile"
 
     def get(self, request):
@@ -391,7 +381,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
 
 class LoginView(auth_views.LoginView):
-    authentication_form = LoginForm
+    authentication_form = forms.LoginForm
     redirect_field_name = reverse_lazy("apps.administration:index")
     redirect_authenticated_user = True
     template_name = "administration/auth/login.html"
@@ -400,7 +390,7 @@ class LoginView(auth_views.LoginView):
 class PasswordChangeView(LoginRequiredMixin, auth_views.PasswordChangeView):
     template_name = "administration/auth/password-change.html"
     success_url = reverse_lazy("apps.administration:auth-profile")
-    form_class = PasswordChangeForm
+    form_class = forms.PasswordChangeForm
 
 
 class UserListView(LoginRequiredMixin, ListView):
@@ -411,7 +401,7 @@ class UserListView(LoginRequiredMixin, ListView):
 
 class UserCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = get_user_model()
-    form_class = UserCreateForm
+    form_class = forms.UserCreateForm
     login_url = reverse_lazy("apps.administration:index")
     template_name = "administration/users/create.html"
     success_message = _("User was created successfully!")
@@ -428,7 +418,7 @@ class UserDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 # STORE
 class CategoryListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Category
-    form_class = CategoryForm
+    form_class = forms.CategoryForm
     template_name = "administration/store/categories/index.html"
     success_message = _("Category was created successfully!")
     success_url = reverse_lazy("apps.administration:store-category-list-create")
@@ -440,8 +430,8 @@ class CategoryListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView
 
 
 class CategoryUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    form_class = CategoryForm
-    attribute_form_class = CategoryAttributeFormSet
+    form_class = forms.CategoryForm
+    attribute_form_class = forms.CategoryAttributeFormSet
     model = Category
     template_name = "administration/store/categories/edit.html"
     context_object_name = "category"
@@ -509,7 +499,7 @@ class CategoryUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateVi
 
 class BrandListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Brand
-    form_class = BrandForm
+    form_class = forms.BrandForm
     template_name = "administration/store/brands/index.html"
     success_message = _("Brand was created successfully!")
     success_url = reverse_lazy("apps.administration:store-brand-list-create")
@@ -521,7 +511,7 @@ class BrandListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
 
 class BrandUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    form_class = BrandForm
+    form_class = forms.BrandForm
     model = Brand
     template_name = "administration/store/brands/edit.html"
     context_object_name = "brand"
@@ -556,9 +546,9 @@ class ProductListView(LoginRequiredMixin, ListView):
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
-    form_class = ProductForm
-    product_information_form_class = ProductInformationFormSet
-    product_image_form_class = ProductImageFormSet
+    form_class = forms.ProductForm
+    product_information_form_class = forms.ProductInformationFormSet
+    product_image_form_class = forms.ProductImageFormSet
     template_name = "administration/store/products/create.html"
     success_message = _("Product was added successfully!")
     success_url = reverse_lazy("apps.administration:store-product-list")
@@ -612,9 +602,9 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
 class ProductUpdateDeleteView(LoginRequiredMixin, UpdateView):
     model = Product
-    form_class = ProductForm
-    product_information_form_class = ProductInformationFormSet
-    product_image_form_class = ProductImageFormSet
+    form_class = forms.ProductForm
+    product_information_form_class = forms.ProductInformationFormSet
+    product_image_form_class = forms.ProductImageFormSet
     template_name = "administration/store/products/edit.html"
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
