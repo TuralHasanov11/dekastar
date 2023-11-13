@@ -7,6 +7,9 @@
 <script>
     const addToFavoritesURI = "{% url 'apps.api:store-favorites-add' %}"
     const removeFromFavoritesURI = "{% url 'apps.api:store-favorites-remove' %}"
+    const addToCartURI = "{% url 'apps.api:orders-cart-add' %}"
+    const removeFromCartURI = "{% url 'apps.api:orders-cart-remove' %}"
+    const productDetailURI = "{% url 'apps.store:product-detail' slug='product_slug' %}"
 </script>
 <script src="{% static 'js/default/jquery.min.js' %}"></script>
 <script src="{% static 'js/default/bootstrap.js' %}"></script>
@@ -18,3 +21,4 @@
 <script src="{% static 'js/default/jquery.easypiechart.js' %}"></script>
 <script src="{% static 'js/default/bigtext.js' %}"></script>
 <script src="{% static 'js/default/main.js' %}"></script>
+<script src="{% static 'js/default/orders.js' %}"></script>

@@ -72,7 +72,7 @@ class Category(MPTTModel):
         )
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -94,7 +94,7 @@ class CategoryAttribute(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Brand(models.Model):
@@ -111,7 +111,7 @@ class Brand(models.Model):
         verbose_name_plural = _("Brands")
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -157,6 +157,17 @@ class ProductQuerySet(models.QuerySet):
             )
         )
 
+    def cart_queryset(self):
+        return self.prefetch_related(
+            Prefetch(
+                "product_image",
+                queryset=ProductImage.objects.filter(is_feature=True),
+                to_attr="image_feature",
+            ),
+        ).filter(in_stock=True, is_active=True).only(
+            "name", "slug", "discount_price", "regular_price", "in_stock", "is_active"
+        )
+
 
 class ProductAdminQuerySet(models.QuerySet):
     def list_queryset(self):
@@ -189,6 +200,9 @@ class ProductManager(models.Manager):
 
     def detail_queryset(self):
         return self.get_queryset().detail_queryset()
+
+    def cart_queryset(self):
+        return self.get_queryset().cart_queryset()
 
 
 class ProductAdminManager(models.Manager):
@@ -230,9 +244,9 @@ class Product(models.Model):
     )
     discount_price = models.DecimalField(default=0, blank=True, max_digits=6, decimal_places=2)
     in_stock = models.BooleanField(default=True)
-    quantity_type = models.CharField(max_length=50,
-                                     choices=custom_model_fields.ProductQuantityType.choices,
-                                     default=custom_model_fields.ProductQuantityType.NUMBER)
+    # quantity_type = models.CharField(max_length=50,
+    #                                  choices=custom_model_fields.ProductQuantityType.choices,
+    #                                  default=custom_model_fields.ProductQuantityType.NUMBER)
     created_at = models.DateTimeField(
         auto_now_add=True,
         editable=False,
@@ -244,7 +258,7 @@ class Product(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
     def get_absolute_url(self):
         return reverse("apps.store:product-detail", kwargs={"slug": self.slug})
@@ -273,6 +287,8 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
+        if not self.discount:
+            self.discount_price = self.regular_price
         return super().save(*args, **kwargs)
 
 

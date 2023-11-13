@@ -24,7 +24,7 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-    path("", include("apps.main.urls",  namespace="apps.main")),
+    path("", include("apps.main.urls", namespace="apps.main")),
     path("store/", include("apps.store.urls", namespace="apps.store")),
     path("admin/", include("apps.administration.urls", namespace="apps.administration")),
     prefix_default_language=False,

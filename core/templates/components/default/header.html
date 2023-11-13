@@ -19,7 +19,7 @@
             <a href="{% url 'apps.main:index' %}" class="logo-icon"
               ><img
                 src="{% static 'images/logo.png' %}"
-                alt="Alternate Text"
+                alt="{% translate "Logo" %}"
                 width="150"
                 height="48"
             /></a>
@@ -31,6 +31,7 @@
           {% endif %}
           <li><a href="{% url 'apps.store:favorites' %}" class="open-login"><i class="icon icon-heart"></i></a></li>
           <li><a href="javascript:void(0);" class="open-search"><i class="icon icon-magnifier"></i></a></li>
+          <li><a href="javascript:void(0);" class="open-cart"><i class="icon icon-cart"></i> <span id="cart-quantity">{{ cart|length }}</span></a></li>
         </ul>
       </div>
 
@@ -94,9 +95,11 @@
       </div>
 
       <div class="search-wrapper">
-        <input class="form-control" placeholder="Search...">
-        <button class="btn btn-outline-dark btn-sm">Search now</button>
+        <input class="form-control" placeholder="{% translate "Search" %}...">
+        <button class="btn btn-outline-dark btn-sm">{% translate "Search now" %}</button>
       </div>
+
+      {% include "components/default/cart.html" %}
 
     </div>
   </nav>

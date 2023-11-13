@@ -4,8 +4,8 @@ repos:
     rev: v4.4.0
     hooks:
       - id: check-yaml
-      # - id: end-of-file-fixer
-      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      # - id: trailing-whitespace
   - repo: https://github.com/pycqa/bandit
     rev: 1.6.2
     hooks:
@@ -16,11 +16,11 @@ repos:
     hooks:
       - id: isort
         name: isort (python)
-  # - repo: https://github.com/pycqa/flake8
-  #   rev: 6.0.0
-  #   hooks:
-  #     - id: flake8
-  #       args: ["--config=~/.flake8"]
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+        args: ["--max-line-length=120", "--ignore=E501, W503, E203"]
   # - repo: local
   #   hooks:
   #     - id: pylint
@@ -31,8 +31,8 @@ repos:
   #       args:
   #         [
   #           "-rn",
-  #           "-sn",
-  #           "load-plugins=pylint_django",
+  #           # "-sn",
   #           "--ignore=CVS, manage.py, tests.py, urls.py, migrations, static_cdn, static",
-  #           "--rcfile=pylintrc",
+  #           "--disable=missing-docstring, too-few-public-methods, too-many-ancestors, no-member, arguments-differ, abstract-method, broad-exception-caught",
+  #           "--max-line-length=120"
   #         ]

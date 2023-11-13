@@ -7,4 +7,3 @@ class SocialMediaPlatformIconContainer(Enum):
     TWITTER = "fa fa-twitter"
     PINTEREST = "fa fa-pinterest"
     GOOGLEPLUS = "fa fa-google-plus-square"
-

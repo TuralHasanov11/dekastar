@@ -1,0 +1,38 @@
+{% load i18n %}
+
+<div class="cart-wrapper">
+    <div class="checkout">
+        <div class="clearfix">
+
+            <div id="cart-products" class="row">
+              {% for item in cart %}
+              {% include "components/default/products/cart-item.html" with product=item.product quantity=item.quantity %}
+              {% endfor %}
+            </div>
+
+            <hr>
+
+            <div class="clearfix">
+                <div class="cart-block cart-block-footer clearfix">
+                    <div>
+                        <strong>{% translate "Total" %}</strong>
+                    </div>
+                    <div>
+                        <div class="h4 title">&#8380; <span id="cart-total-price">{{ cart.get_total_price }}</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-block-buttons clearfix">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <a href="{% url "apps.store:category-products" %}" class="btn btn-outline-info">{% translate "Continue shopping" %}</a>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <a href="checkout-1.html" class="btn btn-outline-warning"><span class="icon icon-cart"></span> {% translate "Checkout" %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>

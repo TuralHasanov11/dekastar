@@ -40,12 +40,12 @@ class CategoryFilter(Filter):
                 None,
             )
             if current_category is not None:
-                filteredCategoryIds = [
+                filtered_category_ids = [
                     cat.id
                     for cat in current_category.get_descendants(include_self=True)
                 ]
                 self._queryset = self._queryset.filter(
-                    category__id__in=filteredCategoryIds
+                    category__id__in=filtered_category_ids
                 )
         return self._queryset
 

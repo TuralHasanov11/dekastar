@@ -39,7 +39,7 @@ class SocialMediaLink(models.Model):
         verbose_name_plural = _("Social Media links")
 
     def __str__(self):
-        return self.link
+        return str(self.link)
 
 
 class ContactEmail(models.Model):
@@ -51,7 +51,7 @@ class ContactEmail(models.Model):
         verbose_name_plural = _("Contact Emails")
 
     def __str__(self):
-        return self.email
+        return str(self.email)
 
 
 class ContactPhone(models.Model):
@@ -63,7 +63,7 @@ class ContactPhone(models.Model):
         verbose_name_plural = _("Contact Phones")
 
     def __str__(self):
-        return self.phone
+        return str(self.phone)
 
 
 class CompanyInfo(models.Model):
@@ -74,7 +74,7 @@ class CompanyInfo(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return self.address
+        return str(self.address)
 
 
 class SiteImage(models.Model):
@@ -89,7 +89,7 @@ class SiteImage(models.Model):
         verbose_name_plural = _("Site Images")
 
 
-def site_image_compressor(sender, **kwargs):
+def site_image_compressor(**kwargs):
     with Image.open(kwargs["instance"].contact_image.path) as contact_image:
         contact_image.save(
             kwargs["instance"].contact_image.path, optimize=True, quality=15

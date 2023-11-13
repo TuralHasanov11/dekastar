@@ -93,6 +93,7 @@ TEMPLATES = [
                 "apps.main.context_processors.whatsapp_number",
                 "apps.administration.context_processors.admin_menu",
                 "apps.store.context_processors.favorites",
+                "apps.orders.context_processors.cart",
             ],
         },
     },

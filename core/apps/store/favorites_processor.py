@@ -1,6 +1,5 @@
 
 from apps.store.models import Product
-from django.utils.translation import gettext_lazy as _
 
 
 class FavoritesProcessor:
@@ -10,15 +9,15 @@ class FavoritesProcessor:
     def __init__(self, request):
         self.session = request.session
         try:
-            favoritesContainer: list[int] = self.session["favorites"]
-            products = Product.products.list_queryset().filter(id__in=[key for key in favoritesContainer])
+            favorites_container: list[int] = self.session["favorites"]
+            products = Product.products.list_queryset().filter(id__in=favorites_container)
         except Exception:
             self.session["favorites"] = []
-            favoritesContainer = []
+            favorites_container = []
 
         self.favorites = []
         self.products = []
-        if favoritesContainer:
+        if favorites_container:
             for product in products:
                 self.favorites.append(product.id)
             self.products = products
@@ -32,31 +31,31 @@ class FavoritesProcessor:
     def __len__(self):
         return len(self.favorites)
 
-    def add(self, productId: int):
+    def add(self, product_id: int):
         try:
-            if productId not in self.favorites:
-                self.favorites.append(productId)
+            if product_id not in self.favorites:
+                self.favorites.append(product_id)
                 self.session["favorites"] = self.favorites
                 self.save()
-        except Exception:
-            raise Exception(_("Product cannot be added to Favorites"))
+        except Exception as exception:
+            raise exception
 
-    def remove(self, productId: int) -> None:
+    def remove(self, product_id: int) -> None:
         try:
-            if productId in self.favorites:
-                self.favorites.remove(productId)
+            if product_id in self.favorites:
+                self.favorites.remove(product_id)
                 self.session["favorites"] = self.favorites
                 self.save()
-        except Exception:
-            raise Exception(_("Product is not removed from Favorites"))
+        except Exception as exception:
+            raise exception
 
     def clear(self) -> None:
         try:
             del self.favorites
             self.session["favorites"] = []
             self.save()
-        except Exception:
-            raise Exception(_("Favorites cannot be cleared"))
+        except Exception as exception:
+            raise exception
 
     def save(self) -> None:
         self.session.modified = True

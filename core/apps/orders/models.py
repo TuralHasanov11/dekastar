@@ -3,7 +3,6 @@ import uuid
 from apps.store.models import Product
 from django.core.validators import RegexValidator
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 from shared import custom_model_fields
 
 
@@ -40,4 +39,3 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return str(self.sub_total)
-
