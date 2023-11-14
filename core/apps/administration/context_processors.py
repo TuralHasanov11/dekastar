@@ -56,5 +56,10 @@ def admin_menu(request):
                 "route": reverse("apps.administration:store-product-list"),
                 "icon": "shopping-bag",
             },
+            {
+                "title": _("Orders"),
+                "route": reverse("apps.administration:order-list"),
+                "icon": "shopping-bag",
+            },
         ]
     }

@@ -5,17 +5,22 @@
     </a>
   </div>
   <div class="title">
-    <div><a href="{% url "apps.store:product-detail" slug=product.slug %}">{{product.name}}</a></div>
+    <div class="h4">
+        <a href="{% url "apps.store:product-detail" slug=product.slug %}">
+            {{product.name}}
+        </a>
+    </div>
   </div>
   <div class="quantity">
-    {{quantity}}
+    <input type="number" value="{{quantity}}" class="form-control form-quantity" />
   </div>
   <div class="price">
     {% if product.discount %}
-    <span class="final">&#8380; {{product.discount_price}}</span>
+    <span class="final h3">&#8380; {{product.discount_price}}</span>
     <span class="discount">&#8380; {{product.regular_price}}</span>
     {% else %}
-    <span class="final">&#8380; {{product.regular_price}}</span>
+    <span class="final h3">&#8380; {{product.regular_price}}</span>
     {% endif %}
   </div>
+  <span class="icon icon-cross icon-delete"></span>
 </div>

@@ -3,6 +3,7 @@ from typing import Any
 from apps.administration import forms
 from apps.main.models import (Banner, CompanyInfo, ContactEmail, ContactPhone,
                               SiteImage, SiteText, SocialMediaLink)
+from apps.orders.models import Order
 from apps.store.models import (Brand, Category, CategoryAttribute, Product,
                                ProductImage, ProductInformation)
 from django.conf import settings
@@ -16,7 +17,7 @@ from django.db.models.deletion import ProtectedError
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import ListView, TemplateView
+from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 
@@ -53,6 +54,10 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             {
                 "name": _("Products"),
                 "route": reverse("apps.administration:store-product-list"),
+            },
+            {
+                "name": _("Orders"),
+                "route": reverse("apps.administration:order-list"),
             },
         ]
         return context
@@ -657,3 +662,25 @@ class ProductUpdateDeleteView(LoginRequiredMixin, UpdateView):
                 "product_information_formset": product_information_formset,
             },
         )
+
+
+class OrderListView(LoginRequiredMixin, ListView):
+    model = Order
+    template_name = "administration/orders/list.html"
+    context_object_name = "orders"
+    paginate_by = 30
+
+    def get_queryset(self):
+        return self.model.orders.list_queryset().all()
+    
+
+class OrderDetailView(LoginRequiredMixin, DetailView):
+    model = Order
+    template_name = "administration/orders/detail.html"
+    context_object_name = "order"
+    queryset = model.orders.detail_queryset()
+
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        return context
+    

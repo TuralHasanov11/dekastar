@@ -1,0 +1,32 @@
+{% extends "layouts/default.html" %}
+{% load static %}
+{% load i18n %}
+{% block title %}{% translate "Checkout Success Page Description" %}{% endblock title %}
+{% block description %}{% translate "Checkout Success Page Description" %}{% endblock description %}
+{% block content %}
+<section class="checkout">
+    <header>
+        <div class="container">
+            <div class="text">
+                <div class="alert alert-success" role="alert">
+                    {% translate "Your order was submitted!" %}
+                    <br />
+                    <b>{% translate "We will contact you soon!" %}</b>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="clearfix">
+            <div class="row">
+                <div class="col-6">
+                    <a href="{% url "apps.store:category-products" %}" class="btn btn-clean-dark">
+                        <span class="icon icon-chevron-left"></span>
+                        {% translate "Shop more" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

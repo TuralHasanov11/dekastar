@@ -1,7 +1,5 @@
 $(document).ready(() => {
 
-    console.log(addToCartURI, removeFromCartURI)
-
     $(".btn-add").on("click", async (event) => {
         try {
             const productId = $(event.currentTarget).data('product_id')
@@ -28,6 +26,25 @@ $(document).ready(() => {
         } catch (error) { }
     })
 
+    $(".icon-delete").on("click", async (event)=>{
+        try {
+            const productId = $(event.currentTarget).closest(".cart-block-item").data('product_id')
+            const response = await fetch(removeFromCartURI, {
+                method: 'POST',
+                body: JSON.stringify({
+                    product_id: productId
+                }),
+                headers: { "X-CSRFToken": csrftoken, 'Content-Type': 'application/json' }
+            })
+            
+            if(response.ok){
+                location.reload()
+            }else{
+                throw new Error()
+            }
+        } catch (error) {}
+    })
+
 
     function productComponent(item){
         let priceComponent;
@@ -47,9 +64,7 @@ $(document).ready(() => {
             <div class="title">
                 <div><a href="${productDetailURI.replace("product_slug", item?.product?.slug)}">${item?.product?.name}</a></div>
             </div>
-            <div class="quantity">
-                <input type="number" value="${item?.quantity}" class="form-control form-quantity" />
-            </div>
+            <div class="quantity">${item?.quantity}</div>
             <div class="price">
             ${priceComponent}
             </div>

@@ -5,7 +5,7 @@ register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def build_language_path(**kwargs):
+def build_language_path(context, **kwargs):
     path = kwargs.get("path")
     language = kwargs.get("lang")
     current_language = kwargs.get("current_language")

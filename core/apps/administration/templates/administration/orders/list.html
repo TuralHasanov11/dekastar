@@ -1,0 +1,68 @@
+{% extends "layouts/admin.html" %} 
+{% load static %} 
+{% load i18n %}
+{% block title %}{% translate "Order List" %}{% endblock title %}
+{% block content %}
+<main>
+  <header
+    class="page-header page-header-compact page-header-light border-bottom bg-white mb-4"
+  >
+    <div class="container-fluid px-4">
+      <div class="page-header-content">
+        <div class="row align-items-center justify-content-between pt-3">
+          <div class="col-auto mb-3">
+            <h1 class="page-header-title">
+              <div class="page-header-icon"><i data-feather="list"></i></div>
+              {% translate "Order List" %}
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container-fluid px-4">
+    <div class="card">
+      <div class="card-body">
+        <table id="datatablesSimple" class="entry-table">
+          <thead>
+            <tr>
+              <th>{% translate "Name" %}</th>
+              <th>{% translate "Phone" %}</th>
+              <th>{% translate "Total Paid" %}</th>
+              <th>{% translate "Order Date" %}</th>
+              <th>{% translate "Actions" %}</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>{% translate "Name" %}</th>
+              <th>{% translate "Phone" %}</th>
+              <th>{% translate "Total Paid" %}</th>
+              <th>{% translate "Order Date" %}</th>
+              <th>{% translate "Actions" %}</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            {% for order in orders %}
+            <tr>
+              <td>{{ order.name }}</td>
+              <td>{{ order.phone }}</td>
+              <td>{{ order.total_paid }}</td>
+              <td>{{ order.created_at|date:"d.m.Y H:i" }}</td>
+              <td>
+                <a href="{% url 'apps.administration:order-detail' pk=order.pk %}" 
+                    class="btn btn-datatable btn-icon btn-transparent-dark me-2"
+                >
+                    {% translate "Details" %}
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

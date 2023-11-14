@@ -70,7 +70,7 @@ class CartRemoveView(APIView):
             try:
                 data = serializer.validated_data
                 cart = CartProcessor(request)
-                cart.remove(product_id=data["product_id"])
+                cart.remove(product_id=data.get("product_id"))
                 return Response(data={'quantity': len(cart), 'total_price': cart.get_total_price},
                                 status=status.HTTP_200_OK)
             except Product.DoesNotExist:

@@ -46,6 +46,9 @@ class CartProcessor:
     @property
     def get_total_regular_price(self) -> Decimal:
         return sum(Decimal(item["product"]['regular_price']) * item['quantity'] for item in self.cart.values())
+    
+    def get_total_discount(self) -> Decimal:
+        return self.get_total_regular_price - self.get_total_price
 
     def add(self, product: Product, quantity: int = None):
         product_id = str(product.id)

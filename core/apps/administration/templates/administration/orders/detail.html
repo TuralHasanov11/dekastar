@@ -1,0 +1,78 @@
+{% extends "layouts/admin.html" %} {% load static %} {% load i18n %}
+{% block title %}{% translate "Order" %}{% endblock title %}
+{% block content %}
+<main>
+  <header
+    class="page-header page-header-compact page-header-light border-bottom bg-white mb-4"
+  >
+    <div class="container-fluid px-4">
+      <div class="page-header-content">
+        <div class="row align-items-center justify-content-between pt-3">
+          <div class="col-auto mb-3">
+            <h1 class="page-header-title">
+              <div class="page-header-icon">
+                <i data-feather="file"></i>
+              </div>
+              {% translate "Order" %} - {{order.name}}
+            </h1>
+          </div>
+          <div class="col-12 col-xl-auto mb-3">
+            <div class="d-flex justify-content-center">
+              <a
+                class="btn btn-sm btn-light text-primary mx-2"
+                href="{% url 'apps.administration:order-list' %}"
+              >
+                <i class="me-1" data-feather="list"></i>
+                {% translate "Back to Order List" %}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container-fluid px-4">
+    <div class="card mb-4">
+        <div class="card-header">{% translate "Order" %} - {{order.name}}</div>
+        <div class="card-body">
+            <h5 class="card-title">{% translate "Name" %}: {{order.name}}</h5>
+            <h6 class="card-title">{% translate "Phone" %}: {{order.phone}}</h6>
+            <h6 class="card-title">{% translate "Total Paid" %}: {{order.total_paid}}</h6>
+            <hr />
+            <h5>{% translate "Products" %}</h5>
+            <div class="table-responsive mt-4">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">{% translate "Product" %}</th>
+                        <th scope="col">{% translate "Sub Total" %} &#8380;</th>
+                        <th scope="col">{% translate "Quantity" %}</th>
+                        <th scope="col">{% translate "Price" %} &#8380;</th>
+                        <th scope="col">{% translate "Image" %}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for item in order.items.all %}
+                      <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>
+                            <a href="{% url "apps.administration:store-product-update-delete" pk=item.product.pk %}">
+                                {{item.product.name}}
+                            </a>
+                        </td>
+                        <td>{{item.sub_total}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.price}}</td>
+                        <td><img loading="lazy" width="30" height="30" src="{{item.product.get_image_feature}}" alt="{{item.product}}"></td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
