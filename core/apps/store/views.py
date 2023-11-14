@@ -64,11 +64,11 @@ class CategoryProductsView(TemplateView):
         ]
 
         if kwargs.get("category", None) is not None:
+            current_category = Category.categories.list_queryset().get(slug=kwargs.get("category"))
             ancestor_categories = (
-                Category.categories.list_queryset()
-                .get(slug=kwargs.get("category"))
-                .get_ancestors(ascending=False, include_self=True)
+                current_category.get_ancestors(ascending=False, include_self=True)
             )
+            context["current_category"] = current_category
             if ancestor_categories and len(ancestor_categories) > 0:
                 context["breadcrumb"] += [
                     {

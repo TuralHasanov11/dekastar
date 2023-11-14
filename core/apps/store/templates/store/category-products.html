@@ -1,8 +1,12 @@
 {% extends "layouts/default.html" %}
 {% load static %}
 {% load i18n %}
-{% block title %}{% endblock title %}
-{% block description %}{% endblock description %}
+{% block title %} 
+{% if current_category %}{{current_category.name}}{% endif %} {% translate "Products" %} 
+{% endblock title %}
+{% block description %} 
+{% translate "Products Page Description" %} 
+{% endblock description %}
 {% block content %}
 <section class="products pt-0">
     <header>

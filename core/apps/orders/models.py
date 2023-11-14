@@ -53,6 +53,11 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.name)
+    
+    def mark_as_seen(self) -> None:
+        self.seen = True
+        self.save()
+        return True
 
 
 class OrderItem(models.Model):

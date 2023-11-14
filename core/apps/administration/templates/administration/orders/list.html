@@ -24,12 +24,22 @@
   <div class="container-fluid px-4">
     <div class="card">
       <div class="card-body">
-        <table id="datatablesSimple" class="entry-table">
+        <div class="row">
+          <div class="col-12 col-md-6 col-xl-4">
+            <form method="GET"> 
+              <div class="mb-3 d-flex">
+                  <input type="search" name="search" value="{{request.GET.search}}" class="form-control mx-2 form-control-sm" placeholder="{% translate 'Search' %}">
+                  <button class="btn btn-success btn-sm" type="submit">{% translate "Search" %}</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <table class="table entry-table">
           <thead>
             <tr>
               <th>{% translate "Name" %}</th>
               <th>{% translate "Phone" %}</th>
-              <th>{% translate "Total Paid" %}</th>
+              <th>{% translate "Total Paid" %} &#8380;</th>
               <th>{% translate "Order Date" %}</th>
               <th>{% translate "Actions" %}</th>
             </tr>
@@ -38,14 +48,15 @@
             <tr>
               <th>{% translate "Name" %}</th>
               <th>{% translate "Phone" %}</th>
-              <th>{% translate "Total Paid" %}</th>
+              <th>{% translate "Total Paid" %} &#8380;</th>
               <th>{% translate "Order Date" %}</th>
               <th>{% translate "Actions" %}</th>
             </tr>
           </tfoot>
           <tbody>
+            {% if orders %}
             {% for order in orders %}
-            <tr>
+            <tr class="{% if order.seen %}bg-light{% endif %}">
               <td>{{ order.name }}</td>
               <td>{{ order.phone }}</td>
               <td>{{ order.total_paid }}</td>
@@ -59,8 +70,16 @@
               </td>
             </tr>
             {% endfor %}
+            {% else %}
+            <tr class="bg-light">
+              <td colspan="5">
+                <p class="text-center">{% translate "No order found!" %}</p>
+              </td>
+            </tr>
+            {% endif %}
           </tbody>
         </table>
+        {% include "components/default/pagination.html" with pagination=orders %}
       </div>
     </div>
   </div>

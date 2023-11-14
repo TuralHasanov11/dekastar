@@ -16,9 +16,8 @@ $(document).ready(() => {
 
             $("#cart-total-price").html(data?.total_price)
             $("#cart-quantity").html(data?.quantity)
-            console.log(`.cart-block-item[data-product_id="${data?.item?.product?.id}"]`)
-            if($(`.cart-block-item[data-product_id="${data?.item?.product?.id}"]`)){
-                $(`.cart-block-item[data-product_id="${data?.item?.product?.id}"]`).remove()
+            if($(`.cart-nav-item[data-product_id="${data?.item?.product?.id}"]`)){
+                $(`.cart-nav-item[data-product_id="${data?.item?.product?.id}"]`).remove()
                 $("#cart-products").append(productComponent(data?.item))
             }else{
                 $("#cart-products").append(productComponent(data?.item))
@@ -26,9 +25,9 @@ $(document).ready(() => {
         } catch (error) { }
     })
 
-    $(".icon-delete").on("click", async (event)=>{
+    $(".icon-delete").on("click", async (event) => {
         try {
-            const productId = $(event.currentTarget).closest(".cart-block-item").data('product_id')
+            const productId = $(event.currentTarget).closest(".cart-checkout-item").data('product_id')
             const response = await fetch(removeFromCartURI, {
                 method: 'POST',
                 body: JSON.stringify({
@@ -45,6 +44,41 @@ $(document).ready(() => {
         } catch (error) {}
     })
 
+    $(".form-quantity").on("click", async (event) => {
+        $(event.currentTarget).attr("disabled", "disabled")
+
+        const productId = $(event.currentTarget).closest(".cart-checkout-item").data('product_id')
+
+        try {
+            const response = await fetch(addToCartURI, {
+                method: 'POST',
+                body: JSON.stringify({
+                    product_id: productId,
+                    product_quantity: $(event.currentTarget).val()
+                }),
+                headers: { "X-CSRFToken": csrftoken, 'Content-Type': 'application/json' }
+            })
+    
+            const data = await response.json()
+
+            $("#cart-total-price").html(data?.total_price)
+            $("#checkout-total-price").html(data?.total_price)
+            $("#checkout-discount-price").html(data?.total_discount)
+            $("#checkout-regular-price").html(data?.total_regular_price)
+            $("#cart-quantity").html(data?.quantity)
+            if(data.item === null){
+                $(`.cart-nav-item[data-product_id="${data?.item?.product?.id}"]`).remove()
+            }
+            else{
+                $(`.cart-nav-item[data-product_id="${data?.item?.product?.id}"]`).remove()
+                $("#cart-products").append(productComponent(data?.item))
+            }
+        } catch (error) {
+        } finally {
+            $(event.currentTarget).removeAttr("disabled")
+        }
+    })
+
 
     function productComponent(item){
         let priceComponent;
@@ -55,7 +89,7 @@ $(document).ready(() => {
             priceComponent = `<span class="final">&#8380; <span class="discount-price">${item?.product?.regular_price}</span></span>`
         }
 
-        return `<div class="cart-block cart-block-item clearfix" data-product_id="${item?.product?.id}">
+        return `<div class="cart-block cart-block-item clearfix cart-nav-item" data-product_id="${item?.product?.id}">
             <div class="image">
             <a href="${productDetailURI.replace("product_slug", item?.product?.slug)}">
                 <img src="${item?.product?.get_image_feature}" alt="${item?.product?.name}" />
@@ -68,7 +102,6 @@ $(document).ready(() => {
             <div class="price">
             ${priceComponent}
             </div>
-            <span class="icon icon-cross icon-delete"></span>
         </div>`
     }
 });

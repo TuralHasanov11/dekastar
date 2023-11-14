@@ -1,18 +1,33 @@
 from typing import Any
 
 from apps.administration import forms
-from apps.main.models import (Banner, CompanyInfo, ContactEmail, ContactPhone,
-                              SiteImage, SiteText, SocialMediaLink)
+from apps.main.models import (
+    Banner,
+    CompanyInfo,
+    ContactEmail,
+    ContactPhone,
+    SiteImage,
+    SiteText,
+    SocialMediaLink,
+)
 from apps.orders.models import Order
-from apps.store.models import (Brand, Category, CategoryAttribute, Product,
-                               ProductImage, ProductInformation)
+from apps.store.models import (
+    Brand,
+    Category,
+    CategoryAttribute,
+    Product,
+    ProductImage,
+    ProductInformation,
+)
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core import paginator
 from django.db import transaction
+from django.db.models import Q
 from django.db.models.deletion import ProtectedError
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
@@ -668,11 +683,24 @@ class OrderListView(LoginRequiredMixin, ListView):
     model = Order
     template_name = "administration/orders/list.html"
     context_object_name = "orders"
-    paginate_by = 30
+    per_page = 10
 
     def get_queryset(self):
-        return self.model.orders.list_queryset().all()
-    
+        query_params = self.request.GET.copy()
+        queryset = self.model.orders.list_queryset().all()
+        if query_params.get("search"):
+            queryset = queryset.filter(
+                Q(name__icontains=query_params.get("search")) |
+                Q(phone__icontains=query_params.get("search")) |
+                Q(total_paid__icontains=query_params.get("search"))
+            )
+
+        queryset = paginator.Paginator(
+            queryset,
+            query_params.get("paginate_by", self.per_page),
+        ).get_page(query_params.get("page", 1))
+        return queryset
+        
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
     model = Order
@@ -682,5 +710,6 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
+        self.get_object().mark_as_seen()
         return context
     

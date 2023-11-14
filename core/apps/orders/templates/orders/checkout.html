@@ -23,6 +23,7 @@
                     <div class="col-12">
                         <div class="login-wrapper">
                             <div class="login-block login-block-signup">
+                                {% if cart|length %}
                                 <div class="h4">
                                     {% translate "Order now" %} 
                                 </div>
@@ -61,6 +62,11 @@
                                         <button type="submit" class="btn btn-outline-dark">{% translate "Order" %}</button>
                                     </div>
                                 </form>
+                                {% else %}
+                                <p class="text-center">
+                                    {% translate "Your shopping cart is empty" %}
+                                </p>
+                                {% endif %}
                             </div> 
                         </div>
                     </div>
@@ -70,6 +76,7 @@
 
         <hr>
 
+        {% if cart|length %}
         <div class="cart-wrapper">
 
             <div class="cart-block cart-block-header clearfix">
@@ -79,7 +86,7 @@
                 <div class="text-right"><span>{% translate "Price" %}</span></div>
             </div>
 
-            <div class="clearfix">
+            <div id="cart-items" class="clearfix">
                 {% for item in cart %}
                 {% include "components/default/products/checkout-item.html" with product=item.product quantity=item.quantity %}
                 {% endfor %}
@@ -92,7 +99,10 @@
                             <strong>{% translate "Price" %}</strong>
                         </div>
                         <div>
-                            <span>&#8380; {{cart.get_total_regular_price}}</span>
+                            <span>
+                                &#8380; 
+                                <span id="checkout-regular-price">{{ cart.get_total_regular_price }}</span>
+                            </span>
                         </div>
                     </div>
 
@@ -101,7 +111,9 @@
                             <strong>{% translate "Discount" %}</strong>
                         </div>
                         <div>
-                            <span class="text-success">&#8380; -{{cart.get_total_discount}}</span>
+                            <span class="text-success">
+                                &#8380; -<span id="checkout-discount-price">{{cart.get_total_discount}}</span>
+                            </span>
                         </div>
                     </div>
 
@@ -110,7 +122,10 @@
                             <strong>{% translate "Total" %}</strong>
                         </div>
                         <div>
-                            <span>&#8380; {{cart.get_total_price}}</span>
+                            <span>
+                                &#8380; 
+                                <span id="checkout-total-price">{{cart.get_total_price}}</span>
+                            </span>
                         </div>
                     </div>
 
@@ -129,6 +144,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
 
         <div class="clearfix">
             <div class="row">
