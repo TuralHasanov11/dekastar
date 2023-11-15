@@ -19,7 +19,7 @@
   <div class="container">
     <div class="row">
       {% for product in products %}
-      <div class="col-6 col-lg-4">
+      <div class="col-12 col-sm-6 col-lg-4">
         {% include "components/default/products/grid-item.html" with product=product %}
       </div>
       {% endfor %}

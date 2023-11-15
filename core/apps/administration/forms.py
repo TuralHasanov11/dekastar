@@ -1,7 +1,20 @@
-from apps.main.models import (Banner, CompanyInfo, ContactEmail, ContactPhone,
-                              SiteImage, SiteText, SocialMediaLink)
-from apps.store.models import (Brand, Category, CategoryAttribute, Product,
-                               ProductImage, ProductInformation)
+from apps.main.models import (
+    Banner,
+    CompanyInfo,
+    ContactEmail,
+    ContactPhone,
+    SiteImage,
+    SiteText,
+    SocialMediaLink,
+)
+from apps.store.models import (
+    Brand,
+    Category,
+    CategoryAttribute,
+    Product,
+    ProductImage,
+    ProductInformation,
+)
 from django import forms
 from django.conf import settings
 from django.contrib.auth import forms as auth_forms
@@ -9,7 +22,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
 from mptt.forms import TreeNodeChoiceField
-from shared import custom_form_fields
+from shared import custom_form_fields, custom_model_fields
 
 
 class LoginForm(auth_forms.AuthenticationForm):
@@ -541,6 +554,16 @@ class ProductForm(forms.ModelForm):
             }
         ),
     )
+    quantity_type = forms.ChoiceField(
+        label=_("Quantity Type"),
+        choices=custom_model_fields.ProductQuantityType.choices,
+        widget=forms.Select(
+            attrs={
+                "class": "form-select form-select-sm",
+                "title": _("Please select quantity type"),
+            }
+        ),
+    )
     category = forms.ModelChoiceField(
         label=_("Category"),
         widget=forms.Select(
@@ -622,6 +645,7 @@ class ProductForm(forms.ModelForm):
             "discount_price",
             "in_stock",
             "is_active",
+            "quantity_type",
         )
 
 

@@ -93,7 +93,7 @@
                 <a
                   href="{% url 'apps.administration:banner-update-delete' pk=banner.pk %}"
                   class="btn btn-datatable btn-icon btn-transparent-dark me-2"
-                  >{% translate "Edit" %}</a
+                  ><i data-feather="edit"></i></a
                 >
                 <form
                   class="delete-form"
@@ -105,7 +105,7 @@
                     type="submit"
                     class="btn btn-datatable btn-icon btn-transparent-dark"
                   >
-                    {% translate "Delete" %}
+                    <i data-feather="trash-2"></i>
                   </button>
                   <input type="hidden" name="_method" value="delete" />
                 </form>

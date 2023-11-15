@@ -15,9 +15,11 @@
       </a>
     </span>
   </div>
+  {% if product.in_stock %}
   <div data-product_id="{{product.pk}}" class="btn btn-add">
     <i class="icon icon-cart"></i>
   </div>
+  {% endif %}
   <div class="figure-grid">
     {% if product.discount %}<span class="badge badge-warning"
       >-{{product.discount}}%</span

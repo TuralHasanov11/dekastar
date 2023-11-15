@@ -25,6 +25,32 @@ $(document).ready(() => {
         } catch (error) { }
     })
 
+    $(".btn-add-many").on("click", async (event) => {
+        try {
+            const productId = $(event.currentTarget).data('product_id')
+
+            const response = await fetch(addToCartURI, {
+                method: 'POST',
+                body: JSON.stringify({
+                    product_id: productId,
+                    product_quantity: parseInt($("#product-quantity").val())
+                }),
+                headers: { "X-CSRFToken": csrftoken, 'Content-Type': 'application/json' }
+            })
+
+            const data = await response.json()
+
+            $("#cart-total-price").html(data?.total_price)
+            $("#cart-quantity").html(data?.quantity)
+            if($(`.cart-nav-item[data-product_id="${data?.item?.product?.id}"]`)){
+                $(`.cart-nav-item[data-product_id="${data?.item?.product?.id}"]`).remove()
+                $("#cart-products").append(productComponent(data?.item))
+            }else{
+                $("#cart-products").append(productComponent(data?.item))
+            }
+        } catch (error) { }
+    })
+
     $(".icon-delete").on("click", async (event) => {
         try {
             const productId = $(event.currentTarget).closest(".cart-checkout-item").data('product_id')
@@ -50,7 +76,7 @@ $(document).ready(() => {
         const productId = $(event.currentTarget).closest(".cart-checkout-item").data('product_id')
 
         try {
-            const response = await fetch(addToCartURI, {
+            const response = await fetch(updateCartURI, {
                 method: 'POST',
                 body: JSON.stringify({
                     product_id: productId,
@@ -104,4 +130,26 @@ $(document).ready(() => {
             </div>
         </div>`
     }
+
+    $("#btn-whatsapp-order").on("click", async (event) => {
+        const phone = $(event.currentTarget).data('phone')
+        try {
+            const response = await fetch(getCartDetailURI, {
+                method: 'GET',
+                headers: { "X-CSRFToken": csrftoken, 'Content-Type': 'application/json' }
+            })
+    
+            const data = await response.json()
+
+            let text = "Sifariş:%0a"
+
+            Object.values(data).forEach(item => {
+                text += `${item?.product?.name} - ${item?.quantity}%0a`
+            })
+
+            window.open(`https://wa.me/${phone}?text=${text}`, '_blank').focus();
+        } catch (error) {
+            
+        }
+    })
 });

@@ -1,4 +1,5 @@
 {% extends "layouts/admin.html" %} {% load static %} {% load i18n %}
+{% load get_product_quantity_type_display %}
 {% block title %}{% translate "Order" %}{% endblock title %}
 {% block content %}
 <main>
@@ -63,7 +64,7 @@
                             </a>
                         </td>
                         <td>{{item.sub_total}}</td>
-                        <td>{{item.quantity}}</td>
+                        <td>{{item.quantity}} {{item.quantity_type|get_product_quantity_type_display|safe}}</td>
                         <td>{{item.price}}</td>
                         <td><img loading="lazy" width="30" height="30" src="{{item.product.get_image_feature}}" alt="{{item.product}}"></td>
                       </tr>

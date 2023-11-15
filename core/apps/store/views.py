@@ -36,7 +36,10 @@ class CategoryProductsView(TemplateView):
                 filters.InStockFilter(
                     filters.BrandFilter(
                         filters.CategoryFilter(
-                            filters.PriceFilter(products, form.cleaned_data).queryset,
+                            filters.PriceFilter(
+                                filters.SearchFilter(products, form.cleaned_data).queryset, 
+                                form.cleaned_data
+                            ).queryset,
                             form.cleaned_data,
                             context["categories"],
                         ).queryset,

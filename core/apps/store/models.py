@@ -244,9 +244,9 @@ class Product(models.Model):
     )
     discount_price = models.DecimalField(default=0, blank=True, max_digits=6, decimal_places=2)
     in_stock = models.BooleanField(default=True)
-    # quantity_type = models.CharField(max_length=50,
-    #                                  choices=custom_model_fields.ProductQuantityType.choices,
-    #                                  default=custom_model_fields.ProductQuantityType.NUMBER)
+    quantity_type = models.CharField(max_length=50,
+                                     choices=custom_model_fields.ProductQuantityType.choices,
+                                     default=custom_model_fields.ProductQuantityType.NUMBER)
     created_at = models.DateTimeField(
         auto_now_add=True,
         editable=False,

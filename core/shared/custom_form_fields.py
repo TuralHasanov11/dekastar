@@ -29,5 +29,5 @@ class TextField(forms.CharField):
 class TextUploadingField(forms.CharField):
     def __init__(self, *args, **kwargs):
         kwargs["widget"] = ckeditor_uploader_widgets.CKEditorUploadingWidget()
-        kwargs["required"] = True
+        kwargs["required"] = False
         super().__init__(*args, **kwargs)

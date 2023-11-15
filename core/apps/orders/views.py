@@ -4,6 +4,7 @@ from apps.orders.cart_processor import CartProcessor
 from apps.orders.forms import CheckoutForm
 from apps.orders.models import Order, OrderItem
 from apps.orders.order_processor import OrderProcessor
+from apps.store.models import Product
 from django.contrib import messages
 from django.db import transaction
 from django.shortcuts import redirect, render
@@ -31,9 +32,11 @@ class CheckoutView(TemplateView):
                 order = Order(**data, total_paid=cart.get_total_price)
                 order.save()
                 for item in cart:
+                    product = Product.objects.get(id=item['product']['id'])
                     OrderItem.objects.create(
                         order_id=order.id,
                         product_id=item['product']['id'],
+                        quantity_type=product.quantity_type,
                         price=item['price'],
                         sub_total=item['total_price'],
                         quantity=item['quantity']

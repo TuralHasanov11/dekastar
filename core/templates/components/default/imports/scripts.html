@@ -8,8 +8,10 @@
     const addToFavoritesURI = "{% url 'apps.api:store-favorites-add' %}"
     const removeFromFavoritesURI = "{% url 'apps.api:store-favorites-remove' %}"
     const addToCartURI = "{% url 'apps.api:orders-cart-add' %}"
+    const updateCartURI = "{% url 'apps.api:orders-cart-update' %}"
     const removeFromCartURI = "{% url 'apps.api:orders-cart-remove' %}"
     const productDetailURI = "{% url 'apps.store:product-detail' slug='product_slug' %}"
+    const getCartDetailURI = "{% url 'apps.api:orders-cart-detail' %}"
 </script>
 <script src="{% static 'js/default/jquery.min.js' %}"></script>
 <script src="{% static 'js/default/bootstrap.js' %}"></script>

@@ -88,3 +88,11 @@ class PriceFilter(Filter):
                 discount_price__lte=self._data["max_price"],
             )
         return self._queryset
+
+
+class SearchFilter(Filter):
+    @property
+    def queryset(self) -> QuerySet:
+        if "search" in self._data and self._data["search"] is not None:
+            self._queryset = self._queryset.filter(name__icontains=self._data["search"])
+        return self._queryset

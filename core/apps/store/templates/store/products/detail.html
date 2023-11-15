@@ -1,5 +1,6 @@
 {% extends "layouts/default.html" %} {% load static %} {% load i18n %}
 {% load in_stock_display %}
+{% load get_product_quantity_type_display %}
 {% block title %} {{ product.name }} {% endblock title %}
 {% block description %} {{ product.name }} {% endblock description %}
 {% block content %}
@@ -53,21 +54,22 @@
 
               {% if product.in_stock %}
               <div class="info-box">
-                <span> Quantity </span>
+                <span> {% translate "Quantity" %} </span>
                 <span>
                   <span class="row">
-                    <span class="col-6">
-                      <input type="number" value="1" class="form-control" />
+                    <span class="col-7 d-flex align-items-center">
+                      <input type="number" id="product-quantity" min="1" value="1" class="form-control mr-2" />
+                      <span class="quantity-type">{{product.quantity_type|get_product_quantity_type_display|safe}}</span>
                     </span>
-                    <span class="col-6">
-                      <a href="#" class="btn btn-danger"
-                        >{% translate "Order now" %}</a
-                      >
+                    <span class="col-5">
+                      <button type="button" class="btn btn-danger btn-add-many" 
+                        data-product_id="{{product.pk}}">
+                        {% translate "Order" %}
+                      </button>
                     </span>
                   </span>
                 </span>
               </div>
-
               <hr />
               {% endif %}
 
@@ -77,12 +79,10 @@
               >
                 <span>
                   <i class="add"
-                    ><i class="fa fa-heart-o"></i> {% translate "Add to
-                    favorites" %}</i
+                    ><i class="fa fa-heart-o"></i> {% translate "Add to favorites" %}</i
                   >
                   <i class="added"
-                    ><i class="fa fa-heart"></i> {% translate "Remove from
-                    favorites" %}</i
+                    ><i class="fa fa-heart"></i> {% translate "Remove from favorites" %}</i
                   >
                 </span>
               </div>
@@ -127,7 +127,7 @@
     </ul>
     <div class="tab-content" id="pills-tabContent">
       <div class="tab-pane fade show active" id="tab-desc">
-        <div class="col-md-8 offset-md-2">{{ product.get_information|safe }}</div>
+        <div class="col-12">{{ product.get_information|safe }}</div>
       </div>
     </div>
   </div>

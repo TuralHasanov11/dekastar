@@ -48,7 +48,7 @@ class CartAddView(APIView):
                 data = serializer.validated_data
                 cart = CartProcessor(request)
                 product = Product.products.cart_queryset().get(id=data.get("product_id"))
-                item = cart.add(product=product, quantity=data.get('product_quantity', None))
+                item = cart.add(product=product, quantity=data.get('product_quantity'))
                 return Response(data={'quantity': len(cart), 
                                       'total_price': cart.get_total_price, 
                                       "item": item, 
@@ -64,6 +64,33 @@ class CartAddView(APIView):
                                 data={"message": str(err)})
         return Response(serializer.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
+
+class CartUpdateView(APIView):
+    http_method_names = ['post']
+
+    def post(self, request):
+        serializer = CartSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                data = serializer.validated_data
+                cart = CartProcessor(request)
+                product = Product.products.cart_queryset().get(id=data.get("product_id"))
+                item = cart.update(product=product, quantity=data.get('product_quantity'))
+                return Response(data={'quantity': len(cart), 
+                                      'total_price': cart.get_total_price, 
+                                      "item": item, 
+                                      "total_regular_price": cart.get_total_regular_price, 
+                                      "total_discount": cart.get_total_discount},
+                                status=status.HTTP_200_OK)
+            except Product.DoesNotExist:
+                return Response(status=status.HTTP_404_NOT_FOUND,
+                                data={"message": _("Product was not found")})
+            except Exception as err:
+                logger.error(str(err))
+                return Response(status=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                                data={"message": str(err)})
+        return Response(serializer.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+    
 
 class CartRemoveView(APIView):
     http_method_names = ['post']
@@ -85,3 +112,11 @@ class CartRemoveView(APIView):
                 return Response(status=status.HTTP_422_UNPROCESSABLE_ENTITY,
                                 data={"message": str(err)})
         return Response(serializer.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+
+class CartDetailView(APIView):
+    http_method_names = ['get']
+
+    def get(self, request):
+        cart = CartProcessor(request)
+        return Response(data=cart.cart)

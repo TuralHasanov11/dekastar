@@ -1,5 +1,5 @@
 ﻿const csrftoken = document.getElementById("csrftoken").value
-let maxPrice = 0, minPrice = 0
+let maxPrice = $("input[name='max_price']").val(), minPrice = $("input[name='min_price']").val()
 
 $(function () {
 

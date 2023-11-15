@@ -80,6 +80,11 @@
                     {{ form.discount_price.errors }}
                 </div>
                 <div class="col-12 col-md-6 col-xl-4">
+                  <label class="mb-1 small" for="{{ form.quantity_type.id_for_label }}">{{ form.quantity_type.label }}</label>
+                  {{ form.quantity_type }}
+                  {{ form.quantity_type.errors }}
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
                   <label class="mb-1 small" for="{{ form.in_stock.id_for_label }}">{{ form.in_stock.label }}</label>
                   {{ form.in_stock }}
                   {{ form.in_stock.errors }}

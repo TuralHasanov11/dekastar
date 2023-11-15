@@ -30,7 +30,7 @@
 
                                 <hr>
 
-                                <form method="post" class="row">
+                                <form method="post" class="row mb-4">
                                     {% csrf_token %}
                                     {% include "components/forms/hidden-fields.html" with hidden_fields=form.hidden_fields %}
                                     <div class="col-md-6">
@@ -62,6 +62,10 @@
                                         <button type="submit" class="btn btn-outline-dark">{% translate "Order" %}</button>
                                     </div>
                                 </form>
+                                <button id="btn-whatsapp-order" class="btn btn-success" data-phone="{{whatsapp_number}}">
+                                    {% translate "Order from WhatsApp" %} 
+                                    <span class="h5 ml-2"><i class="fa fa-whatsapp"></i></span>
+                                </button>
                                 {% else %}
                                 <p class="text-center">
                                     {% translate "Your shopping cart is empty" %}

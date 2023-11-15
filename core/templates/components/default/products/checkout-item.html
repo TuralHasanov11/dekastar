@@ -1,3 +1,4 @@
+{% load get_product_quantity_type_display %}
 <div class="cart-block cart-block-item clearfix cart-checkout-item" data-product_id="{{product.id}}">
   <div class="image">
     <a href="{% url "apps.store:product-detail" slug=product.slug %}">
@@ -13,6 +14,7 @@
   </div>
   <div class="quantity">
     <input type="number" min="1" value="{{quantity}}" class="form-control form-quantity" />
+    <span>{{product.quantity_type|get_product_quantity_type_display|safe}}</span>
   </div>
   <div class="price">
     {% if product.discount %}

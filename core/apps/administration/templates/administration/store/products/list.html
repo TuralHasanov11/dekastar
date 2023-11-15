@@ -62,21 +62,7 @@
               <td>{{product.discount}}</td>
               <td><img loading="lazy" width="30" height="30" src="{{product.get_image_feature}}" alt="{{product}}"></td>
               <td>
-                <a href="{% url 'apps.administration:store-product-update-delete' pk=product.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2">{% translate "Edit" %}</a>
-                {% comment %} <form
-                  class="delete-form"
-                  action="{% url 'apps.administration:store-category-update-delete' pk=category.pk %}"
-                  method="post"
-                >
-                  {% csrf_token %}
-                  <button
-                    type="submit"
-                    class="btn btn-datatable btn-icon btn-transparent-dark"
-                  >
-                    {% translate "Delete" %}
-                  </button>
-                  <input type="hidden" name="_method" value="delete">
-                </form> {% endcomment %}
+                <a href="{% url 'apps.administration:store-product-update-delete' pk=product.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
               </td>
             </tr>
             {% endfor %}

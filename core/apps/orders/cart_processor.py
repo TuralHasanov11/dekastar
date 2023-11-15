@@ -23,7 +23,7 @@ class CartProcessor:
                     'price': str(product.discount_price),
                     'quantity': next(cart_container[key]["quantity"]
                                      for key in cart_container.keys() if int(key) == product.id),
-                    'product': CartProductSerializer(product).data
+                    'product': CartProductSerializer(product).data,
                 }
             self.products = products
             self.session["cart"] = self.cart
@@ -54,13 +54,20 @@ class CartProcessor:
     def add(self, product: Product, quantity: int = None):
         product_id = str(product.id)
         if product_id in self.cart:
-            if quantity is not None:
-                self.cart[product_id]['quantity'] = quantity
-            else:
-                self.cart[product_id]["quantity"] += 1
+            self.cart[product_id]['quantity'] += quantity
         else:
             self.cart[product_id] = {'price': str(
                 product.discount_price), 'quantity': 1}
+
+        self.cart[product_id]["product"] = CartProductSerializer(product).data
+        self.session["cart"] = self.cart
+        self.save()
+        return self.cart[product_id]
+
+    def update(self, product: Product, quantity: int):
+        product_id = str(product.id)
+        if product_id in self.cart:
+            self.cart[product_id]['quantity'] = quantity
 
         if self.cart[product_id]["quantity"] < 1:
             self.cart.pop(product_id)
