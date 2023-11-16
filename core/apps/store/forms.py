@@ -27,7 +27,7 @@ class ProductFilterForm(forms.Form):
         widget=forms.CheckboxInput(attrs={"id": "inStock"}),
         initial=False,
     )
-    brand = forms.IntegerField(required=False, initial=None)
+    brand = forms.SlugField(required=False, initial=None)
     paginate_by = forms.ChoiceField(
         required=False,
         choices=PAGINATE_BY_CHOICES,

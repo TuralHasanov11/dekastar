@@ -1,5 +1,12 @@
-from apps.main.models import (CompanyInfo, ContactEmail, ContactPhone,
-                              SiteImage, SiteText, SocialMediaLink)
+from apps.main.models import (
+    Banner,
+    CompanyInfo,
+    ContactEmail,
+    ContactPhone,
+    SiteImage,
+    SiteText,
+    SocialMediaLink,
+)
 from django.contrib import admin
 
 
@@ -30,4 +37,9 @@ class CompanyInfoAdmin(admin.ModelAdmin):
 
 @admin.register(SiteImage)
 class SiteImageAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Banner)
+class BannerAdmin(admin.ModelAdmin):
     pass

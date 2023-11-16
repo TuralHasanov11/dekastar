@@ -12,7 +12,7 @@ from django.views.generic import DetailView, TemplateView
 
 class CategoryProductsView(TemplateView):
     template_name = "store/category-products.html"
-    paginate_by = 1
+    paginate_by = 10
     form_class = ProductFilterForm
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:

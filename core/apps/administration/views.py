@@ -501,7 +501,7 @@ class CategoryUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateVi
                         )
                     )
         except ProtectedError:
-            messages.error(request, _("Category is depended on another category"))
+            messages.error(request, _("Category is dependent on another category"))
             return redirect(
                 reverse(
                     "apps.administration:store-category-update-delete",
@@ -568,7 +568,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     product_information_form_class = forms.ProductInformationFormSet
     product_image_form_class = forms.ProductImageFormSet
     template_name = "administration/store/products/create.html"
-    success_message = _("Product was added successfully!")
+    success_message = _("Product was created successfully")
     success_url = reverse_lazy("apps.administration:store-product-list")
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
@@ -604,7 +604,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
             ):
                 product_image_formset.save()
                 product_information_formset.save()
-                messages.success(request, _("Product was created successfully"))
+                messages.success(request, self.success_message)
                 return redirect(self.success_url)
         messages.error(request, _("Product cannot be created"))
         return render(

@@ -13,8 +13,8 @@
 </span>
 {% for brand in brands %}
 <span class="checkbox brand-checkbox">
-    <input type="radio" name="brand" id="brand{{brand.id}}" value="{{brand.id}}"
-        {% if brand.id|stringformat:"i" == current_brand.value %}checked="checked"{% endif %}>
+    <input type="radio" name="brand" id="brand{{brand.id}}" value="{{brand.slug}}"
+        {% if brand.slug == current_brand.value %}checked="checked"{% endif %}>
     <label class="brand-input-label" for="brand{{brand.id}}">
         <span>{{brand}}</span>
         <img

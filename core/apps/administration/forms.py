@@ -351,7 +351,7 @@ CompanyInfoFormSet = forms.modelformset_factory(
 class SiteImageForm(forms.ModelForm):
     contact_image = forms.ImageField(
         label=_("Contact Image"),
-        widget=forms.ClearableFileInput(
+        widget=forms.FileInput(
             attrs={
                 "class": "form-control form-control-sm",
                 "placeholder": _("Contact Image"),
@@ -363,7 +363,7 @@ class SiteImageForm(forms.ModelForm):
     )
     about_image = forms.ImageField(
         label=_("About Image"),
-        widget=forms.ClearableFileInput(
+        widget=forms.FileInput(
             attrs={
                 "class": "form-control form-control-sm",
                 "placeholder": _("About Image"),
@@ -375,7 +375,7 @@ class SiteImageForm(forms.ModelForm):
     )
     delivery_policy_image = forms.ImageField(
         label=_("Delivery Policy Image"),
-        widget=forms.ClearableFileInput(
+        widget=forms.FileInput(
             attrs={
                 "class": "form-control form-control-sm",
                 "placeholder": _("Delivery Policy Image"),
@@ -387,7 +387,7 @@ class SiteImageForm(forms.ModelForm):
     )
     privacy_policy_image = forms.ImageField(
         label=_("Privacy Policy Image"),
-        widget=forms.ClearableFileInput(
+        widget=forms.FileInput(
             attrs={
                 "class": "form-control form-control-sm",
                 "placeholder": _("Privacy Policy Image"),
@@ -421,7 +421,7 @@ class BannerForm(forms.ModelForm):
     )
     image = forms.ImageField(
         label=_("Image"),
-        widget=forms.ClearableFileInput(
+        widget=forms.FileInput(
             attrs={
                 "class": "form-control form-control-sm",
                 "placeholder": _("Image"),
@@ -458,7 +458,7 @@ class CategoryForm(forms.ModelForm):
     )
     cover_image = forms.ImageField(
         label=_("Cover Image"),
-        widget=forms.ClearableFileInput(
+        widget=forms.FileInput(
             attrs={
                 "class": "form-control form-control-sm",
                 "placeholder": _("Cover Image"),
@@ -520,7 +520,7 @@ class BrandForm(forms.ModelForm):
     )
     cover_image = forms.ImageField(
         label=_("Cover Image"),
-        widget=forms.ClearableFileInput(
+        widget=forms.FileInput(
             attrs={
                 "class": "form-control form-control-sm",
                 "placeholder": _("Cover Image"),

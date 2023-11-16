@@ -169,7 +169,10 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+if not DEBUG:
+    MEDIA_ROOT = '/home/dekastar/public_html/media/'
+else:
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -266,6 +269,7 @@ LOG_VIEWER_EXCLUDE_TEXT_PATTERN = None
 
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
 CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_FORCE_JPEG_COMPRESSION = True
 CKEDITOR_CONFIGS = {
     "default": {
         "height": 500,
@@ -368,14 +372,12 @@ CKEDITOR_CONFIGS = {
         "tabSpaces": 4,
         "extraPlugins": ",".join(
             [
-                "uploadimage",  # the upload image feature
-                # your extra plugins here
+                "uploadimage",
                 "div",
                 "autolink",
                 "autoembed",
                 "embedsemantic",
                 "autogrow",
-                # 'devtools',
                 "widget",
                 "lineutils",
                 "clipboard",
