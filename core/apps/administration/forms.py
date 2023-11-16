@@ -499,8 +499,11 @@ class CategoryAttributeForm(forms.ModelForm):
         fields = ["name", "language"]
 
 
-CategoryAttributeFormSet = forms.modelformset_factory(
-    model=CategoryAttribute, form=CategoryAttributeForm, max_num=len(settings.LANGUAGES)
+CategoryAttributeFormSet = forms.inlineformset_factory(
+    parent_model=Category,
+    model=CategoryAttribute, 
+    form=CategoryAttributeForm, 
+    max_num=len(settings.LANGUAGES)
 )
 
 
@@ -696,6 +699,5 @@ ProductInformationFormSet = forms.inlineformset_factory(
     parent_model=Product,
     model=ProductInformation,
     form=ProductInformationForm,
-    min_num=len(settings.LANGUAGES),
     max_num=len(settings.LANGUAGES),
 )

@@ -463,17 +463,15 @@ class CategoryUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateVi
         context = super().get_context_data(**kwargs)
         if (
             not hasattr(self.get_object(), "category_attribute")
-            or not len(self.get_object().category_attribute.all()) > 0
+            or len(self.get_object().category_attribute.all()) < len(settings.LANGUAGES)
         ):
-            attributes = CategoryAttribute.objects.bulk_create(
+            CategoryAttribute.objects.bulk_create(
                 [
                     CategoryAttribute(language=lang[0], category=self.get_object())
                     for lang in settings.LANGUAGES
                 ]
             )
-        else:
-            attributes = self.get_object().category_attribute.all()
-        context["attribute_form"] = self.attribute_form_class(initial=attributes)
+        context["attribute_form"] = self.attribute_form_class(instance=self.get_object())
         return context
 
     @transaction.atomic
@@ -482,7 +480,7 @@ class CategoryUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateVi
         form = self.form_class(request.POST, instance=category, files=request.FILES)
         attribute_form = self.attribute_form_class(
             data=self.request.POST,
-            initial=self.get_object().category_attribute.all(),
+            instance=self.get_object(),
         )
         try:
             if self.request.POST.get("_method", None) == "delete":

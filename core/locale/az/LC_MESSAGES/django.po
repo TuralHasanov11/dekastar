@@ -8,277 +8,424 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-01 18:37+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2023-11-16 17:44+0100\n"
+"PO-Revision-Date: 2023-11-16 18:05+0400\n"
+"Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.9.9\n"
 
 #: .\apps\administration\context_processors.py:10
 #: .\apps\administration\templates\administration\index.html:3
 msgid "Dashboard"
-msgstr ""
+msgstr "Əsas Panel"
 
 #: .\apps\administration\context_processors.py:15
-#: .\apps\administration\views.py:35 .\apps\main\context_processors.py:17
-#: .\apps\main\context_processors.py:35
-#: .\apps\main\templates\main\about.html:10
-msgid "About Us"
-msgstr ""
+#: .\apps\administration\views.py:47 .\apps\main\models.py:126
+msgid "Banners"
+msgstr "Bannerlər"
 
 #: .\apps\administration\context_processors.py:20
-#: .\apps\administration\forms.py:92 .\apps\administration\views.py:37
-#: .\apps\main\context_processors.py:39
-#: .\apps\main\templates\main\privacy-policy.html:10
-msgid "Privacy Policy"
-msgstr ""
+#: .\apps\administration\views.py:50 .\apps\main\context_processors.py:27
+#: .\apps\main\context_processors.py:55
+#: .\apps\main\templates\main\about.html:10
+msgid "About Us"
+msgstr "Haqqımızda"
 
 #: .\apps\administration\context_processors.py:25
-#: .\apps\administration\forms.py:105 .\apps\administration\views.py:39
-#: .\apps\main\context_processors.py:41
-#: .\apps\main\templates\main\delivery-policy.html:10
-msgid "Delivery Policy"
-msgstr ""
+#: .\apps\administration\forms.py:241 .\apps\administration\views.py:52
+#: .\apps\main\context_processors.py:58
+#: .\apps\main\templates\main\privacy-policy.html:10
+msgid "Privacy Policy"
+msgstr "Məxfilik Siyasəti"
 
 #: .\apps\administration\context_processors.py:30
-msgid "Contact Information"
-msgstr ""
+#: .\apps\administration\forms.py:255 .\apps\administration\views.py:56
+#: .\apps\main\context_processors.py:62
+#: .\apps\main\templates\main\delivery-policy.html:10
+msgid "Delivery Policy"
+msgstr "Çatdırılma Siyasəti"
 
 #: .\apps\administration\context_processors.py:35
-#: .\apps\administration\views.py:43
-msgid "Users"
-msgstr ""
+msgid "Contact Information"
+msgstr "Əlaqə Məlumatları"
 
 #: .\apps\administration\context_processors.py:40
-#: .\apps\administration\views.py:45 .\apps\main\context_processors.py:13
-#: .\apps\main\context_processors.py:28 .\apps\store\models.py:29
-msgid "Categories"
-msgstr ""
+#: .\apps\administration\views.py:60
+msgid "Users"
+msgstr "İstifadəçilər"
 
 #: .\apps\administration\context_processors.py:45
-#: .\apps\administration\views.py:47 .\apps\store\models.py:56
-msgid "Brands"
-msgstr ""
+#: .\apps\administration\views.py:62 .\apps\main\context_processors.py:14
+#: .\apps\main\context_processors.py:40 .\apps\store\models.py:62
+msgid "Categories"
+msgstr "Kateqoriyalar"
 
-#: .\apps\administration\forms.py:16 .\apps\administration\forms.py:36
-#: .\apps\administration\forms.py:37 .\apps\administration\forms.py:63
-#: .\apps\administration\forms.py:64
+#: .\apps\administration\context_processors.py:50
+#: .\apps\administration\views.py:66 .\apps\store\models.py:111
+msgid "Brands"
+msgstr "Brendlər"
+
+#: .\apps\administration\context_processors.py:55
+#: .\apps\administration\templates\administration\orders\detail.html:44
+#: .\apps\administration\views.py:70
+#: .\apps\store\templates\store\category-products.html:5
+#: .\apps\store\views.py:66 .\apps\store\views.py:104
+msgid "Products"
+msgstr "Məhsullar"
+
+#: .\apps\administration\context_processors.py:60
+#: .\apps\administration\views.py:74
+msgid "Orders"
+msgstr "Sifarişlər"
+
+#: .\apps\administration\forms.py:30 .\apps\administration\forms.py:90
+#: .\apps\administration\forms.py:95 .\apps\administration\forms.py:176
+#: .\apps\administration\forms.py:181
 #: .\apps\administration\templates\administration\users\list.html:38
 #: .\apps\administration\templates\administration\users\list.html:45
 msgid "Username"
-msgstr ""
+msgstr "İstifadəçi adı"
 
-#: .\apps\administration\forms.py:17 .\apps\administration\forms.py:37
-#: .\apps\administration\forms.py:64
+#: .\apps\administration\forms.py:35 .\apps\administration\forms.py:96
+#: .\apps\administration\forms.py:182
 msgid "Please enter username"
-msgstr ""
+msgstr "İstifadəçi adını daxil edin"
 
-#: .\apps\administration\forms.py:18 .\apps\administration\forms.py:44
-#: .\apps\administration\forms.py:45
+#: .\apps\administration\forms.py:40 .\apps\administration\forms.py:134
+#: .\apps\administration\forms.py:138
 msgid "Password"
-msgstr ""
+msgstr "Şifrə"
 
-#: .\apps\administration\forms.py:19 .\apps\administration\forms.py:45
+#: .\apps\administration\forms.py:45 .\apps\administration\forms.py:139
 msgid "Please enter password"
-msgstr ""
+msgstr "Şifrəni daxil edin"
 
-#: .\apps\administration\forms.py:26 .\apps\administration\forms.py:27
+#: .\apps\administration\forms.py:56 .\apps\administration\forms.py:60
 msgid "Current Password"
-msgstr ""
+msgstr "Hazırki Şifrə"
 
-#: .\apps\administration\forms.py:27
+#: .\apps\administration\forms.py:61
 msgid "Please enter old password"
-msgstr ""
+msgstr "Köhnə şifrəni daxil edin"
 
-#: .\apps\administration\forms.py:28 .\apps\administration\forms.py:29
+#: .\apps\administration\forms.py:66 .\apps\administration\forms.py:70
 msgid "New Password"
-msgstr ""
+msgstr "Yeni şifrə"
 
-#: .\apps\administration\forms.py:29
+#: .\apps\administration\forms.py:71
 msgid "Please enter new password"
-msgstr ""
+msgstr "Yeni şifrəni daxil edin"
 
-#: .\apps\administration\forms.py:30
+#: .\apps\administration\forms.py:74
 msgid "Password should have at least 12 characters"
-msgstr ""
+msgstr "Şifrə minimum 12 simvoldan ibarət olmalıdır"
 
-#: .\apps\administration\forms.py:31 .\apps\administration\forms.py:32
+#: .\apps\administration\forms.py:77 .\apps\administration\forms.py:81
 msgid "Confirm Password"
-msgstr ""
+msgstr "Şifrəni Təsdiqi"
 
-#: .\apps\administration\forms.py:32
+#: .\apps\administration\forms.py:82
 msgid "Please confirm new password"
-msgstr ""
+msgstr "Şifrəni təsdiq edin"
 
-#: .\apps\administration\forms.py:38 .\apps\administration\forms.py:39
-#: .\apps\administration\forms.py:65 .\apps\administration\forms.py:66
+#: .\apps\administration\forms.py:101 .\apps\administration\forms.py:106
+#: .\apps\administration\forms.py:187 .\apps\administration\forms.py:192
 msgid "First Name"
-msgstr ""
+msgstr "Ad"
 
-#: .\apps\administration\forms.py:39 .\apps\administration\forms.py:66
+#: .\apps\administration\forms.py:107 .\apps\administration\forms.py:193
 msgid "Please enter first name"
-msgstr ""
+msgstr "Adı daxil edin"
 
-#: .\apps\administration\forms.py:40 .\apps\administration\forms.py:41
-#: .\apps\administration\forms.py:67 .\apps\administration\forms.py:68
+#: .\apps\administration\forms.py:112 .\apps\administration\forms.py:117
+#: .\apps\administration\forms.py:198 .\apps\administration\forms.py:203
 msgid "Last Name"
-msgstr ""
+msgstr "Soyad "
 
-#: .\apps\administration\forms.py:41 .\apps\administration\forms.py:68
+#: .\apps\administration\forms.py:118 .\apps\administration\forms.py:204
 msgid "Please enter last name"
-msgstr ""
+msgstr "Soyadı daxil edin"
 
-#: .\apps\administration\forms.py:42 .\apps\administration\forms.py:43
-#: .\apps\administration\forms.py:69 .\apps\administration\forms.py:70
-#: .\apps\administration\forms.py:128 .\apps\administration\forms.py:130
+#: .\apps\administration\forms.py:123 .\apps\administration\forms.py:128
+#: .\apps\administration\forms.py:209 .\apps\administration\forms.py:214
+#: .\apps\administration\forms.py:285 .\apps\administration\forms.py:289
 #: .\apps\administration\templates\administration\contact.html:48
 #: .\apps\administration\templates\administration\contact.html:54
 #: .\apps\administration\templates\administration\users\list.html:39
 #: .\apps\administration\templates\administration\users\list.html:46
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
-#: .\apps\administration\forms.py:43 .\apps\administration\forms.py:70
-#: .\apps\administration\forms.py:130
+#: .\apps\administration\forms.py:129 .\apps\administration\forms.py:215
+#: .\apps\administration\forms.py:290
 msgid "Please enter email"
-msgstr ""
+msgstr "E-maili daxil edin"
 
-#: .\apps\administration\forms.py:46
+#: .\apps\administration\forms.py:144
 msgid "Repeat password"
-msgstr ""
+msgstr "Şifrəni təkrar edin"
 
-#: .\apps\administration\forms.py:47
+#: .\apps\administration\forms.py:148
 msgid "Password Confirm"
-msgstr ""
+msgstr "Şifrə Təsdiqi"
 
-#: .\apps\administration\forms.py:47
+#: .\apps\administration\forms.py:149
 msgid "Please confirm password"
-msgstr ""
+msgstr "Şifrəni təsdiq edin"
 
-#: .\apps\administration\forms.py:58
+#: .\apps\administration\forms.py:169
 msgid "Please use another Email, that is already taken"
-msgstr ""
+msgstr "Digər E-mail hesabı daxil edin, hazırki istifadədir"
 
-#: .\apps\administration\forms.py:79
+#: .\apps\administration\forms.py:227
 msgid "About"
-msgstr ""
+msgstr "Haqqımızda"
 
-#: .\apps\administration\forms.py:117
+#: .\apps\administration\forms.py:269
 #: .\apps\administration\templates\administration\contact.html:178
 #: .\apps\administration\templates\administration\contact.html:185
 msgid "Platform"
-msgstr ""
+msgstr "Platform"
 
-#: .\apps\administration\forms.py:119
+#: .\apps\administration\forms.py:274 .\apps\administration\forms.py:413
+#: .\apps\administration\forms.py:417
 #: .\apps\administration\templates\administration\contact.html:179
 #: .\apps\administration\templates\administration\contact.html:186
 msgid "Link"
-msgstr ""
+msgstr "Link"
 
-#: .\apps\administration\forms.py:138 .\apps\administration\forms.py:139
+#: .\apps\administration\forms.py:302 .\apps\administration\forms.py:306
 #: .\apps\administration\templates\administration\contact.html:110
 #: .\apps\administration\templates\administration\contact.html:116
+#: .\apps\administration\templates\administration\orders\detail.html:41
+#: .\apps\administration\templates\administration\orders\list.html:41
+#: .\apps\administration\templates\administration\orders\list.html:50
+#: .\apps\orders\forms.py:16 .\apps\orders\forms.py:18
 msgid "Phone"
-msgstr ""
+msgstr "Telefon"
 
-#: .\apps\administration\forms.py:140
+#: .\apps\administration\forms.py:307
 msgid "Please enter phone"
-msgstr ""
+msgstr "Telefon nömrəsini daxil edin"
 
-#: .\apps\administration\forms.py:149 .\apps\administration\forms.py:151
-#: .\apps\main\context_processors.py:49
+#: .\apps\administration\forms.py:320 .\apps\administration\forms.py:324
 #: .\apps\main\templates\main\contact.html:35
 msgid "Address"
-msgstr ""
+msgstr "Ünvan"
 
-#: .\apps\administration\forms.py:152
+#: .\apps\administration\forms.py:326
 msgid "Please enter address"
-msgstr ""
+msgstr "Ünvanı daxil edin"
 
-#: .\apps\administration\forms.py:153 .\apps\administration\forms.py:155
+#: .\apps\administration\forms.py:331 .\apps\administration\forms.py:335
 msgid "Working Hours"
-msgstr ""
+msgstr "İş Saatları"
 
-#: .\apps\administration\forms.py:156
+#: .\apps\administration\forms.py:336
 msgid "Please enter working hours"
-msgstr ""
+msgstr "İş saatlarını daxil edin"
 
-#: .\apps\administration\forms.py:168 .\apps\administration\forms.py:170
+#: .\apps\administration\forms.py:353 .\apps\administration\forms.py:357
 msgid "Contact Image"
-msgstr ""
+msgstr "Əlaqə Şəkli"
 
-#: .\apps\administration\forms.py:171
+#: .\apps\administration\forms.py:358
 msgid "Please upload contact image"
-msgstr ""
+msgstr "Əlaqə Şəklini yükləyin"
 
-#: .\apps\administration\forms.py:173 .\apps\administration\forms.py:175
+#: .\apps\administration\forms.py:365 .\apps\administration\forms.py:369
 msgid "About Image"
-msgstr ""
+msgstr "Haqqımızda Şəkli"
 
-#: .\apps\administration\forms.py:176
+#: .\apps\administration\forms.py:370
 msgid "Please upload about image"
-msgstr ""
+msgstr "Haqqımızda Şəklini yükləyin"
 
-#: .\apps\administration\forms.py:178 .\apps\administration\forms.py:180
+#: .\apps\administration\forms.py:377 .\apps\administration\forms.py:381
 msgid "Delivery Policy Image"
-msgstr ""
+msgstr "Çatdırılma Siyasəti Şəkli"
 
-#: .\apps\administration\forms.py:181
+#: .\apps\administration\forms.py:382
 msgid "Please upload delivery policy image"
-msgstr ""
+msgstr "Çatdırılma siyasəti şəklini yükləyin"
 
-#: .\apps\administration\forms.py:183 .\apps\administration\forms.py:185
+#: .\apps\administration\forms.py:389 .\apps\administration\forms.py:393
 msgid "Privacy Policy Image"
-msgstr ""
+msgstr "Məxfilik Siyasəti Şəkli"
 
-#: .\apps\administration\forms.py:186
+#: .\apps\administration\forms.py:394
 msgid "Please upload privacy policy image"
-msgstr ""
+msgstr "Məxfilik siyasəti şəklini yükləyin"
 
-#: .\apps\administration\forms.py:196 .\apps\administration\forms.py:197
-#: .\apps\administration\forms.py:217 .\apps\administration\forms.py:219
+#: .\apps\administration\forms.py:418
+msgid "Please enter link"
+msgstr "Linki daxil edin"
+
+#: .\apps\administration\forms.py:423 .\apps\administration\forms.py:427
+#: .\apps\administration\forms.py:654 .\apps\administration\forms.py:658
+#: .\apps\administration\templates\administration\banners\index.html:64
+#: .\apps\administration\templates\administration\banners\index.html:72
+#: .\apps\administration\templates\administration\orders\detail.html:54
+msgid "Image"
+msgstr "Şəkil"
+
+#: .\apps\administration\forms.py:428
+msgid "Please upload Image"
+msgstr "Şəkil yükləyin"
+
+#: .\apps\administration\forms.py:435 .\apps\store\models.py:286
+msgid "Active"
+msgstr "Aktiv"
+
+#: .\apps\administration\forms.py:447 .\apps\administration\forms.py:451
+#: .\apps\administration\forms.py:487 .\apps\administration\forms.py:491
+#: .\apps\administration\forms.py:509 .\apps\administration\forms.py:513
+#: .\apps\administration\forms.py:538 .\apps\administration\forms.py:542
+#: .\apps\administration\templates\administration\orders\detail.html:40
+#: .\apps\administration\templates\administration\orders\list.html:40
+#: .\apps\administration\templates\administration\orders\list.html:49
 #: .\apps\administration\templates\administration\store\brands\index.html:55
 #: .\apps\administration\templates\administration\store\brands\index.html:62
 #: .\apps\administration\templates\administration\store\categories\index.html:60
 #: .\apps\administration\templates\administration\store\categories\index.html:68
+#: .\apps\administration\templates\administration\store\products\list.html:38
+#: .\apps\administration\templates\administration\store\products\list.html:48
+#: .\apps\store\forms.py:14
 msgid "Name"
-msgstr ""
+msgstr "Ad"
 
-#: .\apps\administration\forms.py:197 .\apps\administration\forms.py:219
+#: .\apps\administration\forms.py:452 .\apps\administration\forms.py:492
+#: .\apps\administration\forms.py:514 .\apps\administration\forms.py:543
 msgid "Please enter name"
-msgstr ""
+msgstr "Adı daxil edin"
 
-#: .\apps\administration\forms.py:198
+#: .\apps\administration\forms.py:457
 #: .\apps\administration\templates\administration\store\categories\index.html:61
 #: .\apps\administration\templates\administration\store\categories\index.html:69
 msgid "Parent"
-msgstr ""
+msgstr "Valideyn"
 
-#: .\apps\administration\forms.py:200 .\apps\administration\forms.py:202
-#: .\apps\administration\forms.py:220 .\apps\administration\forms.py:222
+#: .\apps\administration\forms.py:460 .\apps\administration\forms.py:464
+#: .\apps\administration\forms.py:519 .\apps\administration\forms.py:523
 #: .\apps\administration\templates\administration\store\brands\index.html:56
 #: .\apps\administration\templates\administration\store\brands\index.html:63
 #: .\apps\administration\templates\administration\store\categories\index.html:62
 #: .\apps\administration\templates\administration\store\categories\index.html:70
+#: .\apps\administration\templates\administration\store\products\list.html:42
+#: .\apps\administration\templates\administration\store\products\list.html:52
 msgid "Cover Image"
-msgstr ""
+msgstr "Başlıq Şəkli"
 
-#: .\apps\administration\forms.py:203 .\apps\administration\forms.py:223
+#: .\apps\administration\forms.py:465 .\apps\administration\forms.py:524
 msgid "Please upload cover Image"
-msgstr ""
+msgstr "Başlıq şəklini yükləyin"
+
+#: .\apps\administration\forms.py:548 .\apps\administration\forms.py:552
+msgid "Code"
+msgstr "Kod"
+
+#: .\apps\administration\forms.py:553
+msgid "Please enter code"
+msgstr "Kodu daxil edin"
+
+#: .\apps\administration\forms.py:558
+msgid "Quantity Type"
+msgstr "Kəmiyyət Növü"
+
+#: .\apps\administration\forms.py:563
+msgid "Please select quantity type"
+msgstr "Kəmiyyət növünü seçin"
+
+#: .\apps\administration\forms.py:568
+#: .\apps\administration\templates\administration\store\products\list.html:39
+#: .\apps\administration\templates\administration\store\products\list.html:49
+#: .\apps\store\templates\store\products\detail.html:32
+#: .\apps\store\templates\store\products\detail.html:190
+#: .\templates\components\default\filters.html:18
+msgid "Category"
+msgstr "Kateqoriya"
+
+#: .\apps\administration\forms.py:572
+msgid "Please select category"
+msgstr "Kateqoriya seçin"
+
+#: .\apps\administration\forms.py:578
+#: .\apps\store\templates\store\products\detail.html:38
+#: .\apps\store\templates\store\products\detail.html:185
+#: .\templates\components\default\filters.html:25
+msgid "Brand"
+msgstr "Brend"
+
+#: .\apps\administration\forms.py:582
+msgid "Please select brand"
+msgstr "Brendi seçin"
+
+#: .\apps\administration\forms.py:588 .\apps\administration\forms.py:592
+#: .\apps\administration\templates\administration\store\products\list.html:50
+msgid "Regular Price"
+msgstr "Normal Qiymət"
+
+#: .\apps\administration\forms.py:593
+msgid "Please enter regular price"
+msgstr "Normal qiyməti daxil edin"
+
+#: .\apps\administration\forms.py:598 .\apps\administration\forms.py:602
+#: .\apps\administration\templates\administration\store\products\list.html:41
+#: .\apps\administration\templates\administration\store\products\list.html:51
+#: .\apps\orders\templates\orders\checkout.html:115
+msgid "Discount"
+msgstr "Endirim"
+
+#: .\apps\administration\forms.py:603
+msgid "Please enter discount"
+msgstr "Endirimi daxil edin"
+
+#: .\apps\administration\forms.py:610 .\apps\administration\forms.py:614
+msgid "Discount Price"
+msgstr "Endirimli Qiymət"
+
+#: .\apps\administration\forms.py:615
+msgid "Please enter discount price"
+msgstr "Endirimli qiyməti daxil edin"
+
+#: .\apps\administration\forms.py:620 .\apps\administration\forms.py:622
+#: .\apps\store\templatetags\in_stock_display.py:9
+msgid "In Stock"
+msgstr "Stokdadır"
+
+#: .\apps\administration\forms.py:628 .\apps\administration\forms.py:630
+#: .\apps\administration\templates\administration\banners\index.html:66
+#: .\apps\administration\templates\administration\banners\index.html:74
+msgid "Is Active"
+msgstr "Aktivdir"
+
+#: .\apps\administration\forms.py:659
+msgid "Please upload image"
+msgstr "Şəkil yükləyin"
+
+#: .\apps\administration\forms.py:666
+msgid "Is Feature"
+msgstr "Başlıq"
+
+#: .\apps\administration\forms.py:688
+msgid "Text"
+msgstr "Mətn"
 
 #: .\apps\administration\templates\administration\about.html:2
 #: .\apps\administration\templates\administration\about.html:11
 msgid "About Us Texts"
-msgstr ""
+msgstr "Haqqımızda Mətni"
 
 #: .\apps\administration\templates\administration\about.html:64
 #: .\apps\administration\templates\administration\auth\password-change.html:55
 #: .\apps\administration\templates\administration\auth\profile.html:68
+#: .\apps\administration\templates\administration\banners\edit.html:84
+#: .\apps\administration\templates\administration\banners\index.html:53
 #: .\apps\administration\templates\administration\contact.html:40
 #: .\apps\administration\templates\administration\contact.html:102
 #: .\apps\administration\templates\administration\contact.html:170
@@ -288,360 +435,551 @@ msgstr ""
 #: .\apps\administration\templates\administration\site-images.html:58
 #: .\apps\administration\templates\administration\store\brands\edit.html:69
 #: .\apps\administration\templates\administration\store\brands\index.html:44
-#: .\apps\administration\templates\administration\store\categories\edit.html:74
+#: .\apps\administration\templates\administration\store\categories\edit.html:96
 #: .\apps\administration\templates\administration\store\categories\index.html:49
+#: .\apps\administration\templates\administration\store\products\create.html:147
+#: .\apps\administration\templates\administration\store\products\edit.html:174
 #: .\apps\administration\templates\administration\users\create.html:83
 msgid "Save"
-msgstr ""
+msgstr "Yadda Saxla"
 
 #: .\apps\administration\templates\administration\auth\login.html:2
 #: .\apps\administration\templates\administration\auth\login.html:10
 #: .\apps\administration\templates\administration\auth\login.html:34
 msgid "Login"
-msgstr ""
+msgstr "Qeydiyyatdan keç"
 
 #: .\apps\administration\templates\administration\auth\login.html:37
 msgid "Back to Home"
-msgstr ""
+msgstr "Ana Səhifəyə get"
 
 #: .\apps\administration\templates\administration\auth\password-change.html:4
 #: .\apps\administration\templates\administration\auth\password-change.html:14
 #: .\apps\administration\templates\administration\auth\password-change.html:26
 #: .\apps\administration\templates\administration\auth\profile.html:21
 msgid "Change Password"
-msgstr ""
+msgstr "Şifrənin Dəyişdirilməsi"
 
 #: .\apps\administration\templates\administration\auth\profile.html:4
 #: .\apps\administration\templates\administration\auth\profile.html:15
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: .\apps\administration\templates\administration\auth\profile.html:36
 #: .\apps\administration\templates\administration\users\create.html:34
 msgid "Account Details"
-msgstr ""
+msgstr "Hesab Məlumatları"
 
-#: .\apps\administration\templates\administration\contact.html:2
-#: .\apps\administration\templates\administration\contact.html:14
-msgid "Contact Info"
-msgstr ""
+#: .\apps\administration\templates\administration\banners\edit.html:2
+#: .\apps\administration\templates\administration\banners\edit.html:16
+#: .\apps\administration\templates\administration\banners\edit.html:48
+msgid "Edit Banner"
+msgstr "Banneri Yenilə"
 
-#: .\apps\administration\templates\administration\contact.html:25
-#: .\apps\main\models.py:42
-msgid "Contact Emails"
-msgstr ""
+#: .\apps\administration\templates\administration\banners\edit.html:26
+msgid "Back to Banner List"
+msgstr "Banner Siyahısına get"
 
+#: .\apps\administration\templates\administration\banners\edit.html:33
+msgid "Delete Banner"
+msgstr "Banner Sil"
+
+#: .\apps\administration\templates\administration\banners\index.html:2
+#: .\apps\administration\templates\administration\banners\index.html:14
+msgid "Banner List"
+msgstr "Banner Siyahısı"
+
+#: .\apps\administration\templates\administration\banners\index.html:24
+msgid "Add Banner"
+msgstr "Banner Əlavə et"
+
+#: .\apps\administration\templates\administration\banners\index.html:65
+#: .\apps\administration\templates\administration\banners\index.html:73
+msgid "Opened Page"
+msgstr "Açılan Səhifə"
+
+#: .\apps\administration\templates\administration\banners\index.html:67
+#: .\apps\administration\templates\administration\banners\index.html:75
 #: .\apps\administration\templates\administration\contact.html:49
 #: .\apps\administration\templates\administration\contact.html:55
 #: .\apps\administration\templates\administration\contact.html:111
 #: .\apps\administration\templates\administration\contact.html:117
 #: .\apps\administration\templates\administration\contact.html:180
 #: .\apps\administration\templates\administration\contact.html:187
+#: .\apps\administration\templates\administration\orders\list.html:44
+#: .\apps\administration\templates\administration\orders\list.html:53
 #: .\apps\administration\templates\administration\store\brands\index.html:57
 #: .\apps\administration\templates\administration\store\brands\index.html:64
 #: .\apps\administration\templates\administration\store\categories\index.html:63
 #: .\apps\administration\templates\administration\store\categories\index.html:71
+#: .\apps\administration\templates\administration\store\products\list.html:43
+#: .\apps\administration\templates\administration\store\products\list.html:53
 #: .\apps\administration\templates\administration\users\list.html:40
 #: .\apps\administration\templates\administration\users\list.html:47
 msgid "Actions"
-msgstr ""
+msgstr "Əməliyyatlar"
+
+#: .\apps\administration\templates\administration\banners\index.html:90
+msgid "Page"
+msgstr "Səhifə"
+
+#: .\apps\administration\templates\administration\contact.html:2
+#: .\apps\administration\templates\administration\contact.html:14
+msgid "Contact Info"
+msgstr "Əlaqə Məlumatları"
+
+#: .\apps\administration\templates\administration\contact.html:25
+#: .\apps\main\models.py:51
+msgid "Contact Emails"
+msgstr "Əlaqə E-mailləri"
 
 #: .\apps\administration\templates\administration\contact.html:82
 #: .\apps\administration\templates\administration\contact.html:144
 #: .\apps\administration\templates\administration\contact.html:215
 msgid "No entry found"
-msgstr ""
+msgstr "Heç bir məlumat tapılmadı"
 
 #: .\apps\administration\templates\administration\contact.html:87
-#: .\apps\main\models.py:52
+#: .\apps\main\models.py:63
 msgid "Contact Phones"
-msgstr ""
+msgstr "Əlaqə Nömrələri"
 
 #: .\apps\administration\templates\administration\contact.html:149
 msgid "Social Media Links"
-msgstr ""
+msgstr "Sosial Media Linkləri"
 
 #: .\apps\administration\templates\administration\contact.html:220
 msgid "Company Info"
-msgstr ""
+msgstr "Şirkət Məlumatları"
 
 #: .\apps\administration\templates\administration\delivery-policy.html:3
 #: .\apps\administration\templates\administration\delivery-policy.html:12
 msgid "Delivery Policy Texts"
-msgstr ""
+msgstr "Çatdırılma Siyasəti Mətnləri"
 
 #: .\apps\administration\templates\administration\index.html:6
 msgid "Dashboards"
-msgstr ""
+msgstr "Panellər"
+
+#: .\apps\administration\templates\administration\orders\detail.html:3
+#: .\apps\administration\templates\administration\orders\detail.html:17
+#: .\apps\administration\templates\administration\orders\detail.html:38
+#: .\apps\orders\templates\orders\checkout.html:62
+#: .\apps\store\templates\store\products\detail.html:67
+#: .\apps\store\templates\store\products\detail.html:219
+msgid "Order"
+msgstr "Sifariş"
+
+#: .\apps\administration\templates\administration\orders\detail.html:27
+msgid "Back to Order List"
+msgstr "Sifariş Siyahısına qayıt"
+
+#: .\apps\administration\templates\administration\orders\detail.html:42
+#: .\apps\administration\templates\administration\orders\list.html:42
+#: .\apps\administration\templates\administration\orders\list.html:51
+msgid "Total Paid"
+msgstr "Ümumi Ödəniş"
+
+#: .\apps\administration\templates\administration\orders\detail.html:50
+#: .\apps\orders\templates\orders\checkout.html:87
+msgid "Product"
+msgstr "Məhsul"
+
+#: .\apps\administration\templates\administration\orders\detail.html:51
+msgid "Sub Total"
+msgstr "Məhsulun ümumi qiyməti"
+
+#: .\apps\administration\templates\administration\orders\detail.html:52
+#: .\apps\orders\templates\orders\checkout.html:89
+#: .\apps\store\templates\store\products\detail.html:57
+msgid "Quantity"
+msgstr "Say"
+
+#: .\apps\administration\templates\administration\orders\detail.html:53
+#: .\apps\administration\templates\administration\store\products\list.html:40
+#: .\apps\orders\templates\orders\checkout.html:90
+#: .\apps\orders\templates\orders\checkout.html:103 .\apps\store\forms.py:15
+#: .\apps\store\forms.py:16 .\templates\components\default\filters.html:11
+msgid "Price"
+msgstr "Qiymət"
+
+#: .\apps\administration\templates\administration\orders\list.html:4
+#: .\apps\administration\templates\administration\orders\list.html:16
+msgid "Order List"
+msgstr "Sifariş Siyahısı"
+
+#: .\apps\administration\templates\administration\orders\list.html:31
+#: .\apps\administration\templates\administration\orders\list.html:32
+#: .\templates\components\default\header.html:98
+msgid "Search"
+msgstr "Axtar"
+
+#: .\apps\administration\templates\administration\orders\list.html:43
+#: .\apps\administration\templates\administration\orders\list.html:52
+msgid "Order Date"
+msgstr "Sifariş Tarixi"
+
+#: .\apps\administration\templates\administration\orders\list.html:76
+#, fuzzy
+msgid "No order found!"
+msgstr "Sifariş Tapılmadı"
 
 #: .\apps\administration\templates\administration\privacy-policy.html:3
 #: .\apps\administration\templates\administration\privacy-policy.html:12
 msgid "Privacy Policy Texts"
-msgstr ""
+msgstr "Məxfilik Siyasəti Mətnləri"
 
 #: .\apps\administration\templates\administration\site-images.html:2
 #: .\apps\administration\templates\administration\site-images.html:16
 #: .\apps\administration\templates\administration\site-images.html:25
-#: .\apps\main\models.py:74
+#: .\apps\main\models.py:89
 msgid "Site Images"
-msgstr ""
+msgstr "Sayt Şəkilləri"
 
 #: .\apps\administration\templates\administration\store\brands\edit.html:2
 #: .\apps\administration\templates\administration\store\brands\edit.html:16
 #: .\apps\administration\templates\administration\store\brands\edit.html:48
 msgid "Edit Brand"
-msgstr ""
+msgstr "Brendi Yenilə"
 
 #: .\apps\administration\templates\administration\store\brands\edit.html:26
 msgid "Back to Brand List"
-msgstr ""
+msgstr "Brend Siyahısına get"
 
 #: .\apps\administration\templates\administration\store\brands\edit.html:33
 msgid "Delete Brand"
-msgstr ""
+msgstr "Brendi sil"
 
 #: .\apps\administration\templates\administration\store\brands\index.html:2
 #: .\apps\administration\templates\administration\store\brands\index.html:14
 msgid "Brand List"
-msgstr ""
+msgstr "Brend Siyahısı"
 
 #: .\apps\administration\templates\administration\store\brands\index.html:24
 msgid "Add Brand"
-msgstr ""
-
-#: .\apps\administration\templates\administration\store\brands\index.html:73
-#: .\apps\administration\templates\administration\store\categories\index.html:81
-msgid "Edit"
-msgstr ""
-
-#: .\apps\administration\templates\administration\store\brands\index.html:84
-#: .\apps\administration\templates\administration\store\categories\index.html:92
-#: .\apps\administration\templates\administration\users\list.html:66
-msgid "Delete"
-msgstr ""
+msgstr "Brend Əlavə et"
 
 #: .\apps\administration\templates\administration\store\categories\edit.html:2
 #: .\apps\administration\templates\administration\store\categories\edit.html:16
 #: .\apps\administration\templates\administration\store\categories\edit.html:48
 msgid "Edit Category"
-msgstr ""
+msgstr "Kateqoriyanı Yenilə"
 
 #: .\apps\administration\templates\administration\store\categories\edit.html:26
 msgid "Back to Category List"
-msgstr ""
+msgstr "Kateqoriya Siyahısına get"
 
 #: .\apps\administration\templates\administration\store\categories\edit.html:33
 msgid "Delete Category"
-msgstr ""
+msgstr "Kateqoriyanı Silin"
 
 #: .\apps\administration\templates\administration\store\categories\index.html:2
 #: .\apps\administration\templates\administration\store\categories\index.html:14
 msgid "Category List"
-msgstr ""
+msgstr "Kateqoriya Siyahısı"
 
 #: .\apps\administration\templates\administration\store\categories\index.html:24
 msgid "Add Category"
-msgstr ""
+msgstr "Kateqoriya Əlavə edin"
+
+#: .\apps\administration\templates\administration\store\products\create.html:2
+#: .\apps\administration\templates\administration\store\products\create.html:16
+#: .\apps\administration\templates\administration\store\products\create.html:38
+msgid "Create Product"
+msgstr "Məhsul Yaradın"
+
+#: .\apps\administration\templates\administration\store\products\create.html:26
+#: .\apps\administration\templates\administration\store\products\edit.html:26
+msgid "Back to Product List"
+msgstr "Məhsul Siyahısına get"
+
+#: .\apps\administration\templates\administration\store\products\create.html:100
+#: .\apps\administration\templates\administration\store\products\edit.html:110
+msgid "Images"
+msgstr "Şəkillər"
+
+#: .\apps\administration\templates\administration\store\products\create.html:123
+#: .\apps\administration\templates\administration\store\products\edit.html:150
+msgid "Information"
+msgstr "Məlumat"
+
+#: .\apps\administration\templates\administration\store\products\edit.html:2
+#: .\apps\administration\templates\administration\store\products\edit.html:16
+#: .\apps\administration\templates\administration\store\products\edit.html:48
+msgid "Edit Product"
+msgstr "Məhsulu Yenilə"
+
+#: .\apps\administration\templates\administration\store\products\edit.html:33
+msgid "Delete Product"
+msgstr "Məhsulu Silin"
+
+#: .\apps\administration\templates\administration\store\products\list.html:2
+#: .\apps\administration\templates\administration\store\products\list.html:14
+msgid "Product List"
+msgstr "Məhsul Siyahısı"
+
+#: .\apps\administration\templates\administration\store\products\list.html:23
+msgid "Add Product"
+msgstr "Məhsul Əlavə et"
 
 #: .\apps\administration\templates\administration\users\create.html:2
 #: .\apps\administration\templates\administration\users\create.html:16
 msgid "Add User"
-msgstr ""
+msgstr "İstifadəçi Əlavə et"
 
 #: .\apps\administration\templates\administration\users\create.html:25
 msgid "Back to User List"
-msgstr ""
+msgstr "İstifadəçi Siyahısına get"
 
 #: .\apps\administration\templates\administration\users\list.html:2
 #: .\apps\administration\templates\administration\users\list.html:14
 msgid "User List"
-msgstr ""
+msgstr "İstifadəçi Siyahısı"
 
 #: .\apps\administration\templates\administration\users\list.html:23
 msgid "Add New User"
-msgstr ""
+msgstr "Yeni İstifadəçi Əlavə et"
 
-#: .\apps\administration\views.py:41 .\apps\main\context_processors.py:18
-#: .\apps\main\context_processors.py:37
+#: .\apps\administration\views.py:59 .\apps\main\context_processors.py:28
+#: .\apps\main\context_processors.py:56
 msgid "Contact"
-msgstr ""
+msgstr "Əlaqə"
 
-#: .\apps\administration\views.py:76
+#: .\apps\administration\views.py:111
+#, fuzzy
 msgid "Privacy Policy texts were saved successfully!"
-msgstr ""
+msgstr "Məxfilik Siyasəti mətnləri uğurla yadda saxlanıldı!"
 
-#: .\apps\administration\views.py:80 .\apps\administration\views.py:81
+#: .\apps\administration\views.py:115 .\apps\administration\views.py:116
+#, fuzzy
 msgid "Privacy Policy texts cannot be saved!"
-msgstr ""
+msgstr "Məxfilik Siyasəti mətnləri yadda saxlanıla bilməz!"
 
-#: .\apps\administration\views.py:108
+#: .\apps\administration\views.py:148
+#, fuzzy
 msgid "Delivery Policy texts were saved successfully!"
-msgstr ""
+msgstr "Çatdırılma Siyasəti mətnləri uğurla yadda saxlanıldı!"
 
-#: .\apps\administration\views.py:112 .\apps\administration\views.py:113
+#: .\apps\administration\views.py:152 .\apps\administration\views.py:153
+#, fuzzy
 msgid "Delivery Policy texts cannot be saved!"
-msgstr ""
+msgstr "Çatdırılma Siyasəti mətnləri yadda saxlanıla bilməz!"
 
-#: .\apps\administration\views.py:140
+#: .\apps\administration\views.py:184
 msgid "About Us texts were saved successfully!"
-msgstr ""
+msgstr "Haqqımızda mətnlər uğurla saxlandı!"
 
-#: .\apps\administration\views.py:143 .\apps\administration\views.py:144
+#: .\apps\administration\views.py:187 .\apps\administration\views.py:188
 msgid "About Us texts cannot be saved!"
-msgstr ""
+msgstr "Haqqımızda mətnləri saxlamaq mümkün deyil!"
 
-#: .\apps\administration\views.py:183
+#: .\apps\administration\views.py:233
 msgid "Contact email was added successfully!"
-msgstr ""
+msgstr "Əlaqə e-poçtu uğurla əlavə edildi!"
 
-#: .\apps\administration\views.py:191
+#: .\apps\administration\views.py:241
 msgid "Contact email was deleted successfully!"
-msgstr ""
+msgstr "Əlaqə e-poçtu uğurla silindi!"
 
-#: .\apps\administration\views.py:201
+#: .\apps\administration\views.py:251
 msgid "Contact phone was added successfully!"
-msgstr ""
+msgstr "Əlaqə telefonu uğurla əlavə edildi!"
 
-#: .\apps\administration\views.py:209
+#: .\apps\administration\views.py:259
 msgid "Contact phone was deleted successfully!"
-msgstr ""
+msgstr "Əlaqə telefonu uğurla silindi!"
 
-#: .\apps\administration\views.py:219
+#: .\apps\administration\views.py:269
 msgid "Social media link was added successfully!"
-msgstr ""
+msgstr "Sosial media linki uğurla əlavə edildi!"
 
-#: .\apps\administration\views.py:228
+#: .\apps\administration\views.py:277
 msgid "Social media link was deleted successfully!"
-msgstr ""
+msgstr "Sosial media linki uğurla silindi!"
 
-#: .\apps\administration\views.py:238 .\apps\administration\views.py:248
+#: .\apps\administration\views.py:287 .\apps\administration\views.py:295
 msgid "Company info was saved successfully!"
-msgstr ""
+msgstr "Şirkət məlumatı uğurla yadda saxlanıldı!"
 
-#: .\apps\administration\views.py:251 .\apps\administration\views.py:252
+#: .\apps\administration\views.py:298 .\apps\administration\views.py:299
 msgid "Company info cannot be saved!"
 msgstr ""
 
-#: .\apps\administration\views.py:281
+#: .\apps\administration\views.py:328
 msgid "Site images were saved successfully!"
-msgstr ""
+msgstr "Sayt şəkilləri uğurla yadda saxlanıldı!"
 
-#: .\apps\administration\views.py:285 .\apps\administration\views.py:286
+#: .\apps\administration\views.py:331 .\apps\administration\views.py:332
 msgid "Site images cannot be saved!"
-msgstr ""
+msgstr "Sayt şəkillərini saxlamaq mümkün deyil!"
 
-#: .\apps\administration\views.py:311
+#: .\apps\administration\views.py:340
+msgid "Banner was created successfully!"
+msgstr "Banner uğurla yaradıldı!"
+
+#: .\apps\administration\views.py:360
+msgid "Banner was deleted successfully"
+msgstr "Banner uğurla silindi"
+
+#: .\apps\administration\views.py:364
+msgid "Banner was updated successfully"
+msgstr "Banner uğurla yeniləndi"
+
+#: .\apps\administration\views.py:394
 msgid "User information were saved successfully!"
-msgstr ""
+msgstr "İstifadəçi məlumatı uğurla yadda saxlanıldı!"
 
-#: .\apps\administration\views.py:314 .\apps\administration\views.py:315
+#: .\apps\administration\views.py:398 .\apps\administration\views.py:399
 msgid "User information cannot be saved!"
-msgstr ""
+msgstr "İstifadəçi məlumatı yadda saxlanıla bilməz!"
 
-#: .\apps\administration\views.py:343
+#: .\apps\administration\views.py:427
 msgid "User was created successfully!"
-msgstr ""
+msgstr "İstifadəçi uğurla yaradıldı!"
 
-#: .\apps\administration\views.py:350
+#: .\apps\administration\views.py:434
 msgid "User was deleted successfully!"
-msgstr ""
+msgstr "İstifadəçi uğurla silindi!"
 
-#: .\apps\administration\views.py:358
+#: .\apps\administration\views.py:443
 msgid "Category was created successfully!"
-msgstr ""
+msgstr "Kateqoriya uğurla yaradıldı!"
 
-#: .\apps\administration\views.py:380
+#: .\apps\administration\views.py:490
 msgid "Category was deleted successfully"
 msgstr ""
 
-#: .\apps\administration\views.py:384
+#: .\apps\administration\views.py:498
 msgid "Category was updated successfully"
 msgstr ""
 
-#: .\apps\administration\views.py:387
+#: .\apps\administration\views.py:506
 msgid "Category is depended on another category"
 msgstr ""
 
-#: .\apps\administration\views.py:396
+#: .\apps\administration\views.py:524
 msgid "Brand was created successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:417
+#: .\apps\administration\views.py:544
 msgid "Brand was deleted successfully"
 msgstr ""
 
-#: .\apps\administration\views.py:421
+#: .\apps\administration\views.py:548
 msgid "Brand was updated successfully"
 msgstr ""
 
-#: .\apps\main\context_processors.py:11
+#: .\apps\administration\views.py:573
+msgid "Product was added successfully!"
+msgstr ""
+
+#: .\apps\administration\views.py:609
+msgid "Product was created successfully"
+msgstr ""
+
+#: .\apps\administration\views.py:611
+msgid "Product cannot be created"
+msgstr "Məhsul yaradıla bilməz"
+
+#: .\apps\administration\views.py:652
+msgid "Product was deleted successfully"
+msgstr "Məhsul uğurla silindi"
+
+#: .\apps\administration\views.py:662
+msgid "Product was updated successfully"
+msgstr "Məhsul uğurla yeniləndi"
+
+#: .\apps\administration\views.py:669
+msgid "Product cannot be updated"
+msgstr "Məhsul yenilənə bilməz"
+
+#: .\apps\api\views.py:60 .\apps\api\views.py:87 .\apps\api\views.py:109
+msgid "Product was not found"
+msgstr "Məhsul tapılmadı"
+
+#: .\apps\main\context_processors.py:12 .\apps\store\views.py:65
+#: .\apps\store\views.py:103 .\apps\store\views.py:138
 msgid "Home"
-msgstr ""
+msgstr "Ana Səhifə"
 
-#: .\apps\main\context_processors.py:33
+#: .\apps\main\context_processors.py:53
 msgid "About the Company"
-msgstr ""
+msgstr "Şirkət haqqında"
 
-#: .\apps\main\context_processors.py:46
+#: .\apps\main\context_processors.py:68
 msgid "Contact Us"
-msgstr ""
+msgstr "Bizimlə əlaqə saxlayın"
 
-#: .\apps\main\context_processors.py:48
+#: .\apps\main\context_processors.py:70
 msgid "Telephone"
-msgstr ""
+msgstr "Telefon"
 
-#: .\apps\main\context_processors.py:50
+#: .\apps\main\context_processors.py:71
 #: .\apps\main\templates\main\contact.html:68
 msgid "E-mail"
-msgstr ""
+msgstr "E-poçt"
 
-#: .\apps\main\forms.py:6 .\apps\main\forms.py:8
+#: .\apps\main\forms.py:7 .\apps\main\forms.py:9 .\apps\orders\forms.py:8
+#: .\apps\orders\forms.py:10
 msgid "Your name"
-msgstr ""
+msgstr "Adınız"
 
-#: .\apps\main\forms.py:8 .\apps\main\forms.py:9
+#: .\apps\main\forms.py:9 .\apps\main\forms.py:11 .\apps\orders\forms.py:10
+#: .\apps\orders\forms.py:12
 msgid "Please enter your full name"
-msgstr ""
+msgstr "Adınızı daxil edin"
 
-#: .\apps\main\forms.py:10 .\apps\main\forms.py:12
+#: .\apps\main\forms.py:15 .\apps\main\forms.py:20
 msgid "Your email"
-msgstr ""
+msgstr "E-poçtunuz"
 
-#: .\apps\main\forms.py:12 .\apps\main\forms.py:13
+#: .\apps\main\forms.py:19 .\apps\main\forms.py:23
 msgid "Please enter your email address"
-msgstr ""
+msgstr "E-poçt ünvanınızı daxil edin"
 
-#: .\apps\main\forms.py:14 .\apps\main\forms.py:16
+#: .\apps\main\forms.py:27 .\apps\main\forms.py:29
 msgid "Subject"
-msgstr ""
+msgstr "Mövzu"
 
-#: .\apps\main\forms.py:16 .\apps\main\forms.py:17
+#: .\apps\main\forms.py:29 .\apps\main\forms.py:31
 msgid "Please select a subject"
-msgstr ""
+msgstr "Mövzu seçin"
 
-#: .\apps\main\forms.py:18 .\apps\main\forms.py:19
+#: .\apps\main\forms.py:35 .\apps\main\forms.py:39
 msgid "Your message"
-msgstr ""
+msgstr "Sizin mesajınız"
 
-#: .\apps\main\forms.py:20
+#: .\apps\main\forms.py:42 .\apps\main\forms.py:45
 msgid "Please enter your message"
-msgstr ""
+msgstr "Zəhmət olmasa mesajınızı daxil edin"
 
-#: .\apps\main\models.py:20
+#: .\apps\main\models.py:22
 msgid "Site text"
-msgstr ""
+msgstr "Sayt mətni"
 
-#: .\apps\main\models.py:25
+#: .\apps\main\models.py:27
 msgid "Instagram"
-msgstr ""
+msgstr "İnstagram"
 
-#: .\apps\main\models.py:26
+#: .\apps\main\models.py:28
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
-#: .\apps\main\models.py:32
+#: .\apps\main\models.py:29
+msgid "Twitter"
+msgstr "Twitter"
+
+#: .\apps\main\models.py:30
+msgid "Pinterest"
+msgstr "Pinterest"
+
+#: .\apps\main\models.py:31
+msgid "GooglePlus"
+msgstr "GooglePlus"
+
+#: .\apps\main\models.py:39
 msgid "Social Media links"
-msgstr ""
+msgstr "Sosial media linkləri"
 
 #: .\apps\main\templates\main\about.html:4
 #: .\apps\main\templates\main\about.html:5
@@ -655,33 +993,30 @@ msgstr ""
 
 #: .\apps\main\templates\main\contact.html:44
 msgid "Call us"
-msgstr ""
+msgstr "Bizə zəng edin"
 
 #: .\apps\main\templates\main\contact.html:57
 msgid "Working hours"
-msgstr ""
+msgstr "İş saatları"
 
 #: .\apps\main\templates\main\contact.html:81
 msgid "Write to us"
-msgstr ""
+msgstr "Bizə yazın"
 
 #: .\apps\main\templates\main\contact.html:83
 #, python-format
 msgid ""
 "\n"
-"              Thanks for your interest in %(app_name)s. We believe in "
-"creativity\n"
-"              as one of the major forces of progress. Please use this form "
-"if\n"
-"              you have any questions about our products and we'll get back "
-"with\n"
+"              Thanks for your interest in %(app_name)s. We believe in creativity\n"
+"              as one of the major forces of progress. Please use this form if\n"
+"              you have any questions about our products and we'll get back with\n"
 "              you very soon.\n"
 "              "
 msgstr ""
 
 #: .\apps\main\templates\main\contact.html:120
 msgid "Send message"
-msgstr ""
+msgstr "Mesaj göndər"
 
 #: .\apps\main\templates\main\delivery-policy.html:4
 #: .\apps\main\templates\main\delivery-policy.html:5
@@ -698,179 +1033,326 @@ msgstr ""
 msgid "Privacy Policy Description"
 msgstr ""
 
-#: .\apps\main\views.py:88
+#: .\apps\main\views.py:109
 msgid "Message was sent successfully!"
-msgstr ""
+msgstr "Mesaj uğurla göndərildi!"
 
-#: .\apps\main\views.py:91 .\apps\main\views.py:92
+#: .\apps\main\views.py:112 .\apps\main\views.py:113
 msgid "Message cannot be sent!"
+msgstr "Mesaj göndərilə bilməz!"
+
+#: .\apps\orders\forms.py:18 .\apps\orders\forms.py:20
+msgid "Please enter your phone"
+msgstr "Telefon nömrənizi daxil edin"
+
+#: .\apps\orders\forms.py:22
+msgid "+994xxxxxxxxx"
 msgstr ""
 
-#: .\apps\store\favorites_processor.py:42
-msgid "Product cannot be added to Favorites"
+#: .\apps\orders\templates\orders\checkout.html:4
+#: .\apps\orders\templates\orders\checkout.html:5
+msgid "Checkout Page Description"
 msgstr ""
 
-#: .\apps\store\favorites_processor.py:51
-msgid "Product is not removed from Favorites"
+#: .\apps\orders\templates\orders\checkout.html:11
+msgid "Your Order"
+msgstr "Sifarişiniz"
+
+#: .\apps\orders\templates\orders\checkout.html:13
+msgid "Confirm your order details"
+msgstr "Sifariş məlumatlarınızı təsdiqləyin"
+
+#: .\apps\orders\templates\orders\checkout.html:28
+msgid "Order now"
+msgstr "Sifariş edin"
+
+#: .\apps\orders\templates\orders\checkout.html:52
+#, python-format
+msgid ""
+"\n"
+"                                                I have read and accepted the <a href=\"%(privacy_policy_link)s\">terms</a>.\n"
+"                                                "
+msgstr ""
+"\n"
+"<a href=\"%(privacy_policy_link)s\">şərtləri</a> oxudum və qəbul etdim"
+
+#: .\apps\orders\templates\orders\checkout.html:66
+msgid "Order from WhatsApp"
+msgstr "WhatsApp-dan sifariş"
+
+#: .\apps\orders\templates\orders\checkout.html:71
+msgid "Your shopping cart is empty"
+msgstr "Sizin alış-veriş səbətiniz boşdur"
+
+#: .\apps\orders\templates\orders\checkout.html:126
+#: .\templates\components\default\cart.html:18
+msgid "Total"
+msgstr "Ümumi"
+
+#: .\apps\orders\templates\orders\checkout.html:158
+#: .\apps\orders\templates\orders\success.html:25
+msgid "Shop more"
+msgstr "Daha çox alış-veriş edin"
+
+#: .\apps\orders\templates\orders\success.html:4
+#: .\apps\orders\templates\orders\success.html:5
+msgid "Checkout Success Page Description"
 msgstr ""
 
-#: .\apps\store\favorites_processor.py:59
-msgid "Favorites cannot be cleared"
-msgstr ""
+#: .\apps\orders\templates\orders\success.html:12
+msgid "Your order was submitted!"
+msgstr "Sifarişiniz təsdiq edildi!"
 
-#: .\apps\store\models.py:120
-msgid "In Stock"
-msgstr ""
+#: .\apps\orders\templates\orders\success.html:14
+msgid "We will contact you soon!"
+msgstr "Tezliklə sizinlə əlaqə saxlayacağıq!"
 
-#: .\apps\store\models.py:120
-msgid "Not in Stock"
-msgstr ""
+#: .\apps\orders\views.py:47
+msgid "Order was placed successfully!"
+msgstr "Sifariş uğurla yerləşdirildi!"
 
-#: .\apps\store\models.py:128
-msgid "Active"
-msgstr ""
+#: .\apps\orders\views.py:49
+msgid "Order cannot be placed!"
+msgstr "Sifariş verilmədi!"
 
-#: .\apps\store\models.py:128
+#: .\apps\store\forms.py:10 .\templates\components\forms\brand-inputs.html:11
+#: .\templates\components\forms\category-inputs.html:13
+msgid "All"
+msgstr "Hamısı"
+
+#: .\apps\store\forms.py:15
+msgid "lowest"
+msgstr "ən az"
+
+#: .\apps\store\forms.py:16
+msgid "highest"
+msgstr "ən yüksək"
+
+#: .\apps\store\forms.py:20
+msgid "Grid"
+msgstr "Kvadrat"
+
+#: .\apps\store\forms.py:21
+msgid "List"
+msgstr "Siyahı"
+
+#: .\apps\store\models.py:286
 msgid "Not Active"
+msgstr "Aktiv deyil"
+
+#: .\apps\store\templates\store\category-products.html:8
+msgid "Products Page Description"
 msgstr ""
 
-#: .\apps\store\templates\store\products\detail.html:37
-msgid "Category"
-msgstr ""
-
-#: .\apps\store\templates\store\products\detail.html:43
-#: .\apps\store\templates\store\products\detail.html:204
-msgid "Brand"
-msgstr ""
-
-#: .\apps\store\templates\store\products\detail.html:102
-msgid "Add to favorites"
-msgstr ""
-
-#: .\apps\store\templates\store\products\detail.html:103
-msgid "Remove from favorites"
-msgstr ""
-
-#: .\apps\store\templates\store\products\detail.html:132
-msgid "Description"
-msgstr ""
-
-#: .\apps\store\templates\store\products\detail.html:153
-msgid "Related products"
-msgstr ""
-
-#: .\apps\store\templates\store\products\detail.html:155
-msgid "Check out our latest collections."
-msgstr ""
-
-#: .\apps\store\templates\store\products\detail.html:172
-msgid "View all related products"
-msgstr ""
-
-#: .\apps\store\templates\store\products\detail.html:212
+#: .\apps\store\templates\store\products\detail.html:44
+#: .\apps\store\templates\store\products\detail.html:194
+#: .\templates\components\default\filters.html:32
 msgid "Availability"
-msgstr ""
+msgstr "Mövcudluq"
+
+#: .\apps\store\templates\store\products\detail.html:82
+#: .\templates\components\default\products\grid-item.html:11
+#: .\templates\components\default\products\list-item.html:11
+msgid "Add to favorites"
+msgstr "Seçilmişlərə əlavə et"
+
+#: .\apps\store\templates\store\products\detail.html:85
+msgid "Remove from favorites"
+msgstr "Seçilmişlərdən silin"
+
+#: .\apps\store\templates\store\products\detail.html:124
+msgid "Description"
+msgstr "Məzmun"
+
+#: .\apps\store\templates\store\products\detail.html:139
+msgid "Related products"
+msgstr "Əlaqədar məhsullar"
+
+#: .\apps\store\templates\store\products\detail.html:141
+msgid "Check out our latest collections."
+msgstr "Yeni məhsullara baxın."
+
+#: .\apps\store\templates\store\products\detail.html:158
+msgid "View all related products"
+msgstr "Bütün əlaqəli məhsullara baxın"
 
 #: .\apps\store\templates\store\products\favorites.html:4
+#: .\apps\store\views.py:139
 msgid "Favorites"
-msgstr ""
+msgstr "Seçilmişlər"
 
 #: .\apps\store\templates\store\products\favorites.html:5
 msgid "Favorites Page Description"
 msgstr ""
 
-#: .\apps\store\templates\store\products\favorites.html:15
+#: .\apps\store\templates\store\products\favorites.html:11
 msgid "Favorite Products"
-msgstr ""
+msgstr "Seçilmiş Məhsullar"
 
-#: .\core\settings.py:149
+#: .\apps\store\templatetags\get_product_quantity_type_display.py:12
+msgid "number"
+msgstr "ədəd"
+
+#: .\apps\store\templatetags\in_stock_display.py:9
+msgid "Not In Stock"
+msgstr "Stokda yoxdur"
+
+#: .\core\settings.py:157
 msgid "Azerbaijani"
-msgstr ""
+msgstr "Azərbaycanca"
 
-#: .\core\settings.py:150
+#: .\core\settings.py:158
 msgid "English"
-msgstr ""
+msgstr "İngiliscə"
 
-#: .\core\settings.py:151
+#: .\core\settings.py:159
 msgid "Russian"
-msgstr ""
+msgstr "Rusca"
 
-#: .\shared\custom_form_fields.py:9
+#: .\shared\custom_form_fields.py:10
 msgid "Language"
-msgstr ""
+msgstr "Dil"
 
-#: .\shared\custom_form_fields.py:13
+#: .\shared\custom_form_fields.py:16
 msgid "Please select language"
-msgstr ""
+msgstr "Zəhmət olmasa dil seçin"
 
-#: .\shared\custom_model_fields.py:8
+#: .\shared\custom_model_fields.py:9
 msgid "Language field"
-msgstr ""
+msgstr "Dil xanası"
 
-#: .\shared\custom_model_fields.py:18
+#: .\shared\custom_model_fields.py:19
 msgid "Created at field"
-msgstr ""
+msgstr "Yaradılma tarixi xanası"
 
-#: .\shared\custom_model_fields.py:26
+#: .\shared\custom_model_fields.py:27
 msgid "Updated at field"
-msgstr ""
+msgstr "Yenilənmə tarixi xanası"
 
-#: .\shared\custom_model_fields.py:34
+#: .\shared\custom_model_fields.py:35
 msgid "Text field"
-msgstr ""
+msgstr "Mətn xanası"
+
+#: .\shared\custom_model_fields.py:51
+msgid "Square Meter"
+msgstr "Kvadrat Metr"
+
+#: .\shared\custom_model_fields.py:52
+msgid "Number"
+msgstr "Ədəd"
 
 #: .\templates\components\admin\navbar.html:15
-#: .\templates\layouts\admin.html:19 .\templates\layouts\authentication.html:23
+#: .\templates\layouts\admin.html:19
+#: .\templates\layouts\authentication.html:23
 msgid "Admin"
-msgstr ""
+msgstr "Admin"
 
 #: .\templates\components\admin\navbar.html:80
 #: .\templates\components\admin\sidenav.html:6
 msgid "Account"
-msgstr ""
+msgstr "Hesab"
 
 #: .\templates\components\admin\navbar.html:89
 msgid "Logout"
-msgstr ""
+msgstr "Çıxış"
 
 #: .\templates\components\admin\sidenav.html:18
 msgid "Logged in as"
-msgstr ""
+msgstr "Qeydiyyatdan keçən"
 
-#: .\templates\components\default\discounted_products.html:7
-msgid "Discounted products"
-msgstr ""
+#: .\templates\components\default\cart.html:29
+msgid "Continue shopping"
+msgstr "Alış-verişə davam edin"
 
-#: .\templates\components\default\discounted_products.html:10
-#: .\templates\components\default\new_products.html:10
-msgid "Find your perfect match"
-msgstr ""
+#: .\templates\components\default\cart.html:32
+msgid "Checkout"
+msgstr "Sifariş"
 
-#: .\templates\components\default\discounted_products.html:12
-#: .\templates\components\default\new_products.html:12
-msgid "View all"
-msgstr ""
-
-#: .\templates\components\default\featured_categories.html:6
-msgid "Featured categories"
-msgstr ""
-
-#: .\templates\components\default\featured_categories.html:10
-msgid "View more"
-msgstr ""
-
-#: .\templates\components\default\featured_categories.html:28
+#: .\templates\components\default\categories\category.html:12
 msgid "products"
-msgstr ""
+msgstr "məhsullar"
 
-#: .\templates\components\default\featured_categories.html:34
+#: .\templates\components\default\categories\category.html:19
 msgid "Shop now"
-msgstr ""
+msgstr "Alış-veriş edin"
+
+#: .\templates\components\default\categories\featured_categories.html:6
+msgid "Featured categories"
+msgstr "Seçilmiş kateqoriyalar"
+
+#: .\templates\components\default\categories\featured_categories.html:10
+msgid "View more"
+msgstr "Daha çox"
+
+#: .\templates\components\default\filters.html:5
+msgid "Filter products"
+msgstr "Məhsulları axtar"
+
+#: .\templates\components\default\filters.html:6
+msgid "Select your options"
+msgstr "Seçimlərinizi daxil edin"
+
+#: .\templates\components\default\filters.html:37
+msgid "In stock"
+msgstr "Stokdadır"
+
+#: .\templates\components\default\header.html:22
+msgid "Logo"
+msgstr "Loqo"
 
 #: .\templates\components\default\header.html:29
 msgid "Admin Panel"
-msgstr ""
+msgstr "Admin Paneli"
 
-#: .\templates\components\default\new_products.html:7
+#: .\templates\components\default\header.html:99
+msgid "Search now"
+msgstr "Axtar"
+
+#: .\templates\components\default\products\discounted_products.html:7
+msgid "Discounted products"
+msgstr "Endirimli məhsullar"
+
+#: .\templates\components\default\products\discounted_products.html:11
+#: .\templates\components\default\products\new_products.html:11
+msgid "View all"
+msgstr "Hamısına baxın"
+
+#: .\templates\components\default\products\grid-item.html:12
+#: .\templates\components\default\products\list-item.html:12
+msgid "Add to favorites list"
+msgstr "Seçilmişlərə əlavə et"
+
+#: .\templates\components\default\products\new_products.html:7
 msgid "New products"
+msgstr "Yeni məhsullar"
+
+#: .\templates\components\default\sort-bar.html:7
+#, python-format
+msgid ""
+"\n"
+"      Showing all\n"
+"      <strong>%(per_page)s</strong>\n"
+"      of\n"
+"      <strong>%(total)s</strong>\n"
+"      items\n"
+"      "
 msgstr ""
+"\n"
+"Hamısı göstərilir\n"
+"<strong>%(per_page)s</strong>\n"
+"dan\n"
+"<strong>%(total)s</strong>\n"
+"məhsul"
+
+#: .\templates\components\default\sort-bar.html:18
+msgid "Sort by"
+msgstr "Sırala"
+
+#: .\templates\components\default\whatsapp.html:3
+#: .\templates\components\default\whatsapp.html:6
+msgid "Chat on WhatsApp"
+msgstr "WhatsApp-da yazın"
+
+#: .\templates\components\forms\price-filter.html:22
+msgid "Filter"
+msgstr "Axtar"
