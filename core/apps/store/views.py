@@ -98,7 +98,7 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["related_products"] = self.model.products.list_queryset().filter(
             category=self.object.category
-        )[: self.related_product_count]
+        ).exclude(slug=self.get_object().slug)[: self.related_product_count]
         context["breadcrumb"] = [
             {"route": reverse("apps.main:index"), "title": _("Home")},
             {"route": reverse("apps.store:category-products"), "title": _("Products")},

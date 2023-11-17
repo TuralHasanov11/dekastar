@@ -1,7 +1,7 @@
 {% extends "layouts/default.html" %}
 {% load static %}
 {% load i18n %}
-{% block title %}{% translate "Checkout Page Description" %}{% endblock title %}
+{% block title %}{% translate "Checkout" %}{% endblock title %}
 {% block description %}{% translate "Checkout Page Description" %}{% endblock description %}
 {% block content %}
 <section class="checkout">
@@ -128,7 +128,7 @@
                         <div>
                             <span>
                                 &#8380; 
-                                <span id="checkout-total-price">{{cart.get_total_price}}</span>
+                                <span class="checkout-total-price">{{cart.get_total_price}}</span>
                             </span>
                         </div>
                     </div>
@@ -141,7 +141,9 @@
                     <div class="col-md-4 offset-md-8">
                         <div class="cart-block cart-block-footer cart-block-footer-price clearfix">
                             <div>
-                                <div class="h2">&#8380; {{cart.get_total_price}}</div>
+                                <div class="h2">&#8380; 
+                                    <span class="checkout-total-price">{{cart.get_total_price}}</span>
+                                </div>
                             </div>
                         </div>
                     </div>

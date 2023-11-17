@@ -30,7 +30,7 @@
 
               <div class="info-box">
                 <span><strong>{% translate "Code" %}</strong></span>
-                <span>{{product.code }}</span>
+                <span>{{ product.code|default:"" }}</span>
               </div>
 
               <div class="info-box">
@@ -142,15 +142,12 @@
   <header>
     <div class="container">
       <h2 class="title">{% translate "Related products" %}</h2>
-      <div class="text">
-        <p>{% translate "Check out our latest collections." %}</p>
-      </div>
     </div>
   </header>
   <div class="container">
     <div class="row">
       {% for product in related_products %}
-      <div class="col-6 col-lg-3">
+      <div class="col-12 col-md-6 col-lg-4">
         {% include "components/default/products/grid-item.html" with product=product %}
       </div>
       {% endfor %}

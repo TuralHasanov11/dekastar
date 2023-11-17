@@ -43,10 +43,11 @@ class Order(models.Model):
     total_paid = models.DecimalField(max_digits=7, decimal_places=2)
     uuid = models.UUIDField(unique=True, null=True, blank=True, default=uuid.uuid4())
     seen = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = custom_model_fields.CreatedAtField()
+    updated_at = custom_model_fields.UpdatedAtField()
 
     orders = OrderManager()
+    objects = models.Manager()
 
     class Meta:
         ordering = ('-created_at',)
@@ -71,8 +72,8 @@ class OrderItem(models.Model):
                                      choices=custom_model_fields.ProductQuantityType.choices,
                                      default=custom_model_fields.ProductQuantityType.NUMBER)
     sub_total = models.DecimalField(max_digits=6, decimal_places=2, default=0)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = custom_model_fields.CreatedAtField()
+    updated_at = custom_model_fields.UpdatedAtField()
 
     def __str__(self):
         return str(self.sub_total)

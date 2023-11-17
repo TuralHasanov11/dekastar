@@ -57,7 +57,7 @@ class CartProcessor:
             self.cart[product_id]['quantity'] += quantity
         else:
             self.cart[product_id] = {'price': str(
-                product.discount_price), 'quantity': 1}
+                product.discount_price), 'quantity': quantity}
 
         self.cart[product_id]["product"] = CartProductSerializer(product).data
         self.session["cart"] = self.cart

@@ -31,7 +31,7 @@ class LoginForm(auth_forms.AuthenticationForm):
         widget=forms.TextInput(
             attrs={
                 "class": "form-control mb-3 form-control-sm",
-                "placeholder": "Username",
+                "placeholder": _("Username"),
                 "title": _("Please enter username"),
             }
         ),
@@ -41,7 +41,7 @@ class LoginForm(auth_forms.AuthenticationForm):
         widget=forms.PasswordInput(
             attrs={
                 "class": "form-control form-control-sm",
-                "placeholder": "Password",
+                "placeholder": _("Password"),
                 "title": _("Please enter password"),
             }
         ),
@@ -483,7 +483,7 @@ class CategoryForm(forms.ModelForm):
 class CategoryAttributeForm(forms.ModelForm):
     language = custom_form_fields.LanguageField(disabled=True)
     name = forms.CharField(
-        required=True,
+        required=False,
         label=_("Name"),
         widget=forms.TextInput(
             attrs={

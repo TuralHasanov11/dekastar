@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-16 23:29+0100\n"
+"POT-Creation-Date: 2023-11-17 12:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,7 +32,7 @@ msgstr ""
 
 #: .\apps\administration\context_processors.py:20
 #: .\apps\administration\views.py:50 .\apps\main\context_processors.py:27
-#: .\apps\main\context_processors.py:55
+#: .\apps\main\context_processors.py:55 .\apps\main\templates\main\about.html:4
 #: .\apps\main\templates\main\about.html:10
 msgid "About Us"
 msgstr ""
@@ -64,12 +64,12 @@ msgstr ""
 
 #: .\apps\administration\context_processors.py:45
 #: .\apps\administration\views.py:62 .\apps\main\context_processors.py:14
-#: .\apps\main\context_processors.py:40 .\apps\store\models.py:62
+#: .\apps\main\context_processors.py:40 .\apps\store\models.py:74
 msgid "Categories"
 msgstr ""
 
 #: .\apps\administration\context_processors.py:50
-#: .\apps\administration\views.py:66 .\apps\store\models.py:111
+#: .\apps\administration\views.py:66 .\apps\store\models.py:123
 msgid "Brands"
 msgstr ""
 
@@ -86,9 +86,9 @@ msgstr ""
 msgid "Orders"
 msgstr ""
 
-#: .\apps\administration\forms.py:30 .\apps\administration\forms.py:90
-#: .\apps\administration\forms.py:95 .\apps\administration\forms.py:176
-#: .\apps\administration\forms.py:181
+#: .\apps\administration\forms.py:30 .\apps\administration\forms.py:34
+#: .\apps\administration\forms.py:90 .\apps\administration\forms.py:95
+#: .\apps\administration\forms.py:176 .\apps\administration\forms.py:181
 #: .\apps\administration\templates\administration\users\list.html:38
 #: .\apps\administration\templates\administration\users\list.html:45
 msgid "Username"
@@ -99,8 +99,8 @@ msgstr ""
 msgid "Please enter username"
 msgstr ""
 
-#: .\apps\administration\forms.py:40 .\apps\administration\forms.py:134
-#: .\apps\administration\forms.py:138
+#: .\apps\administration\forms.py:40 .\apps\administration\forms.py:44
+#: .\apps\administration\forms.py:134 .\apps\administration\forms.py:138
 msgid "Password"
 msgstr ""
 
@@ -281,7 +281,8 @@ msgstr ""
 msgid "Please upload Image"
 msgstr ""
 
-#: .\apps\administration\forms.py:435 .\apps\store\models.py:286
+#: .\apps\administration\forms.py:435 .\apps\main\models.py:132
+#: .\apps\store\models.py:298
 msgid "Active"
 msgstr ""
 
@@ -349,7 +350,7 @@ msgstr ""
 #: .\apps\administration\templates\administration\store\products\list.html:39
 #: .\apps\administration\templates\administration\store\products\list.html:49
 #: .\apps\store\templates\store\products\detail.html:37
-#: .\apps\store\templates\store\products\detail.html:195
+#: .\apps\store\templates\store\products\detail.html:192
 #: .\templates\components\default\filters.html:18
 msgid "Category"
 msgstr ""
@@ -360,7 +361,7 @@ msgstr ""
 
 #: .\apps\administration\forms.py:581
 #: .\apps\store\templates\store\products\detail.html:43
-#: .\apps\store\templates\store\products\detail.html:190
+#: .\apps\store\templates\store\products\detail.html:187
 #: .\templates\components\default\filters.html:25
 msgid "Brand"
 msgstr ""
@@ -570,7 +571,7 @@ msgstr ""
 #: .\apps\administration\templates\administration\orders\detail.html:38
 #: .\apps\orders\templates\orders\checkout.html:62
 #: .\apps\store\templates\store\products\detail.html:72
-#: .\apps\store\templates\store\products\detail.html:224
+#: .\apps\store\templates\store\products\detail.html:221
 msgid "Order"
 msgstr ""
 
@@ -892,8 +893,8 @@ msgstr ""
 msgid "Product was not found"
 msgstr ""
 
-#: .\apps\main\context_processors.py:12 .\apps\store\views.py:65
-#: .\apps\store\views.py:103 .\apps\store\views.py:138
+#: .\apps\main\context_processors.py:12 .\apps\main\templates\main\index.html:4
+#: .\apps\store\views.py:65 .\apps\store\views.py:103 .\apps\store\views.py:138
 msgid "Home"
 msgstr ""
 
@@ -902,6 +903,7 @@ msgid "About the Company"
 msgstr ""
 
 #: .\apps\main\context_processors.py:68
+#: .\apps\main\templates\main\contact.html:4
 msgid "Contact Us"
 msgstr ""
 
@@ -976,12 +978,14 @@ msgstr ""
 msgid "Social Media links"
 msgstr ""
 
-#: .\apps\main\templates\main\about.html:4
+#: .\apps\main\models.py:132 .\apps\store\models.py:298
+msgid "Not Active"
+msgstr ""
+
 #: .\apps\main\templates\main\about.html:5
 msgid "About Page Description"
 msgstr ""
 
-#: .\apps\main\templates\main\contact.html:4
 #: .\apps\main\templates\main\contact.html:5
 msgid "Contact Page Description"
 msgstr ""
@@ -1014,7 +1018,6 @@ msgstr ""
 msgid "Delivery Policy Page Description"
 msgstr ""
 
-#: .\apps\main\templates\main\index.html:4
 #: .\apps\main\templates\main\index.html:5
 msgid "Home Page Description"
 msgstr ""
@@ -1040,6 +1043,10 @@ msgid "+994xxxxxxxxx"
 msgstr ""
 
 #: .\apps\orders\templates\orders\checkout.html:4
+#: .\templates\components\default\cart.html:32
+msgid "Checkout"
+msgstr ""
+
 #: .\apps\orders\templates\orders\checkout.html:5
 msgid "Checkout Page Description"
 msgstr ""
@@ -1078,12 +1085,15 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: .\apps\orders\templates\orders\checkout.html:158
+#: .\apps\orders\templates\orders\checkout.html:160
 #: .\apps\orders\templates\orders\success.html:25
 msgid "Shop more"
 msgstr ""
 
 #: .\apps\orders\templates\orders\success.html:4
+msgid "Checkout Success"
+msgstr ""
+
 #: .\apps\orders\templates\orders\success.html:5
 msgid "Checkout Success Page Description"
 msgstr ""
@@ -1125,16 +1135,12 @@ msgstr ""
 msgid "List"
 msgstr ""
 
-#: .\apps\store\models.py:286
-msgid "Not Active"
-msgstr ""
-
 #: .\apps\store\templates\store\category-products.html:8
 msgid "Products Page Description"
 msgstr ""
 
 #: .\apps\store\templates\store\products\detail.html:49
-#: .\apps\store\templates\store\products\detail.html:199
+#: .\apps\store\templates\store\products\detail.html:196
 #: .\templates\components\default\filters.html:32
 msgid "Availability"
 msgstr ""
@@ -1157,11 +1163,7 @@ msgstr ""
 msgid "Related products"
 msgstr ""
 
-#: .\apps\store\templates\store\products\detail.html:146
-msgid "Check out our latest collections."
-msgstr ""
-
-#: .\apps\store\templates\store\products\detail.html:163
+#: .\apps\store\templates\store\products\detail.html:160
 msgid "View all related products"
 msgstr ""
 
@@ -1214,19 +1216,19 @@ msgstr ""
 msgid "Created at field"
 msgstr ""
 
-#: .\shared\custom_model_fields.py:27
+#: .\shared\custom_model_fields.py:28
 msgid "Updated at field"
 msgstr ""
 
-#: .\shared\custom_model_fields.py:35
+#: .\shared\custom_model_fields.py:36
 msgid "Text field"
 msgstr ""
 
-#: .\shared\custom_model_fields.py:51
+#: .\shared\custom_model_fields.py:52
 msgid "Square Meter"
 msgstr ""
 
-#: .\shared\custom_model_fields.py:52
+#: .\shared\custom_model_fields.py:53
 msgid "Number"
 msgstr ""
 
@@ -1250,10 +1252,6 @@ msgstr ""
 
 #: .\templates\components\default\cart.html:29
 msgid "Continue shopping"
-msgstr ""
-
-#: .\templates\components\default\cart.html:32
-msgid "Checkout"
 msgstr ""
 
 #: .\templates\components\default\categories\category.html:12

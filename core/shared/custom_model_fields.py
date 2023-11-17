@@ -20,6 +20,7 @@ class CreatedAtField(models.DateTimeField):
 
     def __init__(self, *args, **kwargs):
         kwargs['auto_now_add'] = True
+        kwargs['editable'] = False,
         super().__init__(*args, **kwargs)
 
 

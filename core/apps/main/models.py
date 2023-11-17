@@ -126,3 +126,7 @@ class Banner(models.Model):
         verbose_name_plural = _("Banners")
 
     objects = models.Manager()
+
+    @property
+    def is_active_display(self):
+        return _("Active") if self.is_active else _("Not Active")

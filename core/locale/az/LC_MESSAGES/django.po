@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-16 23:29+0100\n"
+"POT-Creation-Date: 2023-11-17 12:05+0100\n"
 "PO-Revision-Date: 2023-11-16 23:30+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,7 +31,7 @@ msgstr "Bannerlər"
 
 #: .\apps\administration\context_processors.py:20
 #: .\apps\administration\views.py:50 .\apps\main\context_processors.py:27
-#: .\apps\main\context_processors.py:55
+#: .\apps\main\context_processors.py:55 .\apps\main\templates\main\about.html:4
 #: .\apps\main\templates\main\about.html:10
 msgid "About Us"
 msgstr "Haqqımızda"
@@ -63,12 +63,12 @@ msgstr "İstifadəçilər"
 
 #: .\apps\administration\context_processors.py:45
 #: .\apps\administration\views.py:62 .\apps\main\context_processors.py:14
-#: .\apps\main\context_processors.py:40 .\apps\store\models.py:62
+#: .\apps\main\context_processors.py:40 .\apps\store\models.py:74
 msgid "Categories"
 msgstr "Kateqoriyalar"
 
 #: .\apps\administration\context_processors.py:50
-#: .\apps\administration\views.py:66 .\apps\store\models.py:111
+#: .\apps\administration\views.py:66 .\apps\store\models.py:123
 msgid "Brands"
 msgstr "Brendlər"
 
@@ -85,9 +85,9 @@ msgstr "Məhsullar"
 msgid "Orders"
 msgstr "Sifarişlər"
 
-#: .\apps\administration\forms.py:30 .\apps\administration\forms.py:90
-#: .\apps\administration\forms.py:95 .\apps\administration\forms.py:176
-#: .\apps\administration\forms.py:181
+#: .\apps\administration\forms.py:30 .\apps\administration\forms.py:34
+#: .\apps\administration\forms.py:90 .\apps\administration\forms.py:95
+#: .\apps\administration\forms.py:176 .\apps\administration\forms.py:181
 #: .\apps\administration\templates\administration\users\list.html:38
 #: .\apps\administration\templates\administration\users\list.html:45
 msgid "Username"
@@ -98,8 +98,8 @@ msgstr "İstifadəçi adı"
 msgid "Please enter username"
 msgstr "İstifadəçi adını daxil edin"
 
-#: .\apps\administration\forms.py:40 .\apps\administration\forms.py:134
-#: .\apps\administration\forms.py:138
+#: .\apps\administration\forms.py:40 .\apps\administration\forms.py:44
+#: .\apps\administration\forms.py:134 .\apps\administration\forms.py:138
 msgid "Password"
 msgstr "Şifrə"
 
@@ -280,7 +280,8 @@ msgstr "Şəkil"
 msgid "Please upload Image"
 msgstr "Şəkil yükləyin"
 
-#: .\apps\administration\forms.py:435 .\apps\store\models.py:286
+#: .\apps\administration\forms.py:435 .\apps\main\models.py:132
+#: .\apps\store\models.py:298
 msgid "Active"
 msgstr "Aktiv"
 
@@ -348,7 +349,7 @@ msgstr "Kəmiyyət növünü seçin"
 #: .\apps\administration\templates\administration\store\products\list.html:39
 #: .\apps\administration\templates\administration\store\products\list.html:49
 #: .\apps\store\templates\store\products\detail.html:37
-#: .\apps\store\templates\store\products\detail.html:195
+#: .\apps\store\templates\store\products\detail.html:192
 #: .\templates\components\default\filters.html:18
 msgid "Category"
 msgstr "Kateqoriya"
@@ -359,7 +360,7 @@ msgstr "Kateqoriya seçin"
 
 #: .\apps\administration\forms.py:581
 #: .\apps\store\templates\store\products\detail.html:43
-#: .\apps\store\templates\store\products\detail.html:190
+#: .\apps\store\templates\store\products\detail.html:187
 #: .\templates\components\default\filters.html:25
 msgid "Brand"
 msgstr "Brend"
@@ -569,7 +570,7 @@ msgstr "Panellər"
 #: .\apps\administration\templates\administration\orders\detail.html:38
 #: .\apps\orders\templates\orders\checkout.html:62
 #: .\apps\store\templates\store\products\detail.html:72
-#: .\apps\store\templates\store\products\detail.html:224
+#: .\apps\store\templates\store\products\detail.html:221
 msgid "Order"
 msgstr "Sifariş"
 
@@ -891,8 +892,8 @@ msgstr "Məhsul yenilənə bilməz"
 msgid "Product was not found"
 msgstr "Məhsul tapılmadı"
 
-#: .\apps\main\context_processors.py:12 .\apps\store\views.py:65
-#: .\apps\store\views.py:103 .\apps\store\views.py:138
+#: .\apps\main\context_processors.py:12 .\apps\main\templates\main\index.html:4
+#: .\apps\store\views.py:65 .\apps\store\views.py:103 .\apps\store\views.py:138
 msgid "Home"
 msgstr "Ana Səhifə"
 
@@ -901,6 +902,7 @@ msgid "About the Company"
 msgstr "Şirkət haqqında"
 
 #: .\apps\main\context_processors.py:68
+#: .\apps\main\templates\main\contact.html:4
 msgid "Contact Us"
 msgstr "Bizimlə əlaqə saxlayın"
 
@@ -975,12 +977,14 @@ msgstr "GooglePlus"
 msgid "Social Media links"
 msgstr "Sosial media linkləri"
 
-#: .\apps\main\templates\main\about.html:4
+#: .\apps\main\models.py:132 .\apps\store\models.py:298
+msgid "Not Active"
+msgstr "Aktiv deyil"
+
 #: .\apps\main\templates\main\about.html:5
 msgid "About Page Description"
 msgstr ""
 
-#: .\apps\main\templates\main\contact.html:4
 #: .\apps\main\templates\main\contact.html:5
 msgid "Contact Page Description"
 msgstr ""
@@ -1005,7 +1009,8 @@ msgid ""
 "              "
 msgstr ""
 "\n"
-"Məhsullar haqqında hər hansı bir sualınız varsa, bu formadan istifadə edin məhsullarımız və biz tezliklə sizinlə geri dönəcəyik."
+"Məhsullar haqqında hər hansı bir sualınız varsa, bu formadan istifadə edin "
+"məhsullarımız və biz tezliklə sizinlə geri dönəcəyik."
 
 #: .\apps\main\templates\main\contact.html:118
 msgid "Send message"
@@ -1017,7 +1022,6 @@ msgstr "Mesaj göndər"
 msgid "Delivery Policy Page Description"
 msgstr "Məxfilik Siyasəti Şəkli"
 
-#: .\apps\main\templates\main\index.html:4
 #: .\apps\main\templates\main\index.html:5
 msgid "Home Page Description"
 msgstr ""
@@ -1045,6 +1049,10 @@ msgid "+994xxxxxxxxx"
 msgstr ""
 
 #: .\apps\orders\templates\orders\checkout.html:4
+#: .\templates\components\default\cart.html:32
+msgid "Checkout"
+msgstr "Sifariş"
+
 #: .\apps\orders\templates\orders\checkout.html:5
 msgid "Checkout Page Description"
 msgstr ""
@@ -1065,7 +1073,8 @@ msgstr "Sifariş edin"
 #, python-format
 msgid ""
 "\n"
-"                                                I have read and accepted the <a href=\"%(privacy_policy_link)s\">terms</a>.\n"
+"                                                I have read and accepted the "
+"<a href=\"%(privacy_policy_link)s\">terms</a>.\n"
 "                                                "
 msgstr ""
 "\n"
@@ -1084,12 +1093,17 @@ msgstr "Sizin alış-veriş səbətiniz boşdur"
 msgid "Total"
 msgstr "Ümumi"
 
-#: .\apps\orders\templates\orders\checkout.html:158
+#: .\apps\orders\templates\orders\checkout.html:160
 #: .\apps\orders\templates\orders\success.html:25
 msgid "Shop more"
 msgstr "Daha çox alış-veriş edin"
 
 #: .\apps\orders\templates\orders\success.html:4
+#, fuzzy
+#| msgid "Checkout"
+msgid "Checkout Success"
+msgstr "Sifariş"
+
 #: .\apps\orders\templates\orders\success.html:5
 msgid "Checkout Success Page Description"
 msgstr ""
@@ -1131,16 +1145,12 @@ msgstr "Kvadrat"
 msgid "List"
 msgstr "Siyahı"
 
-#: .\apps\store\models.py:286
-msgid "Not Active"
-msgstr "Aktiv deyil"
-
 #: .\apps\store\templates\store\category-products.html:8
 msgid "Products Page Description"
 msgstr ""
 
 #: .\apps\store\templates\store\products\detail.html:49
-#: .\apps\store\templates\store\products\detail.html:199
+#: .\apps\store\templates\store\products\detail.html:196
 #: .\templates\components\default\filters.html:32
 msgid "Availability"
 msgstr "Mövcudluq"
@@ -1163,11 +1173,7 @@ msgstr "Məzmun"
 msgid "Related products"
 msgstr "Əlaqədar məhsullar"
 
-#: .\apps\store\templates\store\products\detail.html:146
-msgid "Check out our latest collections."
-msgstr "Yeni məhsullara baxın."
-
-#: .\apps\store\templates\store\products\detail.html:163
+#: .\apps\store\templates\store\products\detail.html:160
 msgid "View all related products"
 msgstr "Bütün əlaqəli məhsullara baxın"
 
@@ -1220,25 +1226,24 @@ msgstr "Dil xanası"
 msgid "Created at field"
 msgstr "Yaradılma tarixi xanası"
 
-#: .\shared\custom_model_fields.py:27
+#: .\shared\custom_model_fields.py:28
 msgid "Updated at field"
 msgstr "Yenilənmə tarixi xanası"
 
-#: .\shared\custom_model_fields.py:35
+#: .\shared\custom_model_fields.py:36
 msgid "Text field"
 msgstr "Mətn xanası"
 
-#: .\shared\custom_model_fields.py:51
+#: .\shared\custom_model_fields.py:52
 msgid "Square Meter"
 msgstr "Kvadrat Metr"
 
-#: .\shared\custom_model_fields.py:52
+#: .\shared\custom_model_fields.py:53
 msgid "Number"
 msgstr "Ədəd"
 
 #: .\templates\components\admin\navbar.html:15
-#: .\templates\layouts\admin.html:19
-#: .\templates\layouts\authentication.html:23
+#: .\templates\layouts\admin.html:19 .\templates\layouts\authentication.html:23
 msgid "Admin"
 msgstr "Admin"
 
@@ -1258,10 +1263,6 @@ msgstr "Qeydiyyatdan keçən"
 #: .\templates\components\default\cart.html:29
 msgid "Continue shopping"
 msgstr "Alış-verişə davam edin"
-
-#: .\templates\components\default\cart.html:32
-msgid "Checkout"
-msgstr "Sifariş"
 
 #: .\templates\components\default\categories\category.html:12
 msgid "products"
@@ -1333,6 +1334,9 @@ msgstr "WhatsApp-da yazın"
 #: .\templates\components\forms\price-filter.html:22
 msgid "Filter"
 msgstr "Axtar"
+
+#~ msgid "Check out our latest collections."
+#~ msgstr "Yeni məhsullara baxın."
 
 #~ msgid "Product was added successfully!"
 #~ msgstr "Məhsul uğurla əlavə edildi!"

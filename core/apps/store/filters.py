@@ -61,7 +61,7 @@ class InStockFilter(Filter):
 class BrandFilter(Filter):
     @property
     def queryset(self) -> QuerySet:
-        if "brand" in self._data and isinstance(self._data["brand"], str):
+        if "brand" in self._data and isinstance(self._data["brand"], str) and self._data["brand"]:
             self._queryset = self._queryset.filter(brand__slug=self._data["brand"])
         return self._queryset
 

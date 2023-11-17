@@ -88,7 +88,7 @@ $(document).ready(() => {
             const data = await response.json()
 
             $("#cart-total-price").html(data?.total_price)
-            $("#checkout-total-price").html(data?.total_price)
+            $(".checkout-total-price").html(data?.total_price)
             $("#checkout-discount-price").html(data?.total_discount)
             $("#checkout-regular-price").html(data?.total_regular_price)
             $("#cart-quantity").html(data?.quantity)

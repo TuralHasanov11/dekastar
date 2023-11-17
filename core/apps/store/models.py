@@ -5,7 +5,7 @@ from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
-from mptt.models import MPTTModel, TreeForeignKey
+from mptt.models import MPTTModel, TreeForeignKey, TreeManager
 from shared import custom_model_fields
 
 
@@ -44,15 +44,27 @@ def category_image_path(instance, filename):
     return f"categories/{instance.name}/{filename}"
 
 
+class CategoryTreeManager(TreeManager):
+    def get_queryset(self):
+        return CategoryQuerySet(self.model, using=self._db).prefetch_related(
+            Prefetch(
+                "category_attribute",
+                queryset=CategoryAttribute.objects.filter(language=get_language()),
+                to_attr="attribute"
+            ),
+        )
+
+
 class Category(MPTTModel):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
     parent = TreeForeignKey("self", on_delete=models.PROTECT, related_name="children", null=True, blank=True)
     cover_image = models.ImageField(upload_to=category_image_path)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = custom_model_fields.CreatedAtField()
+    updated_at = custom_model_fields.UpdatedAtField()
 
     categories = CategoryManager()
+    manager = CategoryTreeManager()
 
     class MPTTMeta:
         order_insertion_by = ["name"]
@@ -101,8 +113,8 @@ class Brand(models.Model):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
     cover_image = models.ImageField(upload_to=brand_image_path)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = custom_model_fields.CreatedAtField()
+    updated_at = custom_model_fields.UpdatedAtField()
 
     objects = models.Manager()
 
@@ -247,15 +259,15 @@ class Product(models.Model):
     quantity_type = models.CharField(max_length=50,
                                      choices=custom_model_fields.ProductQuantityType.choices,
                                      default=custom_model_fields.ProductQuantityType.NUMBER)
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        editable=False,
-    )
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = custom_model_fields.CreatedAtField()
+    updated_at = custom_model_fields.UpdatedAtField()
 
     products = ProductManager()
     admin_products = ProductAdminManager()
     objects = models.Manager()
+
+    class Meta:
+        ordering = ('-created_at',)
 
     def __str__(self):
         return str(self.name)
@@ -300,8 +312,8 @@ class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_image")
     image = models.ImageField(upload_to=product_image_path, null=True, blank=True)
     is_feature = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = custom_model_fields.CreatedAtField()
+    updated_at = custom_model_fields.UpdatedAtField()
 
     objects = models.Manager()
 
