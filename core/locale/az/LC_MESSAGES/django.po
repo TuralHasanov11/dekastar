@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-17 12:05+0100\n"
-"PO-Revision-Date: 2023-11-16 23:30+0400\n"
+"PO-Revision-Date: 2023-11-18 20:04+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -31,7 +31,8 @@ msgstr "Bannerlər"
 
 #: .\apps\administration\context_processors.py:20
 #: .\apps\administration\views.py:50 .\apps\main\context_processors.py:27
-#: .\apps\main\context_processors.py:55 .\apps\main\templates\main\about.html:4
+#: .\apps\main\context_processors.py:55
+#: .\apps\main\templates\main\about.html:4
 #: .\apps\main\templates\main\about.html:10
 msgid "About Us"
 msgstr "Haqqımızda"
@@ -892,8 +893,9 @@ msgstr "Məhsul yenilənə bilməz"
 msgid "Product was not found"
 msgstr "Məhsul tapılmadı"
 
-#: .\apps\main\context_processors.py:12 .\apps\main\templates\main\index.html:4
-#: .\apps\store\views.py:65 .\apps\store\views.py:103 .\apps\store\views.py:138
+#: .\apps\main\context_processors.py:12
+#: .\apps\main\templates\main\index.html:4 .\apps\store\views.py:65
+#: .\apps\store\views.py:103 .\apps\store\views.py:138
 msgid "Home"
 msgstr "Ana Səhifə"
 
@@ -984,10 +986,14 @@ msgstr "Aktiv deyil"
 #: .\apps\main\templates\main\about.html:5
 msgid "About Page Description"
 msgstr ""
+"Keyfiyyətli mebel və ev dekorasiyası üçün etibarlı mənbəniz olan Dekastar "
+"haqqında məlumat əldə edin."
 
 #: .\apps\main\templates\main\contact.html:5
 msgid "Contact Page Description"
 msgstr ""
+"İstənilən sorğu və ya yardım üçün bizə müraciət edin. Tez və səmimi dəstək "
+"üçün Dekastar ilə əlaqə saxlayın."
 
 #: .\apps\main\templates\main\contact.html:44
 msgid "Call us"
@@ -1009,28 +1015,31 @@ msgid ""
 "              "
 msgstr ""
 "\n"
-"Məhsullar haqqında hər hansı bir sualınız varsa, bu formadan istifadə edin "
-"məhsullarımız və biz tezliklə sizinlə geri dönəcəyik."
+"Məhsullar haqqında hər hansı bir sualınız varsa, bu formadan istifadə edin məhsullarımız və biz tezliklə sizinlə geri dönəcəyik."
 
 #: .\apps\main\templates\main\contact.html:118
 msgid "Send message"
 msgstr "Mesaj göndər"
 
 #: .\apps\main\templates\main\delivery-policy.html:5
-#, fuzzy
 #| msgid "Privacy Policy Image"
 msgid "Delivery Policy Page Description"
-msgstr "Məxfilik Siyasəti Şəkli"
+msgstr ""
+"Dekastar-da çatdırılma siyasətimizi araşdırın. Yeni mebellərinizi qapınıza "
+"çatdırmaq üçün sürətli və təhlükəsiz çatdırılma təmin edirik."
 
 #: .\apps\main\templates\main\index.html:5
 msgid "Home Page Description"
 msgstr ""
+"Dekastar-da dəbli və rahat mebel dünyasını kəşf edin. Unikal zövqünüzü əks "
+"etdirən bir ev yaradın."
 
 #: .\apps\main\templates\main\privacy-policy.html:5
-#, fuzzy
 #| msgid "Privacy Policy Image"
 msgid "Privacy Policy Page Description"
-msgstr "Məxfilik Siyasəti Şəkli"
+msgstr ""
+"Dekastarın qüsursuz alış-veriş təcrübəsi təmin edərkən məxfiliyinizi necə "
+"qoruduğunu və hörmət etdiyini anlamaq üçün məxfilik siyasətimizi oxuyun."
 
 #: .\apps\main\views.py:109
 msgid "Message was sent successfully!"
@@ -1056,6 +1065,8 @@ msgstr "Sifariş"
 #: .\apps\orders\templates\orders\checkout.html:5
 msgid "Checkout Page Description"
 msgstr ""
+"Dekastar-da hamar və təhlükəsiz ödəniş prosesini yaşayın. Sifarişinizi "
+"əminliklə və rahatlıqla tamamlayın."
 
 #: .\apps\orders\templates\orders\checkout.html:11
 msgid "Your Order"
@@ -1073,8 +1084,7 @@ msgstr "Sifariş edin"
 #, python-format
 msgid ""
 "\n"
-"                                                I have read and accepted the "
-"<a href=\"%(privacy_policy_link)s\">terms</a>.\n"
+"                                                I have read and accepted the <a href=\"%(privacy_policy_link)s\">terms</a>.\n"
 "                                                "
 msgstr ""
 "\n"
@@ -1099,14 +1109,15 @@ msgid "Shop more"
 msgstr "Daha çox alış-veriş edin"
 
 #: .\apps\orders\templates\orders\success.html:4
-#, fuzzy
 #| msgid "Checkout"
 msgid "Checkout Success"
-msgstr "Sifariş"
+msgstr "Ödəniş Uğurlu"
 
 #: .\apps\orders\templates\orders\success.html:5
 msgid "Checkout Success Page Description"
 msgstr ""
+"Təbrik edirik! Sifarişiniz təsdiqləndi. Dekastar-ı seçdiyiniz üçün təşəkkür "
+"edirik."
 
 #: .\apps\orders\templates\orders\success.html:12
 msgid "Your order was submitted!"
@@ -1148,6 +1159,8 @@ msgstr "Siyahı"
 #: .\apps\store\templates\store\category-products.html:8
 msgid "Products Page Description"
 msgstr ""
+"Bizim yüksək keyfiyyətli mebel kolleksiyamıza nəzər salın. Dekastar-da "
+"evinizin estetikasını yüksəldən parçaları tapın."
 
 #: .\apps\store\templates\store\products\detail.html:49
 #: .\apps\store\templates\store\products\detail.html:196
@@ -1185,6 +1198,8 @@ msgstr "Seçilmişlər"
 #: .\apps\store\templates\store\products\favorites.html:5
 msgid "Favorites Page Description"
 msgstr ""
+"Sevimli mebellərimi izlləyin. Dekastar-da istək siyahınızı yaradın və xəyal "
+"etdiyiniz evi reallığa çevirin."
 
 #: .\apps\store\templates\store\products\favorites.html:11
 msgid "Favorite Products"
@@ -1243,7 +1258,8 @@ msgid "Number"
 msgstr "Ədəd"
 
 #: .\templates\components\admin\navbar.html:15
-#: .\templates\layouts\admin.html:19 .\templates\layouts\authentication.html:23
+#: .\templates\layouts\admin.html:19
+#: .\templates\layouts\authentication.html:23
 msgid "Admin"
 msgstr "Admin"
 

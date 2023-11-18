@@ -94,7 +94,7 @@
         </div>
       </div>
 
-      <form class="search-wrapper">
+      <form action="{% url "apps.store:category-products" %}" class="search-wrapper">
         <input class="form-control" name="search" value="{{request.GET.search|default:""}}" placeholder="{% translate "Search" %}...">
         <button class="btn btn-outline-dark btn-sm">{% translate "Search now" %}</button>
       </form>

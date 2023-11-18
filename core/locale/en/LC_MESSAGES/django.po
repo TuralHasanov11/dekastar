@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-17 12:05+0100\n"
-"PO-Revision-Date: 2023-11-16 23:27+0400\n"
+"PO-Revision-Date: 2023-11-18 20:03+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -31,7 +31,8 @@ msgstr ""
 
 #: .\apps\administration\context_processors.py:20
 #: .\apps\administration\views.py:50 .\apps\main\context_processors.py:27
-#: .\apps\main\context_processors.py:55 .\apps\main\templates\main\about.html:4
+#: .\apps\main\context_processors.py:55
+#: .\apps\main\templates\main\about.html:4
 #: .\apps\main\templates\main\about.html:10
 msgid "About Us"
 msgstr ""
@@ -892,8 +893,9 @@ msgstr ""
 msgid "Product was not found"
 msgstr ""
 
-#: .\apps\main\context_processors.py:12 .\apps\main\templates\main\index.html:4
-#: .\apps\store\views.py:65 .\apps\store\views.py:103 .\apps\store\views.py:138
+#: .\apps\main\context_processors.py:12
+#: .\apps\main\templates\main\index.html:4 .\apps\store\views.py:65
+#: .\apps\store\views.py:103 .\apps\store\views.py:138
 msgid "Home"
 msgstr ""
 
@@ -990,8 +992,8 @@ msgstr ""
 #: .\apps\main\templates\main\contact.html:5
 msgid "Contact Page Description"
 msgstr ""
-"Reach out to us for any inquiries or assistance. Contact Dekastar for prompt "
-"and friendly support."
+"Reach out to us for any inquiries or assistance. Contact Dekastar for prompt"
+" and friendly support."
 
 #: .\apps\main\templates\main\contact.html:44
 msgid "Call us"
@@ -1020,8 +1022,8 @@ msgstr ""
 #: .\apps\main\templates\main\delivery-policy.html:5
 msgid "Delivery Policy Page Description"
 msgstr ""
-"Explore our delivery policy at Dekastar. We ensure swift and secure delivery "
-"to bring your new furniture to your doorstep."
+"Explore our delivery policy at Dekastar. We ensure swift and secure delivery"
+" to bring your new furniture to your doorstep."
 
 #: .\apps\main\templates\main\index.html:5
 msgid "Home Page Description"
@@ -1032,8 +1034,8 @@ msgstr ""
 #: .\apps\main\templates\main\privacy-policy.html:5
 msgid "Privacy Policy Page Description"
 msgstr ""
-"Browse through our curated collection of high-quality furniture. Find pieces "
-"that elevate your home's aesthetics at Dekastar."
+"Read our privacy policy to understand how Dekastar protects and respects "
+"your privacy while providing a seamless shopping experience."
 
 #: .\apps\main\views.py:109
 msgid "Message was sent successfully!"
@@ -1078,8 +1080,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                                                I have read and accepted the "
-"<a href=\"%(privacy_policy_link)s\">terms</a>.\n"
+"                                                I have read and accepted the <a href=\"%(privacy_policy_link)s\">terms</a>.\n"
 "                                                "
 msgstr ""
 
@@ -1155,8 +1156,8 @@ msgstr ""
 #: .\apps\store\templates\store\category-products.html:8
 msgid "Products Page Description"
 msgstr ""
-"Browse through our curated collection of high-quality furniture. Find pieces "
-"that elevate your home's aesthetics at Dekastar."
+"Browse through our curated collection of high-quality furniture. Find pieces"
+" that elevate your home's aesthetics at Dekastar."
 
 #: .\apps\store\templates\store\products\detail.html:49
 #: .\apps\store\templates\store\products\detail.html:196
@@ -1254,7 +1255,8 @@ msgid "Number"
 msgstr ""
 
 #: .\templates\components\admin\navbar.html:15
-#: .\templates\layouts\admin.html:19 .\templates\layouts\authentication.html:23
+#: .\templates\layouts\admin.html:19
+#: .\templates\layouts\authentication.html:23
 msgid "Admin"
 msgstr ""
 

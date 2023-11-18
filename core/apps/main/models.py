@@ -36,7 +36,7 @@ class SocialMediaLink(models.Model):
     objects = models.Manager()
 
     class Meta:
-        verbose_name_plural = _("Social Media links")
+        verbose_name_plural = _("Social Media Links")
 
     def __str__(self):
         return str(self.link)

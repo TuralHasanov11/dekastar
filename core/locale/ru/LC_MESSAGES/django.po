@@ -9,33 +9,33 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-17 12:05+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2023-11-18 20:18+0400\n"
+"Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Translated-Using: django-rosetta 0.9.9\n"
 
 #: .\apps\administration\context_processors.py:10
 #: .\apps\administration\templates\administration\index.html:3
 msgid "Dashboard"
-msgstr ""
+msgstr "Панел"
 
 #: .\apps\administration\context_processors.py:15
 #: .\apps\administration\views.py:47 .\apps\main\models.py:126
 msgid "Banners"
-msgstr ""
+msgstr "Баннеры"
 
 #: .\apps\administration\context_processors.py:20
 #: .\apps\administration\views.py:50 .\apps\main\context_processors.py:27
-#: .\apps\main\context_processors.py:55 .\apps\main\templates\main\about.html:4
+#: .\apps\main\context_processors.py:55
+#: .\apps\main\templates\main\about.html:4
 #: .\apps\main\templates\main\about.html:10
 msgid "About Us"
-msgstr ""
+msgstr "О нас"
 
 #: .\apps\administration\context_processors.py:25
 #: .\apps\administration\forms.py:241 .\apps\administration\views.py:52
@@ -43,7 +43,7 @@ msgstr ""
 #: .\apps\main\templates\main\privacy-policy.html:4
 #: .\apps\main\templates\main\privacy-policy.html:10
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Политика Конфиденциальности"
 
 #: .\apps\administration\context_processors.py:30
 #: .\apps\administration\forms.py:255 .\apps\administration\views.py:56
@@ -51,27 +51,27 @@ msgstr ""
 #: .\apps\main\templates\main\delivery-policy.html:4
 #: .\apps\main\templates\main\delivery-policy.html:10
 msgid "Delivery Policy"
-msgstr ""
+msgstr "Политика Доставки"
 
 #: .\apps\administration\context_processors.py:35
 msgid "Contact Information"
-msgstr ""
+msgstr "Контактная Информация"
 
 #: .\apps\administration\context_processors.py:40
 #: .\apps\administration\views.py:60
 msgid "Users"
-msgstr ""
+msgstr "Пользователи"
 
 #: .\apps\administration\context_processors.py:45
 #: .\apps\administration\views.py:62 .\apps\main\context_processors.py:14
 #: .\apps\main\context_processors.py:40 .\apps\store\models.py:74
 msgid "Categories"
-msgstr ""
+msgstr "Категории"
 
 #: .\apps\administration\context_processors.py:50
 #: .\apps\administration\views.py:66 .\apps\store\models.py:123
 msgid "Brands"
-msgstr ""
+msgstr "Бренды"
 
 #: .\apps\administration\context_processors.py:55
 #: .\apps\administration\templates\administration\orders\detail.html:44
@@ -79,12 +79,12 @@ msgstr ""
 #: .\apps\store\templates\store\category-products.html:5
 #: .\apps\store\views.py:66 .\apps\store\views.py:104
 msgid "Products"
-msgstr ""
+msgstr "Продукты"
 
 #: .\apps\administration\context_processors.py:60
 #: .\apps\administration\views.py:74
 msgid "Orders"
-msgstr ""
+msgstr "Заказы"
 
 #: .\apps\administration\forms.py:30 .\apps\administration\forms.py:34
 #: .\apps\administration\forms.py:90 .\apps\administration\forms.py:95
@@ -92,67 +92,67 @@ msgstr ""
 #: .\apps\administration\templates\administration\users\list.html:38
 #: .\apps\administration\templates\administration\users\list.html:45
 msgid "Username"
-msgstr ""
+msgstr "Имя пользователя"
 
 #: .\apps\administration\forms.py:35 .\apps\administration\forms.py:96
 #: .\apps\administration\forms.py:182
 msgid "Please enter username"
-msgstr ""
+msgstr "Пожалуйста, введите имя пользователя"
 
 #: .\apps\administration\forms.py:40 .\apps\administration\forms.py:44
 #: .\apps\administration\forms.py:134 .\apps\administration\forms.py:138
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 #: .\apps\administration\forms.py:45 .\apps\administration\forms.py:139
 msgid "Please enter password"
-msgstr ""
+msgstr "Пожалуйста введите пароль"
 
 #: .\apps\administration\forms.py:56 .\apps\administration\forms.py:60
 msgid "Current Password"
-msgstr ""
+msgstr "Текущий пароль"
 
 #: .\apps\administration\forms.py:61
 msgid "Please enter old password"
-msgstr ""
+msgstr "Пожалуйста, введите старый пароль"
 
 #: .\apps\administration\forms.py:66 .\apps\administration\forms.py:70
 msgid "New Password"
-msgstr ""
+msgstr "Новый пароль"
 
 #: .\apps\administration\forms.py:71
 msgid "Please enter new password"
-msgstr ""
+msgstr "Пожалуйста, введите новый пароль"
 
 #: .\apps\administration\forms.py:74
 msgid "Password should have at least 12 characters"
-msgstr ""
+msgstr "Пароль должен содержать не менее 12 символов"
 
 #: .\apps\administration\forms.py:77 .\apps\administration\forms.py:81
 msgid "Confirm Password"
-msgstr ""
+msgstr "Подтвердите пароль"
 
 #: .\apps\administration\forms.py:82
 msgid "Please confirm new password"
-msgstr ""
+msgstr "Пожалуйста, подтвердите новый пароль"
 
 #: .\apps\administration\forms.py:101 .\apps\administration\forms.py:106
 #: .\apps\administration\forms.py:187 .\apps\administration\forms.py:192
 msgid "First Name"
-msgstr ""
+msgstr "Имя"
 
 #: .\apps\administration\forms.py:107 .\apps\administration\forms.py:193
 msgid "Please enter first name"
-msgstr ""
+msgstr "Пожалуйста, введите имя"
 
 #: .\apps\administration\forms.py:112 .\apps\administration\forms.py:117
 #: .\apps\administration\forms.py:198 .\apps\administration\forms.py:203
 msgid "Last Name"
-msgstr ""
+msgstr "Фамилия"
 
 #: .\apps\administration\forms.py:118 .\apps\administration\forms.py:204
 msgid "Please enter last name"
-msgstr ""
+msgstr "Пожалуйста, введите фамилию"
 
 #: .\apps\administration\forms.py:123 .\apps\administration\forms.py:128
 #: .\apps\administration\forms.py:209 .\apps\administration\forms.py:214
@@ -162,45 +162,46 @@ msgstr ""
 #: .\apps\administration\templates\administration\users\list.html:39
 #: .\apps\administration\templates\administration\users\list.html:46
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: .\apps\administration\forms.py:129 .\apps\administration\forms.py:215
 #: .\apps\administration\forms.py:290
 msgid "Please enter email"
-msgstr ""
+msgstr "Пожалуйста, введите адрес электронной почты"
 
 #: .\apps\administration\forms.py:144
 msgid "Repeat password"
-msgstr ""
+msgstr "Повторите пароль"
 
 #: .\apps\administration\forms.py:148
 msgid "Password Confirm"
-msgstr ""
+msgstr "Подтвердить пароль"
 
 #: .\apps\administration\forms.py:149
 msgid "Please confirm password"
-msgstr ""
+msgstr "Пожалуйста, подтвердите пароль"
 
 #: .\apps\administration\forms.py:169
 msgid "Please use another Email, that is already taken"
 msgstr ""
+"Пожалуйста, используйте другой адрес электронной почты, который уже занят."
 
 #: .\apps\administration\forms.py:227
 msgid "About"
-msgstr ""
+msgstr "О"
 
 #: .\apps\administration\forms.py:269
 #: .\apps\administration\templates\administration\contact.html:178
 #: .\apps\administration\templates\administration\contact.html:185
 msgid "Platform"
-msgstr ""
+msgstr "Платформа"
 
 #: .\apps\administration\forms.py:274 .\apps\administration\forms.py:413
 #: .\apps\administration\forms.py:417
 #: .\apps\administration\templates\administration\contact.html:179
 #: .\apps\administration\templates\administration\contact.html:186
 msgid "Link"
-msgstr ""
+msgstr "Cсылкa"
 
 #: .\apps\administration\forms.py:302 .\apps\administration\forms.py:306
 #: .\apps\administration\templates\administration\contact.html:110
@@ -210,64 +211,64 @@ msgstr ""
 #: .\apps\administration\templates\administration\orders\list.html:50
 #: .\apps\orders\forms.py:16 .\apps\orders\forms.py:18
 msgid "Phone"
-msgstr ""
+msgstr "Телефон"
 
 #: .\apps\administration\forms.py:307
 msgid "Please enter phone"
-msgstr ""
+msgstr "Пожалуйста, введите телефон"
 
 #: .\apps\administration\forms.py:320 .\apps\administration\forms.py:324
 #: .\apps\main\templates\main\contact.html:35
 msgid "Address"
-msgstr ""
+msgstr "Адрес"
 
 #: .\apps\administration\forms.py:326
 msgid "Please enter address"
-msgstr ""
+msgstr "Пожалуйста, введите адрес"
 
 #: .\apps\administration\forms.py:331 .\apps\administration\forms.py:335
 msgid "Working Hours"
-msgstr ""
+msgstr "Рабочее время"
 
 #: .\apps\administration\forms.py:336
 msgid "Please enter working hours"
-msgstr ""
+msgstr "Пожалуйста, введите рабочее время"
 
 #: .\apps\administration\forms.py:353 .\apps\administration\forms.py:357
 msgid "Contact Image"
-msgstr ""
+msgstr "Контактное изображение"
 
 #: .\apps\administration\forms.py:358
 msgid "Please upload contact image"
-msgstr ""
+msgstr "Пожалуйста, загрузите изображение контакта"
 
 #: .\apps\administration\forms.py:365 .\apps\administration\forms.py:369
 msgid "About Image"
-msgstr ""
+msgstr "Об изображение"
 
 #: .\apps\administration\forms.py:370
 msgid "Please upload about image"
-msgstr ""
+msgstr "Пожалуйста, загрузите изображение"
 
 #: .\apps\administration\forms.py:377 .\apps\administration\forms.py:381
 msgid "Delivery Policy Image"
-msgstr ""
+msgstr "Изображение политики доставки"
 
 #: .\apps\administration\forms.py:382
 msgid "Please upload delivery policy image"
-msgstr ""
+msgstr "Пожалуйста, загрузите изображение правил доставки"
 
 #: .\apps\administration\forms.py:389 .\apps\administration\forms.py:393
 msgid "Privacy Policy Image"
-msgstr ""
+msgstr "Изображение политики конфиденциальности"
 
 #: .\apps\administration\forms.py:394
 msgid "Please upload privacy policy image"
-msgstr ""
+msgstr "Пожалуйста, загрузите изображение политики конфиденциальности"
 
 #: .\apps\administration\forms.py:418
 msgid "Please enter link"
-msgstr ""
+msgstr "Пожалуйста, введите ссылку"
 
 #: .\apps\administration\forms.py:423 .\apps\administration\forms.py:427
 #: .\apps\administration\forms.py:657 .\apps\administration\forms.py:661
@@ -275,16 +276,16 @@ msgstr ""
 #: .\apps\administration\templates\administration\banners\index.html:72
 #: .\apps\administration\templates\administration\orders\detail.html:54
 msgid "Image"
-msgstr ""
+msgstr "Изображение"
 
 #: .\apps\administration\forms.py:428
 msgid "Please upload Image"
-msgstr ""
+msgstr "Пожалуйста, загрузите изображение"
 
 #: .\apps\administration\forms.py:435 .\apps\main\models.py:132
 #: .\apps\store\models.py:298
 msgid "Active"
-msgstr ""
+msgstr "Активный"
 
 #: .\apps\administration\forms.py:447 .\apps\administration\forms.py:451
 #: .\apps\administration\forms.py:487 .\apps\administration\forms.py:491
@@ -301,18 +302,18 @@ msgstr ""
 #: .\apps\administration\templates\administration\store\products\list.html:48
 #: .\apps\store\forms.py:14
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
 #: .\apps\administration\forms.py:452 .\apps\administration\forms.py:492
 #: .\apps\administration\forms.py:517 .\apps\administration\forms.py:546
 msgid "Please enter name"
-msgstr ""
+msgstr "Пожалуйста, введите имя"
 
 #: .\apps\administration\forms.py:457
 #: .\apps\administration\templates\administration\store\categories\index.html:61
 #: .\apps\administration\templates\administration\store\categories\index.html:69
 msgid "Parent"
-msgstr ""
+msgstr "Родитель"
 
 #: .\apps\administration\forms.py:460 .\apps\administration\forms.py:464
 #: .\apps\administration\forms.py:522 .\apps\administration\forms.py:526
@@ -323,28 +324,28 @@ msgstr ""
 #: .\apps\administration\templates\administration\store\products\list.html:42
 #: .\apps\administration\templates\administration\store\products\list.html:52
 msgid "Cover Image"
-msgstr ""
+msgstr "Обложка"
 
 #: .\apps\administration\forms.py:465 .\apps\administration\forms.py:527
 msgid "Please upload cover Image"
-msgstr ""
+msgstr "Пожалуйста, загрузите обложку"
 
 #: .\apps\administration\forms.py:551 .\apps\administration\forms.py:555
 #: .\apps\store\templates\store\products\detail.html:32
 msgid "Code"
-msgstr ""
+msgstr "Код"
 
 #: .\apps\administration\forms.py:556
 msgid "Please enter code"
-msgstr ""
+msgstr "Пожалуйста, введите код"
 
 #: .\apps\administration\forms.py:561
 msgid "Quantity Type"
-msgstr ""
+msgstr "Тип количества"
 
 #: .\apps\administration\forms.py:566
 msgid "Please select quantity type"
-msgstr ""
+msgstr "Пожалуйста, выберите тип количества"
 
 #: .\apps\administration\forms.py:571
 #: .\apps\administration\templates\administration\store\products\list.html:39
@@ -353,78 +354,78 @@ msgstr ""
 #: .\apps\store\templates\store\products\detail.html:192
 #: .\templates\components\default\filters.html:18
 msgid "Category"
-msgstr ""
+msgstr "Категория"
 
 #: .\apps\administration\forms.py:575
 msgid "Please select category"
-msgstr ""
+msgstr "Пожалуйста, выберите категорию"
 
 #: .\apps\administration\forms.py:581
 #: .\apps\store\templates\store\products\detail.html:43
 #: .\apps\store\templates\store\products\detail.html:187
 #: .\templates\components\default\filters.html:25
 msgid "Brand"
-msgstr ""
+msgstr "Бренд"
 
 #: .\apps\administration\forms.py:585
 msgid "Please select brand"
-msgstr ""
+msgstr "Пожалуйста, выберите бренд"
 
 #: .\apps\administration\forms.py:591 .\apps\administration\forms.py:595
 #: .\apps\administration\templates\administration\store\products\list.html:50
 msgid "Regular Price"
-msgstr ""
+msgstr "Обычная цена"
 
 #: .\apps\administration\forms.py:596
 msgid "Please enter regular price"
-msgstr ""
+msgstr "Пожалуйста, введите обычную цену"
 
 #: .\apps\administration\forms.py:601 .\apps\administration\forms.py:605
 #: .\apps\administration\templates\administration\store\products\list.html:41
 #: .\apps\administration\templates\administration\store\products\list.html:51
 #: .\apps\orders\templates\orders\checkout.html:115
 msgid "Discount"
-msgstr ""
+msgstr "Скидка"
 
 #: .\apps\administration\forms.py:606
 msgid "Please enter discount"
-msgstr ""
+msgstr "Пожалуйста, введите скидку"
 
 #: .\apps\administration\forms.py:613 .\apps\administration\forms.py:617
 msgid "Discount Price"
-msgstr ""
+msgstr "Цена со скидкой"
 
 #: .\apps\administration\forms.py:618
 msgid "Please enter discount price"
-msgstr ""
+msgstr "Пожалуйста, введите цену со скидкой"
 
 #: .\apps\administration\forms.py:623 .\apps\administration\forms.py:625
 #: .\apps\store\templatetags\in_stock_display.py:9
 msgid "In Stock"
-msgstr ""
+msgstr "В наличии"
 
 #: .\apps\administration\forms.py:631 .\apps\administration\forms.py:633
 #: .\apps\administration\templates\administration\banners\index.html:66
 #: .\apps\administration\templates\administration\banners\index.html:74
 msgid "Is Active"
-msgstr ""
+msgstr "Активен"
 
 #: .\apps\administration\forms.py:662
 msgid "Please upload image"
-msgstr ""
+msgstr "Пожалуйста, загрузите изображение"
 
 #: .\apps\administration\forms.py:669
 msgid "Is Feature"
-msgstr ""
+msgstr "Является особенностью"
 
 #: .\apps\administration\forms.py:691
 msgid "Text"
-msgstr ""
+msgstr "Текст"
 
 #: .\apps\administration\templates\administration\about.html:2
 #: .\apps\administration\templates\administration\about.html:11
 msgid "About Us Texts"
-msgstr ""
+msgstr "О нас Тексты"
 
 #: .\apps\administration\templates\administration\about.html:64
 #: .\apps\administration\templates\administration\auth\password-change.html:55
@@ -446,29 +447,29 @@ msgstr ""
 #: .\apps\administration\templates\administration\store\products\edit.html:174
 #: .\apps\administration\templates\administration\users\create.html:83
 msgid "Save"
-msgstr ""
+msgstr "Сохранять"
 
 #: .\apps\administration\templates\administration\auth\login.html:2
 #: .\apps\administration\templates\administration\auth\login.html:10
 #: .\apps\administration\templates\administration\auth\login.html:34
 msgid "Login"
-msgstr ""
+msgstr "Авторизоваться"
 
 #: .\apps\administration\templates\administration\auth\login.html:37
 msgid "Back to Home"
-msgstr ""
+msgstr "Вернуться домой"
 
 #: .\apps\administration\templates\administration\auth\password-change.html:4
 #: .\apps\administration\templates\administration\auth\password-change.html:14
 #: .\apps\administration\templates\administration\auth\password-change.html:26
 #: .\apps\administration\templates\administration\auth\profile.html:21
 msgid "Change Password"
-msgstr ""
+msgstr "Изменить пароль"
 
 #: .\apps\administration\templates\administration\auth\profile.html:4
 #: .\apps\administration\templates\administration\auth\profile.html:15
 msgid "Profile"
-msgstr ""
+msgstr "Профиль"
 
 #: .\apps\administration\templates\administration\auth\profile.html:36
 #: .\apps\administration\templates\administration\users\create.html:34
@@ -479,29 +480,29 @@ msgstr ""
 #: .\apps\administration\templates\administration\banners\edit.html:16
 #: .\apps\administration\templates\administration\banners\edit.html:48
 msgid "Edit Banner"
-msgstr ""
+msgstr "Редактировать баннер"
 
 #: .\apps\administration\templates\administration\banners\edit.html:26
 msgid "Back to Banner List"
-msgstr ""
+msgstr "Вернуться к списку баннеров"
 
 #: .\apps\administration\templates\administration\banners\edit.html:33
 msgid "Delete Banner"
-msgstr ""
+msgstr "Удалить баннер"
 
 #: .\apps\administration\templates\administration\banners\index.html:2
 #: .\apps\administration\templates\administration\banners\index.html:14
 msgid "Banner List"
-msgstr ""
+msgstr "Список баннеров"
 
 #: .\apps\administration\templates\administration\banners\index.html:24
 msgid "Add Banner"
-msgstr ""
+msgstr "Добавить баннер"
 
 #: .\apps\administration\templates\administration\banners\index.html:65
 #: .\apps\administration\templates\administration\banners\index.html:73
 msgid "Opened Page"
-msgstr ""
+msgstr "Открытая страница"
 
 #: .\apps\administration\templates\administration\banners\index.html:67
 #: .\apps\administration\templates\administration\banners\index.html:75
@@ -522,49 +523,49 @@ msgstr ""
 #: .\apps\administration\templates\administration\users\list.html:40
 #: .\apps\administration\templates\administration\users\list.html:47
 msgid "Actions"
-msgstr ""
+msgstr "Действия"
 
 #: .\apps\administration\templates\administration\banners\index.html:90
 msgid "Page"
-msgstr ""
+msgstr "Страница"
 
 #: .\apps\administration\templates\administration\contact.html:2
 #: .\apps\administration\templates\administration\contact.html:14
 msgid "Contact Info"
-msgstr ""
+msgstr "Контактная информация"
 
 #: .\apps\administration\templates\administration\contact.html:25
 #: .\apps\main\models.py:51
 msgid "Contact Emails"
-msgstr ""
+msgstr "Контактные адреса электронной почты"
 
 #: .\apps\administration\templates\administration\contact.html:82
 #: .\apps\administration\templates\administration\contact.html:144
 #: .\apps\administration\templates\administration\contact.html:215
 msgid "No entry found"
-msgstr ""
+msgstr "Запись не найдена"
 
 #: .\apps\administration\templates\administration\contact.html:87
 #: .\apps\main\models.py:63
 msgid "Contact Phones"
-msgstr ""
+msgstr "Контактные телефоны"
 
 #: .\apps\administration\templates\administration\contact.html:149
 msgid "Social Media Links"
-msgstr ""
+msgstr "Ссылки на Cоциальные Медиа "
 
 #: .\apps\administration\templates\administration\contact.html:220
 msgid "Company Info"
-msgstr ""
+msgstr "Информация О Компании"
 
 #: .\apps\administration\templates\administration\delivery-policy.html:3
 #: .\apps\administration\templates\administration\delivery-policy.html:12
 msgid "Delivery Policy Texts"
-msgstr ""
+msgstr "Тексты политики доставки"
 
 #: .\apps\administration\templates\administration\index.html:6
 msgid "Dashboards"
-msgstr ""
+msgstr "Панели"
 
 #: .\apps\administration\templates\administration\orders\detail.html:3
 #: .\apps\administration\templates\administration\orders\detail.html:17
@@ -573,22 +574,22 @@ msgstr ""
 #: .\apps\store\templates\store\products\detail.html:72
 #: .\apps\store\templates\store\products\detail.html:221
 msgid "Order"
-msgstr ""
+msgstr "Заказ"
 
 #: .\apps\administration\templates\administration\orders\detail.html:27
 msgid "Back to Order List"
-msgstr ""
+msgstr "Вернуться к списку заказов"
 
 #: .\apps\administration\templates\administration\orders\detail.html:42
 #: .\apps\administration\templates\administration\orders\list.html:42
 #: .\apps\administration\templates\administration\orders\list.html:51
 msgid "Total Paid"
-msgstr ""
+msgstr "Итого"
 
 #: .\apps\administration\templates\administration\orders\detail.html:50
 #: .\apps\orders\templates\orders\checkout.html:87
 msgid "Product"
-msgstr ""
+msgstr "Продукт"
 
 #: .\apps\administration\templates\administration\orders\detail.html:51
 msgid "Sub Total"
@@ -598,7 +599,7 @@ msgstr ""
 #: .\apps\orders\templates\orders\checkout.html:89
 #: .\apps\store\templates\store\products\detail.html:62
 msgid "Quantity"
-msgstr ""
+msgstr "Количество"
 
 #: .\apps\administration\templates\administration\orders\detail.html:53
 #: .\apps\administration\templates\administration\store\products\list.html:40
@@ -606,401 +607,406 @@ msgstr ""
 #: .\apps\orders\templates\orders\checkout.html:103 .\apps\store\forms.py:15
 #: .\apps\store\forms.py:16 .\templates\components\default\filters.html:11
 msgid "Price"
-msgstr ""
+msgstr "Цена"
 
 #: .\apps\administration\templates\administration\orders\list.html:4
 #: .\apps\administration\templates\administration\orders\list.html:16
 msgid "Order List"
-msgstr ""
+msgstr "Список заказа"
 
 #: .\apps\administration\templates\administration\orders\list.html:31
 #: .\apps\administration\templates\administration\orders\list.html:32
 #: .\templates\components\default\header.html:98
 msgid "Search"
-msgstr ""
+msgstr "Поиск"
 
 #: .\apps\administration\templates\administration\orders\list.html:43
 #: .\apps\administration\templates\administration\orders\list.html:52
 msgid "Order Date"
-msgstr ""
+msgstr "Дата заказа"
 
 #: .\apps\administration\templates\administration\orders\list.html:76
 msgid "No order found!"
-msgstr ""
+msgstr "Заказ не найден!"
 
 #: .\apps\administration\templates\administration\privacy-policy.html:3
 #: .\apps\administration\templates\administration\privacy-policy.html:12
 msgid "Privacy Policy Texts"
-msgstr ""
+msgstr "Тексты политики конфиденциальности"
 
 #: .\apps\administration\templates\administration\site-images.html:2
 #: .\apps\administration\templates\administration\site-images.html:16
 #: .\apps\administration\templates\administration\site-images.html:25
 #: .\apps\main\models.py:89
 msgid "Site Images"
-msgstr ""
+msgstr "Изображения сайта"
 
 #: .\apps\administration\templates\administration\store\brands\edit.html:2
 #: .\apps\administration\templates\administration\store\brands\edit.html:16
 #: .\apps\administration\templates\administration\store\brands\edit.html:48
 msgid "Edit Brand"
-msgstr ""
+msgstr "Изменить бренд"
 
 #: .\apps\administration\templates\administration\store\brands\edit.html:26
 msgid "Back to Brand List"
-msgstr ""
+msgstr "Вернуться к списку брендов"
 
 #: .\apps\administration\templates\administration\store\brands\edit.html:33
 msgid "Delete Brand"
-msgstr ""
+msgstr "Удалить бренд"
 
 #: .\apps\administration\templates\administration\store\brands\index.html:2
 #: .\apps\administration\templates\administration\store\brands\index.html:14
 msgid "Brand List"
-msgstr ""
+msgstr "Список брендов"
 
 #: .\apps\administration\templates\administration\store\brands\index.html:24
 msgid "Add Brand"
-msgstr ""
+msgstr "Добавить бренд"
 
 #: .\apps\administration\templates\administration\store\categories\edit.html:2
 #: .\apps\administration\templates\administration\store\categories\edit.html:16
 #: .\apps\administration\templates\administration\store\categories\edit.html:48
 msgid "Edit Category"
-msgstr ""
+msgstr "Изменить категорию"
 
 #: .\apps\administration\templates\administration\store\categories\edit.html:26
 msgid "Back to Category List"
-msgstr ""
+msgstr "Вернуться к списку категорий"
 
 #: .\apps\administration\templates\administration\store\categories\edit.html:33
 msgid "Delete Category"
-msgstr ""
+msgstr "Удалить категорию"
 
 #: .\apps\administration\templates\administration\store\categories\index.html:2
 #: .\apps\administration\templates\administration\store\categories\index.html:14
 msgid "Category List"
-msgstr ""
+msgstr "Список категорий"
 
 #: .\apps\administration\templates\administration\store\categories\index.html:24
 msgid "Add Category"
-msgstr ""
+msgstr "Добавить категорию"
 
 #: .\apps\administration\templates\administration\store\products\create.html:2
 #: .\apps\administration\templates\administration\store\products\create.html:16
 #: .\apps\administration\templates\administration\store\products\create.html:38
 msgid "Create Product"
-msgstr ""
+msgstr "Создать Продукт"
 
 #: .\apps\administration\templates\administration\store\products\create.html:26
 #: .\apps\administration\templates\administration\store\products\edit.html:26
 msgid "Back to Product List"
-msgstr ""
+msgstr "Вернуться к списку продуктов"
 
 #: .\apps\administration\templates\administration\store\products\create.html:100
 #: .\apps\administration\templates\administration\store\products\edit.html:110
 msgid "Images"
-msgstr ""
+msgstr "Изображений"
 
 #: .\apps\administration\templates\administration\store\products\create.html:123
 #: .\apps\administration\templates\administration\store\products\edit.html:150
 msgid "Information"
-msgstr ""
+msgstr "Информация"
 
 #: .\apps\administration\templates\administration\store\products\edit.html:2
 #: .\apps\administration\templates\administration\store\products\edit.html:16
 #: .\apps\administration\templates\administration\store\products\edit.html:48
 msgid "Edit Product"
-msgstr ""
+msgstr "Редактировать продукт"
 
 #: .\apps\administration\templates\administration\store\products\edit.html:33
 msgid "Delete Product"
-msgstr ""
+msgstr "Удалить продукт"
 
 #: .\apps\administration\templates\administration\store\products\list.html:2
 #: .\apps\administration\templates\administration\store\products\list.html:14
 msgid "Product List"
-msgstr ""
+msgstr "Список продуктов"
 
 #: .\apps\administration\templates\administration\store\products\list.html:23
 msgid "Add Product"
-msgstr ""
+msgstr "Добавить продукт"
 
 #: .\apps\administration\templates\administration\users\create.html:2
 #: .\apps\administration\templates\administration\users\create.html:16
 msgid "Add User"
-msgstr ""
+msgstr "Добавить пользователя"
 
 #: .\apps\administration\templates\administration\users\create.html:25
 msgid "Back to User List"
-msgstr ""
+msgstr "Вернуться к списку пользователей"
 
 #: .\apps\administration\templates\administration\users\list.html:2
 #: .\apps\administration\templates\administration\users\list.html:14
 msgid "User List"
-msgstr ""
+msgstr "Список пользователей"
 
 #: .\apps\administration\templates\administration\users\list.html:23
 msgid "Add New User"
-msgstr ""
+msgstr "Добавить нового пользователя"
 
 #: .\apps\administration\views.py:59 .\apps\main\context_processors.py:28
 #: .\apps\main\context_processors.py:56
 msgid "Contact"
-msgstr ""
+msgstr "Контакт"
 
 #: .\apps\administration\views.py:111
 msgid "Privacy Policy texts were saved successfully!"
-msgstr ""
+msgstr "Тексты Политики конфиденциальности успешно сохранены!"
 
 #: .\apps\administration\views.py:115 .\apps\administration\views.py:116
 msgid "Privacy Policy texts cannot be saved!"
-msgstr ""
+msgstr "Тексты Политики конфиденциальности не могут быть сохранены!"
 
 #: .\apps\administration\views.py:148
 msgid "Delivery Policy texts were saved successfully!"
-msgstr ""
+msgstr "Тексты Политики доставки успешно сохранены!"
 
 #: .\apps\administration\views.py:152 .\apps\administration\views.py:153
 msgid "Delivery Policy texts cannot be saved!"
-msgstr ""
+msgstr "Тексты Политики доставки не могут быть сохранены!"
 
 #: .\apps\administration\views.py:184
 msgid "About Us texts were saved successfully!"
-msgstr ""
+msgstr "Тексты о нас успешно сохранены!"
 
 #: .\apps\administration\views.py:187 .\apps\administration\views.py:188
 msgid "About Us texts cannot be saved!"
-msgstr ""
+msgstr "Тексты «О нас» не сохраняются!"
 
 #: .\apps\administration\views.py:233
 msgid "Contact email was added successfully!"
-msgstr ""
+msgstr "Контактный адрес электронной почты успешно добавлен!"
 
 #: .\apps\administration\views.py:241
 msgid "Contact email was deleted successfully!"
-msgstr ""
+msgstr "Контактный адрес электронной почты успешно удален!"
 
 #: .\apps\administration\views.py:251
 msgid "Contact phone was added successfully!"
-msgstr ""
+msgstr "Контактный телефон успешно добавлен!"
 
 #: .\apps\administration\views.py:259
 msgid "Contact phone was deleted successfully!"
-msgstr ""
+msgstr "Контактный телефон успешно удален!"
 
 #: .\apps\administration\views.py:269
 msgid "Social media link was added successfully!"
-msgstr ""
+msgstr "Ссылка на социальную mедиа успешно добавлена!"
 
 #: .\apps\administration\views.py:277
 msgid "Social media link was deleted successfully!"
-msgstr ""
+msgstr "Ссылка на социальную mедиа успешно удалена!"
 
 #: .\apps\administration\views.py:287 .\apps\administration\views.py:295
 msgid "Company info was saved successfully!"
-msgstr ""
+msgstr "Информация о компании успешно сохранена!"
 
 #: .\apps\administration\views.py:298 .\apps\administration\views.py:299
 msgid "Company info cannot be saved!"
-msgstr ""
+msgstr "Информация о компании не может быть сохранена!"
 
 #: .\apps\administration\views.py:328
 msgid "Site images were saved successfully!"
-msgstr ""
+msgstr "Изображения сайта успешно сохранены!"
 
 #: .\apps\administration\views.py:331 .\apps\administration\views.py:332
 msgid "Site images cannot be saved!"
-msgstr ""
+msgstr "Изображения сайта не могут быть сохранены!"
 
 #: .\apps\administration\views.py:340
 msgid "Banner was created successfully!"
-msgstr ""
+msgstr "Баннер успешно создан!"
 
 #: .\apps\administration\views.py:360
 msgid "Banner was deleted successfully"
-msgstr ""
+msgstr "Баннер успешно удален"
 
 #: .\apps\administration\views.py:364
 msgid "Banner was updated successfully"
-msgstr ""
+msgstr "Баннер успешно обновлен"
 
 #: .\apps\administration\views.py:394
 msgid "User information were saved successfully!"
-msgstr ""
+msgstr "Информация о пользователе успешно сохранена!"
 
 #: .\apps\administration\views.py:398 .\apps\administration\views.py:399
 msgid "User information cannot be saved!"
-msgstr ""
+msgstr "Информация о пользователе не может быть сохранена!"
 
 #: .\apps\administration\views.py:427
 msgid "User was created successfully!"
-msgstr ""
+msgstr "Пользователь успешно создан!"
 
 #: .\apps\administration\views.py:434
 msgid "User was deleted successfully!"
-msgstr ""
+msgstr "Пользователь успешно удален!"
 
 #: .\apps\administration\views.py:443
 msgid "Category was created successfully!"
-msgstr ""
+msgstr "Категория успешно создана!"
 
 #: .\apps\administration\views.py:488
 msgid "Category was deleted successfully"
-msgstr ""
+msgstr "Категория успешно удалена"
 
 #: .\apps\administration\views.py:496
 msgid "Category was updated successfully"
-msgstr ""
+msgstr "Категория успешно обновлена"
 
 #: .\apps\administration\views.py:504
 msgid "Category is dependent on another category"
-msgstr ""
+msgstr "Категория зависит от другой категории"
 
 #: .\apps\administration\views.py:522
 msgid "Brand was created successfully!"
-msgstr ""
+msgstr "Бренд создан успешно!"
 
 #: .\apps\administration\views.py:542
 msgid "Brand was deleted successfully"
-msgstr ""
+msgstr "Бренд успешно удален"
 
 #: .\apps\administration\views.py:546
 msgid "Brand was updated successfully"
-msgstr ""
+msgstr "Бренд успешно обновлен"
 
 #: .\apps\administration\views.py:571
 msgid "Product was created successfully"
-msgstr ""
+msgstr "Продукт успешно создан"
 
 #: .\apps\administration\views.py:609
 msgid "Product cannot be created"
-msgstr ""
+msgstr "Продукт не может быть создан"
 
 #: .\apps\administration\views.py:650
 msgid "Product was deleted successfully"
-msgstr ""
+msgstr "Продукт успешно удален"
 
 #: .\apps\administration\views.py:660
 msgid "Product was updated successfully"
-msgstr ""
+msgstr "Продукт успешно обновлен"
 
 #: .\apps\administration\views.py:667
 msgid "Product cannot be updated"
-msgstr ""
+msgstr "Продукт не может быть обновлен"
 
 #: .\apps\api\views.py:60 .\apps\api\views.py:87 .\apps\api\views.py:109
 msgid "Product was not found"
-msgstr ""
+msgstr "Продукт не найден"
 
-#: .\apps\main\context_processors.py:12 .\apps\main\templates\main\index.html:4
-#: .\apps\store\views.py:65 .\apps\store\views.py:103 .\apps\store\views.py:138
+#: .\apps\main\context_processors.py:12
+#: .\apps\main\templates\main\index.html:4 .\apps\store\views.py:65
+#: .\apps\store\views.py:103 .\apps\store\views.py:138
 msgid "Home"
-msgstr ""
+msgstr "Дом"
 
 #: .\apps\main\context_processors.py:53
 msgid "About the Company"
-msgstr ""
+msgstr "О компании"
 
 #: .\apps\main\context_processors.py:68
 #: .\apps\main\templates\main\contact.html:4
 msgid "Contact Us"
-msgstr ""
+msgstr "Связаться с нами"
 
 #: .\apps\main\context_processors.py:70
 msgid "Telephone"
-msgstr ""
+msgstr "Tелефон"
 
 #: .\apps\main\context_processors.py:71
 #: .\apps\main\templates\main\contact.html:68
 msgid "E-mail"
-msgstr ""
+msgstr "Е-Mаил"
 
 #: .\apps\main\forms.py:7 .\apps\main\forms.py:9 .\apps\orders\forms.py:8
 #: .\apps\orders\forms.py:10
 msgid "Your name"
-msgstr ""
+msgstr "Ваше имя"
 
 #: .\apps\main\forms.py:9 .\apps\main\forms.py:11 .\apps\orders\forms.py:10
 #: .\apps\orders\forms.py:12
 msgid "Please enter your full name"
-msgstr ""
+msgstr "Пожалуйста, введите ваше полное имя"
 
 #: .\apps\main\forms.py:15 .\apps\main\forms.py:20
 msgid "Your email"
-msgstr ""
+msgstr "Ваш адрес Е-Mаил"
 
 #: .\apps\main\forms.py:19 .\apps\main\forms.py:23
 msgid "Please enter your email address"
-msgstr ""
+msgstr "Пожалуйста, введите Ваш адрес Е-Mаил"
 
 #: .\apps\main\forms.py:27 .\apps\main\forms.py:29
 msgid "Subject"
-msgstr ""
+msgstr "Tема"
 
 #: .\apps\main\forms.py:29 .\apps\main\forms.py:31
 msgid "Please select a subject"
-msgstr ""
+msgstr "Пожалуйста, выберите тему"
 
 #: .\apps\main\forms.py:35 .\apps\main\forms.py:39
 msgid "Your message"
-msgstr ""
+msgstr "Ваше сообщение"
 
 #: .\apps\main\forms.py:42 .\apps\main\forms.py:45
 msgid "Please enter your message"
-msgstr ""
+msgstr "Пожалуйста, введите ваше сообщение"
 
 #: .\apps\main\models.py:22
 msgid "Site text"
-msgstr ""
+msgstr "Текст сайта"
 
 #: .\apps\main\models.py:27
 msgid "Instagram"
-msgstr ""
+msgstr "Instagram"
 
 #: .\apps\main\models.py:28
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #: .\apps\main\models.py:29
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #: .\apps\main\models.py:30
 msgid "Pinterest"
-msgstr ""
+msgstr "Pinterest"
 
 #: .\apps\main\models.py:31
 msgid "GooglePlus"
-msgstr ""
+msgstr "GooglePlus"
 
 #: .\apps\main\models.py:39
 msgid "Social Media links"
-msgstr ""
+msgstr "Ссылки на социальные сети"
 
 #: .\apps\main\models.py:132 .\apps\store\models.py:298
 msgid "Not Active"
-msgstr ""
+msgstr "Не активен"
 
 #: .\apps\main\templates\main\about.html:5
 msgid "About Page Description"
 msgstr ""
+"Узнайте о пути и видении Dekastar, вашего надежного источника качественной "
+"мебели и домашнего декора."
 
 #: .\apps\main\templates\main\contact.html:5
 msgid "Contact Page Description"
 msgstr ""
+"Обращайтесь к нам за любыми вопросами или помощью. Свяжитесь с Dekastar для "
+"получения оперативной и дружеской поддержки."
 
 #: .\apps\main\templates\main\contact.html:44
 msgid "Call us"
-msgstr ""
+msgstr "Позвоните нам"
 
 #: .\apps\main\templates\main\contact.html:57
 msgid "Working hours"
-msgstr ""
+msgstr "Рабочее время"
 
 #: .\apps\main\templates\main\contact.html:81
 msgid "Write to us"
-msgstr ""
+msgstr "Напишите нам"
 
 #: .\apps\main\templates\main\contact.html:83
 msgid ""
@@ -1009,34 +1015,43 @@ msgid ""
 "              our products and we'll get back with you very soon.\n"
 "              "
 msgstr ""
+"\n"
+"Пожалуйста, используйте эту форму, если у вас есть какие-либо вопросы о нашу продукцию, и мы свяжемся с вами очень скоро."
 
 #: .\apps\main\templates\main\contact.html:118
 msgid "Send message"
-msgstr ""
+msgstr "Отправить сообщение"
 
 #: .\apps\main\templates\main\delivery-policy.html:5
 msgid "Delivery Policy Page Description"
 msgstr ""
+"Ознакомьтесь с нашей политикой доставки в Dekastar. Мы гарантируем быструю и"
+" безопасную доставку вашей новой мебели к вашему порогу."
 
 #: .\apps\main\templates\main\index.html:5
 msgid "Home Page Description"
 msgstr ""
+"Откройте для себя мир стильной и удобной мебели в Dekastar. Создайте дом, "
+"который будет отражать ваш уникальный вкус и индивидуальность."
 
 #: .\apps\main\templates\main\privacy-policy.html:5
 msgid "Privacy Policy Page Description"
 msgstr ""
+"Прочтите нашу политику конфиденциальности, чтобы понять, как Dekastar "
+"защищает и уважает вашу конфиденциальность, обеспечивая при этом удобство "
+"покупок."
 
 #: .\apps\main\views.py:109
 msgid "Message was sent successfully!"
-msgstr ""
+msgstr "Сообщение успешно отправлено!"
 
 #: .\apps\main\views.py:112 .\apps\main\views.py:113
 msgid "Message cannot be sent!"
-msgstr ""
+msgstr "Сообщение не может быть отправлено!"
 
 #: .\apps\orders\forms.py:18 .\apps\orders\forms.py:20
 msgid "Please enter your phone"
-msgstr ""
+msgstr "Пожалуйста, введите свой телефон"
 
 #: .\apps\orders\forms.py:22
 msgid "+994xxxxxxxxx"
@@ -1045,197 +1060,207 @@ msgstr ""
 #: .\apps\orders\templates\orders\checkout.html:4
 #: .\templates\components\default\cart.html:32
 msgid "Checkout"
-msgstr ""
+msgstr "Oформления заказа"
 
 #: .\apps\orders\templates\orders\checkout.html:5
 msgid "Checkout Page Description"
 msgstr ""
+"Испытайте удобный и безопасный процесс оформления заказа в Dekastar. "
+"Завершите свой заказ с уверенностью и удобством."
 
 #: .\apps\orders\templates\orders\checkout.html:11
 msgid "Your Order"
-msgstr ""
+msgstr "Ваш Заказ"
 
 #: .\apps\orders\templates\orders\checkout.html:13
 msgid "Confirm your order details"
-msgstr ""
+msgstr "Подтвердите детали заказа"
 
 #: .\apps\orders\templates\orders\checkout.html:28
 msgid "Order now"
-msgstr ""
+msgstr "Заказать сейчас"
 
 #: .\apps\orders\templates\orders\checkout.html:52
 #, python-format
 msgid ""
 "\n"
-"                                                I have read and accepted the "
-"<a href=\"%(privacy_policy_link)s\">terms</a>.\n"
+"                                                I have read and accepted the <a href=\"%(privacy_policy_link)s\">terms</a>.\n"
 "                                                "
 msgstr ""
+"\n"
+"Я прочитал и принял <a href=\"%(privacy_policy_link)s\">условия</a>."
 
 #: .\apps\orders\templates\orders\checkout.html:66
 msgid "Order from WhatsApp"
-msgstr ""
+msgstr "Заказ через WhatsApp"
 
 #: .\apps\orders\templates\orders\checkout.html:71
 msgid "Your shopping cart is empty"
-msgstr ""
+msgstr "Ваша корзина пуста"
 
 #: .\apps\orders\templates\orders\checkout.html:126
 #: .\templates\components\default\cart.html:18
 msgid "Total"
-msgstr ""
+msgstr "Общий"
 
 #: .\apps\orders\templates\orders\checkout.html:160
 #: .\apps\orders\templates\orders\success.html:25
 msgid "Shop more"
-msgstr ""
+msgstr "Продолжить покупки"
 
 #: .\apps\orders\templates\orders\success.html:4
 msgid "Checkout Success"
-msgstr ""
+msgstr "Оформление заказа прошло успешно"
 
 #: .\apps\orders\templates\orders\success.html:5
 msgid "Checkout Success Page Description"
 msgstr ""
+"Поздравляем! Ваш заказ подтвержден. Спасибо, что выбрали Декастар. "
+"Устройтесь поудобнее и расслабьтесь, пока мы готовим вашу доставку."
 
 #: .\apps\orders\templates\orders\success.html:12
 msgid "Your order was submitted!"
-msgstr ""
+msgstr "Ваш заказ отправлен!"
 
 #: .\apps\orders\templates\orders\success.html:14
 msgid "We will contact you soon!"
-msgstr ""
+msgstr "Мы свяжемся с вами в ближайшее время!"
 
 #: .\apps\orders\views.py:47
 msgid "Order was placed successfully!"
-msgstr ""
+msgstr "Заказ успешно оформлен!"
 
 #: .\apps\orders\views.py:49
 msgid "Order cannot be placed!"
-msgstr ""
+msgstr "Заказ не может быть оформлен!"
 
 #: .\apps\store\forms.py:10 .\templates\components\forms\brand-inputs.html:11
 #: .\templates\components\forms\category-inputs.html:13
 msgid "All"
-msgstr ""
+msgstr "Все"
 
 #: .\apps\store\forms.py:15
 msgid "lowest"
-msgstr ""
+msgstr "самый низкий"
 
 #: .\apps\store\forms.py:16
 msgid "highest"
-msgstr ""
+msgstr "наибольший"
 
 #: .\apps\store\forms.py:20
 msgid "Grid"
-msgstr ""
+msgstr "Сетка"
 
 #: .\apps\store\forms.py:21
 msgid "List"
-msgstr ""
+msgstr "Список"
 
 #: .\apps\store\templates\store\category-products.html:8
 msgid "Products Page Description"
 msgstr ""
+"Просмотрите нашу тщательно подобранную коллекцию высококачественной мебели. "
+"Найдите предметы, которые улучшат эстетику вашего дома, в Dekastar."
 
 #: .\apps\store\templates\store\products\detail.html:49
 #: .\apps\store\templates\store\products\detail.html:196
 #: .\templates\components\default\filters.html:32
 msgid "Availability"
-msgstr ""
+msgstr "Доступность"
 
 #: .\apps\store\templates\store\products\detail.html:87
 #: .\templates\components\default\products\grid-item.html:11
 #: .\templates\components\default\products\list-item.html:11
 msgid "Add to favorites"
-msgstr ""
+msgstr "Добавить в Любимые "
 
 #: .\apps\store\templates\store\products\detail.html:90
 msgid "Remove from favorites"
-msgstr ""
+msgstr "Удалить из Любимые "
 
 #: .\apps\store\templates\store\products\detail.html:129
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: .\apps\store\templates\store\products\detail.html:144
 msgid "Related products"
-msgstr ""
+msgstr "Сопутствующие товары"
 
 #: .\apps\store\templates\store\products\detail.html:160
 msgid "View all related products"
-msgstr ""
+msgstr "Посмотреть все сопутствующие товары"
 
 #: .\apps\store\templates\store\products\favorites.html:4
 #: .\apps\store\views.py:139
 msgid "Favorites"
-msgstr ""
+msgstr "Избранное"
 
 #: .\apps\store\templates\store\products\favorites.html:5
 msgid "Favorites Page Description"
 msgstr ""
+"Следите за своими любимыми предметами мебели. Создайте свой список желаний в"
+" Dekastar и превратите дом своей мечты в реальность."
 
 #: .\apps\store\templates\store\products\favorites.html:11
 msgid "Favorite Products"
-msgstr ""
+msgstr "Любимые продукты"
 
 #: .\apps\store\templatetags\get_product_quantity_type_display.py:12
 msgid "number"
-msgstr ""
+msgstr "число"
 
 #: .\apps\store\templatetags\in_stock_display.py:9
 msgid "Not In Stock"
-msgstr ""
+msgstr "Распродано"
 
 #: .\core\settings.py:157
 msgid "Azerbaijani"
-msgstr ""
+msgstr "Азербайджанский"
 
 #: .\core\settings.py:158
 msgid "English"
-msgstr ""
+msgstr "Английский"
 
 #: .\core\settings.py:159
 msgid "Russian"
-msgstr ""
+msgstr "Русский"
 
 #: .\shared\custom_form_fields.py:10
 msgid "Language"
-msgstr ""
+msgstr "Язык"
 
 #: .\shared\custom_form_fields.py:16
 msgid "Please select language"
-msgstr ""
+msgstr "Пожалуйста, выберите язык"
 
 #: .\shared\custom_model_fields.py:9
 msgid "Language field"
-msgstr ""
+msgstr "Языковое поле"
 
 #: .\shared\custom_model_fields.py:19
 msgid "Created at field"
-msgstr ""
+msgstr "Поле даты создания"
 
 #: .\shared\custom_model_fields.py:28
 msgid "Updated at field"
-msgstr ""
+msgstr "Поле даты изменения"
 
 #: .\shared\custom_model_fields.py:36
 msgid "Text field"
-msgstr ""
+msgstr "Текстовое поле"
 
 #: .\shared\custom_model_fields.py:52
 msgid "Square Meter"
-msgstr ""
+msgstr "Квадратный Mетр"
 
 #: .\shared\custom_model_fields.py:53
 msgid "Number"
-msgstr ""
+msgstr "Число"
 
 #: .\templates\components\admin\navbar.html:15
-#: .\templates\layouts\admin.html:19 .\templates\layouts\authentication.html:23
+#: .\templates\layouts\admin.html:19
+#: .\templates\layouts\authentication.html:23
 msgid "Admin"
-msgstr ""
+msgstr "Админ"
 
 #: .\templates\components\admin\navbar.html:80
 #: .\templates\components\admin\sidenav.html:6
@@ -1244,83 +1269,83 @@ msgstr ""
 
 #: .\templates\components\admin\navbar.html:89
 msgid "Logout"
-msgstr ""
+msgstr "Выйти"
 
 #: .\templates\components\admin\sidenav.html:18
 msgid "Logged in as"
-msgstr ""
+msgstr "Вошёл как"
 
 #: .\templates\components\default\cart.html:29
 msgid "Continue shopping"
-msgstr ""
+msgstr "Продолжить покупки"
 
 #: .\templates\components\default\categories\category.html:12
 msgid "products"
-msgstr ""
+msgstr "продукты"
 
 #: .\templates\components\default\categories\category.html:19
 msgid "Shop now"
-msgstr ""
+msgstr "Купить сейчас"
 
 #: .\templates\components\default\categories\featured_categories.html:6
 msgid "Featured categories"
-msgstr ""
+msgstr "Рекомендуемые категории"
 
 #: .\templates\components\default\categories\featured_categories.html:10
 msgid "View more"
-msgstr ""
+msgstr "Посмотреть больше"
 
 #: .\templates\components\default\filters.html:5
 msgid "Filter products"
-msgstr ""
+msgstr "Фильтровать товары"
 
 #: .\templates\components\default\filters.html:6
 msgid "Select your options"
-msgstr ""
+msgstr "Выберите свои варианты"
 
 #: .\templates\components\default\filters.html:37
 msgid "In stock"
-msgstr ""
+msgstr "В наличии"
 
 #: .\templates\components\default\header.html:22
 msgid "Logo"
-msgstr ""
+msgstr "Логотип"
 
 #: .\templates\components\default\header.html:29
 msgid "Admin Panel"
-msgstr ""
+msgstr "Панель администратора"
 
 #: .\templates\components\default\header.html:99
 msgid "Search now"
-msgstr ""
+msgstr "Ищи сейчас"
 
 #: .\templates\components\default\products\discounted_products.html:7
 msgid "Discounted products"
-msgstr ""
+msgstr "Товары со скидкой"
 
 #: .\templates\components\default\products\discounted_products.html:11
 #: .\templates\components\default\products\new_products.html:11
 msgid "View all"
-msgstr ""
+msgstr "Посмотреть все"
 
 #: .\templates\components\default\products\grid-item.html:12
 #: .\templates\components\default\products\list-item.html:12
 msgid "Add to favorites list"
-msgstr ""
+msgstr "Добавить в список избранных"
 
 #: .\templates\components\default\products\new_products.html:7
 msgid "New products"
-msgstr ""
+msgstr "Новые продукты"
 
 #: .\templates\components\default\sort-bar.html:9
 msgid "Sort by"
-msgstr ""
+msgstr "Сортировать по"
 
 #: .\templates\components\default\whatsapp.html:3
 #: .\templates\components\default\whatsapp.html:6
 msgid "Chat on WhatsApp"
-msgstr ""
+msgstr "Чат в WhatsApp"
 
 #: .\templates\components\forms\price-filter.html:22
 msgid "Filter"
-msgstr ""
+msgstr "Фильтр"
