@@ -1,5 +1,6 @@
 from typing import Dict
 
+from apps.store import sitemap as store_sitemap
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
@@ -7,7 +8,10 @@ from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path, re_path
 
-sitemaps: Dict = {}
+sitemaps: Dict = {
+    "products": store_sitemap.ProductSiteMap,
+    "categories": store_sitemap.CategorySiteMap,
+}
 
 
 urlpatterns = [
