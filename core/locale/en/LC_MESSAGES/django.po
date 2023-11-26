@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-17 12:05+0100\n"
+"POT-Creation-Date: 2023-11-26 18:50+0100\n"
 "PO-Revision-Date: 2023-11-18 20:03+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,8 +31,7 @@ msgstr ""
 
 #: .\apps\administration\context_processors.py:20
 #: .\apps\administration\views.py:50 .\apps\main\context_processors.py:27
-#: .\apps\main\context_processors.py:55
-#: .\apps\main\templates\main\about.html:4
+#: .\apps\main\context_processors.py:55 .\apps\main\templates\main\about.html:4
 #: .\apps\main\templates\main\about.html:10
 msgid "About Us"
 msgstr ""
@@ -550,6 +549,7 @@ msgid "Contact Phones"
 msgstr ""
 
 #: .\apps\administration\templates\administration\contact.html:149
+#: .\apps\main\models.py:39
 msgid "Social Media Links"
 msgstr ""
 
@@ -893,9 +893,8 @@ msgstr ""
 msgid "Product was not found"
 msgstr ""
 
-#: .\apps\main\context_processors.py:12
-#: .\apps\main\templates\main\index.html:4 .\apps\store\views.py:65
-#: .\apps\store\views.py:103 .\apps\store\views.py:138
+#: .\apps\main\context_processors.py:12 .\apps\main\templates\main\index.html:4
+#: .\apps\store\views.py:65 .\apps\store\views.py:103 .\apps\store\views.py:138
 msgid "Home"
 msgstr ""
 
@@ -975,10 +974,6 @@ msgstr ""
 msgid "GooglePlus"
 msgstr ""
 
-#: .\apps\main\models.py:39
-msgid "Social Media links"
-msgstr ""
-
 #: .\apps\main\models.py:132 .\apps\store\models.py:298
 msgid "Not Active"
 msgstr ""
@@ -992,8 +987,8 @@ msgstr ""
 #: .\apps\main\templates\main\contact.html:5
 msgid "Contact Page Description"
 msgstr ""
-"Reach out to us for any inquiries or assistance. Contact Dekastar for prompt"
-" and friendly support."
+"Reach out to us for any inquiries or assistance. Contact Dekastar for prompt "
+"and friendly support."
 
 #: .\apps\main\templates\main\contact.html:44
 msgid "Call us"
@@ -1022,8 +1017,8 @@ msgstr ""
 #: .\apps\main\templates\main\delivery-policy.html:5
 msgid "Delivery Policy Page Description"
 msgstr ""
-"Explore our delivery policy at Dekastar. We ensure swift and secure delivery"
-" to bring your new furniture to your doorstep."
+"Explore our delivery policy at Dekastar. We ensure swift and secure delivery "
+"to bring your new furniture to your doorstep."
 
 #: .\apps\main\templates\main\index.html:5
 msgid "Home Page Description"
@@ -1036,6 +1031,22 @@ msgid "Privacy Policy Page Description"
 msgstr ""
 "Read our privacy policy to understand how Dekastar protects and respects "
 "your privacy while providing a seamless shopping experience."
+
+#: .\apps\main\urls.py:9
+msgid "privacy-policy"
+msgstr ""
+
+#: .\apps\main\urls.py:10
+msgid "delivery-policy"
+msgstr ""
+
+#: .\apps\main\urls.py:11
+msgid "about"
+msgstr ""
+
+#: .\apps\main\urls.py:12
+msgid "contact"
+msgstr ""
 
 #: .\apps\main\views.py:109
 msgid "Message was sent successfully!"
@@ -1080,7 +1091,8 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                                                I have read and accepted the <a href=\"%(privacy_policy_link)s\">terms</a>.\n"
+"                                                I have read and accepted the "
+"<a href=\"%(privacy_policy_link)s\">terms</a>.\n"
 "                                                "
 msgstr ""
 
@@ -1124,6 +1136,14 @@ msgstr ""
 msgid "We will contact you soon!"
 msgstr ""
 
+#: .\apps\orders\urls.py:8
+msgid "checkout"
+msgstr ""
+
+#: .\apps\orders\urls.py:9
+msgid "success"
+msgstr ""
+
 #: .\apps\orders\views.py:47
 msgid "Order was placed successfully!"
 msgstr ""
@@ -1156,8 +1176,8 @@ msgstr ""
 #: .\apps\store\templates\store\category-products.html:8
 msgid "Products Page Description"
 msgstr ""
-"Browse through our curated collection of high-quality furniture. Find pieces"
-" that elevate your home's aesthetics at Dekastar."
+"Browse through our curated collection of high-quality furniture. Find pieces "
+"that elevate your home's aesthetics at Dekastar."
 
 #: .\apps\store\templates\store\products\detail.html:49
 #: .\apps\store\templates\store\products\detail.html:196
@@ -1210,6 +1230,22 @@ msgstr ""
 msgid "Not In Stock"
 msgstr ""
 
+#: .\apps\store\urls.py:8
+msgid "categories"
+msgstr ""
+
+#: .\apps\store\urls.py:10
+msgid "categories/<str:category>"
+msgstr ""
+
+#: .\apps\store\urls.py:15
+msgid "products/<str:slug>"
+msgstr ""
+
+#: .\apps\store\urls.py:17
+msgid "favorites"
+msgstr ""
+
 #: .\core\settings.py:157
 msgid "Azerbaijani"
 msgstr ""
@@ -1220,6 +1256,14 @@ msgstr ""
 
 #: .\core\settings.py:159
 msgid "Russian"
+msgstr ""
+
+#: .\core\urls.py:29
+msgid "store/"
+msgstr ""
+
+#: .\core\urls.py:30
+msgid "orders/"
 msgstr ""
 
 #: .\shared\custom_form_fields.py:10
@@ -1255,8 +1299,7 @@ msgid "Number"
 msgstr ""
 
 #: .\templates\components\admin\navbar.html:15
-#: .\templates\layouts\admin.html:19
-#: .\templates\layouts\authentication.html:23
+#: .\templates\layouts\admin.html:19 .\templates\layouts\authentication.html:23
 msgid "Admin"
 msgstr ""
 

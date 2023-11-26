@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-17 12:05+0100\n"
-"PO-Revision-Date: 2023-11-18 20:18+0400\n"
+"POT-Creation-Date: 2023-11-26 18:50+0100\n"
+"PO-Revision-Date: 2023-11-26 18:57+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -551,6 +551,7 @@ msgid "Contact Phones"
 msgstr "Контактные телефоны"
 
 #: .\apps\administration\templates\administration\contact.html:149
+#: .\apps\main\models.py:39
 msgid "Social Media Links"
 msgstr "Ссылки на Cоциальные Медиа "
 
@@ -976,10 +977,6 @@ msgstr "Pinterest"
 msgid "GooglePlus"
 msgstr "GooglePlus"
 
-#: .\apps\main\models.py:39
-msgid "Social Media links"
-msgstr "Ссылки на социальные сети"
-
 #: .\apps\main\models.py:132 .\apps\store\models.py:298
 msgid "Not Active"
 msgstr "Не активен"
@@ -1040,6 +1037,26 @@ msgstr ""
 "Прочтите нашу политику конфиденциальности, чтобы понять, как Dekastar "
 "защищает и уважает вашу конфиденциальность, обеспечивая при этом удобство "
 "покупок."
+
+#: .\apps\main\urls.py:9
+#| msgid "Privacy Policy"
+msgid "privacy-policy"
+msgstr "политика-конфиденциальности"
+
+#: .\apps\main\urls.py:10
+#| msgid "Delivery Policy"
+msgid "delivery-policy"
+msgstr "политика-доставки"
+
+#: .\apps\main\urls.py:11
+#| msgid "About"
+msgid "about"
+msgstr "о-нас"
+
+#: .\apps\main\urls.py:12
+#| msgid "Contact"
+msgid "contact"
+msgstr "контакт"
 
 #: .\apps\main\views.py:109
 msgid "Message was sent successfully!"
@@ -1125,6 +1142,15 @@ msgstr "Ваш заказ отправлен!"
 #: .\apps\orders\templates\orders\success.html:14
 msgid "We will contact you soon!"
 msgstr "Мы свяжемся с вами в ближайшее время!"
+
+#: .\apps\orders\urls.py:8
+#| msgid "Checkout"
+msgid "checkout"
+msgstr "oформления-заказа"
+
+#: .\apps\orders\urls.py:9
+msgid "success"
+msgstr "успех"
 
 #: .\apps\orders\views.py:47
 msgid "Order was placed successfully!"
@@ -1212,6 +1238,24 @@ msgstr "число"
 msgid "Not In Stock"
 msgstr "Распродано"
 
+#: .\apps\store\urls.py:8
+#| msgid "Categories"
+msgid "categories"
+msgstr "категории"
+
+#: .\apps\store\urls.py:10
+msgid "categories/<str:category>"
+msgstr "категории/<str:category>"
+
+#: .\apps\store\urls.py:15
+msgid "products/<str:slug>"
+msgstr "продукты/<str:slug>"
+
+#: .\apps\store\urls.py:17
+#| msgid "Favorites"
+msgid "favorites"
+msgstr "избранное"
+
 #: .\core\settings.py:157
 msgid "Azerbaijani"
 msgstr "Азербайджанский"
@@ -1223,6 +1267,15 @@ msgstr "Английский"
 #: .\core\settings.py:159
 msgid "Russian"
 msgstr "Русский"
+
+#: .\core\urls.py:29
+msgid "store/"
+msgstr "магазин/"
+
+#: .\core\urls.py:30
+#| msgid "Orders"
+msgid "orders/"
+msgstr "заказы/"
 
 #: .\shared\custom_form_fields.py:10
 msgid "Language"
@@ -1349,3 +1402,6 @@ msgstr "Чат в WhatsApp"
 #: .\templates\components\forms\price-filter.html:22
 msgid "Filter"
 msgstr "Фильтр"
+
+#~ msgid "Social Media links"
+#~ msgstr "Ссылки на социальные сети"

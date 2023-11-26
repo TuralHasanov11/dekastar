@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-17 12:05+0100\n"
-"PO-Revision-Date: 2023-11-18 20:04+0400\n"
+"POT-Creation-Date: 2023-11-26 18:50+0100\n"
+"PO-Revision-Date: 2023-11-26 18:53+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -550,6 +550,7 @@ msgid "Contact Phones"
 msgstr "Əlaqə Nömrələri"
 
 #: .\apps\administration\templates\administration\contact.html:149
+#: .\apps\main\models.py:39
 msgid "Social Media Links"
 msgstr "Sosial Media Linkləri"
 
@@ -975,10 +976,6 @@ msgstr "Pinterest"
 msgid "GooglePlus"
 msgstr "GooglePlus"
 
-#: .\apps\main\models.py:39
-msgid "Social Media links"
-msgstr "Sosial media linkləri"
-
 #: .\apps\main\models.py:132 .\apps\store\models.py:298
 msgid "Not Active"
 msgstr "Aktiv deyil"
@@ -1022,7 +1019,6 @@ msgid "Send message"
 msgstr "Mesaj göndər"
 
 #: .\apps\main\templates\main\delivery-policy.html:5
-#| msgid "Privacy Policy Image"
 msgid "Delivery Policy Page Description"
 msgstr ""
 "Dekastar-da çatdırılma siyasətimizi araşdırın. Yeni mebellərinizi qapınıza "
@@ -1035,11 +1031,30 @@ msgstr ""
 "etdirən bir ev yaradın."
 
 #: .\apps\main\templates\main\privacy-policy.html:5
-#| msgid "Privacy Policy Image"
 msgid "Privacy Policy Page Description"
 msgstr ""
 "Dekastarın qüsursuz alış-veriş təcrübəsi təmin edərkən məxfiliyinizi necə "
 "qoruduğunu və hörmət etdiyini anlamaq üçün məxfilik siyasətimizi oxuyun."
+
+#: .\apps\main\urls.py:9
+#| msgid "Privacy Policy"
+msgid "privacy-policy"
+msgstr "mexfilik-siyaseti"
+
+#: .\apps\main\urls.py:10
+#| msgid "Delivery Policy"
+msgid "delivery-policy"
+msgstr "catdirilma-siyaseti"
+
+#: .\apps\main\urls.py:11
+#| msgid "About"
+msgid "about"
+msgstr "haqqimizda"
+
+#: .\apps\main\urls.py:12
+#| msgid "Contact"
+msgid "contact"
+msgstr "elaqe"
 
 #: .\apps\main\views.py:109
 msgid "Message was sent successfully!"
@@ -1109,7 +1124,6 @@ msgid "Shop more"
 msgstr "Daha çox alış-veriş edin"
 
 #: .\apps\orders\templates\orders\success.html:4
-#| msgid "Checkout"
 msgid "Checkout Success"
 msgstr "Ödəniş Uğurlu"
 
@@ -1126,6 +1140,15 @@ msgstr "Sifarişiniz təsdiq edildi!"
 #: .\apps\orders\templates\orders\success.html:14
 msgid "We will contact you soon!"
 msgstr "Tezliklə sizinlə əlaqə saxlayacağıq!"
+
+#: .\apps\orders\urls.py:8
+#| msgid "Checkout"
+msgid "checkout"
+msgstr "sifaris"
+
+#: .\apps\orders\urls.py:9
+msgid "success"
+msgstr "ugurlu"
 
 #: .\apps\orders\views.py:47
 msgid "Order was placed successfully!"
@@ -1213,6 +1236,24 @@ msgstr "ədəd"
 msgid "Not In Stock"
 msgstr "Stokda yoxdur"
 
+#: .\apps\store\urls.py:8
+#| msgid "Categories"
+msgid "categories"
+msgstr "kateqoriyalar"
+
+#: .\apps\store\urls.py:10
+msgid "categories/<str:category>"
+msgstr "kateqoriyalar/<str:category>"
+
+#: .\apps\store\urls.py:15
+msgid "products/<str:slug>"
+msgstr "mehsullar/<str:slug>"
+
+#: .\apps\store\urls.py:17
+#| msgid "Favorites"
+msgid "favorites"
+msgstr "secilmisler"
+
 #: .\core\settings.py:157
 msgid "Azerbaijani"
 msgstr "Azərbaycanca"
@@ -1224,6 +1265,15 @@ msgstr "İngiliscə"
 #: .\core\settings.py:159
 msgid "Russian"
 msgstr "Rusca"
+
+#: .\core\urls.py:29
+msgid "store/"
+msgstr "magaza/"
+
+#: .\core\urls.py:30
+#| msgid "Orders"
+msgid "orders/"
+msgstr "sifarisler"
 
 #: .\shared\custom_form_fields.py:10
 msgid "Language"
@@ -1350,6 +1400,9 @@ msgstr "WhatsApp-da yazın"
 #: .\templates\components\forms\price-filter.html:22
 msgid "Filter"
 msgstr "Axtar"
+
+#~ msgid "Social Media links"
+#~ msgstr "Sosial media linkləri"
 
 #~ msgid "Check out our latest collections."
 #~ msgstr "Yeni məhsullara baxın."
