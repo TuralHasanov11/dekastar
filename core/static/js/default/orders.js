@@ -1,5 +1,12 @@
 $(document).ready(() => {
 
+    function blinkColor(element) {
+        element.addClass("text-danger", 500);
+        setTimeout(() => {
+            element.removeClass("text-danger", 500);
+        }, 500);
+    }
+
     $(".btn-add").on("click", async (event) => {
         try {
             const productId = $(event.currentTarget).data('product_id')
@@ -16,10 +23,11 @@ $(document).ready(() => {
 
             $("#cart-total-price").html(data?.total_price)
             $("#cart-quantity").html(data?.quantity)
-            if($(`.cart-nav-item[data-product_id="${data?.item?.product?.id}"]`)){
+            blinkColor($(".open-cart"));
+            if ($(`.cart-nav-item[data-product_id="${data?.item?.product?.id}"]`)) {
                 $(`.cart-nav-item[data-product_id="${data?.item?.product?.id}"]`).remove()
                 $("#cart-products").append(productComponent(data?.item))
-            }else{
+            } else {
                 $("#cart-products").append(productComponent(data?.item))
             }
         } catch (error) { }
@@ -42,10 +50,11 @@ $(document).ready(() => {
 
             $("#cart-total-price").html(data?.total_price)
             $("#cart-quantity").html(data?.quantity)
-            if($(`.cart-nav-item[data-product_id="${data?.item?.product?.id}"]`)){
+            blinkColor($(".open-cart"));
+            if ($(`.cart-nav-item[data-product_id="${data?.item?.product?.id}"]`)) {
                 $(`.cart-nav-item[data-product_id="${data?.item?.product?.id}"]`).remove()
                 $("#cart-products").append(productComponent(data?.item))
-            }else{
+            } else {
                 $("#cart-products").append(productComponent(data?.item))
             }
         } catch (error) { }
@@ -61,13 +70,13 @@ $(document).ready(() => {
                 }),
                 headers: { "X-CSRFToken": csrftoken, 'Content-Type': 'application/json' }
             })
-            
-            if(response.ok){
+
+            if (response.ok) {
                 location.reload()
-            }else{
+            } else {
                 throw new Error()
             }
-        } catch (error) {}
+        } catch (error) { }
     })
 
     $(".form-quantity").on("click", async (event) => {
@@ -84,7 +93,7 @@ $(document).ready(() => {
                 }),
                 headers: { "X-CSRFToken": csrftoken, 'Content-Type': 'application/json' }
             })
-    
+
             const data = await response.json()
 
             $("#cart-total-price").html(data?.total_price)
@@ -92,10 +101,11 @@ $(document).ready(() => {
             $("#checkout-discount-price").html(data?.total_discount)
             $("#checkout-regular-price").html(data?.total_regular_price)
             $("#cart-quantity").html(data?.quantity)
-            if(data.item === null){
+            blinkColor($(".open-cart"));
+            if (data.item === null) {
                 $(`.cart-nav-item[data-product_id="${data?.item?.product?.id}"]`).remove()
             }
-            else{
+            else {
                 $(`.cart-nav-item[data-product_id="${data?.item?.product?.id}"]`).remove()
                 $("#cart-products").append(productComponent(data?.item))
             }
@@ -106,12 +116,12 @@ $(document).ready(() => {
     })
 
 
-    function productComponent(item){
+    function productComponent(item) {
         let priceComponent;
-        if(item?.product?.discount){
+        if (item?.product?.discount) {
             priceComponent = `<span class="final">&#8380; <span class="discount-price">${item?.product?.discount_price}</span></span>
                             <span class="discount">&#8380; <span class="regular-price">${item?.product?.regular_price}</span></span>`
-        }else{
+        } else {
             priceComponent = `<span class="final">&#8380; <span class="discount-price">${item?.product?.regular_price}</span></span>`
         }
 
@@ -138,7 +148,7 @@ $(document).ready(() => {
                 method: 'GET',
                 headers: { "X-CSRFToken": csrftoken, 'Content-Type': 'application/json' }
             })
-    
+
             const data = await response.json()
 
             let text = "Sifariş:%0a"
@@ -149,7 +159,7 @@ $(document).ready(() => {
 
             window.open(`https://wa.me/${phone}?text=${text}`, '_blank').focus();
         } catch (error) {
-            
+
         }
     })
 });

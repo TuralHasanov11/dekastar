@@ -75,6 +75,11 @@
                 {{ form.brand.errors }}
               </div>
               <div class="col-12 col-md-6 col-xl-4">
+                <label class="mb-1 small" for="{{ form.product_model.id_for_label }}">{{ form.product_model.label }}</label>
+                {{ form.product_model }}
+                {{ form.product_model.errors }}
+              </div>
+              <div class="col-12 col-md-6 col-xl-4">
                   <label class="mb-1 small" for="{{ form.regular_price.id_for_label }}">{{ form.regular_price.label }}</label>
                   {{ form.regular_price }}
                   {{ form.regular_price.errors }}
@@ -83,11 +88,6 @@
                   <label class="mb-1 small" for="{{ form.discount.id_for_label }}">{{ form.discount.label }}</label>
                   {{ form.discount }}
                   {{ form.discount.errors }}
-              </div>
-              <div class="col-12 col-md-6 col-xl-4">
-                  <label class="mb-1 small" for="{{ form.discount_price.id_for_label }}">{{ form.discount_price.label }}</label>
-                  {{ form.discount_price }}
-                  {{ form.discount_price.errors }}
               </div>
               <div class="col-12 col-md-6 col-xl-4">
                 <label class="mb-1 small" for="{{ form.quantity_type.id_for_label }}">{{ form.quantity_type.label }}</label>

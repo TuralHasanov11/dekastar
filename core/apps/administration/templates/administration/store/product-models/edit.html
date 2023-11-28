@@ -1,0 +1,75 @@
+{% extends "layouts/admin.html" %} {% load static %} {% load i18n %}
+{% block title %}{% translate "Edit Product Model" %}{% endblock title %}
+{% block content %}
+<main>
+  <header
+    class="page-header page-header-compact page-header-light border-bottom bg-white mb-4"
+  >
+    <div class="container-fluid px-4">
+      <div class="page-header-content">
+        <div class="row align-items-center justify-content-between pt-3">
+          <div class="col-auto mb-3">
+            <h1 class="page-header-title">
+              <div class="page-header-icon">
+                <i data-feather="file-plus"></i>
+              </div>
+              {% translate "Edit Product Model" %}
+            </h1>
+          </div>
+          <div class="col-12 col-xl-auto mb-3">
+            <div class="d-flex justify-content-center">
+              <a
+                class="btn btn-sm btn-light text-primary mx-2"
+                href="{% url 'apps.administration:store-brand-list-create' %}"
+              >
+                <i class="me-1" data-feather="list"></i>
+                {% translate "Back to Product Model List" %}
+              </a>
+              <form class="delete-form" method="post">
+                {% csrf_token %}
+                <div class="d-inline-block">
+                  <button type="submit" class="btn btn-sm btn-danger">
+                    <i class="me-1" data-feather="trash-2"></i>
+                    {% translate "Delete Product Model" %}
+                  </button>
+                </div>
+                <input type="hidden" name="_method" value="delete">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container-fluid px-4">
+    {% include "components/messages.html" with messages=messages %}
+    <div class="card mb-4">
+        <div class="card-header">{% translate "Edit Product Model" %}</div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.media }}
+                {% include "components/forms/hidden-fields.html" with hidden_fields=form.hidden_fields %}
+                <div class="row g-3 mb-3">
+                  <div class="col-12 col-md-6">
+                    <label class="small mb-1" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                    {{ form.name }}
+                    {{ form.name.errors }}
+                  </div>
+                  <div class="col-12 col-md-6">
+                      <label class="small mb-1" for="{{ form.cover_image.id_for_label }}">{{ form.cover_image.label }}</label>
+                      {{ form.cover_image }}
+                      {{ form.cover_image.errors }}
+                      <img loading="lazy" src="{{brand.cover_image.url}}" width="120" height="72" class="mt-3">
+                  </div>
+                </div>
+                {{form.non_field_errors}}
+                {{form.non_form_errors}}
+                <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
+            </form>
+        </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

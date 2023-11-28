@@ -18,12 +18,13 @@ from apps.store.models import (
     Product,
     ProductImage,
     ProductInformation,
+    ProductModel,
 )
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core import paginator
 from django.db import transaction
@@ -47,69 +48,83 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                 "name": _("Banners"),
                 "route": reverse("apps.administration:banner-list-create"),
             },
-            {"name": _("About Us"), "route": reverse("apps.administration:about")},
+            {
+                "name": _("About Us"),
+                "route": reverse("apps.administration:about"),
+                "permission": "main.view_sitetext",
+            },
             {
                 "name": _("Privacy Policy"),
                 "route": reverse("apps.administration:privacy-policy"),
+                "permission": "main.view_sitetext",
             },
             {
                 "name": _("Delivery Policy"),
                 "route": reverse("apps.administration:delivery-policy"),
+                "permission": "main.view_sitetext",
             },
-            {"name": _("Contact"), "route": reverse("apps.administration:contact")},
-            {"name": _("Users"), "route": reverse("apps.administration:user-list")},
+            {
+                "name": _("Contact"),
+                "route": reverse("apps.administration:contact"),
+                "permission": "main.view_companyinfo",
+            },
+            {
+                "name": _("Users"),
+                "route": reverse("apps.administration:user-list"),
+                "permission": "auth.view_user",
+            },
             {
                 "name": _("Categories"),
                 "route": reverse("apps.administration:store-category-list-create"),
+                "permission": "store.view_category",
             },
             {
                 "name": _("Brands"),
                 "route": reverse("apps.administration:store-brand-list-create"),
+                "permission": "store.view_brand",
+            },
+            {
+                "name": _("Models"),
+                "route": reverse("apps.administration:store-product-model-list-create"),
+                "permission": "store.view_productmodel",
             },
             {
                 "name": _("Products"),
                 "route": reverse("apps.administration:store-product-list"),
+                "permission": "store.view_product",
             },
             {
                 "name": _("Orders"),
                 "route": reverse("apps.administration:order-list"),
+                "permission": "orders.view_order",
             },
         ]
         return context
 
 
-class PrivacyPolicyView(LoginRequiredMixin, TemplateView):
+class PrivacyPolicyView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "administration/privacy-policy.html"
     http_method_names = ["get", "post"]
     form_class = forms.PrivacyPolicyTextFormSet
     redirect_url_name = "apps.administration:privacy-policy"
+    permission_required = ["main.view_sitetext", "main.add_sitetext", "main.change_sitetext"]
 
     def get(self, request):
         if SiteText.objects.count() == 0:
-            SiteText.objects.bulk_create(
-                [SiteText(language=lang[0]) for lang in settings.LANGUAGES]
-            )
-        site_texts = (
-            SiteText.objects.all()
-            .order_by("language")
-            .only("language", "privacy_policy")
-        )
+            SiteText.objects.bulk_create([SiteText(language=lang[0]) for lang in settings.LANGUAGES])
+        site_texts = SiteText.objects.all().order_by("language").only("language", "privacy_policy")
         form = self.form_class(initial=site_texts)
         return render(request, self.template_name, {"form": form})
 
     def post(self, request):
         form = self.form_class(
-            initial=SiteText.objects.all()
-            .order_by("language")
-            .only("language", "privacy_policy"),
+            initial=SiteText.objects.all().order_by("language").only("language", "privacy_policy"),
             data=request.POST,
         )
         if form.is_valid():
             try:
                 form.save()
-                messages.success(
-                    request, _("Privacy Policy texts were saved successfully!")
-                )
+                messages.success(request, _("Privacy Policy texts were saved successfully!"))
                 return redirect(self.redirect_url_name)
             except Exception:
                 messages.error(request, _("Privacy Policy texts cannot be saved!"))
@@ -117,36 +132,29 @@ class PrivacyPolicyView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, {"form": form})
 
 
-class DeliveryPolicyView(LoginRequiredMixin, TemplateView):
+class DeliveryPolicyView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "administration/delivery-policy.html"
     http_method_names = ["get", "post"]
     form_class = forms.DeliveryPolicyTextFormSet
     redirect_url_name = "apps.administration:delivery-policy"
+    permission_required = ["main.view_sitetext", "main.add_sitetext", "main.change_sitetext"]
 
     def get(self, request):
         if SiteText.objects.count() == 0:
-            SiteText.objects.bulk_create(
-                [SiteText(language=lang[0]) for lang in settings.LANGUAGES]
-            )
-        site_texts = (
-            SiteText.objects.all().order_by("language").only("language", "delivery")
-        )
+            SiteText.objects.bulk_create([SiteText(language=lang[0]) for lang in settings.LANGUAGES])
+        site_texts = SiteText.objects.all().order_by("language").only("language", "delivery")
         form = self.form_class(initial=site_texts)
         return render(request, self.template_name, {"form": form})
 
     def post(self, request):
         form = self.form_class(
-            initial=SiteText.objects.all()
-            .order_by("language")
-            .only("language", "delivery_policy"),
+            initial=SiteText.objects.all().order_by("language").only("language", "delivery_policy"),
             data=request.POST,
         )
         if form.is_valid():
             try:
                 form.save()
-                messages.success(
-                    request, _("Delivery Policy texts were saved successfully!")
-                )
+                messages.success(request, _("Delivery Policy texts were saved successfully!"))
                 return redirect(self.redirect_url_name)
             except Exception:
                 messages.error(request, _("Delivery Policy texts cannot be saved!"))
@@ -154,28 +162,23 @@ class DeliveryPolicyView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, {"form": form})
 
 
-class AboutView(LoginRequiredMixin, TemplateView):
+class AboutView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "administration/about.html"
     http_method_names = ["get", "post"]
     form_class = forms.AboutTextFormSet
     redirect_url_name = "apps.administration:about"
+    permission_required = ["main.view_sitetext", "main.add_sitetext", "main.change_sitetext"]
 
     def get(self, request):
         if SiteText.objects.count() == 0:
-            SiteText.objects.bulk_create(
-                [SiteText(language=lang[0]) for lang in settings.LANGUAGES]
-            )
-        site_texts = (
-            SiteText.objects.all().order_by("language").only("language", "about")
-        )
+            SiteText.objects.bulk_create([SiteText(language=lang[0]) for lang in settings.LANGUAGES])
+        site_texts = SiteText.objects.all().order_by("language").only("language", "about")
         form = self.form_class(initial=site_texts)
         return render(request, self.template_name, {"form": form})
 
     def post(self, request):
         form = self.form_class(
-            initial=SiteText.objects.all()
-            .order_by("language")
-            .only("language", "about"),
+            initial=SiteText.objects.all().order_by("language").only("language", "about"),
             data=request.POST,
         )
         if form.is_valid():
@@ -189,25 +192,27 @@ class AboutView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, {"form": form})
 
 
-class ContactView(LoginRequiredMixin, TemplateView):
+class ContactView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "administration/contact.html"
     http_method_names = ["get"]
     social_media_link_form_class = forms.SocialMediaLinkForm
     contact_phone_form_class = forms.ContactPhoneForm
     contact_email_form_class = forms.ContactEmailForm
     company_info_form_class = forms.CompanyInfoFormSet
+    permission_required = [
+        "main.view_companyinfo",
+        "main.view_contactemail",
+        "main.view_contactphone",
+        "main.view_socialmedialink",
+    ]
 
     def get(self, request):
         if CompanyInfo.objects.count() == 0:
-            CompanyInfo.objects.bulk_create(
-                [CompanyInfo(language=lang[0]) for lang in settings.LANGUAGES]
-            )
+            CompanyInfo.objects.bulk_create([CompanyInfo(language=lang[0]) for lang in settings.LANGUAGES])
         social_media_link_form = self.social_media_link_form_class()
         contact_email_form = self.contact_email_form_class()
         contact_phone_form = self.contact_phone_form_class()
-        company_info_form = self.company_info_form_class(
-            initial=CompanyInfo.objects.all()
-        )
+        company_info_form = self.company_info_form_class(initial=CompanyInfo.objects.all())
         social_media_links = SocialMediaLink.objects.all()
         contact_emails = ContactEmail.objects.all()
         contact_phones = ContactPhone.objects.all()
@@ -226,66 +231,73 @@ class ContactView(LoginRequiredMixin, TemplateView):
         )
 
 
-class ContactEmailCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class ContactEmailCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = ContactEmail
     form_class = forms.ContactEmailForm
     http_method_names = ["post"]
     success_message = _("Contact email was added successfully!")
+    permission_required = ["main.add_contactemail"]
 
     def get_success_url(self) -> str:
         return reverse("apps.administration:contact") + "#contact-email-form"
 
 
-class ContactEmailDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class ContactEmailDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = ContactEmail
     success_message = _("Contact email was deleted successfully!")
+    permission_required = ["main.delete_contactemail"]
 
     def get_success_url(self) -> str:
         return reverse("apps.administration:contact") + "#contact-email-form"
 
 
-class ContactPhoneCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class ContactPhoneCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = ContactPhone
     form_class = forms.ContactPhoneForm
     http_method_names = ["post"]
     success_message = _("Contact phone was added successfully!")
+    permission_required = ["main.add_contactphone"]
 
     def get_success_url(self) -> str:
         return reverse("apps.administration:contact") + "#contact-phone-form"
 
 
-class ContactPhoneDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class ContactPhoneDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = ContactPhone
     success_message = _("Contact phone was deleted successfully!")
+    permission_required = ["main.delete_contactphone"]
 
     def get_success_url(self) -> str:
         return reverse("apps.administration:contact") + "#contact-phone-form"
 
 
-class SocialMediaLinkCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class SocialMediaLinkCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = SocialMediaLink
     form_class = forms.SocialMediaLinkForm
     http_method_names = ["post"]
     success_message = _("Social media link was added successfully!")
+    permission_required = ["main.add_socialmedialink", "main.view_socialmedialink"]
 
     def get_success_url(self) -> str:
         return reverse("apps.administration:contact") + "#social-media-link-form"
 
 
-class SocialMediaLinkDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class SocialMediaLinkDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = SocialMediaLink
     success_message = _("Social media link was deleted successfully!")
+    permission_required = ["main.delete_socialmedialink"]
 
     def get_success_url(self) -> str:
         return reverse("apps.administration:contact") + "#social-media-link-form"
 
 
-class CompanyInfoCreateView(LoginRequiredMixin, SuccessMessageMixin, TemplateView):
+class CompanyInfoCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, TemplateView):
     model = CompanyInfo
     form_class = forms.CompanyInfoFormSet
     http_method_names = ["post"]
     success_message = _("Company info was saved successfully!")
     redirect_url_name = "apps.administration:contact"
+    permission_required = ["main.add_companyinfo", "main.view_companyinfo"]
 
     def post(self, request):
         form = self.form_class(initial=CompanyInfo.objects.all(), data=request.POST)
@@ -303,11 +315,12 @@ class CompanyInfoCreateView(LoginRequiredMixin, SuccessMessageMixin, TemplateVie
         return reverse("apps.administration:contact") + "#company-info-form"
 
 
-class SiteImagesView(LoginRequiredMixin, TemplateView):
+class SiteImagesView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "administration/site-images.html"
     http_method_names = ["get", "post"]
     form_class = forms.SiteImageForm
     redirect_url_name = "apps.administration:site-images"
+    permission_required = ["main.add_siteimage", "main.view_siteimage"]
 
     def get(self, request):
         try:
@@ -319,9 +332,7 @@ class SiteImagesView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, {"form": form})
 
     def post(self, request):
-        form = self.form_class(
-            instance=SiteText.objects.first(), data=request.POST, files=request.FILES
-        )
+        form = self.form_class(instance=SiteText.objects.first(), data=request.POST, files=request.FILES)
         if form.is_valid():
             try:
                 form.save()
@@ -333,12 +344,13 @@ class SiteImagesView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, {"form": form})
 
 
-class BannerListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class BannerListCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Banner
     form_class = forms.BannerForm
     template_name = "administration/banners/index.html"
     success_message = _("Banner was created successfully!")
     success_url = reverse_lazy("apps.administration:banner-list-create")
+    permission_required = ["main.add_banner", "main.view_banner"]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -346,11 +358,12 @@ class BannerListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return context
 
 
-class BannerUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class BannerUpdateDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = forms.BannerForm
     model = Banner
     template_name = "administration/banners/edit.html"
     context_object_name = "banner"
+    permission_required = ["main.change_banner", "main.delete_banner"]
 
     def post(self, request, pk):
         banner = self.model.objects.get(pk=pk)
@@ -362,11 +375,7 @@ class BannerUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView
         if form.is_valid():
             form.save()
             messages.success(request, _("Banner was updated successfully"))
-            return redirect(
-                reverse(
-                    "apps.administration:banner-update-delete", kwargs={"pk": banner.pk}
-                )
-            )
+            return redirect(reverse("apps.administration:banner-update-delete", kwargs={"pk": banner.pk}))
         return render(request, self.template_name, {"form": form, "banner": banner})
 
 
@@ -390,9 +399,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         if form.is_valid():
             try:
                 form.save()
-                messages.success(
-                    request, _("User information were saved successfully!")
-                )
+                messages.success(request, _("User information were saved successfully!"))
                 return redirect(self.redirect_url_name)
             except Exception:
                 messages.error(request, _("User information cannot be saved!"))
@@ -413,35 +420,47 @@ class PasswordChangeView(LoginRequiredMixin, auth_views.PasswordChangeView):
     form_class = forms.PasswordChangeForm
 
 
-class UserListView(LoginRequiredMixin, ListView):
+class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = get_user_model()
     template_name = "administration/users/list.html"
     context_object_name = "users"
+    permission_required = ["auth.view_user"]
+
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(is_superuser=False, is_staff=False)
 
 
-class UserCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class UserCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = get_user_model()
     form_class = forms.UserCreateForm
     login_url = reverse_lazy("apps.administration:index")
     template_name = "administration/users/create.html"
     success_message = _("User was created successfully!")
     success_url = reverse_lazy("apps.administration:user-list")
+    permission_required = ["auth.add_user"]
+
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(is_superuser=False, is_staff=False)
 
 
-class UserDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class UserDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = get_user_model()
-    queryset = get_user_model().objects.filter(is_superuser=False).all()
     success_message = _("User was deleted successfully!")
     success_url = reverse_lazy("apps.administration:user-list")
+    permission_required = ["auth.delete_user"]
+
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(is_superuser=False, is_staff=False)
 
 
 # STORE
-class CategoryListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class CategoryListCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Category
     form_class = forms.CategoryForm
     template_name = "administration/store/categories/index.html"
     success_message = _("Category was created successfully!")
     success_url = reverse_lazy("apps.administration:store-category-list-create")
+    permission_required = ["store.add_category", "store.view_category"]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -449,22 +468,22 @@ class CategoryListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView
         return context
 
 
-class CategoryUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class CategoryUpdateDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = forms.CategoryForm
     attribute_form_class = forms.CategoryAttributeFormSet
     model = Category
     template_name = "administration/store/categories/edit.html"
     context_object_name = "category"
+    permission_required = ["store.change_category", "store.delete_category"]
 
     def get_queryset(self):
         return super().get_queryset().prefetch_related("category_attribute")
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        if (
-            not hasattr(self.get_object(), "category_attribute")
-            or len(self.get_object().category_attribute.all()) < len(settings.LANGUAGES)
-        ):
+        if not hasattr(self.get_object(), "category_attribute") or len(
+            self.get_object().category_attribute.all()
+        ) < len(settings.LANGUAGES):
             CategoryAttribute.objects.bulk_create(
                 [
                     CategoryAttribute(language=lang[0], category=self.get_object())
@@ -486,9 +505,7 @@ class CategoryUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateVi
             if self.request.POST.get("_method", None) == "delete":
                 category.delete()
                 messages.success(request, _("Category was deleted successfully"))
-                return redirect(
-                    reverse("apps.administration:store-category-list-create")
-                )
+                return redirect(reverse("apps.administration:store-category-list-create"))
             if form.is_valid():
                 category = form.save()
                 if attribute_form.is_valid():
@@ -515,12 +532,13 @@ class CategoryUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateVi
         )
 
 
-class BrandListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class BrandListCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Brand
     form_class = forms.BrandForm
     template_name = "administration/store/brands/index.html"
     success_message = _("Brand was created successfully!")
     success_url = reverse_lazy("apps.administration:store-brand-list-create")
+    permission_required = ["store.add_brand", "store.view_brand"]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -528,11 +546,12 @@ class BrandListCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return context
 
 
-class BrandUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class BrandUpdateDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = forms.BrandForm
     model = Brand
     template_name = "administration/store/brands/edit.html"
     context_object_name = "brand"
+    permission_required = ["store.change_brand", "store.delete_brand"]
 
     def post(self, request, pk):
         brand = self.model.objects.get(pk=pk)
@@ -553,16 +572,61 @@ class BrandUpdateDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView)
         return render(request, self.template_name, {"form": form, "brand": brand})
 
 
-class ProductListView(LoginRequiredMixin, ListView):
+class ProductModelListCreateView(
+    LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView
+):
+    model = ProductModel
+    form_class = forms.ProductModelForm
+    template_name = "administration/store/product-models/index.html"
+    success_message = _("Model was created successfully!")
+    success_url = reverse_lazy("apps.administration:store-product-model-list-create")
+    permission_required = ["store.add_productmodel", "store.view_productmodel"]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["product_models"] = self.model.objects.all()
+        return context
+
+
+class ProductModelUpdateDeleteView(
+    LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView
+):
+    form_class = forms.ProductModelForm
+    model = ProductModel
+    template_name = "administration/store/product-models/edit.html"
+    context_object_name = "product_model"
+    permission_required = ["store.change_product_model", "store.delete_product_model"]
+
+    def post(self, request, pk):
+        product_model = self.model.objects.get(pk=pk)
+        form = self.form_class(instance=product_model, data=request.POST, files=request.FILES)
+        if self.request.POST.get("_method", None) == "delete":
+            product_model.delete()
+            messages.success(request, _("Model was deleted successfully"))
+            return redirect(reverse("apps.administration:store-product-model-list-create"))
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Model was updated successfully"))
+            return redirect(
+                reverse(
+                    "apps.administration:store-product-model-update-delete",
+                    kwargs={"pk": product_model.pk},
+                )
+            )
+        return render(request, self.template_name, {"form": form, "product_model": product_model})
+
+
+class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Product
     template_name = "administration/store/products/list.html"
     context_object_name = "products"
+    permission_required = ["store.view_product"]
 
     def get_queryset(self):
         return self.model.admin_products.list_queryset().all()
 
 
-class ProductCreateView(LoginRequiredMixin, CreateView):
+class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Product
     form_class = forms.ProductForm
     product_information_form_class = forms.ProductInformationFormSet
@@ -570,23 +634,20 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     template_name = "administration/store/products/create.html"
     success_message = _("Product was created successfully")
     success_url = reverse_lazy("apps.administration:store-product-list")
+    permission_required = ["store.add_product"]
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["product_information_formset"] = self.product_information_form_class(
             queryset=ProductInformation.objects.none()
         )
-        context["product_image_formset"] = self.product_image_form_class(
-            queryset=ProductImage.objects.none()
-        )
+        context["product_image_formset"] = self.product_image_form_class(queryset=ProductImage.objects.none())
         return context
 
     @transaction.atomic
     def post(self, request):
         form = self.form_class(data=request.POST, files=request.FILES)
-        product_image_formset = self.product_image_form_class(
-            queryset=ProductImage.objects.none()
-        )
+        product_image_formset = self.product_image_form_class(queryset=ProductImage.objects.none())
         product_information_formset = self.product_information_form_class(
             queryset=ProductInformation.objects.none()
         )
@@ -598,10 +659,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
             product_information_formset = self.product_information_form_class(
                 instance=product, data=self.request.POST, files=self.request.FILES
             )
-            if (
-                product_image_formset.is_valid()
-                and product_information_formset.is_valid()
-            ):
+            if product_image_formset.is_valid() and product_information_formset.is_valid():
                 product_image_formset.save()
                 product_information_formset.save()
                 messages.success(request, self.success_message)
@@ -618,21 +676,20 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         )
 
 
-class ProductUpdateDeleteView(LoginRequiredMixin, UpdateView):
+class ProductUpdateDeleteView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Product
     form_class = forms.ProductForm
     product_information_form_class = forms.ProductInformationFormSet
     product_image_form_class = forms.ProductImageFormSet
     template_name = "administration/store/products/edit.html"
+    permission_required = ["store.change_product"]
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["product_information_formset"] = self.product_information_form_class(
             instance=self.get_object()
         )
-        context["product_image_formset"] = self.product_image_form_class(
-            instance=self.get_object()
-        )
+        context["product_image_formset"] = self.product_image_form_class(instance=self.get_object())
         return context
 
     @transaction.atomic
@@ -649,11 +706,7 @@ class ProductUpdateDeleteView(LoginRequiredMixin, UpdateView):
             product.delete()
             messages.success(request, _("Product was deleted successfully"))
             return redirect(reverse("apps.administration:store-product-list"))
-        if (
-            form.is_valid()
-            and product_image_formset.is_valid()
-            and product_information_formset.is_valid()
-        ):
+        if form.is_valid() and product_image_formset.is_valid() and product_information_formset.is_valid():
             form.save()
             product_image_formset.save()
             product_information_formset.save()
@@ -677,20 +730,21 @@ class ProductUpdateDeleteView(LoginRequiredMixin, UpdateView):
         )
 
 
-class OrderListView(LoginRequiredMixin, ListView):
+class OrderListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Order
     template_name = "administration/orders/list.html"
     context_object_name = "orders"
     per_page = 10
+    permission_required = ["orders.view_order"]
 
     def get_queryset(self):
         query_params = self.request.GET.copy()
         queryset = self.model.orders.list_queryset().all()
         if query_params.get("search"):
             queryset = queryset.filter(
-                Q(name__icontains=query_params.get("search")) |
-                Q(phone__icontains=query_params.get("search")) |
-                Q(total_paid__icontains=query_params.get("search"))
+                Q(name__icontains=query_params.get("search"))
+                | Q(phone__icontains=query_params.get("search"))
+                | Q(total_paid__icontains=query_params.get("search"))
             )
 
         queryset = paginator.Paginator(
@@ -698,16 +752,16 @@ class OrderListView(LoginRequiredMixin, ListView):
             query_params.get("paginate_by", self.per_page),
         ).get_page(query_params.get("page", 1))
         return queryset
-        
 
-class OrderDetailView(LoginRequiredMixin, DetailView):
+
+class OrderDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Order
     template_name = "administration/orders/detail.html"
     context_object_name = "order"
     queryset = model.orders.detail_queryset()
+    permission_required = ["orders.view_order"]
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         self.get_object().mark_as_seen()
         return context
-    

@@ -6,10 +6,12 @@
         {% translate "Account" %}
       </div>
       {% for item in admin_menu %}
-      <a class="nav-link mb-2" href="{{ item.route }}">
+      {% if not item.permission or item.permission in perms %}
+      <a class="nav-link mb-2 {% if request.path == item.route %}active{% endif %}" href="{{ item.route }}">
         <div class="nav-link-icon"><i data-feather="{{item.icon}}"></i></div>
         {{ item.title }}
       </a>
+      {% endif %}
       {% endfor %}
     </div>
   </div>

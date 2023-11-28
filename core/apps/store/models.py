@@ -15,7 +15,7 @@ class CategoryQuerySet(models.QuerySet):
             Prefetch(
                 "category_attribute",
                 queryset=CategoryAttribute.objects.filter(language=get_language()),
-                to_attr="attribute"
+                to_attr="attribute",
             ),
         )
 
@@ -24,7 +24,7 @@ class CategoryQuerySet(models.QuerySet):
             Prefetch(
                 "category_attribute",
                 queryset=CategoryAttribute.objects.filter(language=get_language()),
-                to_attr="attribute"
+                to_attr="attribute",
             ),
         )
 
@@ -50,7 +50,7 @@ class CategoryTreeManager(TreeManager):
             Prefetch(
                 "category_attribute",
                 queryset=CategoryAttribute.objects.filter(language=get_language()),
-                to_attr="attribute"
+                to_attr="attribute",
             ),
         )
 
@@ -77,9 +77,7 @@ class Category(MPTTModel):
     def category_name(self) -> str:
         return (
             self.attribute[0].name
-            if hasattr(self, "attribute")
-            and len(self.attribute) > 0
-            and self.attribute[0].name
+            if hasattr(self, "attribute") and len(self.attribute) > 0 and self.attribute[0].name
             else self.name
         )
 
@@ -130,6 +128,32 @@ class Brand(models.Model):
         return super().save(*args, **kwargs)
 
 
+def product_model_image_path(instance, filename):
+    return f"product_models/{instance.slug}/{filename}"
+
+
+class ProductModel(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    slug = models.SlugField(max_length=255, unique=True)
+    cover_image = models.ImageField(upload_to=product_model_image_path, null=True, blank=True)
+    created_at = custom_model_fields.CreatedAtField()
+    updated_at = custom_model_fields.UpdatedAtField()
+
+    objects = models.Manager()
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name_plural = _("Product Models")
+
+    def __str__(self):
+        return str(self.name)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+
+        return super().save(*args, **kwargs)
+
+
 class ProductQuerySet(models.QuerySet):
     def list_queryset(self):
         return self.prefetch_related(
@@ -164,20 +188,22 @@ class ProductQuerySet(models.QuerySet):
                 Prefetch(
                     "product_information",
                     queryset=ProductInformation.objects.filter(language=get_language()),
-                    to_attr="information"
+                    to_attr="information",
                 ),
             )
         )
 
     def cart_queryset(self):
-        return self.prefetch_related(
-            Prefetch(
-                "product_image",
-                queryset=ProductImage.objects.filter(is_feature=True),
-                to_attr="image_feature",
-            ),
-        ).filter(in_stock=True, is_active=True).only(
-            "name", "slug", "discount_price", "regular_price", "in_stock", "is_active"
+        return (
+            self.prefetch_related(
+                Prefetch(
+                    "product_image",
+                    queryset=ProductImage.objects.filter(is_feature=True),
+                    to_attr="image_feature",
+                ),
+            )
+            .filter(in_stock=True, is_active=True)
+            .only("name", "slug", "discount_price", "regular_price", "in_stock", "is_active")
         )
 
 
@@ -235,14 +261,21 @@ class Product(models.Model):
     brand = models.ForeignKey(
         Brand,
         related_name="product_brand",
-        on_delete=models.PROTECT,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    product_model = models.ForeignKey(
+        ProductModel,
+        related_name="product_model",
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
     category = models.ForeignKey(
         Category,
         related_name="product_category",
-        on_delete=models.PROTECT,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
@@ -256,9 +289,11 @@ class Product(models.Model):
     )
     discount_price = models.DecimalField(default=0, blank=True, max_digits=6, decimal_places=2)
     in_stock = models.BooleanField(default=True)
-    quantity_type = models.CharField(max_length=50,
-                                     choices=custom_model_fields.ProductQuantityType.choices,
-                                     default=custom_model_fields.ProductQuantityType.NUMBER)
+    quantity_type = models.CharField(
+        max_length=50,
+        choices=custom_model_fields.ProductQuantityType.choices,
+        default=custom_model_fields.ProductQuantityType.NUMBER,
+    )
     created_at = custom_model_fields.CreatedAtField()
     updated_at = custom_model_fields.UpdatedAtField()
 
@@ -267,7 +302,7 @@ class Product(models.Model):
     objects = models.Manager()
 
     class Meta:
-        ordering = ('-created_at',)
+        ordering = ("-created_at",)
 
     def __str__(self):
         return str(self.name)
@@ -287,9 +322,7 @@ class Product(models.Model):
     def get_information(self):
         return (
             self.information[0].text
-            if hasattr(self, "information")
-            and len(self.information) > 0
-            and self.information[0].text
+            if hasattr(self, "information") and len(self.information) > 0 and self.information[0].text
             else ""
         )
 
@@ -299,7 +332,9 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        if not self.discount:
+        if self.discount is not None:
+            self.discount_price = self.regular_price - self.regular_price * self.discount / 100
+        else:
             self.discount_price = self.regular_price
         return super().save(*args, **kwargs)
 

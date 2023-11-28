@@ -14,11 +14,13 @@ from apps.store.models import (
     Product,
     ProductImage,
     ProductInformation,
+    ProductModel,
 )
 from django import forms
 from django.conf import settings
 from django.contrib.auth import forms as auth_forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth import models as auth_models
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
 from mptt.forms import TreeNodeChoiceField
@@ -130,6 +132,12 @@ class UserCreateForm(UserCreationForm):
             }
         ),
     )
+    group = forms.ModelChoiceField(
+        label=_("Role"),
+        widget=forms.Select(attrs={"class": "form-select form-select-sm"}),
+        queryset=auth_models.Group.objects.only("name"),
+        required=True,
+    )
     password1 = forms.CharField(
         label=_("Password"),
         widget=forms.PasswordInput(
@@ -153,22 +161,20 @@ class UserCreateForm(UserCreationForm):
 
     class Meta:
         model = get_user_model()
-        fields = (
-            "username",
-            "email",
-            "first_name",
-            "last_name",
-            "password1",
-            "password2",
-        )
+        fields = ("username", "email", "first_name", "last_name", "password1", "password2", "group")
 
     def clean_email(self):
         email = self.cleaned_data["email"]
         if get_user_model().objects.filter(email=email).exists():
-            raise forms.ValidationError(
-                _("Please use another Email, that is already taken")
-            )
+            raise forms.ValidationError(_("Please use another Email, that is already taken"))
         return email
+
+    def save(self, commit=True):
+        user = super().save(commit)
+        group = auth_models.Group.objects.get(name=self.cleaned_data["group"])
+        user.groups.set([group])
+        user.save()
+        return user
 
 
 class UserUpdateForm(forms.ModelForm):
@@ -216,10 +222,23 @@ class UserUpdateForm(forms.ModelForm):
             }
         ),
     )
+    group = forms.ModelChoiceField(
+        label=_("Role"),
+        widget=forms.Select(attrs={"class": "form-select form-select-sm"}),
+        queryset=auth_models.Group.objects.only("name"),
+        required=True,
+    )
 
     class Meta:
         model = get_user_model()
-        fields = ["username", "first_name", "last_name", "email"]
+        fields = ["username", "first_name", "last_name", "email", "group"]
+
+    def save(self, commit=True):
+        user = super().save(commit)
+        group = auth_models.Group.objects.get(name=self.cleaned_data["group"])
+        user.groups.set([group])
+        user.save()
+        return user
 
 
 class AboutTextForm(forms.ModelForm):
@@ -453,9 +472,7 @@ class CategoryForm(forms.ModelForm):
             }
         ),
     )
-    parent = TreeNodeChoiceField(
-        label=_("Parent"), queryset=Category.objects.all(), required=False
-    )
+    parent = TreeNodeChoiceField(label=_("Parent"), queryset=Category.objects.all(), required=False)
     cover_image = forms.ImageField(
         label=_("Cover Image"),
         widget=forms.FileInput(
@@ -475,9 +492,7 @@ class CategoryForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["parent"].widget.attrs.update(
-            {"class": "form-select form-select-sm"}
-        )
+        self.fields["parent"].widget.attrs.update({"class": "form-select form-select-sm"})
 
 
 class CategoryAttributeForm(forms.ModelForm):
@@ -501,9 +516,9 @@ class CategoryAttributeForm(forms.ModelForm):
 
 CategoryAttributeFormSet = forms.inlineformset_factory(
     parent_model=Category,
-    model=CategoryAttribute, 
-    form=CategoryAttributeForm, 
-    max_num=len(settings.LANGUAGES)
+    model=CategoryAttribute,
+    form=CategoryAttributeForm,
+    max_num=len(settings.LANGUAGES),
 )
 
 
@@ -533,6 +548,35 @@ class BrandForm(forms.ModelForm):
 
     class Meta:
         model = Brand
+        fields = ("name", "cover_image")
+
+
+class ProductModelForm(forms.ModelForm):
+    name = forms.CharField(
+        label=_("Name"),
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control form-control-sm",
+                "placeholder": _("Name"),
+                "title": _("Please enter name"),
+            }
+        ),
+    )
+    cover_image = forms.ImageField(
+        label=_("Cover Image"),
+        widget=forms.FileInput(
+            attrs={
+                "class": "form-control form-control-sm",
+                "placeholder": _("Cover Image"),
+                "title": _("Please upload cover Image"),
+                "multiple": False,
+            }
+        ),
+        required=False,
+    )
+
+    class Meta:
+        model = ProductModel
         fields = ("name", "cover_image")
 
 
@@ -587,6 +631,16 @@ class ProductForm(forms.ModelForm):
         ),
         queryset=Brand.objects.all(),
     )
+    product_model = forms.ModelChoiceField(
+        label=_("Model"),
+        widget=forms.Select(
+            attrs={
+                "class": "form-select form-select-sm",
+                "title": _("Please select model"),
+            }
+        ),
+        queryset=ProductModel.objects.all(),
+    )
     regular_price = forms.DecimalField(
         label=_("Regular Price"),
         widget=forms.NumberInput(
@@ -609,29 +663,15 @@ class ProductForm(forms.ModelForm):
         initial=0,
         required=False,
     )
-    discount_price = forms.DecimalField(
-        label=_("Discount Price"),
-        widget=forms.NumberInput(
-            attrs={
-                "class": "form-control form-control-sm",
-                "placeholder": _("Discount Price"),
-                "title": _("Please enter discount price"),
-            }
-        ),
-    )
     in_stock = forms.BooleanField(
         label=_("In Stock"),
-        widget=forms.CheckboxInput(
-            attrs={"class": "form-check-input", "placeholder": _("In Stock")}
-        ),
+        widget=forms.CheckboxInput(attrs={"class": "form-check-input", "placeholder": _("In Stock")}),
         required=False,
         initial=True,
     )
     is_active = forms.BooleanField(
         label=_("Is Active"),
-        widget=forms.CheckboxInput(
-            attrs={"class": "form-check-input", "placeholder": _("Is Active")}
-        ),
+        widget=forms.CheckboxInput(attrs={"class": "form-check-input", "placeholder": _("Is Active")}),
         required=False,
         initial=True,
     )
@@ -645,10 +685,10 @@ class ProductForm(forms.ModelForm):
             "brand",
             "regular_price",
             "discount",
-            "discount_price",
             "in_stock",
             "is_active",
             "quantity_type",
+            "product_model",
         )
 
 

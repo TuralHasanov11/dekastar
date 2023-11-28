@@ -1,3 +1,4 @@
+import datetime
 from typing import Any
 
 from apps.orders.cart_processor import CartProcessor
@@ -21,7 +22,7 @@ class CheckoutView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["form"] = self.form_class()
         return context
-    
+
     def post(self, request):
         form = self.form_class(request.POST)
         cart = CartProcessor(request)
@@ -32,14 +33,18 @@ class CheckoutView(TemplateView):
                 order = Order(**data, total_paid=cart.get_total_price)
                 order.save()
                 for item in cart:
-                    product = Product.objects.get(id=item['product']['id'])
+                    product = Product.objects.get(id=item["product"]["id"])
                     OrderItem.objects.create(
                         order_id=order.id,
-                        product_id=item['product']['id'],
+                        product_id=item["product"]["id"],
                         quantity_type=product.quantity_type,
-                        price=item['price'],
-                        sub_total=item['total_price'],
-                        quantity=item['quantity']
+                        price=item["price"],
+                        sub_total=item["total_price"],
+                        quantity=item["quantity"],
+                        code=order.name[0].capitalize()
+                        + str(order.id)
+                        + "-"
+                        + datetime.datetime.now().strftime("%Y%m%d"),
                     )
                 order_processor = OrderProcessor(request=request)
                 order_processor.create(order_id=str(order.uuid))
@@ -48,12 +53,12 @@ class CheckoutView(TemplateView):
                 return redirect("apps.orders:success")
         messages.error(request, _("Order cannot be placed!"))
         return render(request, self.template_name, {"form": form})
-    
+
 
 class SuccessView(TemplateView):
     template_name = "orders/success.html"
     http_method_names = ["get"]
-    
+
     def get(self, request):
         order_processor = OrderProcessor(request=request)
         if Order.objects.filter(uuid=order_processor.order_id).exists():

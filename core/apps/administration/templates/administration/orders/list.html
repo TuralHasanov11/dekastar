@@ -56,7 +56,7 @@
           <tbody>
             {% if orders %}
             {% for order in orders %}
-            <tr class="{% if order.seen %}bg-light{% endif %}">
+            <tr class="{% if not order.seen %}bg-light{% endif %}">
               <td>{{ order.name }}</td>
               <td>{{ order.phone }}</td>
               <td>{{ order.total_paid }}</td>

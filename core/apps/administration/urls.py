@@ -82,6 +82,16 @@ urlpatterns = [
         views.BrandUpdateDeleteView.as_view(),
         name="store-brand-update-delete",
     ),
+    path(
+        "store/product-models",
+        views.BrandListCreateView.as_view(),
+        name="store-product-model-list-create",
+    ),
+    path(
+        "store/product-models/<int:pk>",
+        views.BrandUpdateDeleteView.as_view(),
+        name="store-product-model-update-delete",
+    ),
     path("store/products", views.ProductListView.as_view(), name="store-product-list"),
     path(
         "store/products/create",
