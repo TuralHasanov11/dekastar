@@ -7,6 +7,7 @@ from apps.main.models import (
     SiteText,
     SocialMediaLink,
 )
+from apps.orders.models import Order
 from apps.store.models import (
     Brand,
     Category,
@@ -741,3 +742,15 @@ ProductInformationFormSet = forms.inlineformset_factory(
     form=ProductInformationForm,
     max_num=len(settings.LANGUAGES),
 )
+
+
+class OrderStatusForm(forms.ModelForm):
+    status = forms.ChoiceField(
+        label=_("Status"),
+        widget=forms.Select(attrs={"class": "form-select form-select-sm"}),
+        choices=Order.OrderStatus.choices,
+    )
+
+    class Meta:
+        model = Order
+        fields = ("status",)

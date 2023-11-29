@@ -5163,6 +5163,7 @@ nav .cart-wrapper.open {
 */
 .checkout header {
     text-align: center;
+    margin-top: 3em;
 }
 
 .checkout header .title:before {

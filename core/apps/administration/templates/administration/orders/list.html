@@ -1,7 +1,5 @@
-{% extends "layouts/admin.html" %} 
-{% load static %} 
-{% load i18n %}
-{% block title %}{% translate "Order List" %}{% endblock title %}
+{% extends "layouts/admin.html" %} {% load static %} {% load i18n %} {% load get_order_status_indication %}
+{% block title %}{% translate "Order List" %}{% endblock title %} 
 {% block content %}
 <main>
   <header
@@ -26,10 +24,18 @@
       <div class="card-body">
         <div class="row">
           <div class="col-12 col-md-6 col-xl-4">
-            <form method="GET"> 
+            <form method="GET">
               <div class="mb-3 d-flex">
-                  <input type="search" name="search" value="{{request.GET.search}}" class="form-control mx-2 form-control-sm" placeholder="{% translate 'Search' %}">
-                  <button class="btn btn-success btn-sm" type="submit">{% translate "Search" %}</button>
+                <input
+                  type="search"
+                  name="search"
+                  value="{{request.GET.search}}"
+                  class="form-control mx-2 form-control-sm"
+                  placeholder="{% translate 'Search' %}"
+                />
+                <button class="btn btn-success btn-sm" type="submit">
+                  {% translate "Search" %}
+                </button>
               </div>
             </form>
           </div>
@@ -40,6 +46,7 @@
               <th>{% translate "Name" %}</th>
               <th>{% translate "Phone" %}</th>
               <th>{% translate "Total Paid" %} &#8380;</th>
+              <th>{% translate "Status" %} &#8380;</th>
               <th>{% translate "Order Date" %}</th>
               <th>{% translate "Actions" %}</th>
             </tr>
@@ -49,28 +56,34 @@
               <th>{% translate "Name" %}</th>
               <th>{% translate "Phone" %}</th>
               <th>{% translate "Total Paid" %} &#8380;</th>
+              <th>{% translate "Status" %} &#8380;</th>
               <th>{% translate "Order Date" %}</th>
               <th>{% translate "Actions" %}</th>
             </tr>
           </tfoot>
           <tbody>
-            {% if orders %}
-            {% for order in orders %}
+            {% if orders %} {% for order in orders %}
             <tr class="{% if not order.seen %}bg-light{% endif %}">
               <td>{{ order.name }}</td>
               <td>{{ order.phone }}</td>
               <td>{{ order.total_paid }}</td>
+              <td>
+                <span
+                  class="badge bg-{{ order.status|get_order_status_indication }}"
+                  >{{ order.status_display }}</span
+                >
+              </td>
               <td>{{ order.created_at|date:"d.m.Y H:i" }}</td>
               <td>
-                <a href="{% url 'apps.administration:order-detail' pk=order.pk %}" 
-                    class="btn btn-datatable btn-icon btn-transparent-dark me-2"
+                <a
+                  href="{% url 'apps.administration:order-detail' pk=order.pk %}"
+                  class="btn btn-datatable btn-icon btn-transparent-dark me-2"
                 >
                   <i data-feather="file-text"></i>
                 </a>
               </td>
             </tr>
-            {% endfor %}
-            {% else %}
+            {% endfor %} {% else %}
             <tr class="bg-light">
               <td colspan="5">
                 <p class="text-center">{% translate "No order found!" %}</p>

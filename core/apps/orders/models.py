@@ -1,3 +1,4 @@
+import datetime
 import uuid
 
 from apps.store.models import Product
@@ -41,7 +42,6 @@ class Order(models.Model):
     class OrderStatus(models.TextChoices):
         PENDING = "PENDING", _("Pending")
         PAID = "PAID", _("Paid")
-        SHIPPED = "SHIPPED", _("Shipped")
         DELIVERED = "DELIVERED", _("Delivered")
         RETURNED = "RETURNED", _("Returned")
         CANCELLED = "CANCELLED", _("Cancelled")
@@ -67,10 +67,21 @@ class Order(models.Model):
     def __str__(self):
         return str(self.name)
 
+    @property
+    def status_display(self):
+        return self.get_status_display()
+
     def mark_as_seen(self) -> None:
         self.seen = True
         self.save()
         return True
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.code = (
+            self.name[0].capitalize() + str(self.pk) + "-" + datetime.datetime.now().strftime("%Y%m%d")
+        )
+        return super().save(*args, **kwargs)
 
 
 class OrderItem(models.Model):

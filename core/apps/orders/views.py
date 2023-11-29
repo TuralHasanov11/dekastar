@@ -1,4 +1,3 @@
-import datetime
 from typing import Any
 
 from apps.orders.cart_processor import CartProcessor
@@ -30,7 +29,10 @@ class CheckoutView(TemplateView):
             data = form.cleaned_data
             with transaction.atomic():
                 data.pop("terms_agreed")
-                order = Order(**data, total_paid=cart.get_total_price)
+                order = Order(
+                    **data,
+                    total_paid=cart.get_total_price,
+                )
                 order.save()
                 for item in cart:
                     product = Product.objects.get(id=item["product"]["id"])
@@ -41,10 +43,6 @@ class CheckoutView(TemplateView):
                         price=item["price"],
                         sub_total=item["total_price"],
                         quantity=item["quantity"],
-                        code=order.name[0].capitalize()
-                        + str(order.id)
-                        + "-"
-                        + datetime.datetime.now().strftime("%Y%m%d"),
                     )
                 order_processor = OrderProcessor(request=request)
                 order_processor.create(order_id=str(order.uuid))
@@ -61,6 +59,8 @@ class SuccessView(TemplateView):
 
     def get(self, request):
         order_processor = OrderProcessor(request=request)
-        if Order.objects.filter(uuid=order_processor.order_id).exists():
-            return render(request, self.template_name)
-        return redirect("apps.main:index")
+        try:
+            order = Order.objects.get(uuid=order_processor.order_id)
+            return render(request, self.template_name, context={"order": order})
+        except Order.DoesNotExist:
+            return redirect("apps.main:index")

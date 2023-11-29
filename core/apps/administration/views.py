@@ -760,8 +760,28 @@ class OrderDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     context_object_name = "order"
     queryset = model.orders.detail_queryset()
     permission_required = ["orders.view_order"]
+    status_form_class = forms.OrderStatusForm
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         self.get_object().mark_as_seen()
+        context["status_form"] = self.status_form_class(instance=self.get_object())
         return context
+
+
+class OrderStatusChangeView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = Order
+    form_class = forms.OrderStatusForm
+    permission_required = ["orders.change_order"]
+    http_method_names = ["post"]
+    success_message = _("Order status was updated successfully")
+
+    def post(self, request, pk):
+        order = self.model.objects.get(pk=pk)
+        form = self.form_class(data=request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            messages.success(request, self.success_message)
+            return redirect("apps.administration:order-detail", pk=pk)
+        messages.error(request, _("Order status cannot be updated"))
+        return redirect("apps.administration:order-detail", pk=pk)

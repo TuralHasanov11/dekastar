@@ -19,6 +19,12 @@
           </div>
           <div class="col-12 col-xl-auto mb-3">
             <div class="d-flex justify-content-center">
+              <form action="{% url "apps.administration:order-status-change" pk=order.pk %}" method="post">
+                {% csrf_token %}
+                <div class="d-inline-block">
+                  {{status_form.status}}
+                </div>
+              </form>
               <a
                 class="btn btn-sm btn-light text-primary mx-2"
                 href="{% url 'apps.administration:order-list' %}"
@@ -33,12 +39,15 @@
     </div>
   </header>
 
+  
   <div class="container-fluid px-4">
+    {% include "components/messages.html" with messages=messages %}
     <div class="card mb-4">
         <div class="card-header">{% translate "Order" %} - {{order.name}}</div>
         <div class="card-body">
             <h5 class="card-title">{% translate "Name" %}: {{order.name}}</h5>
             <h6 class="card-title">{% translate "Phone" %}: {{order.phone}}</h6>
+            {% if order.address %}<h6 class="card-title">{% translate "Address" %}: {{order.address}}</h6>{% endif %}
             <h6 class="card-title">{% translate "Total Paid" %}: {{order.total_paid}}</h6>
             <hr />
             <h5>{% translate "Products" %}</h5>
@@ -77,3 +86,7 @@
   </div>
 </main>
 {% endblock content %}
+
+{% block scripts %}
+<script src="{% static "js/admin/orders.js" %}"></script>
+{% endblock scripts %}
