@@ -63,7 +63,7 @@ def admin_menu(request):
                 "title": _("Models"),
                 "route": reverse("apps.administration:store-product-model-list-create"),
                 "permission": "store.view_productmodel",
-                "icon": "globe",
+                "icon": "aperture",
             },
             {
                 "title": _("Products"),

@@ -9,16 +9,14 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-29 20:17+0100\n"
-"PO-Revision-Date: 2023-11-26 18:57+0400\n"
+"PO-Revision-Date: 2023-11-30 14:08+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Translated-Using: django-rosetta 0.9.9\n"
 
 #: .\apps\administration\context_processors.py:10
@@ -33,7 +31,8 @@ msgstr "Баннеры"
 
 #: .\apps\administration\context_processors.py:21
 #: .\apps\administration\views.py:52 .\apps\main\context_processors.py:27
-#: .\apps\main\context_processors.py:55 .\apps\main\templates\main\about.html:4
+#: .\apps\main\context_processors.py:55
+#: .\apps\main\templates\main\about.html:4
 #: .\apps\main\templates\main\about.html:10
 msgid "About Us"
 msgstr "О нас"
@@ -77,7 +76,7 @@ msgstr "Бренды"
 #: .\apps\administration\context_processors.py:63
 #: .\apps\administration\views.py:87
 msgid "Models"
-msgstr ""
+msgstr "Модели"
 
 #: .\apps\administration\context_processors.py:69
 #: .\apps\administration\templates\administration\orders\detail.html:53
@@ -177,7 +176,7 @@ msgstr "Пожалуйста, введите адрес электронной �
 
 #: .\apps\administration\forms.py:137 .\apps\administration\forms.py:227
 msgid "Role"
-msgstr ""
+msgstr "Роль"
 
 #: .\apps\administration\forms.py:153
 msgid "Repeat password"
@@ -392,13 +391,12 @@ msgstr "Пожалуйста, выберите бренд"
 
 #: .\apps\administration\forms.py:636
 msgid "Model"
-msgstr ""
+msgstr "Модель"
 
 #: .\apps\administration\forms.py:640
-#, fuzzy
 #| msgid "Please select brand"
 msgid "Please select model"
-msgstr "Пожалуйста, выберите бренд"
+msgstr "Пожалуйста, выберите модель"
 
 #: .\apps\administration\forms.py:646 .\apps\administration\forms.py:650
 #: .\apps\administration\templates\administration\store\products\list.html:50
@@ -447,7 +445,7 @@ msgstr "Текст"
 #: .\apps\administration\templates\administration\orders\list.html:49
 #: .\apps\administration\templates\administration\orders\list.html:59
 msgid "Status"
-msgstr ""
+msgstr "Положение дел"
 
 #: .\apps\administration\templates\administration\about.html:2
 #: .\apps\administration\templates\administration\about.html:11
@@ -722,35 +720,30 @@ msgstr "Добавить категорию"
 #: .\apps\administration\templates\administration\store\product-models\edit.html:2
 #: .\apps\administration\templates\administration\store\product-models\edit.html:16
 #: .\apps\administration\templates\administration\store\product-models\edit.html:48
-#, fuzzy
 #| msgid "Edit Product"
 msgid "Edit Product Model"
-msgstr "Редактировать продукт"
+msgstr "Изменить Mодель"
 
 #: .\apps\administration\templates\administration\store\product-models\edit.html:26
-#, fuzzy
 #| msgid "Back to Product List"
 msgid "Back to Product Model List"
-msgstr "Вернуться к списку продуктов"
+msgstr "Вернуться к Cписку Mоделей"
 
 #: .\apps\administration\templates\administration\store\product-models\edit.html:33
-#, fuzzy
 #| msgid "Delete Product"
 msgid "Delete Product Model"
-msgstr "Удалить продукт"
+msgstr "Удалить Mодель"
 
 #: .\apps\administration\templates\administration\store\product-models\index.html:2
 #: .\apps\administration\templates\administration\store\product-models\index.html:14
-#, fuzzy
 #| msgid "Product List"
 msgid "Product Model List"
-msgstr "Список продуктов"
+msgstr "Список Mоделей"
 
 #: .\apps\administration\templates\administration\store\product-models\index.html:24
-#, fuzzy
 #| msgid "Add Product"
 msgid "Add Product Model"
-msgstr "Добавить продукт"
+msgstr "Добавить Mодель"
 
 #: .\apps\administration\templates\administration\store\products\create.html:2
 #: .\apps\administration\templates\administration\store\products\create.html:16
@@ -936,22 +929,19 @@ msgid "Brand was updated successfully"
 msgstr "Бренд успешно обновлен"
 
 #: .\apps\administration\views.py:581
-#, fuzzy
 #| msgid "User was created successfully!"
 msgid "Model was created successfully!"
-msgstr "Пользователь успешно создан!"
+msgstr "Модель успешно создана!"
 
 #: .\apps\administration\views.py:605
-#, fuzzy
 #| msgid "Product was deleted successfully"
 msgid "Model was deleted successfully"
-msgstr "Продукт успешно удален"
+msgstr "Модель успешно удалена"
 
 #: .\apps\administration\views.py:609
-#, fuzzy
 #| msgid "Product was updated successfully"
 msgid "Model was updated successfully"
-msgstr "Продукт успешно обновлен"
+msgstr "Модель успешно обновлена"
 
 #: .\apps\administration\views.py:635
 msgid "Product was created successfully"
@@ -974,23 +964,22 @@ msgid "Product cannot be updated"
 msgstr "Продукт не может быть обновлен"
 
 #: .\apps\administration\views.py:777
-#, fuzzy
 #| msgid "Product was updated successfully"
 msgid "Order status was updated successfully"
-msgstr "Продукт успешно обновлен"
+msgstr "Статус заказа успешно обновлен"
 
 #: .\apps\administration\views.py:786
-#, fuzzy
 #| msgid "Product cannot be updated"
 msgid "Order status cannot be updated"
-msgstr "Продукт не может быть обновлен"
+msgstr "Статус заказа не может быть обновлен"
 
 #: .\apps\api\views.py:60 .\apps\api\views.py:87 .\apps\api\views.py:109
 msgid "Product was not found"
 msgstr "Продукт не найден"
 
-#: .\apps\main\context_processors.py:12 .\apps\main\templates\main\index.html:4
-#: .\apps\store\views.py:65 .\apps\store\views.py:103 .\apps\store\views.py:138
+#: .\apps\main\context_processors.py:12
+#: .\apps\main\templates\main\index.html:4 .\apps\store\views.py:65
+#: .\apps\store\views.py:103 .\apps\store\views.py:138
 msgid "Home"
 msgstr "Дом"
 
@@ -1106,8 +1095,7 @@ msgid ""
 "              "
 msgstr ""
 "\n"
-"Пожалуйста, используйте эту форму, если у вас есть какие-либо вопросы о нашу "
-"продукцию, и мы свяжемся с вами очень скоро."
+"Пожалуйста, используйте эту форму, если у вас есть какие-либо вопросы о нашу продукцию, и мы свяжемся с вами очень скоро."
 
 #: .\apps\main\templates\main\contact.html:118
 msgid "Send message"
@@ -1116,8 +1104,8 @@ msgstr "Отправить сообщение"
 #: .\apps\main\templates\main\delivery-policy.html:5
 msgid "Delivery Policy Page Description"
 msgstr ""
-"Ознакомьтесь с нашей политикой доставки в Dekastar. Мы гарантируем быструю и "
-"безопасную доставку вашей новой мебели к вашему порогу."
+"Ознакомьтесь с нашей политикой доставки в Dekastar. Мы гарантируем быструю и"
+" безопасную доставку вашей новой мебели к вашему порогу."
 
 #: .\apps\main\templates\main\index.html:5
 msgid "Home Page Description"
@@ -1149,36 +1137,34 @@ msgid "+994xxxxxxxxx"
 msgstr ""
 
 #: .\apps\orders\forms.py:29 .\apps\orders\forms.py:34
-#, fuzzy
 #| msgid "Your name"
 msgid "Your address"
-msgstr "Ваше имя"
+msgstr "Ваш адрес"
 
 #: .\apps\orders\forms.py:33 .\apps\orders\forms.py:37
-#, fuzzy
 #| msgid "Please enter your email address"
 msgid "Please enter your address"
-msgstr "Пожалуйста, введите Ваш адрес Е-Mаил"
+msgstr "Пожалуйста, введите ваш адрес"
 
 #: .\apps\orders\models.py:42
 msgid "Pending"
-msgstr ""
+msgstr "В ожидании"
 
 #: .\apps\orders\models.py:43
 msgid "Paid"
-msgstr ""
+msgstr "Оплаченный"
 
 #: .\apps\orders\models.py:44
 msgid "Delivered"
-msgstr ""
+msgstr "Доставленный"
 
 #: .\apps\orders\models.py:45
 msgid "Returned"
-msgstr ""
+msgstr "Вернулся"
 
 #: .\apps\orders\models.py:46
 msgid "Cancelled"
-msgstr ""
+msgstr "Отменено"
 
 #: .\apps\orders\templates\orders\checkout.html:4
 #: .\templates\components\default\cart.html:32
@@ -1207,8 +1193,7 @@ msgstr "Заказать сейчас"
 #, python-format
 msgid ""
 "\n"
-"                                                I have read and accepted the "
-"<a href=\"%(privacy_policy_link)s\">terms</a>.\n"
+"                                                I have read and accepted the <a href=\"%(privacy_policy_link)s\">terms</a>.\n"
 "                                                "
 msgstr ""
 "\n"
@@ -1247,15 +1232,17 @@ msgid "Your order was submitted!"
 msgstr "Ваш заказ отправлен!"
 
 #: .\apps\orders\templates\orders\success.html:15
-#, fuzzy
 #| msgid "Your Order"
 msgid "Your order code"
-msgstr "Ваш Заказ"
+msgstr "Ваш код заказа"
 
 #: .\apps\orders\templates\orders\success.html:17
 msgid ""
-"You can use the order code to contact us and get information about your order"
+"You can use the order code to contact us and get information about your "
+"order"
 msgstr ""
+"Вы можете использовать код заказа, чтобы связаться с нами и получить "
+"информацию о вашем заказе."
 
 #: .\apps\orders\templates\orders\success.html:18
 msgid "We will contact you soon!"
@@ -1291,10 +1278,9 @@ msgid "List"
 msgstr "Список"
 
 #: .\apps\store\models.py:146
-#, fuzzy
 #| msgid "Products"
 msgid "Product Models"
-msgstr "Продукты"
+msgstr "Модели Продуктов"
 
 #: .\apps\store\templates\store\category-products.html:8
 msgid "Products Page Description"
@@ -1338,8 +1324,8 @@ msgstr "Избранное"
 #: .\apps\store\templates\store\products\favorites.html:5
 msgid "Favorites Page Description"
 msgstr ""
-"Следите за своими любимыми предметами мебели. Создайте свой список желаний в "
-"Dekastar и превратите дом своей мечты в реальность."
+"Следите за своими любимыми предметами мебели. Создайте свой список желаний в"
+" Dekastar и превратите дом своей мечты в реальность."
 
 #: .\apps\store\templates\store\products\favorites.html:11
 msgid "Favorite Products"
@@ -1398,7 +1384,8 @@ msgid "Number"
 msgstr "Число"
 
 #: .\templates\components\admin\navbar.html:15
-#: .\templates\layouts\admin.html:19 .\templates\layouts\authentication.html:23
+#: .\templates\layouts\admin.html:19
+#: .\templates\layouts\authentication.html:23
 msgid "Admin"
 msgstr "Админ"
 
@@ -1496,30 +1483,24 @@ msgstr "Фильтр"
 #~ msgid "Please enter discount price"
 #~ msgstr "Пожалуйста, введите цену со скидкой"
 
-#~| msgid "Privacy Policy"
 #~ msgid "privacy-policy"
 #~ msgstr "политика-конфиденциальности"
 
-#~| msgid "Delivery Policy"
 #~ msgid "delivery-policy"
 #~ msgstr "политика-доставки"
 
-#~| msgid "About"
 #~ msgid "about"
 #~ msgstr "о-нас"
 
-#~| msgid "Contact"
 #~ msgid "contact"
 #~ msgstr "контакт"
 
-#~| msgid "Checkout"
 #~ msgid "checkout"
 #~ msgstr "oформления-заказа"
 
 #~ msgid "success"
 #~ msgstr "успех"
 
-#~| msgid "Categories"
 #~ msgid "categories"
 #~ msgstr "категории"
 
@@ -1529,14 +1510,12 @@ msgstr "Фильтр"
 #~ msgid "products/<str:slug>"
 #~ msgstr "продукты/<str:slug>"
 
-#~| msgid "Favorites"
 #~ msgid "favorites"
 #~ msgstr "избранное"
 
 #~ msgid "store/"
 #~ msgstr "магазин/"
 
-#~| msgid "Orders"
 #~ msgid "orders/"
 #~ msgstr "заказы/"
 

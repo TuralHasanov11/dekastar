@@ -46,7 +46,8 @@
               <th>{% translate "Name" %}</th>
               <th>{% translate "Phone" %}</th>
               <th>{% translate "Total Paid" %} &#8380;</th>
-              <th>{% translate "Status" %} &#8380;</th>
+              <th>{% translate "Code" %}</th>
+              <th>{% translate "Status" %}</th>
               <th>{% translate "Order Date" %}</th>
               <th>{% translate "Actions" %}</th>
             </tr>
@@ -56,7 +57,8 @@
               <th>{% translate "Name" %}</th>
               <th>{% translate "Phone" %}</th>
               <th>{% translate "Total Paid" %} &#8380;</th>
-              <th>{% translate "Status" %} &#8380;</th>
+              <th>{% translate "Code" %}</th>
+              <th>{% translate "Status" %}</th>
               <th>{% translate "Order Date" %}</th>
               <th>{% translate "Actions" %}</th>
             </tr>
@@ -67,6 +69,7 @@
               <td>{{ order.name }}</td>
               <td>{{ order.phone }}</td>
               <td>{{ order.total_paid }}</td>
+              <td>{{ order.code }}</td>
               <td>
                 <span
                   class="badge bg-{{ order.status|get_order_status_indication }}"

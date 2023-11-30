@@ -17,14 +17,21 @@
     <div class="filter-box active">
       <div class="title">{% translate "Category" %}</div>
       <div class="filter-content">
-        {% include "components/forms/category-inputs.html" with categories=categories current_category=form.category %}
+        {% include "components/forms/category-inputs.html" with categories=categories current_category=form.category all_products_count=all_products_count %}
       </div>
     </div>
 
     <div class="filter-box active">
       <div class="title">{% translate "Brand" %}</div>
       <div class="filter-content">
-        {% include "components/forms/brand-inputs.html" with brands=brands current_brand=form.brand %}
+        {% include "components/forms/brand-inputs.html" with brands=brands current_brand=form.brand all_products_count=all_products_count %}
+      </div>
+    </div>
+
+    <div class="filter-box active">
+      <div class="title">{% translate "Model" %}</div>
+      <div class="filter-content">
+        {% include "components/forms/product-model-inputs.html" with product_models=product_models current_product_model=form.product_model all_products_count=all_products_count %}
       </div>
     </div>
 

@@ -2,7 +2,7 @@ from typing import Any
 
 from apps.store import filters
 from apps.store.forms import ProductFilterForm
-from apps.store.models import Brand, Category, Product
+from apps.store.models import Brand, Category, Product, ProductModel
 from django.core import paginator
 from django.db.models import Count
 from django.urls import reverse
@@ -34,14 +34,17 @@ class CategoryProductsView(TemplateView):
         if form.is_valid():
             products = filters.OrderingFilter(
                 filters.InStockFilter(
-                    filters.BrandFilter(
-                        filters.CategoryFilter(
-                            filters.PriceFilter(
-                                filters.SearchFilter(products, form.cleaned_data).queryset, 
-                                form.cleaned_data
+                    filters.ProductModelFilter(
+                        filters.BrandFilter(
+                            filters.CategoryFilter(
+                                filters.PriceFilter(
+                                    filters.SearchFilter(products, form.cleaned_data).queryset,
+                                    form.cleaned_data,
+                                ).queryset,
+                                form.cleaned_data,
+                                context["categories"],
                             ).queryset,
                             form.cleaned_data,
-                            context["categories"],
                         ).queryset,
                         form.cleaned_data,
                     ).queryset,
@@ -55,9 +58,8 @@ class CategoryProductsView(TemplateView):
             query_params.get("paginate_by", self.paginate_by),
         ).get_page(query_params.get("page", 1))
 
-        context["brands"] = Brand.objects.annotate(
-            products_count=Count("product_brand")
-        ).all()
+        context["brands"] = Brand.objects.annotate(products_count=Count("product_brand")).all()
+        context["product_models"] = ProductModel.objects.annotate(products_count=Count("product_model")).all()
         context["all_products_count"] = Product.products.count_queryset()
         context["in_stock_products_count"] = products.filter(in_stock=True).count()
         context["filter_form"] = form
@@ -68,9 +70,7 @@ class CategoryProductsView(TemplateView):
 
         if kwargs.get("category", None) is not None:
             current_category = Category.categories.list_queryset().get(slug=kwargs.get("category"))
-            ancestor_categories = (
-                current_category.get_ancestors(ascending=False, include_self=True)
-            )
+            ancestor_categories = current_category.get_ancestors(ascending=False, include_self=True)
             context["current_category"] = current_category
             if ancestor_categories and len(ancestor_categories) > 0:
                 context["breadcrumb"] += [
@@ -96,17 +96,17 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context["related_products"] = self.model.products.list_queryset().filter(
-            category=self.object.category
-        ).exclude(slug=self.get_object().slug)[: self.related_product_count]
+        context["related_products"] = (
+            self.model.products.list_queryset()
+            .filter(category=self.object.category)
+            .exclude(slug=self.get_object().slug)[: self.related_product_count]
+        )
         context["breadcrumb"] = [
             {"route": reverse("apps.main:index"), "title": _("Home")},
             {"route": reverse("apps.store:category-products"), "title": _("Products")},
         ]
 
-        ancestor_categories = self.get_object().category.get_ancestors(
-            ascending=False, include_self=True
-        )
+        ancestor_categories = self.get_object().category.get_ancestors(ascending=False, include_self=True)
 
         if ancestor_categories and len(ancestor_categories) > 0:
             context["breadcrumb"] += [

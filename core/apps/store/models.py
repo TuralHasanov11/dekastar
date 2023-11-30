@@ -161,6 +161,10 @@ class ProductQuerySet(models.QuerySet):
                 "category",
                 queryset=Category.categories.list_queryset(),
             ),
+            Prefetch(
+                "product_model",
+                queryset=ProductModel.objects.all(),
+            ),
         ).prefetch_related(
             Prefetch(
                 "product_image",
@@ -175,6 +179,10 @@ class ProductQuerySet(models.QuerySet):
                 Prefetch(
                     "category",
                     queryset=Category.categories.list_queryset(),
+                ),
+                Prefetch(
+                    "product_model",
+                    queryset=ProductModel.objects.all(),
                 ),
             )
             .select_related("brand")
@@ -213,6 +221,10 @@ class ProductAdminQuerySet(models.QuerySet):
             Prefetch(
                 "category",
                 queryset=Category.categories.list_queryset(),
+            ),
+            Prefetch(
+                "product_model",
+                queryset=ProductModel.objects.all(),
             ),
         ).prefetch_related(
             Prefetch(

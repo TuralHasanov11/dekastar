@@ -41,12 +41,9 @@ class CategoryFilter(Filter):
             )
             if current_category is not None:
                 filtered_category_ids = [
-                    cat.id
-                    for cat in current_category.get_descendants(include_self=True)
+                    cat.id for cat in current_category.get_descendants(include_self=True)
                 ]
-                self._queryset = self._queryset.filter(
-                    category__id__in=filtered_category_ids
-                )
+                self._queryset = self._queryset.filter(category__id__in=filtered_category_ids)
         return self._queryset
 
 
@@ -63,6 +60,18 @@ class BrandFilter(Filter):
     def queryset(self) -> QuerySet:
         if "brand" in self._data and isinstance(self._data["brand"], str) and self._data["brand"]:
             self._queryset = self._queryset.filter(brand__slug=self._data["brand"])
+        return self._queryset
+
+
+class ProductModelFilter(Filter):
+    @property
+    def queryset(self) -> QuerySet:
+        if (
+            "product_model" in self._data
+            and isinstance(self._data["product_model"], str)
+            and self._data["product_model"]
+        ):
+            self._queryset = self._queryset.filter(product_model__slug=self._data["product_model"])
         return self._queryset
 
 

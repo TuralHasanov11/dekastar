@@ -17,6 +17,7 @@
         {% if brand.slug == current_brand.value %}checked="checked"{% endif %}>
     <label class="brand-input-label" for="brand{{brand.id}}">
         <span>{{brand}}</span>
+        <br>
         <img
             src="{{brand.cover_image.url}}"
             alt="{{brand}}"

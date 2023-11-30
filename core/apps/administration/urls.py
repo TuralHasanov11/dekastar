@@ -84,12 +84,12 @@ urlpatterns = [
     ),
     path(
         "store/product-models",
-        views.BrandListCreateView.as_view(),
+        views.ProductModelListCreateView.as_view(),
         name="store-product-model-list-create",
     ),
     path(
         "store/product-models/<int:pk>",
-        views.BrandUpdateDeleteView.as_view(),
+        views.ProductModelUpdateDeleteView.as_view(),
         name="store-product-model-update-delete",
     ),
     path("store/products", views.ProductListView.as_view(), name="store-product-list"),

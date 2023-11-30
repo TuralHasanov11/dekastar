@@ -35,13 +35,26 @@
 
               <div class="info-box">
                 <span><strong>{% translate "Category" %}</strong></span>
-                <span>{{product.category.category_name }}</span>
+                <span>
+                  <a class="text-danger" href="{% url 'apps.store:category-products' category=product.category.slug %}">
+                    {{product.category.category_name }}
+                  </a>
+                </span>
               </div>
 
               {% if product.brand %}
               <div class="info-box">
                 <span><strong>{% translate "Brand" %}</strong></span>
                 <span>{{product.brand }}</span>
+              </div>
+              {% endif %}
+
+              {% if product.product_model %}
+              <div class="info-box">
+                <span><strong>{% translate "Product Model" %}</strong></span>
+                <span><a class="text-danger" href="{% url 'apps.store:category-products' %}?product_model={{product.product_model.slug}}">
+                  {{product.product_model }}
+                </a></span>
               </div>
               {% endif %}
 

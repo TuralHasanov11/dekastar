@@ -745,6 +745,7 @@ class OrderListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
                 Q(name__icontains=query_params.get("search"))
                 | Q(phone__icontains=query_params.get("search"))
                 | Q(total_paid__icontains=query_params.get("search"))
+                | Q(code__icontains=query_params.get("search"))
             )
 
         queryset = paginator.Paginator(
