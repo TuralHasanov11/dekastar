@@ -15,10 +15,10 @@ from apps.store.models import (
     Brand,
     Category,
     CategoryAttribute,
+    Collection,
     Product,
     ProductImage,
     ProductInformation,
-    ProductModel,
 )
 from django.conf import settings
 from django.contrib import messages
@@ -84,9 +84,9 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                 "permission": "store.view_brand",
             },
             {
-                "name": _("Models"),
-                "route": reverse("apps.administration:store-product-model-list-create"),
-                "permission": "store.view_productmodel",
+                "name": _("Collection"),
+                "route": reverse("apps.administration:store-collection-list-create"),
+                "permission": "store.view_collection",
             },
             {
                 "name": _("Products"),
@@ -300,7 +300,7 @@ class CompanyInfoCreateView(LoginRequiredMixin, PermissionRequiredMixin, Success
     permission_required = ["main.add_companyinfo", "main.view_companyinfo"]
 
     def post(self, request):
-        form = self.form_class(initial=CompanyInfo.objects.all(), data=request.POST)
+        form = self.form_class(initial=CompanyInfo.company_infos.list_queryset(), data=request.POST)
         if form.is_valid():
             try:
                 form.save()
@@ -572,48 +572,48 @@ class BrandUpdateDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Success
         return render(request, self.template_name, {"form": form, "brand": brand})
 
 
-class ProductModelListCreateView(
+class CollectionListCreateView(
     LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView
 ):
-    model = ProductModel
-    form_class = forms.ProductModelForm
-    template_name = "administration/store/product-models/index.html"
+    model = Collection
+    form_class = forms.CollectionForm
+    template_name = "administration/store/collections/index.html"
     success_message = _("Model was created successfully!")
-    success_url = reverse_lazy("apps.administration:store-product-model-list-create")
-    permission_required = ["store.add_productmodel", "store.view_productmodel"]
+    success_url = reverse_lazy("apps.administration:store-collection-list-create")
+    permission_required = ["store.add_collection", "store.view_collection"]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["product_models"] = self.model.objects.all()
+        context["collections"] = self.model.objects.all()
         return context
 
 
-class ProductModelUpdateDeleteView(
+class CollectionUpdateDeleteView(
     LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView
 ):
-    form_class = forms.ProductModelForm
-    model = ProductModel
-    template_name = "administration/store/product-models/edit.html"
-    context_object_name = "product_model"
-    permission_required = ["store.change_product_model", "store.delete_product_model"]
+    form_class = forms.CollectionForm
+    model = Collection
+    template_name = "administration/store/collections/edit.html"
+    context_object_name = "collection"
+    permission_required = ["store.change_collection", "store.delete_collection"]
 
     def post(self, request, pk):
-        product_model = self.model.objects.get(pk=pk)
-        form = self.form_class(instance=product_model, data=request.POST, files=request.FILES)
+        collection = self.model.objects.get(pk=pk)
+        form = self.form_class(instance=collection, data=request.POST, files=request.FILES)
         if self.request.POST.get("_method", None) == "delete":
-            product_model.delete()
+            collection.delete()
             messages.success(request, _("Model was deleted successfully"))
-            return redirect(reverse("apps.administration:store-product-model-list-create"))
+            return redirect(reverse("apps.administration:store-collection-list-create"))
         if form.is_valid():
             form.save()
             messages.success(request, _("Model was updated successfully"))
             return redirect(
                 reverse(
-                    "apps.administration:store-product-model-update-delete",
-                    kwargs={"pk": product_model.pk},
+                    "apps.administration:store-collection-update-delete",
+                    kwargs={"pk": collection.pk},
                 )
             )
-        return render(request, self.template_name, {"form": form, "product_model": product_model})
+        return render(request, self.template_name, {"form": form, "collection": collection})
 
 
 class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):

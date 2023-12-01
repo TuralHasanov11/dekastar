@@ -21,9 +21,7 @@
   </div>
   {% endif %}
   <div class="figure-grid">
-    {% if product.discount %}<span class="badge badge-warning"
-      >-{{product.discount}}%</span
-    >{% endif %}
+    {% if product.discount %}<span class="badge badge-warning">-{{product.discount}}%</span>{% endif %}
     {% if not product.in_stock %}
     <span class="badge badge-secondary">{{product.in_stock|in_stock_display}}</span>
     {% endif %}

@@ -52,7 +52,7 @@
         </div>
       </div>
     {% include "components/messages.html" with messages=messages %}
-    <div class="card">
+    <div class="card mb-3">
       <div class="card-body">
         <table id="datatablesSimple" class="entry-table">
           <thead>
@@ -100,6 +100,14 @@
         </table>
       </div>
     </div>
+
+    <div class="card">
+      <div class="card-header">{% translate "Category Structure" %}</div>
+      <div class="card-body">
+        {% include "components/admin/categories/category-structure.html" with categories=categories %}
+      </div>
+    </div>
+
   </div>
 </main>
 {% endblock content %}

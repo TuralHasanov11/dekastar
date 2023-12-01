@@ -28,7 +28,7 @@ class ProductFilterForm(forms.Form):
         initial=False,
     )
     brand = forms.SlugField(required=False, initial=None)
-    product_model = forms.SlugField(required=False, initial=None)
+    collection = forms.SlugField(required=False, initial=None)
     paginate_by = forms.ChoiceField(
         required=False,
         choices=PAGINATE_BY_CHOICES,
@@ -50,7 +50,7 @@ class ProductFilterForm(forms.Form):
             "category",
             "in_stock",
             "brand",
-            "product_model",
+            "collection",
             "paginate_by",
             "order_by",
             "view",

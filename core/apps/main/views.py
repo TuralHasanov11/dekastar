@@ -1,13 +1,14 @@
+import os
 from typing import Any
 
 from apps.main.forms import ContactForm
-from apps.main.models import (Banner, CompanyInfo, ContactEmail, ContactPhone,
-                              SiteText)
-from apps.store.models import Category, Product
+from apps.main.models import Banner, CompanyInfo, ContactEmail, ContactPhone, SiteText
+from apps.store.models import Category, Collection, Product
 from django.contrib import messages
-from django.core.mail import BadHeaderError
-from django.db.models import Count
+from django.core.mail import BadHeaderError, EmailMessage
+from django.db.models import Count, Prefetch, Subquery, Sum
 from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
@@ -20,18 +21,13 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context["categories"] = Category.categories.list_queryset().annotate(
-            products_count=Count("product_category")
-        ).all()
-        context["new_products"] = (
-            Product.products.list_queryset().order_by("-created_at").all()[:6]
-        )
-        context["discounted_products"] = (
-            Product.products.list_queryset()
-            .filter(discount__gt=0)
-            .order_by("-updated_at")[:6]
-        )
-        context["banners"] = Banner.objects.filter(is_active=True).order_by("-id")
+        # collections = Collection.objects.all().annotate(
+        #     products_count=Count("products")
+        # ).values("products_count")
+        context["categories"] = Category.categories.list_queryset()
+        context["new_products"] = Product.products.new_products_queryset()
+        context["discounted_products"] = Product.products.discounted_products_queryset()
+        context["banners"] = Banner.banners.list_queryset()
         return context
 
 
@@ -40,14 +36,8 @@ class PrivacyPolicyView(TemplateView):
     http_method_names = ["get"]
 
     def get(self, request):
-        site_text = (
-            SiteText.objects.filter(language=get_language())
-            .only("language", "privacy_policy")
-            .first()
-        )
-        return render(
-            request, self.template_name, {"privacy_policy": site_text.privacy_policy}
-        )
+        site_text = SiteText.site_texts.privacy_policy(language=get_language())
+        return render(request, self.template_name, {"privacy_policy": site_text.privacy_policy})
 
 
 class DeliveryPolicyView(TemplateView):
@@ -55,14 +45,8 @@ class DeliveryPolicyView(TemplateView):
     http_method_names = ["get"]
 
     def get(self, request):
-        site_text = (
-            SiteText.objects.filter(language=get_language())
-            .only("language", "delivery_policy")
-            .first()
-        )
-        return render(
-            request, self.template_name, {"delivery_policy": site_text.delivery_policy}
-        )
+        site_text = SiteText.site_texts.delivery_policy(language=get_language())
+        return render(request, self.template_name, {"delivery_policy": site_text.delivery_policy})
 
 
 class ContactView(TemplateView):
@@ -72,9 +56,9 @@ class ContactView(TemplateView):
 
     def get(self, request):
         form = self.form_class()
-        contact_emails = ContactEmail.objects.all()
-        contact_phones = ContactPhone.objects.all()
-        company_info = CompanyInfo.objects.filter(language=get_language()).first()
+        contact_emails = ContactEmail.contact_emails.list_queryset()
+        contact_phones = ContactPhone.contact_phones.list_queryset()
+        company_info = CompanyInfo.company_infos.detail_queryset(language=get_language())
         return render(
             request,
             self.template_name,
@@ -89,23 +73,27 @@ class ContactView(TemplateView):
     def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
-            # data = form.cleaned_data
+            data = form.cleaned_data
             try:
-                # content = render_to_string("main/emails/contact.html", {
-                #     'message': data["message"],
-                #     'name': data["name"],
-                #     'email': data["email"],
-                # }, request=request)
+                content = render_to_string(
+                    "main/emails/contact.html",
+                    {
+                        "message": data["message"],
+                        "name": data["name"],
+                        "email": data["email"],
+                    },
+                    request=request,
+                )
 
-                # msg = EmailMessage(
-                #     subject=data["subject"],
-                #     body=content,
-                #     from_email=os.environ.get("DEFAULT_FROM_EMAIL"),
-                #     to=[os.environ.get("SUPPORT_EMAIL_ADDRESS")],
-                #     reply_to={os.environ.get("SUPPORT_EMAIL_ADDRESS")}
-                # )
-                # msg.content_subtype = "html"
-                # msg.send()
+                msg = EmailMessage(
+                    subject=data["subject"],
+                    body=content,
+                    from_email=os.environ.get("DEFAULT_FROM_EMAIL"),
+                    to=[os.environ.get("SUPPORT_EMAIL_ADDRESS")],
+                    reply_to={os.environ.get("SUPPORT_EMAIL_ADDRESS")},
+                )
+                msg.content_subtype = "html"
+                msg.send()
                 messages.success(request, _("Message was sent successfully!"))
                 return redirect(reverse("apps.main:contact") + "#contact-form")
             except BadHeaderError:
@@ -119,9 +107,5 @@ class AboutView(TemplateView):
     http_method_names = ["get"]
 
     def get(self, request):
-        site_text = (
-            SiteText.objects.filter(language=get_language())
-            .only("language", "about")
-            .first()
-        )
+        site_text = SiteText.site_texts.about(language=get_language())
         return render(request, self.template_name, {"about": site_text.about})

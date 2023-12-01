@@ -60,9 +60,9 @@ def admin_menu(request):
                 "icon": "globe",
             },
             {
-                "title": _("Models"),
-                "route": reverse("apps.administration:store-product-model-list-create"),
-                "permission": "store.view_productmodel",
+                "title": _("Collections"),
+                "route": reverse("apps.administration:store-collection-list-create"),
+                "permission": "store.view_collection",
                 "icon": "aperture",
             },
             {

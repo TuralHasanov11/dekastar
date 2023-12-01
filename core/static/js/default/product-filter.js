@@ -9,7 +9,7 @@ $(window).on('load', function () {
 
 $(document).ready(function () {
 
-    $('.brand-checkbox, .product-model-checkbox').on('click', event => {
+    $('.brand-checkbox, .collection-checkbox').on('click', event => {
         event.stopPropagation();
         const element = $(event.currentTarget).find('>input');
         filterPage({[$(element).attr('name')]: $(element).val()})

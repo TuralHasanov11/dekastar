@@ -76,7 +76,7 @@ def default_footer_menu(request):
 
 
 def default_footer_social_links(request):
-    return {"default_footer_social_links": SocialMediaLink.objects.all()}
+    return {"default_footer_social_links": SocialMediaLink.social_media_links.list_queryset()}
 
 
 def whatsapp_number(request):

@@ -1,3 +1,4 @@
+from apps.store import filters
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Prefetch
@@ -34,7 +35,7 @@ class CategoryManager(models.Manager):
         return CategoryQuerySet(self.model, using=self._db)
 
     def list_queryset(self):
-        return self.get_queryset().list_queryset()
+        return self.get_queryset().list_queryset().all()
 
     def detail_queryset(self):
         return self.get_queryset().detail_queryset()
@@ -107,6 +108,25 @@ class CategoryAttribute(models.Model):
         return str(self.name)
 
 
+class BrandQuerySet(models.QuerySet):
+    def list_queryset(self):
+        return self
+
+    def detail_queryset(self):
+        return self
+
+
+class BrandManager(models.Manager):
+    def get_queryset(self):
+        return BrandQuerySet(self.model, using=self._db)
+
+    def list_queryset(self):
+        return self.get_queryset().list_queryset()
+
+    def detail_queryset(self):
+        return self.get_queryset().detail_queryset()
+
+
 class Brand(models.Model):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
@@ -115,6 +135,7 @@ class Brand(models.Model):
     updated_at = custom_model_fields.UpdatedAtField()
 
     objects = models.Manager()
+    brands = BrandManager()
 
     class Meta:
         ordering = ["name"]
@@ -128,29 +149,67 @@ class Brand(models.Model):
         return super().save(*args, **kwargs)
 
 
-def product_model_image_path(instance, filename):
-    return f"product_models/{instance.slug}/{filename}"
+def collection_image_path(instance, filename):
+    return f"collections/{instance.slug}/{filename}"
 
 
-class ProductModel(models.Model):
+class CollectionQuerySet(models.QuerySet):
+    def list_queryset(self):
+        return self.select_related("brand").prefetch_related(
+            Prefetch(
+                "category",
+                queryset=Category.categories.list_queryset(),
+            ),
+        )
+
+    def detail_queryset(self):
+        return self
+
+
+class CollectionManager(models.Manager):
+    def get_queryset(self):
+        return CollectionQuerySet(self.model, using=self._db)
+
+    def list_queryset(self):
+        return self.get_queryset().list_queryset().all()
+
+    def detail_queryset(self):
+        return self.get_queryset().detail_queryset()
+
+
+class Collection(models.Model):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
-    cover_image = models.ImageField(upload_to=product_model_image_path, null=True, blank=True)
+    cover_image = models.ImageField(upload_to=collection_image_path, null=True, blank=True)
+    brand = models.ForeignKey(
+        Brand,
+        related_name="collection_brand",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    category = models.ForeignKey(
+        Category,
+        related_name="collection_category",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
     created_at = custom_model_fields.CreatedAtField()
     updated_at = custom_model_fields.UpdatedAtField()
 
     objects = models.Manager()
+    collections = CollectionManager()
 
     class Meta:
         ordering = ["name"]
-        verbose_name_plural = _("Product Models")
+        verbose_name_plural = _("Collections")
 
     def __str__(self):
         return str(self.name)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-
         return super().save(*args, **kwargs)
 
 
@@ -158,12 +217,8 @@ class ProductQuerySet(models.QuerySet):
     def list_queryset(self):
         return self.prefetch_related(
             Prefetch(
-                "category",
-                queryset=Category.categories.list_queryset(),
-            ),
-            Prefetch(
-                "product_model",
-                queryset=ProductModel.objects.all(),
+                "collection",
+                queryset=Collection.objects.all(),
             ),
         ).prefetch_related(
             Prefetch(
@@ -174,31 +229,23 @@ class ProductQuerySet(models.QuerySet):
         )
 
     def detail_queryset(self):
-        return (
-            self.prefetch_related(
-                Prefetch(
-                    "category",
-                    queryset=Category.categories.list_queryset(),
-                ),
-                Prefetch(
-                    "product_model",
-                    queryset=ProductModel.objects.all(),
-                ),
-            )
-            .select_related("brand")
-            .prefetch_related(
-                Prefetch(
-                    "product_image",
-                    queryset=ProductImage.objects.filter(is_feature=True),
-                    to_attr="image_feature",
-                ),
-                Prefetch("product_image", to_attr="images"),
-                Prefetch(
-                    "product_information",
-                    queryset=ProductInformation.objects.filter(language=get_language()),
-                    to_attr="information",
-                ),
-            )
+        return self.prefetch_related(
+            Prefetch(
+                "collection",
+                queryset=Collection.objects.all(),
+            ),
+        ).prefetch_related(
+            Prefetch(
+                "product_image",
+                queryset=ProductImage.objects.filter(is_feature=True),
+                to_attr="image_feature",
+            ),
+            Prefetch("product_image", to_attr="images"),
+            Prefetch(
+                "product_information",
+                queryset=ProductInformation.objects.filter(language=get_language()),
+                to_attr="information",
+            ),
         )
 
     def cart_queryset(self):
@@ -219,12 +266,8 @@ class ProductAdminQuerySet(models.QuerySet):
     def list_queryset(self):
         return self.prefetch_related(
             Prefetch(
-                "category",
-                queryset=Category.categories.list_queryset(),
-            ),
-            Prefetch(
-                "product_model",
-                queryset=ProductModel.objects.all(),
+                "collection",
+                queryset=Collection.collections.list_queryset(),
             ),
         ).prefetch_related(
             Prefetch(
@@ -254,6 +297,37 @@ class ProductManager(models.Manager):
     def cart_queryset(self):
         return self.get_queryset().cart_queryset()
 
+    def new_products_queryset(self):
+        return self.get_queryset().list_queryset().order_by("-created_at").all()[:6]
+
+    def discounted_products_queryset(self):
+        return self.get_queryset().list_queryset().filter(discount__gt=0).order_by("-updated_at")[:6]
+
+    def filter_queryset(self, data, categories):
+        return filters.OrderingFilter(
+            filters.InStockFilter(
+                filters.CollectionFilter(
+                    filters.BrandFilter(
+                        filters.CategoryFilter(
+                            filters.PriceFilter(
+                                filters.SearchFilter(self.list_queryset(), data).queryset,
+                                data,
+                            ).queryset,
+                            data,
+                            categories,
+                        ).queryset,
+                        data,
+                    ).queryset,
+                    data,
+                ).queryset,
+                data,
+            ).queryset,
+            data,
+        ).queryset
+
+    def in_stock_count(self, queryset):
+        return queryset.filter(in_stock=True).count()
+
 
 class ProductAdminManager(models.Manager):
     def get_queryset(self):
@@ -270,27 +344,14 @@ class Product(models.Model):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
     code = models.CharField(max_length=100, null=True, blank=True)
-    brand = models.ForeignKey(
-        Brand,
-        related_name="product_brand",
+    collection = models.ForeignKey(
+        Collection,
+        related_name="product_collection",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
-    product_model = models.ForeignKey(
-        ProductModel,
-        related_name="product_model",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-    )
-    category = models.ForeignKey(
-        Category,
-        related_name="product_category",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-    )
+
     is_active = models.BooleanField(default=True)
     regular_price = models.DecimalField(max_digits=6, decimal_places=2)
     discount = models.IntegerField(

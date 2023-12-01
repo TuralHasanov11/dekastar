@@ -1,0 +1,30 @@
+{% load i18n %}
+<span class="checkbox collection-checkbox">
+    <input
+        type="radio"
+        name="collection"
+        id="collectionAll"
+        value=""
+        {% if not current_collection.value %}checked="checked"{% endif %}
+    />
+    <label for="collectionAll"
+        >{% translate "All" %} <i>({{all_products_count}})</i></label
+    >
+</span>
+{% for collection in collections %}
+<span class="checkbox collection-checkbox">
+    <input type="radio" name="collection" id="collection{{collection.id}}" value="{{collection.slug}}"
+        {% if collection.slug == current_collection.value %}checked="checked"{% endif %}>
+    <label class="collection-input-label" for="collection{{collection.id}}">
+        <span>{{collection}}</span>
+        <br>
+        <img
+            src="{{collection.cover_image.url}}"
+            alt="{{collection}}"
+            width="96"
+            height="48"
+        />
+        <i>({{collection.products_count}})</i>
+    </label>
+</span>
+{% endfor %}

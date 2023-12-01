@@ -49,11 +49,11 @@
               </div>
               {% endif %}
 
-              {% if product.product_model %}
+              {% if product.collection %}
               <div class="info-box">
-                <span><strong>{% translate "Product Model" %}</strong></span>
-                <span><a class="text-danger" href="{% url 'apps.store:category-products' %}?product_model={{product.product_model.slug}}">
-                  {{product.product_model }}
+                <span><strong>{% translate "Collection" %}</strong></span>
+                <span><a class="text-danger" href="{% url 'apps.store:category-products' %}?collection={{product.collection.slug}}">
+                  {{product.collection }}
                 </a></span>
               </div>
               {% endif %}

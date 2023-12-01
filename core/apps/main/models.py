@@ -1,3 +1,4 @@
+from apps.main import managers
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils.translation import gettext_lazy as _
@@ -14,6 +15,7 @@ class SiteText(models.Model):
     updated_at = custom_model_fields.UpdatedAtField()
 
     objects = models.Manager()
+    site_texts = managers.SiteTextManager()
 
     class Meta:
         verbose_name_plural = "Site Texts"
@@ -34,6 +36,7 @@ class SocialMediaLink(models.Model):
     link = models.URLField()
 
     objects = models.Manager()
+    social_media_links = managers.SocialMediaLinkManager()
 
     class Meta:
         verbose_name_plural = _("Social Media Links")
@@ -46,6 +49,7 @@ class ContactEmail(models.Model):
     email = models.EmailField()
 
     objects = models.Manager()
+    contact_emails = managers.ContactEmailManager()
 
     class Meta:
         verbose_name_plural = _("Contact Emails")
@@ -58,6 +62,7 @@ class ContactPhone(models.Model):
     phone = models.CharField(max_length=30)
 
     objects = models.Manager()
+    contact_phones = managers.ContactPhoneManager()
 
     class Meta:
         verbose_name_plural = _("Contact Phones")
@@ -72,6 +77,7 @@ class CompanyInfo(models.Model):
     working_hours = models.CharField(max_length=255)
 
     objects = models.Manager()
+    company_infos = managers.CompanyInfoManager()
 
     def __str__(self):
         return str(self.address)
@@ -91,23 +97,13 @@ class SiteImage(models.Model):
 
 def site_image_compressor(**kwargs):
     with Image.open(kwargs["instance"].contact_image.path) as contact_image:
-        contact_image.save(
-            kwargs["instance"].contact_image.path, optimize=True, quality=15
-        )
+        contact_image.save(kwargs["instance"].contact_image.path, optimize=True, quality=15)
     with Image.open(kwargs["instance"].about_image.path) as about_image:
         about_image.save(kwargs["instance"].about_image.path, optimize=True, quality=15)
-    with Image.open(
-        kwargs["instance"].privacy_policy_image.path
-    ) as privacy_policy_image:
-        privacy_policy_image.save(
-            kwargs["instance"].privacy_policy_image.path, optimize=True, quality=15
-        )
-    with Image.open(
-        kwargs["instance"].delivery_policy_image.path
-    ) as delivery_policy_image:
-        delivery_policy_image.save(
-            kwargs["instance"].delivery_policy_image.path, optimize=True, quality=15
-        )
+    with Image.open(kwargs["instance"].privacy_policy_image.path) as privacy_policy_image:
+        privacy_policy_image.save(kwargs["instance"].privacy_policy_image.path, optimize=True, quality=15)
+    with Image.open(kwargs["instance"].delivery_policy_image.path) as delivery_policy_image:
+        delivery_policy_image.save(kwargs["instance"].delivery_policy_image.path, optimize=True, quality=15)
 
 
 post_save.connect(site_image_compressor, sender=SiteImage)
@@ -126,6 +122,7 @@ class Banner(models.Model):
         verbose_name_plural = _("Banners")
 
     objects = models.Manager()
+    banners = managers.BannerManager()
 
     @property
     def is_active_display(self):

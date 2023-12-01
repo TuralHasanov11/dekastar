@@ -12,10 +12,10 @@ from apps.store.models import (
     Brand,
     Category,
     CategoryAttribute,
+    Collection,
     Product,
     ProductImage,
     ProductInformation,
-    ProductModel,
 )
 from django import forms
 from django.conf import settings
@@ -552,7 +552,7 @@ class BrandForm(forms.ModelForm):
         fields = ("name", "cover_image")
 
 
-class ProductModelForm(forms.ModelForm):
+class CollectionForm(forms.ModelForm):
     name = forms.CharField(
         label=_("Name"),
         widget=forms.TextInput(
@@ -575,10 +575,30 @@ class ProductModelForm(forms.ModelForm):
         ),
         required=False,
     )
+    category = forms.ModelChoiceField(
+        label=_("Category"),
+        widget=forms.Select(
+            attrs={
+                "class": "form-select form-select-sm",
+                "title": _("Please select category"),
+            }
+        ),
+        queryset=Category.objects.all(),
+    )
+    brand = forms.ModelChoiceField(
+        label=_("Brand"),
+        widget=forms.Select(
+            attrs={
+                "class": "form-select form-select-sm",
+                "title": _("Please select brand"),
+            }
+        ),
+        queryset=Brand.objects.all(),
+    )
 
     class Meta:
-        model = ProductModel
-        fields = ("name", "cover_image")
+        model = Collection
+        fields = ("name", "cover_image", "category", "brand")
 
 
 class ProductForm(forms.ModelForm):
@@ -612,35 +632,15 @@ class ProductForm(forms.ModelForm):
             }
         ),
     )
-    category = forms.ModelChoiceField(
-        label=_("Category"),
+    collection = forms.ModelChoiceField(
+        label=_("Collection"),
         widget=forms.Select(
             attrs={
                 "class": "form-select form-select-sm",
-                "title": _("Please select category"),
+                "title": _("Please select collection"),
             }
         ),
-        queryset=Category.objects.all(),
-    )
-    brand = forms.ModelChoiceField(
-        label=_("Brand"),
-        widget=forms.Select(
-            attrs={
-                "class": "form-select form-select-sm",
-                "title": _("Please select brand"),
-            }
-        ),
-        queryset=Brand.objects.all(),
-    )
-    product_model = forms.ModelChoiceField(
-        label=_("Model"),
-        widget=forms.Select(
-            attrs={
-                "class": "form-select form-select-sm",
-                "title": _("Please select model"),
-            }
-        ),
-        queryset=ProductModel.objects.all(),
+        queryset=Collection.objects.all(),
     )
     regular_price = forms.DecimalField(
         label=_("Regular Price"),
@@ -682,14 +682,12 @@ class ProductForm(forms.ModelForm):
         fields = (
             "name",
             "code",
-            "category",
-            "brand",
             "regular_price",
             "discount",
             "in_stock",
             "is_active",
             "quantity_type",
-            "product_model",
+            "collection",
         )
 
 

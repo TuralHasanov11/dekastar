@@ -1,5 +1,11 @@
-from apps.store.models import (Brand, Category, CategoryAttribute, Product,
-                               ProductImage)
+from apps.store.models import (
+    Brand,
+    Category,
+    CategoryAttribute,
+    Collection,
+    Product,
+    ProductImage,
+)
 from django.contrib import admin
 from mptt.admin import DraggableMPTTAdmin
 
@@ -7,6 +13,12 @@ from mptt.admin import DraggableMPTTAdmin
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
     list_display = ("name",)
+    prepopulated_fields = {"slug": ("name",)}
+
+
+@admin.register(Collection)
+class CollectionAdmin(admin.ModelAdmin):
+    list_display = ("name", "brand", "category")
     prepopulated_fields = {"slug": ("name",)}
 
 
@@ -19,7 +31,7 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [
         ProductImageInline,
     ]
-    list_display = ("name", "category", "brand")
+    list_display = ("name", "collection")
     prepopulated_fields = {"slug": ("name",)}
 
 

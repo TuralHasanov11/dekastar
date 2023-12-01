@@ -37,9 +37,10 @@
             <tr>
               <th>{% translate "Name" %}</th>
               <th>{% translate "Category" %}</th>
-              <th>{% translate "Model" %}</th>
+              <th>{% translate "Brand" %}</th>
+              <th>{% translate "Collection" %}</th>
               <th>{% translate "Price" %}</th>
-              <th>{% translate "Discount" %}</th>
+              <th>{% translate "Discount" %} %</th>
               <th>{% translate "Cover Image" %}</th>
               <th>{% translate "Actions" %}</th>
             </tr>
@@ -48,9 +49,10 @@
             <tr>
               <th>{% translate "Name" %}</th>
               <th>{% translate "Category" %}</th>
-              <th>{% translate "Model" %}</th>
+              <th>{% translate "Brand" %}</th>
+              <th>{% translate "Collection" %}</th>
               <th>{% translate "Regular Price" %}</th>
-              <th>{% translate "Discount" %}</th>
+              <th>{% translate "Discount" %} %</th>
               <th>{% translate "Cover Image" %}</th>
               <th>{% translate "Actions" %}</th>
             </tr>
@@ -63,8 +65,9 @@
                   {{product.name}}
                 </a>
               </td>
-              <td><a href="{% url 'apps.administration:store-category-update-delete' pk=product.category.pk %}">{{product.category.category_name}}</a></td>
-              <td>{% if product.product_model %}<a href="{% url 'apps.administration:store-product-model-update-delete' pk=product.product_model.pk %}">{{product.product_model.name}}</a>{% endif %}</td>
+              <td>{% if product.collection.category %}<a href="{% url 'apps.administration:store-category-update-delete' pk=product.collection.category.pk %}">{{product.collection.category.category_name}}</a>{% endif %}</td>
+              <td>{% if product.collection.brand %}<a href="{% url 'apps.administration:store-brand-update-delete' pk=product.collection.brand.pk %}">{{product.collection.brand}}</a>{% endif %}</td>
+              <td>{% if product.collection %}<a href="{% url 'apps.administration:store-collection-update-delete' pk=product.collection.pk %}">{{product.collection.name}}</a>{% endif %}</td>
               <td>{{product.regular_price}}</td>
               <td>{{product.discount}}</td>
               <td><img loading="lazy" width="30" height="30" src="{{product.get_image_feature}}" alt="{{product}}"></td>

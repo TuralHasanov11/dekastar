@@ -1,8 +1,7 @@
 from typing import Any
 
-from apps.store import filters
 from apps.store.forms import ProductFilterForm
-from apps.store.models import Brand, Category, Product, ProductModel
+from apps.store.models import Brand, Category, Collection, Product
 from django.core import paginator
 from django.db.models import Count
 from django.urls import reverse
@@ -21,47 +20,26 @@ class CategoryProductsView(TemplateView):
         query_params.update(kwargs)
         form = self.form_class(query_params)
 
-        context["categories"] = Category.objects.add_related_count(
-            Category.categories.list_queryset().all(),
-            Product,
-            "category",
-            "products_count",
-            cumulative=True,
-        )
-
-        products = Product.products.list_queryset().all()
+        context["categories"] = Category.objects.all()
 
         if form.is_valid():
-            products = filters.OrderingFilter(
-                filters.InStockFilter(
-                    filters.ProductModelFilter(
-                        filters.BrandFilter(
-                            filters.CategoryFilter(
-                                filters.PriceFilter(
-                                    filters.SearchFilter(products, form.cleaned_data).queryset,
-                                    form.cleaned_data,
-                                ).queryset,
-                                form.cleaned_data,
-                                context["categories"],
-                            ).queryset,
-                            form.cleaned_data,
-                        ).queryset,
-                        form.cleaned_data,
-                    ).queryset,
-                    form.cleaned_data,
-                ).queryset,
-                form.cleaned_data,
-            ).queryset
+            products = Product.products.filter_queryset(
+                data=form.cleaned_data, categories=context["categories"]
+            )
+        else:
+            products = Product.products.list_queryset().all()
 
         context["products"] = paginator.Paginator(
             products,
             query_params.get("paginate_by", self.paginate_by),
         ).get_page(query_params.get("page", 1))
 
-        context["brands"] = Brand.objects.annotate(products_count=Count("product_brand")).all()
-        context["product_models"] = ProductModel.objects.annotate(products_count=Count("product_model")).all()
+        context["brands"] = Brand.brands.list_queryset()
+        context["collections"] = (
+            Collection.collections.list_queryset().annotate(products_count=Count("product_collection"))
+        )
         context["all_products_count"] = Product.products.count_queryset()
-        context["in_stock_products_count"] = products.filter(in_stock=True).count()
+        context["in_stock_products_count"] = Product.products.in_stock_count(products)
         context["filter_form"] = form
         context["breadcrumb"] = [
             {"route": reverse("apps.main:index"), "title": _("Home")},
@@ -92,21 +70,22 @@ class ProductDetailView(DetailView):
     template_name = "store/products/detail.html"
     context_object_name = "product"
     queryset = model.products.detail_queryset()
-    related_product_count = 8
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["related_products"] = (
             self.model.products.list_queryset()
-            .filter(category=self.object.category)
-            .exclude(slug=self.get_object().slug)[: self.related_product_count]
+            .filter(collection=self.get_object().collection)
+            .exclude(slug=self.get_object().slug)
         )
         context["breadcrumb"] = [
             {"route": reverse("apps.main:index"), "title": _("Home")},
             {"route": reverse("apps.store:category-products"), "title": _("Products")},
         ]
 
-        ancestor_categories = self.get_object().category.get_ancestors(ascending=False, include_self=True)
+        ancestor_categories = self.get_object().collection.category.get_ancestors(
+            ascending=False, include_self=True
+        )
 
         if ancestor_categories and len(ancestor_categories) > 0:
             context["breadcrumb"] += [
@@ -122,9 +101,19 @@ class ProductDetailView(DetailView):
 
         context["breadcrumb"].append(
             {
+                "route": reverse(
+                    "apps.store:category-products",
+                    kwargs={
+                        "collection": self.get_object().collection.slug,
+                        "category": self.get_object().collection.category.slug,
+                    },
+                ),
+                "title": self.get_object().collection.name,
+            },
+            {
                 "route": self.request.path,
                 "title": self.get_object().name,
-            }
+            },
         )
         return context
 

@@ -29,9 +29,9 @@
     </div>
 
     <div class="filter-box active">
-      <div class="title">{% translate "Model" %}</div>
+      <div class="title">{% translate "Collection" %}</div>
       <div class="filter-content">
-        {% include "components/forms/product-model-inputs.html" with product_models=product_models current_product_model=form.product_model all_products_count=all_products_count %}
+        {% include "components/forms/collection-inputs.html" with collections=collections current_collection=form.collection all_products_count=all_products_count %}
       </div>
     </div>
 

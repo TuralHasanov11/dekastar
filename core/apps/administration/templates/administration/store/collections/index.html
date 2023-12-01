@@ -1,5 +1,5 @@
 {% extends "layouts/admin.html" %} {% load static %} {% load i18n %}
-{% block title %}{% translate "Product Model List" %}{% endblock title %}
+{% block title %}{% translate "Collection List" %}{% endblock title %}
 {% block content %}
 <main>
   <header
@@ -11,7 +11,7 @@
           <div class="col-auto mb-3">
             <h1 class="page-header-title">
               <div class="page-header-icon"><i data-feather="list"></i></div>
-              {% translate "Product Model List" %}
+              {% translate "Collection List" %}
             </h1>
           </div>
         </div>
@@ -21,7 +21,7 @@
 
   <div class="container-fluid px-4">
     <div class="card mb-4">
-        <div class="card-header">{% translate "Add Product Model" %}</div>
+        <div class="card-header">{% translate "Add Collection" %}</div>
         <div class="card-body">
           <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -38,6 +38,16 @@
                 {{ form.cover_image }}
                 {{ form.cover_image.errors }}
               </div>
+              <div class="col-12 col-md-6">
+                <label class="mb-1 small" for="{{ form.category.id_for_label }}">{{ form.category.label }}</label>
+                {{ form.category }}
+                {{ form.category.errors }}
+              </div>
+              <div class="col-12 col-md-6">
+                <label class="mb-1 small" for="{{ form.brand.id_for_label }}">{{ form.brand.label }}</label>
+                {{ form.brand }}
+                {{ form.brand.errors }}
+              </div>
             </div>
             {{form.non_field_errors}} {{form.non_form_errors}}
             <button class="btn btn-success btn-sm" type="submit">
@@ -53,6 +63,8 @@
           <thead>
             <tr>
               <th>{% translate "Name" %}</th>
+              <th>{% translate "Brand" %}</th>
+              <th>{% translate "Category" %}</th>
               <th>{% translate "Cover Image" %}</th>
               <th>{% translate "Actions" %}</th>
             </tr>
@@ -60,20 +72,24 @@
           <tfoot>
             <tr>
               <th>{% translate "Name" %}</th>
+              <th>{% translate "Brand" %}</th>
+              <th>{% translate "Category" %}</th>
               <th>{% translate "Cover Image" %}</th>
               <th>{% translate "Actions" %}</th>
             </tr>
           </tfoot>
           <tbody>
-            {% for product_model in product_models %}
+            {% for collection in collections %}
             <tr>
-              <td>{{product_model.name}}</td>
-              <td>{% if product_model.cover_image %}<img loading="lazy" width="80" height="40" src="{{product_model.cover_image.url}}" alt="{{product_model.name}}">{% endif %}</td>
+              <td>{{collection.name}}</td>
+              <td><a href="{% url 'apps.administration:store-brand-update-delete' pk=collection.brand.pk %}">{{collection.brand}}</a></td>
+              <td><a href="{% url 'apps.administration:store-category-update-delete' pk=collection.category.pk %}">{{collection.category.category_name}}</a></td>
+              <td>{% if collection.cover_image %}<img loading="lazy" width="80" height="40" src="{{collection.cover_image.url}}" alt="{{collection.name}}">{% endif %}</td>
               <td>
-                <a href="{% url 'apps.administration:store-product-model-update-delete' pk=product_model.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
+                <a href="{% url 'apps.administration:store-collection-update-delete' pk=collection.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
                 <form
                   class="delete-form"
-                  action="{% url 'apps.administration:store-product-model-update-delete' pk=product_model.pk %}"
+                  action="{% url 'apps.administration:store-collection-update-delete' pk=collection.pk %}"
                   method="post"
                 >
                   {% csrf_token %}
