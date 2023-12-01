@@ -35,8 +35,8 @@ class CategoryProductsView(TemplateView):
         ).get_page(query_params.get("page", 1))
 
         context["brands"] = Brand.brands.list_queryset()
-        context["collections"] = (
-            Collection.collections.list_queryset().annotate(products_count=Count("product_collection"))
+        context["collections"] = Collection.collections.list_queryset().annotate(
+            products_count=Count("product_collection")
         )
         context["all_products_count"] = Product.products.count_queryset()
         context["in_stock_products_count"] = Product.products.in_stock_count(products)
@@ -73,19 +73,13 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context["related_products"] = (
-            self.model.products.list_queryset()
-            .filter(collection=self.get_object().collection)
-            .exclude(slug=self.get_object().slug)
-        )
+        context["related_products"] = self.model.products.related_products_queryset(product=self.get_object())
         context["breadcrumb"] = [
             {"route": reverse("apps.main:index"), "title": _("Home")},
             {"route": reverse("apps.store:category-products"), "title": _("Products")},
         ]
 
-        ancestor_categories = self.get_object().collection.category.get_ancestors(
-            ascending=False, include_self=True
-        )
+        ancestor_categories = Category.categories.ancestors_queryset(self.get_object().collection.category)
 
         if ancestor_categories and len(ancestor_categories) > 0:
             context["breadcrumb"] += [
@@ -99,22 +93,22 @@ class ProductDetailView(DetailView):
                 for category in ancestor_categories
             ]
 
-        context["breadcrumb"].append(
+        context["breadcrumb"] + [
             {
                 "route": reverse(
                     "apps.store:category-products",
                     kwargs={
-                        "collection": self.get_object().collection.slug,
                         "category": self.get_object().collection.category.slug,
                     },
-                ),
+                )
+                + f"?collection={self.get_object().collection.slug}",
                 "title": self.get_object().collection.name,
             },
             {
                 "route": self.request.path,
                 "title": self.get_object().name,
             },
-        )
+        ]
         return context
 
 

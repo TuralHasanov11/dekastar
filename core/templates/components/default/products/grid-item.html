@@ -31,11 +31,16 @@
       </a>
     </div>
     <div class="text">
-      <h2 class="title h4">
+      <h2 class="title h4 my-2">
         <a href="{% url 'apps.store:product-detail' slug=product.slug %}"
           >{{product}}</a
         >
       </h2>
+      <h4 class="title h6">
+        <a class="text-danger" href="{% url 'apps.store:category-products' %}?collection={{product.collection.slug}}"
+          >{{product.collection}}</a
+        >
+      </h4>
       {% if product.discount %}
       <sub>$ {{product.regular_price}}</sub><sup>$ {{product.discount_price}}</sup>
       {% else %}

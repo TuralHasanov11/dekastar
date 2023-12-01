@@ -83,6 +83,15 @@ class Order(models.Model):
         )
         return super().save(*args, **kwargs)
 
+    def add_item(self, cart_item) -> None:
+        self.items.create(
+            product_id=cart_item["product"]["id"],
+            quantity_type=cart_item["product"]["quantity_type"],
+            price=cart_item["price"],
+            sub_total=cart_item["total_price"],
+            quantity=cart_item["quantity"],
+        )
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name="items", on_delete=models.CASCADE)

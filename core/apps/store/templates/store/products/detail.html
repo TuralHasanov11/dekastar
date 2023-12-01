@@ -4,7 +4,7 @@
 {% block title %} {{ product.name }} {% endblock title %}
 {% block description %} {{ product.name }} {% endblock description %}
 {% block content %}
-<section class="product pt-0">
+<section class="product pt-4">
   <header>
     <div class="container">
       {% include "components/default/breadcrumb.html" with breadcrumb=breadcrumb %}
@@ -36,8 +36,8 @@
               <div class="info-box">
                 <span><strong>{% translate "Category" %}</strong></span>
                 <span>
-                  <a class="text-danger" href="{% url 'apps.store:category-products' category=product.category.slug %}">
-                    {{product.category.category_name }}
+                  <a class="text-danger" href="{% url 'apps.store:category-products' category=product.collection.category.slug %}">
+                    {{product.collection.category.category_name }}
                   </a>
                 </span>
               </div>
@@ -167,7 +167,7 @@
     </div>
     <div class="wrapper-more">
       <a
-        href="{% url 'apps.store:category-products' category=product.category.slug %}"
+        href="{% url 'apps.store:category-products' category=product.collection.category.slug %}"
         class="btn btn-main btn-sm"
       >
         {% translate "View all related products" %}
@@ -181,7 +181,7 @@
     <div class="popup-title">
       <div class="h3 title">
         {{ product }}
-        <small>{{ product.category }}</small>
+        <small>{{ product.collection.category }}</small>
       </div>
     </div>
 
@@ -203,7 +203,7 @@
             {% endif %}
             <div class="info-box">
               <strong>{% translate "Category" %}</strong>
-              <span>{{ product.category.category_name }}</span>
+              <span>{{ product.collection.category.category_name }}</span>
             </div>
             <div class="info-box">
               <strong>{% translate "Availability" %}</strong>

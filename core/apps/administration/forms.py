@@ -484,7 +484,7 @@ class CategoryForm(forms.ModelForm):
                 "multiple": False,
             }
         ),
-        required=False,
+        required=True,
     )
 
     class Meta:

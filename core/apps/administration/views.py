@@ -464,7 +464,7 @@ class CategoryListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["categories"] = self.model.objects.all()
+        context["categories"] = self.model.categories.list_queryset()
         return context
 
 

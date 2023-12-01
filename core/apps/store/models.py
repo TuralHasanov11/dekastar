@@ -1,7 +1,7 @@
 from apps.store import filters
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.db.models import Prefetch
+from django.db.models import Count, Prefetch
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils.translation import get_language
@@ -40,6 +40,45 @@ class CategoryManager(models.Manager):
     def detail_queryset(self):
         return self.get_queryset().detail_queryset()
 
+    def ancestors_queryset(self, category):
+        return category.get_ancestors(ascending=False, include_self=True)
+
+
+class CategoryAdminQuerySet(models.QuerySet):
+    def list_queryset(self):
+        return self.prefetch_related(
+            Prefetch(
+                "category_attribute",
+                queryset=CategoryAttribute.objects.filter(language=get_language()),
+                to_attr="attribute",
+            ),
+        )
+
+    def detail_queryset(self):
+        return self.prefetch_related(
+            Prefetch(
+                "category_attribute",
+                queryset=CategoryAttribute.objects.filter(language=get_language()),
+                to_attr="attribute",
+            ),
+        )
+
+
+class CategoryAdminManager(models.Manager):
+    def get_queryset(self):
+        return CategoryAdminQuerySet(self.model, using=self._db)
+
+    def list_queryset(self):
+        return (
+            self.get_queryset()
+            .list_queryset()
+            .annotate(product_count=Count("collection_category"))
+            .all()
+        )
+
+    def detail_queryset(self):
+        return self.get_queryset().detail_queryset()
+
 
 def category_image_path(instance, filename):
     return f"categories/{instance.name}/{filename}"
@@ -65,6 +104,7 @@ class Category(MPTTModel):
     updated_at = custom_model_fields.UpdatedAtField()
 
     categories = CategoryManager()
+    admin_categories = CategoryAdminManager()
     manager = CategoryTreeManager()
 
     class MPTTMeta:
@@ -327,6 +367,14 @@ class ProductManager(models.Manager):
 
     def in_stock_count(self, queryset):
         return queryset.filter(in_stock=True).count()
+
+    def related_products_queryset(self, product):
+        return (
+            self.get_queryset()
+            .list_queryset()
+            .filter(collection=product.collection)
+            .exclude(slug=product.slug)
+        )
 
 
 class ProductAdminManager(models.Manager):

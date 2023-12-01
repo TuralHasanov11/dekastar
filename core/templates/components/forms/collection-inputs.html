@@ -24,7 +24,7 @@
             width="96"
             height="48"
         />
-        <i>({{collection.products_count}})</i>
+        <i>({{collection.products_count|default:0}})</i>
     </label>
 </span>
 {% endfor %}

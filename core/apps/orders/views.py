@@ -2,9 +2,8 @@ from typing import Any
 
 from apps.orders.cart_processor import CartProcessor
 from apps.orders.forms import CheckoutForm
-from apps.orders.models import Order, OrderItem
+from apps.orders.models import Order
 from apps.orders.order_processor import OrderProcessor
-from apps.store.models import Product
 from django.contrib import messages
 from django.db import transaction
 from django.shortcuts import redirect, render
@@ -27,27 +26,20 @@ class CheckoutView(TemplateView):
         cart = CartProcessor(request)
         if form.is_valid():
             data = form.cleaned_data
+            data.pop("terms_agreed")
             with transaction.atomic():
-                data.pop("terms_agreed")
                 order = Order(
                     **data,
                     total_paid=cart.get_total_price,
                 )
                 order.save()
                 for item in cart:
-                    product = Product.objects.get(id=item["product"]["id"])
-                    OrderItem.objects.create(
-                        order_id=order.id,
-                        product_id=item["product"]["id"],
-                        quantity_type=product.quantity_type,
-                        price=item["price"],
-                        sub_total=item["total_price"],
-                        quantity=item["quantity"],
+                    order.add_item(
+                        cart_item=item
                     )
                 order_processor = OrderProcessor(request=request)
                 order_processor.create(order_id=str(order.uuid))
                 cart.clear()
-                messages.success(request, _("Order was placed successfully!"))
                 return redirect("apps.orders:success")
         messages.error(request, _("Order cannot be placed!"))
         return render(request, self.template_name, {"form": form})
