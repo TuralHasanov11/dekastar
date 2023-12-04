@@ -2,7 +2,7 @@ from typing import Any
 
 from apps.store.forms import ProductFilterForm
 from apps.store.models import Brand, Category, Collection, Product
-from django.core import paginator
+from data import pagination
 from django.db.models import Count
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -29,10 +29,11 @@ class CategoryProductsView(TemplateView):
         else:
             products = Product.products.list_queryset().all()
 
-        context["products"] = paginator.Paginator(
-            products,
-            query_params.get("paginate_by", self.paginate_by),
-        ).get_page(query_params.get("page", 1))
+        context["products"] = pagination.Pagination.paginate_queryset(
+            queryset=products,
+            page=query_params.get("page"),
+            page_size=query_params.get("paginate_by", self.paginate_by),
+        )
 
         context["brands"] = Brand.brands.list_queryset()
         context["collections"] = Collection.collections.list_queryset().annotate(

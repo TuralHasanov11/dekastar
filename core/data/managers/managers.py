@@ -20,3 +20,6 @@ class ModelManager(models.Manager):
 
     def detail_queryset(self):
         return self.get_queryset().detail_queryset()
+
+    def create_many_by_languages(self, languages):
+        return self.get_queryset().bulk_create([self.model(language=lang[0]) for lang in languages])

@@ -24,34 +24,71 @@
     <div class="card mb-4">
       <div class="card-header">{% translate "Site Images" %}</div>
       <div class="card-body">
-        <form method="post">
+        {% include "components/messages.html" with messages=messages %}
+        <form method="post" enctype="multipart/form-data">
           {{form.errors}} {% csrf_token %}
           {% include "components/forms/hidden-fields.html" with hidden_fields=form.hidden_fields %}
           <div class="row gx-3 mb-4">
-            <div class="col-12">
+            <div class="col-12 mb-4">
               <label class="mb-1 small" for="{{ form.contact_image.id_for_label }}"
                 >{{ form.contact_image.label }}</label
               >
               {{ form.contact_image }} {{ form.contact_image.errors }}
+              {% if site_image.contact_image %}
+              <img
+                loading="lazy"
+                src="{{site_image.contact_image.url}}"
+                width="360"
+                height="200"
+                class="mt-3"
+              />
+              {% endif %}
             </div>
-            <div class="col-12">
+            <div class="col-12 mb-4">
               <label class="mb-1 small" for="{{ form.about_image.id_for_label }}"
                 >{{ form.about_image.label }}</label
               >
               {{ form.about_image }} {{ form.about_image.errors }}
+              {% if site_image.about_image %}
+              <img
+                loading="lazy"
+                src="{{site_image.about_image.url}}"
+                width="360"
+                height="200"
+                class="mt-3"
+              />
+              {% endif %}
             </div>
-            <div class="col-12">
-                <label class="mb-1 small" for="{{ form.delivery_policy_image.id_for_label }}"
-                  >{{ form.delivery_policy_image.label }}</label
-                >
-                {{ form.delivery_policy_image }} {{ form.delivery_policy_image.errors }}
-              </div>
-              <div class="col-12">
-                <label class="mb-1 small" for="{{ form.privacy_policy_image.id_for_label }}"
-                  >{{ form.privacy_policy_image.label }}</label
-                >
-                {{ form.privacy_policy_image }} {{ form.privacy_policy_image.errors }}
-              </div>
+            <div class="col-12 mb-4">
+              <label class="mb-1 small" for="{{ form.delivery_policy_image.id_for_label }}"
+                >{{ form.delivery_policy_image.label }}</label
+              >
+              {{ form.delivery_policy_image }} {{ form.delivery_policy_image.errors }}
+              {% if site_image.delivery_policy_image %}
+              <img
+                loading="lazy"
+                src="{{site_image.delivery_policy_image.url}}"
+                width="360"
+                height="200"
+                class="mt-3"
+              />
+              {% endif %}
+            </div>
+            <div class="col-12 mb-4">
+              <label class="mb-1 small" for="{{ form.privacy_policy_image.id_for_label }}"
+                >{{ form.privacy_policy_image.label }}</label
+              >
+              {{ form.privacy_policy_image }} {{ form.privacy_policy_image.errors }}
+              {% if site_image.privacy_policy_image %}
+              <img
+                loading="lazy"
+                src="{{site_image.privacy_policy_image.url}}"
+                width="360"
+                height="200"
+                class="mt-3"
+              />
+              {% endif %}
+            </div>
           </div>
           {{form.non_field_errors}} {{form.non_form_errors}}
           <button class="btn btn-success btn-sm" type="submit">

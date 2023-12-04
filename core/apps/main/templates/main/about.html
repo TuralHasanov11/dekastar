@@ -17,7 +17,9 @@
   </header>
   <div class="container-fluid">
     <div class="image">
-      <img src="{% static 'images/gallery-1.jpg' %}" alt="Alternate Text" />
+      {% if about_image %}
+      <img src="{{about_image.url}}" />
+      {% endif %}
     </div>
   </div>
 </section>

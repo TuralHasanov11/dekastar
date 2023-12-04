@@ -2,11 +2,17 @@ import os
 from typing import Any
 
 from apps.main.forms import ContactForm
-from apps.main.models import Banner, CompanyInfo, ContactEmail, ContactPhone, SiteText
-from apps.store.models import Category, Collection, Product
+from apps.main.models import (
+    Banner,
+    CompanyInfo,
+    ContactEmail,
+    ContactPhone,
+    SiteImage,
+    SiteText,
+)
+from apps.store.models import Category, Product
 from django.contrib import messages
 from django.core.mail import BadHeaderError, EmailMessage
-from django.db.models import Count, Prefetch, Subquery, Sum
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -21,9 +27,6 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        # collections = Collection.objects.all().annotate(
-        #     products_count=Count("products")
-        # ).values("products_count")
         context["categories"] = Category.categories.list_queryset()
         context["new_products"] = Product.products.new_products_queryset()
         context["discounted_products"] = Product.products.discounted_products_queryset()
@@ -37,7 +40,12 @@ class PrivacyPolicyView(TemplateView):
 
     def get(self, request):
         site_text = SiteText.site_texts.privacy_policy(language=get_language())
-        return render(request, self.template_name, {"privacy_policy": site_text.privacy_policy})
+        privacy_policy_image = SiteImage.objects.first().privacy_policy_image
+        return render(
+            request,
+            self.template_name,
+            {"privacy_policy": site_text.privacy_policy, "privacy_policy_image": privacy_policy_image},
+        )
 
 
 class DeliveryPolicyView(TemplateView):
@@ -46,7 +54,12 @@ class DeliveryPolicyView(TemplateView):
 
     def get(self, request):
         site_text = SiteText.site_texts.delivery_policy(language=get_language())
-        return render(request, self.template_name, {"delivery_policy": site_text.delivery_policy})
+        delivery_policy_image = SiteImage.objects.first().delivery_policy_image
+        return render(
+            request,
+            self.template_name,
+            {"delivery_policy": site_text.delivery_policy, "delivery_policy_image": delivery_policy_image},
+        )
 
 
 class ContactView(TemplateView):
@@ -59,6 +72,7 @@ class ContactView(TemplateView):
         contact_emails = ContactEmail.contact_emails.list_queryset()
         contact_phones = ContactPhone.contact_phones.list_queryset()
         company_info = CompanyInfo.company_infos.detail_queryset(language=get_language())
+        contact_image = SiteImage.objects.first().contact_image
         return render(
             request,
             self.template_name,
@@ -67,6 +81,7 @@ class ContactView(TemplateView):
                 "contact_emails": contact_emails,
                 "contact_phones": contact_phones,
                 "company_info": company_info,
+                "contact_image": contact_image,
             },
         )
 
@@ -108,4 +123,5 @@ class AboutView(TemplateView):
 
     def get(self, request):
         site_text = SiteText.site_texts.about(language=get_language())
-        return render(request, self.template_name, {"about": site_text.about})
+        about_image = SiteImage.objects.first().about_image
+        return render(request, self.template_name, {"about": site_text.about, "about_image": about_image})

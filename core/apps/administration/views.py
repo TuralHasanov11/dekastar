@@ -49,31 +49,6 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                 "route": reverse("apps.administration:banner-list-create"),
             },
             {
-                "name": _("About Us"),
-                "route": reverse("apps.administration:about"),
-                "permission": "main.view_sitetext",
-            },
-            {
-                "name": _("Privacy Policy"),
-                "route": reverse("apps.administration:privacy-policy"),
-                "permission": "main.view_sitetext",
-            },
-            {
-                "name": _("Delivery Policy"),
-                "route": reverse("apps.administration:delivery-policy"),
-                "permission": "main.view_sitetext",
-            },
-            {
-                "name": _("Contact"),
-                "route": reverse("apps.administration:contact"),
-                "permission": "main.view_companyinfo",
-            },
-            {
-                "name": _("Users"),
-                "route": reverse("apps.administration:user-list"),
-                "permission": "auth.view_user",
-            },
-            {
                 "name": _("Categories"),
                 "route": reverse("apps.administration:store-category-list-create"),
                 "permission": "store.view_category",
@@ -98,6 +73,36 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                 "route": reverse("apps.administration:order-list"),
                 "permission": "orders.view_order",
             },
+            {
+                "name": _("About Us"),
+                "route": reverse("apps.administration:about"),
+                "permission": "main.view_sitetext",
+            },
+            {
+                "name": _("Privacy Policy"),
+                "route": reverse("apps.administration:privacy-policy"),
+                "permission": "main.view_sitetext",
+            },
+            {
+                "name": _("Delivery Policy"),
+                "route": reverse("apps.administration:delivery-policy"),
+                "permission": "main.view_sitetext",
+            },
+            {
+                "name": _("Contact"),
+                "route": reverse("apps.administration:contact"),
+                "permission": "main.view_companyinfo",
+            },
+            {
+                "name": _("Site Images"),
+                "route": reverse("apps.administration:site-images"),
+                "permission": "main.view_siteimage",
+            },
+            {
+                "name": _("Users"),
+                "route": reverse("apps.administration:user-list"),
+                "permission": "auth.view_user",
+            },
         ]
         return context
 
@@ -111,7 +116,7 @@ class PrivacyPolicyView(LoginRequiredMixin, PermissionRequiredMixin, TemplateVie
 
     def get(self, request):
         if SiteText.objects.count() == 0:
-            SiteText.objects.bulk_create([SiteText(language=lang[0]) for lang in settings.LANGUAGES])
+            SiteText.site_texts.create_many_by_languages(languages=settings.LANGUAGES)
         site_texts = SiteText.objects.all().order_by("language").only("language", "privacy_policy")
         form = self.form_class(initial=site_texts)
         return render(request, self.template_name, {"form": form})
@@ -141,7 +146,7 @@ class DeliveryPolicyView(LoginRequiredMixin, PermissionRequiredMixin, TemplateVi
 
     def get(self, request):
         if SiteText.objects.count() == 0:
-            SiteText.objects.bulk_create([SiteText(language=lang[0]) for lang in settings.LANGUAGES])
+            SiteText.site_texts.create_many_by_languages(languages=settings.LANGUAGES)
         site_texts = SiteText.objects.all().order_by("language").only("language", "delivery")
         form = self.form_class(initial=site_texts)
         return render(request, self.template_name, {"form": form})
@@ -171,7 +176,7 @@ class AboutView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
 
     def get(self, request):
         if SiteText.objects.count() == 0:
-            SiteText.objects.bulk_create([SiteText(language=lang[0]) for lang in settings.LANGUAGES])
+            SiteText.site_texts.create_many_by_languages(languages=settings.LANGUAGES)
         site_texts = SiteText.objects.all().order_by("language").only("language", "about")
         form = self.form_class(initial=site_texts)
         return render(request, self.template_name, {"form": form})
@@ -208,7 +213,7 @@ class ContactView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
 
     def get(self, request):
         if CompanyInfo.objects.count() == 0:
-            CompanyInfo.objects.bulk_create([CompanyInfo(language=lang[0]) for lang in settings.LANGUAGES])
+            CompanyInfo.company_infos.create_many_by_languages(languages=settings.LANGUAGES)
         social_media_link_form = self.social_media_link_form_class()
         contact_email_form = self.contact_email_form_class()
         contact_phone_form = self.contact_phone_form_class()
@@ -316,6 +321,7 @@ class CompanyInfoCreateView(LoginRequiredMixin, PermissionRequiredMixin, Success
 
 
 class SiteImagesView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+    model = SiteImage
     template_name = "administration/site-images.html"
     http_method_names = ["get", "post"]
     form_class = forms.SiteImageForm
@@ -324,15 +330,14 @@ class SiteImagesView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
 
     def get(self, request):
         try:
-            site_image = SiteImage.objects.first()
-        except SiteImage.DoesNotExist:
-            site_image = SiteImage()
-            site_image.save()
+            site_image = self.model.objects.first()
+        except self.model.DoesNotExist:
+            site_image = self.model.objects.create()
         form = self.form_class(instance=site_image)
-        return render(request, self.template_name, {"form": form})
+        return render(request, self.template_name, {"form": form, "site_image": site_image})
 
     def post(self, request):
-        form = self.form_class(instance=SiteText.objects.first(), data=request.POST, files=request.FILES)
+        form = self.form_class(instance=self.model.objects.first(), data=request.POST, files=request.FILES)
         if form.is_valid():
             try:
                 form.save()
@@ -494,29 +499,28 @@ class CategoryUpdateDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Succ
         return context
 
     @transaction.atomic
-    def post(self, request, pk):
-        category = self.model.objects.get(pk=pk)
-        form = self.form_class(request.POST, instance=category, files=request.FILES)
+    def post(self, request, *args, **kwargs):
+        category = self.get_object()
+        form = self.form_class(data=request.POST, instance=category, files=request.FILES)
         attribute_form = self.attribute_form_class(
             data=self.request.POST,
-            instance=self.get_object(),
+            instance=category,
         )
         try:
             if self.request.POST.get("_method", None) == "delete":
                 category.delete()
                 messages.success(request, _("Category was deleted successfully"))
                 return redirect(reverse("apps.administration:store-category-list-create"))
-            if form.is_valid():
+            if form.is_valid() and attribute_form.is_valid():
                 category = form.save()
-                if attribute_form.is_valid():
-                    attribute_form.save()
-                    messages.success(request, _("Category was updated successfully"))
-                    return redirect(
-                        reverse(
-                            "apps.administration:store-category-update-delete",
-                            kwargs={"pk": category.pk},
-                        )
+                attribute_form.save()
+                messages.success(request, _("Category was updated successfully"))
+                return redirect(
+                    reverse(
+                        "apps.administration:store-category-update-delete",
+                        kwargs={"pk": category.pk},
                     )
+                )
         except ProtectedError:
             messages.error(request, _("Category is dependent on another category"))
             return redirect(
@@ -572,9 +576,7 @@ class BrandUpdateDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Success
         return render(request, self.template_name, {"form": form, "brand": brand})
 
 
-class CollectionListCreateView(
-    LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView
-):
+class CollectionListCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Collection
     form_class = forms.CollectionForm
     template_name = "administration/store/collections/index.html"

@@ -17,7 +17,9 @@
   </header>
   <div class="container-fluid">
     <div class="image">
-      <img src="{% static 'images/gallery-1.jpg' %}" alt="Alternate Text" />
+      {% if privacy_policy_image %}
+      <img src="{{privacy_policy_image.url}}" />
+      {% endif %}
     </div>
   </div>
 </section>
