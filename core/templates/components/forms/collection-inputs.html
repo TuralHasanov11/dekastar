@@ -18,12 +18,14 @@
     <label class="collection-input-label" for="collection{{collection.id}}">
         <span>{{collection}}</span>
         <br>
+        {% if collection.cover_image %}
         <img
             src="{{collection.cover_image.url}}"
             alt="{{collection}}"
             width="96"
             height="48"
         />
+        {% endif %}
         <i>({{collection.products_count|default:0}})</i>
     </label>
 </span>

@@ -3,7 +3,7 @@ from typing import Any
 from apps.store.forms import ProductFilterForm
 from apps.store.models import Brand, Category, Collection, Product
 from data import pagination
-from django.db.models import Count
+from django.db.models import Count, OuterRef, Subquery
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView, TemplateView
@@ -35,13 +35,6 @@ class CategoryProductsView(TemplateView):
             page_size=query_params.get("paginate_by", self.paginate_by),
         )
 
-        context["brands"] = Brand.brands.list_queryset()
-        context["collections"] = Collection.collections.list_queryset().annotate(
-            products_count=Count("product_collection")
-        )
-        context["all_products_count"] = Product.products.count_queryset()
-        context["in_stock_products_count"] = Product.products.in_stock_count(products)
-        context["filter_form"] = form
         context["breadcrumb"] = [
             {"route": reverse("apps.main:index"), "title": _("Home")},
             {"route": reverse("apps.store:category-products"), "title": _("Products")},
@@ -58,10 +51,34 @@ class CategoryProductsView(TemplateView):
                             "apps.store:category-products",
                             kwargs={"category": category.slug},
                         ),
-                        "title": category.category_name,
+                        "title": category,
                     }
                     for category in ancestor_categories
                 ]
+
+        context["brands"] = Brand.brands.list_queryset()
+
+        if "current_category" in context:
+            context["brands"] = context["brands"].filter(
+                collection_brand__category=context["current_category"]
+            )
+
+        context["collections"] = (
+            Collection.collections.list_queryset()
+            .filter(brand__in=context["brands"])
+            .annotate(
+                products_count=Subquery(
+                    Product.objects.values("collection_id")
+                    .annotate(count=Count("id"))
+                    .filter(collection_id=OuterRef("id"), is_active=True)
+                    .values("count")[:1]
+                )
+            )
+        )
+
+        context["all_products_count"] = products.count()
+        context["in_stock_products_count"] = Product.products.in_stock_count(products)
+        context["filter_form"] = form
 
         return context
 
