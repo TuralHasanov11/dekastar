@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-01 14:31+0100\n"
-"PO-Revision-Date: 2023-11-18 20:03+0400\n"
+"POT-Creation-Date: 2023-12-07 13:33+0100\n"
+"PO-Revision-Date: 2023-12-07 13:34+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,74 +19,83 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.9.9\n"
 
-#: .\apps\administration\context_processors.py:10
+#: .\apps\administration\context_processors.py:9
 #: .\apps\administration\templates\administration\index.html:3
 msgid "Dashboard"
 msgstr ""
 
-#: .\apps\administration\context_processors.py:15
-#: .\apps\administration\views.py:48 .\apps\main\models.py:122
+#: .\apps\administration\context_processors.py:14
+#: .\apps\administration\views.py:52 .\apps\main\context_processors.py:14
+#: .\apps\main\context_processors.py:40 .\apps\store\models.py:111
+msgid "Categories"
+msgstr ""
+
+#: .\apps\administration\context_processors.py:20
+#: .\apps\administration\views.py:57 .\apps\store\models.py:180
+msgid "Brands"
+msgstr ""
+
+#: .\apps\administration\context_processors.py:26 .\apps\store\models.py:245
+msgid "Collections"
+msgstr ""
+
+#: .\apps\administration\context_processors.py:32
+#: .\apps\administration\templates\administration\orders\detail.html:54
+#: .\apps\administration\views.py:67
+#: .\apps\store\templates\store\category-products.html:5
+#: .\apps\store\views.py:40 .\apps\store\views.py:97
+msgid "Products"
+msgstr ""
+
+#: .\apps\administration\context_processors.py:38
+#: .\apps\administration\views.py:72
+msgid "Orders"
+msgstr ""
+
+#: .\apps\administration\context_processors.py:44
+#: .\apps\administration\views.py:48 .\apps\main\models.py:131
 msgid "Banners"
 msgstr ""
 
-#: .\apps\administration\context_processors.py:21
-#: .\apps\administration\views.py:52 .\apps\main\context_processors.py:27
-#: .\apps\main\context_processors.py:55 .\apps\main\templates\main\about.html:4
+#: .\apps\administration\context_processors.py:50
+#: .\apps\administration\templates\administration\site-images.html:2
+#: .\apps\administration\templates\administration\site-images.html:16
+#: .\apps\administration\templates\administration\site-images.html:25
+#: .\apps\administration\views.py:97 .\apps\main\models.py:103
+msgid "Site Images"
+msgstr ""
+
+#: .\apps\administration\context_processors.py:56
+#: .\apps\administration\views.py:77 .\apps\main\context_processors.py:27
+#: .\apps\main\context_processors.py:55
+#: .\apps\main\templates\main\about.html:4
 #: .\apps\main\templates\main\about.html:10
 msgid "About Us"
 msgstr ""
 
-#: .\apps\administration\context_processors.py:27
-#: .\apps\administration\forms.py:261 .\apps\administration\views.py:57
+#: .\apps\administration\context_processors.py:62
+#: .\apps\administration\forms.py:261 .\apps\administration\views.py:82
 #: .\apps\main\context_processors.py:58
 #: .\apps\main\templates\main\privacy-policy.html:4
 #: .\apps\main\templates\main\privacy-policy.html:10
 msgid "Privacy Policy"
 msgstr ""
 
-#: .\apps\administration\context_processors.py:33
-#: .\apps\administration\forms.py:275 .\apps\administration\views.py:62
+#: .\apps\administration\context_processors.py:68
+#: .\apps\administration\forms.py:275 .\apps\administration\views.py:87
 #: .\apps\main\context_processors.py:62
 #: .\apps\main\templates\main\delivery-policy.html:4
 #: .\apps\main\templates\main\delivery-policy.html:10
 msgid "Delivery Policy"
 msgstr ""
 
-#: .\apps\administration\context_processors.py:39
+#: .\apps\administration\context_processors.py:74
 msgid "Contact Information"
 msgstr ""
 
-#: .\apps\administration\context_processors.py:45
-#: .\apps\administration\views.py:72
+#: .\apps\administration\context_processors.py:80
+#: .\apps\administration\views.py:102
 msgid "Users"
-msgstr ""
-
-#: .\apps\administration\context_processors.py:51
-#: .\apps\administration\views.py:77 .\apps\main\context_processors.py:14
-#: .\apps\main\context_processors.py:40 .\apps\store\models.py:75
-msgid "Categories"
-msgstr ""
-
-#: .\apps\administration\context_processors.py:57
-#: .\apps\administration\views.py:82 .\apps\store\models.py:142
-msgid "Brands"
-msgstr ""
-
-#: .\apps\administration\context_processors.py:63 .\apps\store\models.py:206
-msgid "Collections"
-msgstr ""
-
-#: .\apps\administration\context_processors.py:69
-#: .\apps\administration\templates\administration\orders\detail.html:54
-#: .\apps\administration\views.py:92
-#: .\apps\store\templates\store\category-products.html:5
-#: .\apps\store\views.py:46 .\apps\store\views.py:83
-msgid "Products"
-msgstr ""
-
-#: .\apps\administration\context_processors.py:75
-#: .\apps\administration\views.py:97
-msgid "Orders"
 msgstr ""
 
 #: .\apps\administration\forms.py:33 .\apps\administration\forms.py:37
@@ -289,8 +298,8 @@ msgstr ""
 msgid "Please upload Image"
 msgstr ""
 
-#: .\apps\administration\forms.py:455 .\apps\main\models.py:129
-#: .\apps\store\models.py:404
+#: .\apps\administration\forms.py:455 .\apps\main\models.py:138
+#: .\apps\store\models.py:452
 msgid "Active"
 msgstr ""
 
@@ -398,7 +407,7 @@ msgstr ""
 #: .\apps\administration\forms.py:636
 #: .\apps\administration\templates\administration\store\products\list.html:41
 #: .\apps\administration\templates\administration\store\products\list.html:53
-#: .\apps\administration\views.py:87
+#: .\apps\administration\views.py:62
 #: .\apps\store\templates\store\products\detail.html:54
 #: .\templates\components\default\filters.html:32
 msgid "Collection"
@@ -473,7 +482,7 @@ msgstr ""
 #: .\apps\administration\templates\administration\contact.html:254
 #: .\apps\administration\templates\administration\delivery-policy.html:65
 #: .\apps\administration\templates\administration\privacy-policy.html:65
-#: .\apps\administration\templates\administration\site-images.html:58
+#: .\apps\administration\templates\administration\site-images.html:95
 #: .\apps\administration\templates\administration\store\brands\edit.html:69
 #: .\apps\administration\templates\administration\store\brands\index.html:44
 #: .\apps\administration\templates\administration\store\categories\edit.html:96
@@ -574,7 +583,7 @@ msgid "Contact Info"
 msgstr ""
 
 #: .\apps\administration\templates\administration\contact.html:25
-#: .\apps\main\models.py:55
+#: .\apps\main\models.py:59
 msgid "Contact Emails"
 msgstr ""
 
@@ -585,12 +594,12 @@ msgid "No entry found"
 msgstr ""
 
 #: .\apps\administration\templates\administration\contact.html:87
-#: .\apps\main\models.py:68
+#: .\apps\main\models.py:73
 msgid "Contact Phones"
 msgstr ""
 
 #: .\apps\administration\templates\administration\contact.html:149
-#: .\apps\main\models.py:42
+#: .\apps\main\models.py:45
 msgid "Social Media Links"
 msgstr ""
 
@@ -674,13 +683,6 @@ msgstr ""
 msgid "Privacy Policy Texts"
 msgstr ""
 
-#: .\apps\administration\templates\administration\site-images.html:2
-#: .\apps\administration\templates\administration\site-images.html:16
-#: .\apps\administration\templates\administration\site-images.html:25
-#: .\apps\main\models.py:95
-msgid "Site Images"
-msgstr ""
-
 #: .\apps\administration\templates\administration\store\brands\edit.html:2
 #: .\apps\administration\templates\administration\store\brands\edit.html:16
 #: .\apps\administration\templates\administration\store\brands\edit.html:48
@@ -728,7 +730,7 @@ msgid "Add Category"
 msgstr ""
 
 #: .\apps\administration\templates\administration\store\categories\index.html:105
-msgid "Category Structure"
+msgid "Category Architecture"
 msgstr ""
 
 #: .\apps\administration\templates\administration\store\collections\edit.html:2
@@ -812,168 +814,168 @@ msgstr ""
 msgid "Add New User"
 msgstr ""
 
-#: .\apps\administration\views.py:67 .\apps\main\context_processors.py:28
+#: .\apps\administration\views.py:92 .\apps\main\context_processors.py:28
 #: .\apps\main\context_processors.py:56
 msgid "Contact"
 msgstr ""
 
-#: .\apps\administration\views.py:127
+#: .\apps\administration\views.py:132
 msgid "Privacy Policy texts were saved successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:130 .\apps\administration\views.py:131
+#: .\apps\administration\views.py:135 .\apps\administration\views.py:136
 msgid "Privacy Policy texts cannot be saved!"
 msgstr ""
 
-#: .\apps\administration\views.py:157
+#: .\apps\administration\views.py:162
 msgid "Delivery Policy texts were saved successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:160 .\apps\administration\views.py:161
+#: .\apps\administration\views.py:165 .\apps\administration\views.py:166
 msgid "Delivery Policy texts cannot be saved!"
 msgstr ""
 
-#: .\apps\administration\views.py:187
+#: .\apps\administration\views.py:192
 msgid "About Us texts were saved successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:190 .\apps\administration\views.py:191
+#: .\apps\administration\views.py:195 .\apps\administration\views.py:196
 msgid "About Us texts cannot be saved!"
 msgstr ""
 
-#: .\apps\administration\views.py:238
+#: .\apps\administration\views.py:243
 msgid "Contact email was added successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:247
+#: .\apps\administration\views.py:252
 msgid "Contact email was deleted successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:258
+#: .\apps\administration\views.py:263
 msgid "Contact phone was added successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:267
+#: .\apps\administration\views.py:272
 msgid "Contact phone was deleted successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:278
+#: .\apps\administration\views.py:283
 msgid "Social media link was added successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:287
+#: .\apps\administration\views.py:292
 msgid "Social media link was deleted successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:298 .\apps\administration\views.py:307
+#: .\apps\administration\views.py:303 .\apps\administration\views.py:312
 msgid "Company info was saved successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:310 .\apps\administration\views.py:311
+#: .\apps\administration\views.py:315 .\apps\administration\views.py:316
 msgid "Company info cannot be saved!"
 msgstr ""
 
-#: .\apps\administration\views.py:339
+#: .\apps\administration\views.py:344
 msgid "Site images were saved successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:342 .\apps\administration\views.py:343
+#: .\apps\administration\views.py:347 .\apps\administration\views.py:348
 msgid "Site images cannot be saved!"
 msgstr ""
 
-#: .\apps\administration\views.py:351
+#: .\apps\administration\views.py:356
 msgid "Banner was created successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:373
+#: .\apps\administration\views.py:378
 msgid "Banner was deleted successfully"
 msgstr ""
 
-#: .\apps\administration\views.py:377
+#: .\apps\administration\views.py:382
 msgid "Banner was updated successfully"
 msgstr ""
 
-#: .\apps\administration\views.py:402
+#: .\apps\administration\views.py:407
 msgid "User information were saved successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:405 .\apps\administration\views.py:406
+#: .\apps\administration\views.py:410 .\apps\administration\views.py:411
 msgid "User information cannot be saved!"
 msgstr ""
 
-#: .\apps\administration\views.py:438
+#: .\apps\administration\views.py:443
 msgid "User was created successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:448
+#: .\apps\administration\views.py:453
 msgid "User was deleted successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:461
+#: .\apps\administration\views.py:466
 msgid "Category was created successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:507
+#: .\apps\administration\views.py:512
 msgid "Category was deleted successfully"
 msgstr ""
 
-#: .\apps\administration\views.py:513
+#: .\apps\administration\views.py:517
 msgid "Category was updated successfully"
 msgstr ""
 
-#: .\apps\administration\views.py:521
+#: .\apps\administration\views.py:525
 msgid "Category is dependent on another category"
 msgstr ""
 
-#: .\apps\administration\views.py:539
+#: .\apps\administration\views.py:543
 msgid "Brand was created successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:561
+#: .\apps\administration\views.py:565
 msgid "Brand was deleted successfully"
 msgstr ""
 
-#: .\apps\administration\views.py:565
+#: .\apps\administration\views.py:569
 msgid "Brand was updated successfully"
 msgstr ""
 
-#: .\apps\administration\views.py:581
+#: .\apps\administration\views.py:583
 msgid "Model was created successfully!"
 msgstr ""
 
-#: .\apps\administration\views.py:605
+#: .\apps\administration\views.py:607
 msgid "Model was deleted successfully"
 msgstr ""
 
-#: .\apps\administration\views.py:609
+#: .\apps\administration\views.py:611
 msgid "Model was updated successfully"
 msgstr ""
 
-#: .\apps\administration\views.py:635
+#: .\apps\administration\views.py:637
 msgid "Product was created successfully"
 msgstr ""
 
-#: .\apps\administration\views.py:667
+#: .\apps\administration\views.py:669
 msgid "Product cannot be created"
 msgstr ""
 
-#: .\apps\administration\views.py:707
+#: .\apps\administration\views.py:709
 msgid "Product was deleted successfully"
 msgstr ""
 
-#: .\apps\administration\views.py:713
+#: .\apps\administration\views.py:715
 msgid "Product was updated successfully"
 msgstr ""
 
-#: .\apps\administration\views.py:720
+#: .\apps\administration\views.py:722
 msgid "Product cannot be updated"
 msgstr ""
 
-#: .\apps\administration\views.py:778
+#: .\apps\administration\views.py:780
 msgid "Order status was updated successfully"
 msgstr ""
 
-#: .\apps\administration\views.py:787
+#: .\apps\administration\views.py:789
 msgid "Order status cannot be updated"
 msgstr ""
 
@@ -981,8 +983,9 @@ msgstr ""
 msgid "Product was not found"
 msgstr ""
 
-#: .\apps\main\context_processors.py:12 .\apps\main\templates\main\index.html:4
-#: .\apps\store\views.py:45 .\apps\store\views.py:82 .\apps\store\views.py:127
+#: .\apps\main\context_processors.py:12
+#: .\apps\main\templates\main\index.html:4 .\apps\store\views.py:39
+#: .\apps\store\views.py:96 .\apps\store\views.py:139
 msgid "Home"
 msgstr ""
 
@@ -1038,31 +1041,31 @@ msgstr ""
 msgid "Please enter your message"
 msgstr ""
 
-#: .\apps\main\models.py:24
+#: .\apps\main\models.py:26
 msgid "Site text"
 msgstr ""
 
-#: .\apps\main\models.py:29
+#: .\apps\main\models.py:32
 msgid "Instagram"
 msgstr ""
 
-#: .\apps\main\models.py:30
+#: .\apps\main\models.py:33
 msgid "Facebook"
 msgstr ""
 
-#: .\apps\main\models.py:31
+#: .\apps\main\models.py:34
 msgid "Twitter"
 msgstr ""
 
-#: .\apps\main\models.py:32
+#: .\apps\main\models.py:35
 msgid "Pinterest"
 msgstr ""
 
-#: .\apps\main\models.py:33
+#: .\apps\main\models.py:36
 msgid "GooglePlus"
 msgstr ""
 
-#: .\apps\main\models.py:129 .\apps\store\models.py:404
+#: .\apps\main\models.py:138 .\apps\store\models.py:452
 msgid "Not Active"
 msgstr ""
 
@@ -1075,8 +1078,8 @@ msgstr ""
 #: .\apps\main\templates\main\contact.html:5
 msgid "Contact Page Description"
 msgstr ""
-"Reach out to us for any inquiries or assistance. Contact Dekastar for prompt "
-"and friendly support."
+"Reach out to us for any inquiries or assistance. Contact Dekastar for prompt"
+" and friendly support."
 
 #: .\apps\main\templates\main\contact.html:44
 msgid "Call us"
@@ -1105,8 +1108,8 @@ msgstr ""
 #: .\apps\main\templates\main\delivery-policy.html:5
 msgid "Delivery Policy Page Description"
 msgstr ""
-"Explore our delivery policy at Dekastar. We ensure swift and secure delivery "
-"to bring your new furniture to your doorstep."
+"Explore our delivery policy at Dekastar. We ensure swift and secure delivery"
+" to bring your new furniture to your doorstep."
 
 #: .\apps\main\templates\main\index.html:5
 msgid "Home Page Description"
@@ -1120,11 +1123,11 @@ msgstr ""
 "Read our privacy policy to understand how Dekastar protects and respects "
 "your privacy while providing a seamless shopping experience."
 
-#: .\apps\main\views.py:97
+#: .\apps\main\views.py:115
 msgid "Message was sent successfully!"
 msgstr ""
 
-#: .\apps\main\views.py:100 .\apps\main\views.py:101
+#: .\apps\main\views.py:118 .\apps\main\views.py:119
 msgid "Message cannot be sent!"
 msgstr ""
 
@@ -1191,8 +1194,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                                                I have read and accepted the "
-"<a href=\"%(privacy_policy_link)s\">terms</a>.\n"
+"                                                I have read and accepted the <a href=\"%(privacy_policy_link)s\">terms</a>.\n"
 "                                                "
 msgstr ""
 
@@ -1215,7 +1217,6 @@ msgid "Shop more"
 msgstr ""
 
 #: .\apps\orders\templates\orders\success.html:4
-#, fuzzy
 #| msgid "Checkout Success Page Description"
 msgid "Checkout Success"
 msgstr ""
@@ -1238,18 +1239,15 @@ msgstr ""
 
 #: .\apps\orders\templates\orders\success.html:17
 msgid ""
-"You can use the order code to contact us and get information about your order"
+"You can use the order code to contact us and get information about your "
+"order"
 msgstr ""
 
 #: .\apps\orders\templates\orders\success.html:18
 msgid "We will contact you soon!"
 msgstr ""
 
-#: .\apps\orders\views.py:50
-msgid "Order was placed successfully!"
-msgstr ""
-
-#: .\apps\orders\views.py:52
+#: .\apps\orders\views.py:44
 msgid "Order cannot be placed!"
 msgstr ""
 
@@ -1278,8 +1276,12 @@ msgstr ""
 #: .\apps\store\templates\store\category-products.html:8
 msgid "Products Page Description"
 msgstr ""
-"Browse through our curated collection of high-quality furniture. Find pieces "
-"that elevate your home's aesthetics at Dekastar."
+"Browse through our curated collection of high-quality furniture. Find pieces"
+" that elevate your home's aesthetics at Dekastar."
+
+#: .\apps\store\templates\store\category-products.html:41
+msgid "No product was found!"
+msgstr ""
 
 #: .\apps\store\templates\store\products\detail.html:62
 #: .\apps\store\templates\store\products\detail.html:209
@@ -1310,7 +1312,7 @@ msgid "View all related products"
 msgstr ""
 
 #: .\apps\store\templates\store\products\favorites.html:4
-#: .\apps\store\views.py:128
+#: .\apps\store\views.py:140
 msgid "Favorites"
 msgstr ""
 
@@ -1377,7 +1379,8 @@ msgid "Number"
 msgstr ""
 
 #: .\templates\components\admin\navbar.html:15
-#: .\templates\layouts\admin.html:19 .\templates\layouts\authentication.html:23
+#: .\templates\layouts\admin.html:19
+#: .\templates\layouts\authentication.html:23
 msgid "Admin"
 msgstr ""
 

@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     "apps.store",
     "apps.orders",
     "apps.api",
-    "apps.user"
+    "apps.user",
 ]
 
 MIDDLEWARE = [
@@ -171,7 +171,7 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = "/media/"
 if not DEBUG:
-    MEDIA_ROOT = '/home/dekastar/public_html/media/'
+    MEDIA_ROOT = "/home/dekastar/public_html/media/"
 else:
     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
@@ -413,3 +413,7 @@ CORS_URLS_REGEX = r"^/api/.*$"
 
 
 WHATSAPP_NUMBER = os.environ.get("WHATSAPP_NUMBER", "")
+
+
+DJANGO_ADMIN_URL_SUFFIX = os.environ.get("DJANGO_ADMIN_URL_SUFFIX")
+ADMIN_URL_SUFFIX = os.environ.get("ADMIN_URL_SUFFIX")

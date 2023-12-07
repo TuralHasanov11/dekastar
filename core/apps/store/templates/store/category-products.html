@@ -25,6 +25,7 @@
                 {% include "components/default/sort-bar.html" with form=filter_form per_page=products.object_list|length total=products.count%}
 
                 <div class="row">
+                    {% if products %}
                     {% for product in products %}
                     {% if filter_form.view.value == 'grid' %}
                     <div class="col-12 col-lg-6">
@@ -36,6 +37,9 @@
                     </div>
                     {% endif %}
                     {% endfor %}
+                    {% else %}
+                    <p class="col-12 text-center"><em>{% translate "No product was found!" %}</em></p>
+                    {% endif %}
                 </div>
 
                 {% include "components/default/pagination.html" with pagination=products %}

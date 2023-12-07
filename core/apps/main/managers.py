@@ -18,25 +18,33 @@ class SiteTextManager(ModelManager):
         return self.get_queryset().detail_queryset()
 
     def privacy_policy(self, language):
-        return (
+        return getattr(
             self.get_queryset()
             .list_queryset()
             .filter(language=language)
             .only("language", "privacy_policy")
-            .first()
+            .first(),
+            "privacy_policy",
+            "",
         )
 
     def delivery_policy(self, language):
-        return (
+        return getattr(
             self.get_queryset()
             .list_queryset()
             .filter(language=language)
             .only("language", "delivery_policy")
-            .first()
+            .first(),
+            "delivery_policy",
+            "",
         )
 
     def about(self, language):
-        return self.get_queryset().list_queryset().filter(language=language).only("language", "about").first()
+        return getattr(
+            self.get_queryset().list_queryset().filter(language=language).only("language", "about").first(),
+            "about",
+            "",
+        )
 
 
 class SocialMediaLinkQuerySet(QuerySet):
@@ -101,3 +109,40 @@ class BannerManager(ModelManager):
 
     def detail_queryset(self):
         return self.get_queryset().detail_queryset()
+
+
+class SiteImageQuerySet(QuerySet):
+    pass
+
+
+class SiteImageManager(ModelManager):
+    _queryset = SiteImageQuerySet
+
+    def get_queryset(self):
+        return self._queryset(self.model, using=self._db)
+
+    def list_queryset(self):
+        return self.get_queryset().list_queryset()
+
+    def detail_queryset(self):
+        return self.get_queryset().first()
+
+    def privacy_policy_image(self):
+        return getattr(
+            self.get_queryset().detail_queryset().only("privacy_policy_image"),
+            "privacy_policy_image",
+            "",
+        )
+
+    def delivery_policy_image(self):
+        return getattr(
+            self.get_queryset().detail_queryset().only("delivery_policy_image"),
+            "delivery_policy_image",
+            "",
+        )
+
+    def about_image(self):
+        return getattr(self.get_queryset().detail_queryset().only("about_image"), "about_image", "")
+
+    def contact_image(self):
+        return getattr(self.get_queryset().detail_queryset().only("contact_image"), "contact_image", "")

@@ -39,12 +39,12 @@ class PrivacyPolicyView(TemplateView):
     http_method_names = ["get"]
 
     def get(self, request):
-        site_text = SiteText.site_texts.privacy_policy(language=get_language())
-        privacy_policy_image = SiteImage.objects.first().privacy_policy_image
+        privacy_policy = SiteText.site_texts.privacy_policy(language=get_language())
+        privacy_policy_image = SiteImage.objects.first()
         return render(
             request,
             self.template_name,
-            {"privacy_policy": site_text.privacy_policy, "privacy_policy_image": privacy_policy_image},
+            {"privacy_policy": privacy_policy, "privacy_policy_image": privacy_policy_image},
         )
 
 
@@ -53,12 +53,15 @@ class DeliveryPolicyView(TemplateView):
     http_method_names = ["get"]
 
     def get(self, request):
-        site_text = SiteText.site_texts.delivery_policy(language=get_language())
-        delivery_policy_image = SiteImage.objects.first().delivery_policy_image
+        delivery_policy = SiteText.site_texts.delivery_policy(language=get_language())
+        delivery_policy_image = SiteImage.site_images.delivery_policy_image()
         return render(
             request,
             self.template_name,
-            {"delivery_policy": site_text.delivery_policy, "delivery_policy_image": delivery_policy_image},
+            {
+                "delivery_policy": delivery_policy,
+                "delivery_policy_image": delivery_policy_image,
+            },
         )
 
 
@@ -72,7 +75,7 @@ class ContactView(TemplateView):
         contact_emails = ContactEmail.contact_emails.list_queryset()
         contact_phones = ContactPhone.contact_phones.list_queryset()
         company_info = CompanyInfo.company_infos.detail_queryset(language=get_language())
-        contact_image = SiteImage.objects.first().contact_image
+        contact_image = SiteImage.site_images.contact_image()
         return render(
             request,
             self.template_name,
@@ -122,6 +125,10 @@ class AboutView(TemplateView):
     http_method_names = ["get"]
 
     def get(self, request):
-        site_text = SiteText.site_texts.about(language=get_language())
-        about_image = SiteImage.objects.first().about_image
-        return render(request, self.template_name, {"about": site_text.about, "about_image": about_image})
+        about = SiteText.site_texts.about(language=get_language())
+        about_image = SiteImage.site_images.about_image()
+        return render(
+            request,
+            self.template_name,
+            {"about": about, "about_image": about_image},
+        )

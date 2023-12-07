@@ -2,10 +2,12 @@ from apps.main import managers
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils.translation import gettext_lazy as _
+from django_cleanup import cleanup
 from PIL import Image
 from shared import custom_model_fields
 
 
+@cleanup.select
 class SiteText(models.Model):
     language = custom_model_fields.LanguageField()
     privacy_policy = custom_model_fields.TextField()
@@ -24,6 +26,7 @@ class SiteText(models.Model):
         return _("Site text") + " " + self.language
 
 
+@cleanup.select
 class SocialMediaLink(models.Model):
     class Platforms(models.TextChoices):
         INSTAGRAM = "INSTAGRAM", _("Instagram")
@@ -45,6 +48,7 @@ class SocialMediaLink(models.Model):
         return str(self.link)
 
 
+@cleanup.select
 class ContactEmail(models.Model):
     email = models.EmailField()
 
@@ -58,6 +62,7 @@ class ContactEmail(models.Model):
         return str(self.email)
 
 
+@cleanup.select
 class ContactPhone(models.Model):
     phone = models.CharField(max_length=30)
 
@@ -71,6 +76,7 @@ class ContactPhone(models.Model):
         return str(self.phone)
 
 
+@cleanup.select
 class CompanyInfo(models.Model):
     language = custom_model_fields.LanguageField()
     address = models.TextField()
@@ -83,6 +89,7 @@ class CompanyInfo(models.Model):
         return str(self.address)
 
 
+@cleanup.select
 class SiteImage(models.Model):
     contact_image = models.ImageField(upload_to="site/", null=True, blank=True)
     about_image = models.ImageField(upload_to="site/", null=True, blank=True)
@@ -90,6 +97,7 @@ class SiteImage(models.Model):
     delivery_policy_image = models.ImageField(upload_to="site/", null=True, blank=True)
 
     objects = models.Manager()
+    site_images = managers.SiteImageManager()
 
     class Meta:
         verbose_name_plural = _("Site Images")
@@ -113,6 +121,7 @@ def banner_image_path(instance, filename):
     return f"banners/{instance.id}-{filename}"
 
 
+@cleanup.select
 class Banner(models.Model):
     image = models.ImageField(upload_to=banner_image_path)
     link = models.URLField(blank=True, null=True)

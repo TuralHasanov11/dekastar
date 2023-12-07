@@ -6,6 +6,7 @@ from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
+from django_cleanup import cleanup
 from mptt.models import MPTTModel, TreeForeignKey, TreeManager
 from shared import custom_model_fields
 
@@ -69,12 +70,7 @@ class CategoryAdminManager(models.Manager):
         return CategoryAdminQuerySet(self.model, using=self._db)
 
     def list_queryset(self):
-        return (
-            self.get_queryset()
-            .list_queryset()
-            .annotate(product_count=Count("collection_category"))
-            .all()
-        )
+        return self.get_queryset().list_queryset().annotate(product_count=Count("collection_category")).all()
 
     def detail_queryset(self):
         return self.get_queryset().detail_queryset()
@@ -137,6 +133,7 @@ def brand_image_path(instance, filename):
     return f"brands/{instance.slug}/{filename}"
 
 
+@cleanup.select
 class CategoryAttribute(models.Model):
     category = models.ForeignKey(Category, related_name="category_attribute", on_delete=models.CASCADE)
     name = models.CharField(max_length=255, null=True, blank=True)
@@ -167,6 +164,7 @@ class BrandManager(models.Manager):
         return self.get_queryset().detail_queryset()
 
 
+@cleanup.select
 class Brand(models.Model):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
@@ -217,6 +215,7 @@ class CollectionManager(models.Manager):
         return self.get_queryset().detail_queryset()
 
 
+@cleanup.select
 class Collection(models.Model):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
@@ -388,6 +387,7 @@ class ProductAdminManager(models.Manager):
         return self.get_queryset()
 
 
+@cleanup.select
 class Product(models.Model):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
@@ -464,6 +464,7 @@ def product_image_path(instance, filename):
     return f"products/{instance.product.id}/{filename}"
 
 
+@cleanup.select
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_image")
     image = models.ImageField(upload_to=product_image_path, null=True, blank=True)
@@ -477,6 +478,7 @@ class ProductImage(models.Model):
         ordering = ("-is_feature",)
 
 
+@cleanup.select
 class ProductInformation(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_information")
     language = custom_model_fields.LanguageField()

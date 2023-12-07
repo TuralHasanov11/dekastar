@@ -10,7 +10,7 @@
         <div class="container">
             <h2 class="title">{% translate "Your Order" %}</h2>
             <div class="text">
-                <p>{% translate "Confirm your order details" %}</p>
+                {% if cart|length %}<p>{% translate "Confirm your order details" %}</p>{% endif %}
             </div>
         </div>
     </header>

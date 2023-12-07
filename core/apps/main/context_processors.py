@@ -67,8 +67,8 @@ def default_footer_menu(request):
             {
                 "title": _("Contact Us"),
                 "children": [
-                    {"title": _("Telephone"), "route": f"tel:{contact_phone.phone}"},
-                    {"title": _("E-mail"), "route": f"mailto:{contact_email.email}"},
+                    {"title": _("Telephone"), "route": f"tel:{getattr(contact_phone, 'phone', '')}"},
+                    {"title": _("E-mail"), "route": f"mailto:{getattr(contact_email, 'email', '')}"},
                 ],
             },
         ]
