@@ -8,7 +8,8 @@
       <a href="{% url 'apps.main:index' %}" class="logo"
         ><img
           src="{% static 'images/logo.png' %}"
-          alt=""
+          alt="{% translate "Logo" %}"
+          loading="lazy"
           width="130"
           height="60"
       /></a>
@@ -22,6 +23,7 @@
                 alt="{% translate "Logo" %}"
                 width="150"
                 height="48"
+                loading="lazy"
             /></a>
           </li>
           {% if user.is_authenticated %}

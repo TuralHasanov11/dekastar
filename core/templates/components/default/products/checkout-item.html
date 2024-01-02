@@ -2,7 +2,7 @@
 <div class="cart-block cart-block-item clearfix cart-checkout-item" data-product_id="{{product.id}}">
   <div class="image">
     <a href="{% url "apps.store:product-detail" slug=product.slug %}">
-        <img src="{{product.get_image_feature}}" alt="{{product.name}}" />
+        <img src="{{product.get_image_feature}}" alt="{{product.name}}" loading="lazy" />
     </a>
   </div>
   <div class="title">

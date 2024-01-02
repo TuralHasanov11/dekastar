@@ -114,7 +114,7 @@
           >
             {% for img in product.images %}
             <a href="{{ img.image.url }}"
-              ><img src="{{ img.image.url }}" alt="{{ product }}"
+              ><img src="{{ img.image.url }}" loading="lazy" alt="{{ product }}"
             /></a>
             {% endfor %}
           </div>
@@ -187,7 +187,7 @@
 
     <div class="owl-product-gallery owl-theme owl-carousel">
       {% for img in product.images %}
-      <img src="{{ img.image.url }}" alt="{{ product }}" width="640" />
+      <img src="{{ img.image.url }}" loading="lazy" alt="{{ product }}" width="640" />
       {% endfor %}
     </div>
 

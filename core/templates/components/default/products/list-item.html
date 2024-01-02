@@ -29,7 +29,7 @@
     {% endif %}
     <div class="image">
       <a href="{% url 'apps.store:product-detail' slug=product.slug %}">
-        <img src="{{ product.get_image_feature }}" alt="{{ product }}" />
+        <img src="{{ product.get_image_feature }}" alt="{{ product }}" loading="lazy" />
       </a>
     </div>
     <div class="text">
