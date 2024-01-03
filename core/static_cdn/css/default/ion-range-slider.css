@@ -158,7 +158,7 @@
 .irs-bar,
 .irs-bar-edge,
 .irs-slider {
-    background: url(img/sprite-skin-nice.png) repeat-x;
+    background: url('/static/images/sprite-skin-nice.png') repeat-x;
 }
 
 .irs {

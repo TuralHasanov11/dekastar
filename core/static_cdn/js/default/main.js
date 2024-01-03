@@ -618,13 +618,15 @@ $(function () {
 
             const data = await response.json()
 
-            if(data?.added == true){
+            if (data?.added == true) {
                 $(`[data-product_id='${productId}']`).addClass('added')
-            }else{
+            } else {
                 $(`[data-product_id='${productId}']`).removeClass('added')
             }
-        } catch (error) {}
+        } catch (error) { }
     })
+
+    
 
 });
 

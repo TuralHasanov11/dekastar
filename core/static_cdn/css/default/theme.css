@@ -5163,6 +5163,7 @@ nav .cart-wrapper.open {
 */
 .checkout header {
     text-align: center;
+    margin-top: 3em;
 }
 
 .checkout header .title:before {
@@ -7148,7 +7149,7 @@ footer .footer-social li a {
 .owl-theme .owl-nav [class*='owl-'] {
     position: absolute;
     top: 50%;
-    color: white;
+    color: #ddd;
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     -o-transform: translateY(-50%);
@@ -7172,11 +7173,6 @@ footer .footer-social li a {
     font-size: 30px;
 }
 
-@media (max-width: 1199px) {
-    .owl-theme .owl-nav [class*='owl-'] {
-        display: none;
-    }
-}
 
 .owl-theme .owl-nav .owl-prev {
     left: 0;
