@@ -97,31 +97,37 @@ class ProductDetailView(DetailView):
             {"route": reverse("apps.store:category-products"), "title": _("Products")},
         ]
 
-        ancestor_categories = Category.categories.ancestors_queryset(self.get_object().collection.category)
+        if getattr(self.get_object(), "collection"):
+            ancestor_categories = Category.categories.ancestors_queryset(
+                self.get_object().collection.category
+            )
 
-        if ancestor_categories and len(ancestor_categories) > 0:
+            if ancestor_categories and len(ancestor_categories) > 0:
+                context["breadcrumb"] += [
+                    {
+                        "route": reverse(
+                            "apps.store:category-products",
+                            kwargs={"category": category.slug},
+                        ),
+                        "title": category.category_name,
+                    }
+                    for category in ancestor_categories
+                ]
+
             context["breadcrumb"] += [
                 {
                     "route": reverse(
                         "apps.store:category-products",
-                        kwargs={"category": category.slug},
-                    ),
-                    "title": category.category_name,
-                }
-                for category in ancestor_categories
+                        kwargs={
+                            "category": self.get_object().collection.category.slug,
+                        },
+                    )
+                    + f"?collection={self.get_object().collection.slug}",
+                    "title": self.get_object().collection.name,
+                },
             ]
 
-        context["breadcrumb"] + [
-            {
-                "route": reverse(
-                    "apps.store:category-products",
-                    kwargs={
-                        "category": self.get_object().collection.category.slug,
-                    },
-                )
-                + f"?collection={self.get_object().collection.slug}",
-                "title": self.get_object().collection.name,
-            },
+        context["breadcrumb"] += [
             {
                 "route": self.request.path,
                 "title": self.get_object().name,

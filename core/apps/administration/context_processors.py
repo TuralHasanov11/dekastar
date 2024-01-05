@@ -13,67 +13,56 @@ def admin_menu(request):
             {
                 "title": _("Categories"),
                 "route": reverse("apps.administration:store-category-list-create"),
-                "permission": "store.view_category",
                 "icon": "book",
             },
             {
                 "title": _("Brands"),
                 "route": reverse("apps.administration:store-brand-list-create"),
-                "permission": "store.view_brand",
                 "icon": "globe",
             },
             {
                 "title": _("Collections"),
                 "route": reverse("apps.administration:store-collection-list-create"),
-                "permission": "store.view_collection",
                 "icon": "aperture",
             },
             {
                 "title": _("Products"),
                 "route": reverse("apps.administration:store-product-list"),
-                "permission": "store.view_product",
                 "icon": "shopping-bag",
             },
             {
                 "title": _("Orders"),
                 "route": reverse("apps.administration:order-list"),
-                "permission": "orders.view_order",
                 "icon": "shopping-cart",
             },
             {
                 "title": _("Banners"),
                 "route": reverse("apps.administration:banner-list-create"),
-                "permission": "main.view_banner",
                 "icon": "image",
             },
             {
                 "title": _("Site Images"),
                 "route": reverse("apps.administration:site-images"),
-                "permission": "main.view_siteimage",
                 "icon": "layout",
             },
             {
                 "title": _("About Us"),
                 "route": reverse("apps.administration:about"),
-                "permission": "main.view_sitetext",
                 "icon": "file-text",
             },
             {
                 "title": _("Privacy Policy"),
                 "route": reverse("apps.administration:privacy-policy"),
-                "permission": "main.view_sitetext",
                 "icon": "lock",
             },
             {
                 "title": _("Delivery Policy"),
                 "route": reverse("apps.administration:delivery-policy"),
-                "permission": "main.view_sitetext",
                 "icon": "truck",
             },
             {
                 "title": _("Contact Information"),
                 "route": reverse("apps.administration:contact"),
-                "permission": "main.view_companyinfo",
                 "icon": "phone",
             },
             {

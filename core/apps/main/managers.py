@@ -125,24 +125,26 @@ class SiteImageManager(ModelManager):
         return self.get_queryset().list_queryset()
 
     def detail_queryset(self):
-        return self.get_queryset().first()
+        return self.get_queryset()
 
     def privacy_policy_image(self):
         return getattr(
-            self.get_queryset().detail_queryset().only("privacy_policy_image"),
+            self.get_queryset().detail_queryset().only("privacy_policy_image").first(),
             "privacy_policy_image",
             "",
         )
 
     def delivery_policy_image(self):
         return getattr(
-            self.get_queryset().detail_queryset().only("delivery_policy_image"),
+            self.get_queryset().detail_queryset().only("delivery_policy_image").first(),
             "delivery_policy_image",
             "",
         )
 
     def about_image(self):
-        return getattr(self.get_queryset().detail_queryset().only("about_image"), "about_image", "")
+        return getattr(self.get_queryset().detail_queryset().only("about_image").first(), "about_image", "")
 
     def contact_image(self):
-        return getattr(self.get_queryset().detail_queryset().only("contact_image"), "contact_image", "")
+        return getattr(
+            self.get_queryset().detail_queryset().only("contact_image").first(), "contact_image", ""
+        )

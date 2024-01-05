@@ -418,9 +418,9 @@ class Product(models.Model):
     created_at = custom_model_fields.CreatedAtField()
     updated_at = custom_model_fields.UpdatedAtField()
 
+    objects = models.Manager()
     products = ProductManager()
     admin_products = ProductAdminManager()
-    objects = models.Manager()
 
     class Meta:
         ordering = ("-created_at",)

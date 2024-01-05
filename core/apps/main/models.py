@@ -118,7 +118,7 @@ post_save.connect(site_image_compressor, sender=SiteImage)
 
 
 def banner_image_path(instance, filename):
-    return f"banners/{instance.id}-{filename}"
+    return f"banners/{filename}"
 
 
 @cleanup.select

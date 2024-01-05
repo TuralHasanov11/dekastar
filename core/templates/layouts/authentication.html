@@ -14,11 +14,11 @@
     />
 
     <link href="{% static 'css/admin/main.css' %}" rel="stylesheet" />
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="{% static 'images/logo.png' %}"
-    />
+    <link rel="icon" type="image/x-icon" href="{% static 'images/icon.png' %}">
+    <link rel="icon" href="{% static 'images/icon.png' %}" sizes="32x32">
+    <link rel="icon" href="{% static 'images/icon.png' %}" sizes="192x192">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'images/icon.png' %}">
+    <meta name="msapplication-TileImage" content="{% static 'images/icon.png' %}">
 
     <title>{% block title %}{% endblock title %} | {% translate "Admin" %}</title>
   </head>

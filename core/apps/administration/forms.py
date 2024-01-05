@@ -137,7 +137,7 @@ class UserCreateForm(UserCreationForm):
         label=_("Role"),
         widget=forms.Select(attrs={"class": "form-select form-select-sm"}),
         queryset=auth_models.Group.objects.only("name"),
-        required=True,
+        required=False,
     )
     password1 = forms.CharField(
         label=_("Password"),
@@ -172,8 +172,9 @@ class UserCreateForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit)
-        group = auth_models.Group.objects.get(name=self.cleaned_data["group"])
-        user.groups.set([group])
+        if self.cleaned_data.get("group"):
+            group = auth_models.Group.objects.get(name=self.cleaned_data["group"])
+            user.groups.set([group])
         user.save()
         return user
 

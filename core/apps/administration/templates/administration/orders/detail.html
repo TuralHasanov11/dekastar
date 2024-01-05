@@ -69,14 +69,22 @@
                       <tr>
                         <th scope="row">{{forloop.counter}}</th>
                         <td>
+                            {% if item.product %}
                             <a href="{% url "apps.administration:store-product-update-delete" pk=item.product.pk %}">
-                                {{item.product.name}}
+                              {{item.product.name}}
                             </a>
+                            {% else %}
+                            {% translate "Deleted Product" %}
+                            {% endif %}
                         </td>
                         <td>{{item.sub_total}}</td>
                         <td>{{item.quantity}} {{item.quantity_type|get_product_quantity_type_display|safe}}</td>
                         <td>{{item.price}}</td>
-                        <td><img loading="lazy" width="30" height="30" src="{{item.product.get_image_feature}}" alt="{{item.product}}"></td>
+                        <td>
+                          {% if item.product %}
+                          <img loading="lazy" width="30" height="30" src="{{item.product.get_image_feature}}" alt="{{item.product}}">
+                          {% endif %}
+                        </td>
                       </tr>
                       {% endfor %}
                     </tbody>

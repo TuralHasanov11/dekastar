@@ -17,7 +17,7 @@ SITE_ID = 1
 if DEBUG:
     ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 else:
-    ALLOWED_HOSTS = [os.environ.get("SITE_HOST")]
+    ALLOWED_HOSTS = [os.environ.get("SITE_HOST"), os.environ.get("SITE_HOST2")]
 
 
 if not DEBUG:
@@ -163,15 +163,19 @@ LANGUAGES = (
 LOCALE_PATHS = (BASE_DIR / "locale/",)
 
 
-STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "static_cdn"
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+# STATIC_URL = "/static/"
+# STATIC_ROOT = BASE_DIR / "static_cdn"
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static",
+# ]
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
 
 MEDIA_URL = "/media/"
 if not DEBUG:
-    MEDIA_ROOT = "/home/dekastar/public_html/media/"
+    MEDIA_ROOT = "/home/dekaowop/public_html/media/"
 else:
     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 

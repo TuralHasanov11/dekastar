@@ -40,7 +40,7 @@ class PrivacyPolicyView(TemplateView):
 
     def get(self, request):
         privacy_policy = SiteText.site_texts.privacy_policy(language=get_language())
-        privacy_policy_image = SiteImage.objects.first()
+        privacy_policy_image = SiteImage.site_images.privacy_policy_image()
         return render(
             request,
             self.template_name,

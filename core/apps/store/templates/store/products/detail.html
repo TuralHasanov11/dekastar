@@ -33,6 +33,7 @@
                 <span>{{ product.code|default:"" }}</span>
               </div>
 
+              {% if product.collection %}
               <div class="info-box">
                 <span><strong>{% translate "Category" %}</strong></span>
                 <span>
@@ -41,7 +42,8 @@
                   </a>
                 </span>
               </div>
-
+              {% endif %}
+              
               {% if product.brand %}
               <div class="info-box">
                 <span><strong>{% translate "Brand" %}</strong></span>
@@ -165,6 +167,7 @@
       </div>
       {% endfor %}
     </div>
+    {% if product.collection %}
     <div class="wrapper-more">
       <a
         href="{% url 'apps.store:category-products' category=product.collection.category.slug %}"
@@ -173,6 +176,7 @@
         {% translate "View all related products" %}
       </a>
     </div>
+    {% endif %}
   </div>
 </section>
 
@@ -229,10 +233,8 @@
       </div>
       <div class="popup-cell">
         <div class="popup-buttons">
-          <a href="javascript:void(0);"
-            ><span class="icon icon-cart"></span>
-            <span class="hidden-xs">{% translate "Order" %}</span></a
-          >
+          <span><span class="icon icon-cart"></span>
+            <span class="hidden-xs">{% translate "Order" %}</span></span>
         </div>
       </div>
     </div>
