@@ -76,7 +76,7 @@
             <tr>
               <td>{{category.name}}</td>
               <td>{{category.parent|default:""}}</td>
-              <td>{% if category.cover_image %}<img loading="lazy" width="30" height="30" src="{{category.cover_image.url}}" alt="{{category.name}}">{% endif %}</td>
+              <td>{% if category.cover_image %}<img class="lazyload" width="30" height="30" data-src="{{category.cover_image.url}}" alt="{{category.name}}">{% endif %}</td>
               <td>
                 <a href="{% url 'apps.administration:store-category-update-delete' pk=category.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
                 <form

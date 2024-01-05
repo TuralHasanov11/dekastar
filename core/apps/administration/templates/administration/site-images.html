@@ -36,8 +36,8 @@
               {{ form.contact_image }} {{ form.contact_image.errors }}
               {% if site_image.contact_image %}
               <img
-                loading="lazy"
-                src="{{site_image.contact_image.url}}"
+                class="lazyload"
+                data-src="{{site_image.contact_image.url}}"
                 width="360"
                 height="200"
                 class="mt-3"
@@ -51,8 +51,8 @@
               {{ form.about_image }} {{ form.about_image.errors }}
               {% if site_image.about_image %}
               <img
-                loading="lazy"
-                src="{{site_image.about_image.url}}"
+                class="lazyload"
+                data-src="{{site_image.about_image.url}}"
                 width="360"
                 height="200"
                 class="mt-3"
@@ -66,8 +66,8 @@
               {{ form.delivery_policy_image }} {{ form.delivery_policy_image.errors }}
               {% if site_image.delivery_policy_image %}
               <img
-                loading="lazy"
-                src="{{site_image.delivery_policy_image.url}}"
+                class="lazyload"
+                data-src="{{site_image.delivery_policy_image.url}}"
                 width="360"
                 height="200"
                 class="mt-3"
@@ -81,8 +81,8 @@
               {{ form.privacy_policy_image }} {{ form.privacy_policy_image.errors }}
               {% if site_image.privacy_policy_image %}
               <img
-                loading="lazy"
-                src="{{site_image.privacy_policy_image.url}}"
+                class="lazyload"
+                data-src="{{site_image.privacy_policy_image.url}}"
                 width="360"
                 height="200"
                 class="mt-3"

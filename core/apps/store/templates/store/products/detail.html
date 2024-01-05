@@ -191,7 +191,7 @@
 
     <div class="owl-product-gallery owl-theme owl-carousel">
       {% for img in product.images %}
-      <img src="{{ img.image.url }}" loading="lazy" alt="{{ product }}" width="640" />
+      <img data-src="{{ img.image.url }}" class="lazyload" alt="{{ product }}" width="640" />
       {% endfor %}
     </div>
 

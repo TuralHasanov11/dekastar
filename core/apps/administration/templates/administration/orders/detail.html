@@ -82,7 +82,7 @@
                         <td>{{item.price}}</td>
                         <td>
                           {% if item.product %}
-                          <img loading="lazy" width="30" height="30" src="{{item.product.get_image_feature}}" alt="{{item.product}}">
+                          <img class="lazyload" width="30" height="30" data-src="{{item.product.get_image_feature}}" alt="{{item.product}}">
                           {% endif %}
                         </td>
                       </tr>

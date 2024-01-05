@@ -59,8 +59,8 @@
               >
               {{ form.image }} {{ form.image.errors }}
               <img
-                loading="lazy"
-                src="{{banner.image.url}}"
+                class="lazyload"
+                data-src="{{banner.image.url}}"
                 width="384"
                 height="208"
                 class="mt-3"

@@ -84,7 +84,7 @@
               <td>{{collection.name}}</td>
               <td><a href="{% url 'apps.administration:store-brand-update-delete' pk=collection.brand.pk %}">{{collection.brand}}</a></td>
               <td><a href="{% url 'apps.administration:store-category-update-delete' pk=collection.category.pk %}">{{collection.category.category_name}}</a></td>
-              <td>{% if collection.cover_image %}<img loading="lazy" width="80" height="40" src="{{collection.cover_image.url}}" alt="{{collection.name}}">{% endif %}</td>
+              <td>{% if collection.cover_image %}<img class="lazyload" width="80" height="40" data-src="{{collection.cover_image.url}}" alt="{{collection.name}}">{% endif %}</td>
               <td>
                 <a href="{% url 'apps.administration:store-collection-update-delete' pk=collection.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
                 <form

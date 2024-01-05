@@ -18,7 +18,7 @@
   <div class="container-fluid">
     <div class="image">
       {% if delivery_policy_image %}
-      <img src="{{delivery_policy_image.url}}" loading="lazy" />
+      <img data-src="{{delivery_policy_image.url}}" class="lazyload" />
       {% endif %}
     </div>
   </div>

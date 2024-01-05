@@ -19,11 +19,11 @@
           <li class="left-side">
             <a href="{% url 'apps.main:index' %}" class="logo-icon"
               ><img
-                src="{% static 'images/logo.png' %}"
+                data-src="{% static 'images/logo.png' %}"
                 alt="{% translate "Logo" %}"
                 width="150"
                 height="48"
-                loading="lazy"
+                class="lazyload"
             /></a>
           </li>
           {% if user.is_authenticated %}
@@ -39,7 +39,7 @@
 
 
       <div class="navigation navigation-main">
-        <a href="#" class="open-menu"><i class="icon icon-menu"></i></a>
+        <a href="#" aria-label="open-menu" class="open-menu"><i class="icon icon-menu"></i></a>
 
         <div class="floating-menu">
           <div class="close-menu-wrapper">

@@ -68,7 +68,7 @@
             {% for brand in brands %}
             <tr>
               <td>{{brand.name}}</td>
-              <td>{% if brand.cover_image %}<img loading="lazy" width="80" height="40" src="{{brand.cover_image.url}}" alt="{{brand.name}}">{% endif %}</td>
+              <td>{% if brand.cover_image %}<img class="lazyload" width="80" height="40" data-src="{{brand.cover_image.url}}" alt="{{brand.name}}">{% endif %}</td>
               <td>
                 <a href="{% url 'apps.administration:store-brand-update-delete' pk=brand.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
                 <form

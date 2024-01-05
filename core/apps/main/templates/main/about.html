@@ -18,7 +18,7 @@
   <div class="container-fluid">
     <div class="image">
       {% if about_image %}
-      <img src="{{about_image.url}}" loading="lazy" />
+      <img data-src="{{about_image.url}}" class="lazyload" />
       {% endif %}
     </div>
   </div>

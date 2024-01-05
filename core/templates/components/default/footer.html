@@ -12,9 +12,9 @@
             <div class="text-center">
               <a href="{% url 'apps.main:index' %}"
                 ><img
-                  src="{% static 'images/logo.png' %}"
+                  data-src="{% static 'images/logo.png' %}"
                   alt="{% translate "Logo" %}"
-                  loading="lazy"
+                  class="lazyload"
                   width="180"
                   height="55"
               /></a>

@@ -20,11 +20,11 @@
         <br>
         {% if collection.cover_image %}
         <img
-            src="{{collection.cover_image.url}}"
+            data-src="{{collection.cover_image.url}}"
             alt="{{collection}}"
             width="96"
             height="48"
-            loading="lazy"
+            class="lazyload"
         />
         {% endif %}
         <i>({{collection.products_count|default:0}})</i>

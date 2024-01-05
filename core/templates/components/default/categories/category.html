@@ -3,9 +3,9 @@
   <a href="{% url 'apps.store:category-products' category=category.slug %}">
     <div class="image">
       <img
-        src="{{category.cover_image.url}}"
+        data-src="{{category.cover_image.url}}"
         alt="{{category.category_name}}"
-        loading="lazy"
+        class="lazyload"
       />
     </div>
     <div class="entry entry-block">

@@ -120,7 +120,7 @@
                     {{ formset_item.DELETE.errors }}
                   </div>
                   {% if formset_item.image.value %}
-                  <img loading="lazy" src="{{formset_item.image.value.url}}" width="80" height="80" class="mt-3">
+                  <img class="lazyload" data-src="{{formset_item.image.value.url}}" width="80" height="80" class="mt-3">
                   {% endif %}
                   <div class="mb-4">
                       <label class="mb-1 small" for="{{ formset_item.image.id_for_label }}">{{ formset_item.image.label }}</label>

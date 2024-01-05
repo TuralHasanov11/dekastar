@@ -1,4 +1,6 @@
 {% load static %}
+<script src="{% static 'js/lazysizes.min.js' %}" async></script>
+
 <input
   id="csrftoken"
   value="{{csrf_token}}"
@@ -17,10 +19,10 @@
 <script src="{% static 'js/default/bootstrap.js' %}"></script>
 <script src="{% static 'js/default/include.js' %}"></script>
 <script src="{% static 'js/default/ion.rangeSlider.js' %}"></script>
-<script src="{% static 'js/default/magnific-popup.js' %}"></script>
+<script async src="{% static 'js/default/magnific-popup.js' %}"></script>
 <script src="{% static 'js/default/owl.carousel.js' %}"></script>
 <script src="{% static 'js/default/tilt.jquery.js' %}"></script>
-<script src="{% static 'js/default/jquery.easypiechart.js' %}"></script>
-<script src="{% static 'js/default/bigtext.js' %}"></script>
+<script async src="{% static 'js/default/jquery.easypiechart.js' %}"></script>
+<script async src="{% static 'js/default/bigtext.js' %}"></script>
 <script src="{% static 'js/default/main.js' %}"></script>
-<script src="{% static 'js/default/orders.js' %}"></script>
+<script async src="{% static 'js/default/orders.js' %}"></script>

@@ -52,9 +52,9 @@
         aria-haspopup="true"
         aria-expanded="false"
         ><img
-          loading="lazy"
+          class="lazyload"
           class="img-fluid"
-          src="https://ui-avatars.com/api/?name={{user.first_name}}+{{user.last_name}}&background=00ac69&color=fff&size=64"
+          data-src="https://ui-avatars.com/api/?name={{user.first_name}}+{{user.last_name}}&background=00ac69&color=fff&size=64"
       /></a>
       <div
         class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up"
@@ -62,9 +62,9 @@
       >
         <h6 class="dropdown-header d-flex align-items-center">
           <img
-            loading="lazy"
+            class="lazyload"
             class="dropdown-user-img"
-            src="https://ui-avatars.com/api/?name={{user.first_name}}+{{user.last_name}}&background=00ac69&color=fff&size=64"
+            data-src="https://ui-avatars.com/api/?name={{user.first_name}}+{{user.last_name}}&background=00ac69&color=fff&size=64"
           />
           <div class="dropdown-user-details">
             <div class="dropdown-user-details-name">{{user.username}}</div>

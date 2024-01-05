@@ -2605,7 +2605,7 @@
  * @author Bartosz Wojciechowski
  * @author Artus Kolanowski
  * @author David Deutsch
- * @author Tom De Caluwé
+ * @author Tom De Caluwï¿½
  * @license The MIT License (MIT)
  */
 ; (function ($, window, document, undefined) {
@@ -2967,7 +2967,7 @@
             '<span aria-label="' + 'Next' + '">&#x203a;</span>'
         ],
         navSpeed: false,
-        navElement: 'button type="button" role="presentation"',
+        navElement: 'button type="button" role="presentation" aria-label="owl-navigation">',
         navContainer: false,
         navContainerClass: 'owl-nav',
         navClass: [

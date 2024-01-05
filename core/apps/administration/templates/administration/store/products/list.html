@@ -70,7 +70,7 @@
               <td>{% if product.collection %}<a href="{% url 'apps.administration:store-collection-update-delete' pk=product.collection.pk %}">{{product.collection.name}}</a>{% endif %}</td>
               <td>{{product.regular_price}}</td>
               <td>{{product.discount}}</td>
-              <td><img loading="lazy" width="30" height="30" src="{{product.get_image_feature}}" alt="{{product}}"></td>
+              <td><img class="lazyload" width="30" height="30" data-src="{{product.get_image_feature}}" alt="{{product}}"></td>
               <td>
                 <a href="{% url 'apps.administration:store-product-update-delete' pk=product.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
               </td>
