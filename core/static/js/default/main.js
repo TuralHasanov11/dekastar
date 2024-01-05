@@ -631,15 +631,15 @@ $(function () {
 });
 
 $(window).on('load', function () {
-
-    setTimeout(function () {
-        $('.page-loader').addClass('loaded');
-    }, 1000);
-
-
     if ($(window).width() > 992) {
         $(window).on('resize', function () {
         });
     }
+});
 
+
+$(document).ready(function() {
+    setTimeout(function () {
+        $('.page-loader').addClass('loaded');
+    }, 50);
 });

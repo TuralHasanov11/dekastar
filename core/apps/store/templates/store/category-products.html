@@ -7,6 +7,10 @@
 {% block description %} 
 {% translate "Products Page Description" %} 
 {% endblock description %}
+{% block stylesheet %}
+<link rel="stylesheet" media="all" href="{% static 'css/default/ion-range-slider.css' %}" />
+{% endblock stylesheet %}
+
 {% block content %}
 <section class="products pt-4">
     <header>

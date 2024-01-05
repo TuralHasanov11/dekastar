@@ -3,6 +3,9 @@
 {% load i18n %}
 {% block title %}{% translate "Home" %}{% endblock title %}
 {% block description %}{% translate "Home Page Description" %}{% endblock description %}
+{% block stylesheet %}
+<link rel="stylesheet" media="all" href="{% static 'css/default/owl.carousel.css' %}" />
+{% endblock stylesheet %}
 
 {% block content %}
 {% include "components/default/slider.html" with banners=banners %}
