@@ -2,12 +2,14 @@ from apps.store import filters
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Count, Prefetch
+from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 from django_cleanup import cleanup
 from mptt.models import MPTTModel, TreeForeignKey, TreeManager
+from PIL import Image
 from shared import custom_model_fields
 
 
@@ -485,3 +487,33 @@ class ProductInformation(models.Model):
     text = custom_model_fields.TextUploadingField()
 
     objects = models.Manager()
+
+
+def product_image_compressor(sender, **kwargs):
+    if kwargs["instance"].image:
+        with Image.open(kwargs["instance"].image.path) as image:
+            image.save(kwargs["instance"].image.path, optimize=True, quality=15)
+
+
+def category_image_compressor(sender, **kwargs):
+    if kwargs["instance"].cover_image:
+        with Image.open(kwargs["instance"].cover_image.path) as image:
+            image.save(kwargs["instance"].cover_image.path, optimize=True, quality=15)
+
+
+def brand_image_compressor(sender, **kwargs):
+    if kwargs["instance"].cover_image:
+        with Image.open(kwargs["instance"].cover_image.path) as image:
+            image.save(kwargs["instance"].cover_image.path, optimize=True, quality=15)
+
+
+def collection_image_compressor(sender, **kwargs):
+    if kwargs["instance"].cover_image:
+        with Image.open(kwargs["instance"].cover_image.path) as image:
+            image.save(kwargs["instance"].cover_image.path, optimize=True, quality=15)
+
+
+post_save.connect(product_image_compressor, sender=ProductImage)
+post_save.connect(category_image_compressor, sender=Category)
+post_save.connect(brand_image_compressor, sender=Brand)
+post_save.connect(collection_image_compressor, sender=Collection)

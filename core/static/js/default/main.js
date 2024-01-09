@@ -565,22 +565,6 @@ $(function () {
         });
     }
 
-    // Easy pie chart
-    // ----------------------------------------------------------------
-
-    $('.chart').easyPieChart({
-        easing: 'easeOutBounce',
-        onStep: function (from, to, percent) {
-            $(this.el).find('.percent').text(Math.round(percent));
-        },
-        barColor: '#ffdc11',
-        trackColor: '#dddddd',
-        lineCap: 'square',
-        lineWidth: 4,
-        scaleLength: 0,
-        size: 80
-    });
-
     // Hover3d
     // ----------------------------------------------------------------
 
@@ -626,7 +610,7 @@ $(function () {
         } catch (error) { }
     })
 
-    
+
 
 });
 
@@ -637,9 +621,32 @@ $(window).on('load', function () {
     }
 });
 
-
-$(document).ready(function() {
+$(document).ready(function () {
     setTimeout(function () {
         $('.page-loader').addClass('loaded');
     }, 50);
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    var lazyBgElements = document.querySelectorAll('.lazy-bg');
+
+    lazyBgElements.forEach(function (element) {
+        var observer = new IntersectionObserver(function (entries, observer) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    // Replace the placeholder with the actual image
+                    var imageUrl = entry.target.getAttribute('data-src');
+                    entry.target.style.backgroundImage = 'url(' + imageUrl + ')';
+
+                    // Add the 'loaded' class
+                    entry.target.classList.add('bg-loaded');
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        observer.observe(element);
+    });
 });

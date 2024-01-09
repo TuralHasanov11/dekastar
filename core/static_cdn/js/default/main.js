@@ -565,22 +565,6 @@ $(function () {
         });
     }
 
-    // Easy pie chart
-    // ----------------------------------------------------------------
-
-    $('.chart').easyPieChart({
-        easing: 'easeOutBounce',
-        onStep: function (from, to, percent) {
-            $(this.el).find('.percent').text(Math.round(percent));
-        },
-        barColor: '#ffdc11',
-        trackColor: '#dddddd',
-        lineCap: 'square',
-        lineWidth: 4,
-        scaleLength: 0,
-        size: 80
-    });
-
     // Hover3d
     // ----------------------------------------------------------------
 
@@ -631,15 +615,15 @@ $(function () {
 });
 
 $(window).on('load', function () {
-
-    setTimeout(function () {
-        $('.page-loader').addClass('loaded');
-    }, 1000);
-
-
     if ($(window).width() > 992) {
         $(window).on('resize', function () {
         });
     }
+});
 
+$(document).ready(function() {
+    setTimeout(function () {
+        console.log("adasdd")
+        $('.page-loader').addClass('loaded');
+    }, 50);
 });

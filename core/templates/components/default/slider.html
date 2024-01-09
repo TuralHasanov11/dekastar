@@ -6,9 +6,9 @@
       {% for banner in banners %}
       <a
         href="{{banner.link}}"
-        class="item d-flex align-items-center"
+        class="item d-flex align-items-center lazy-bg" 
         aria-label="image-{{forloop.counter}}"
-        style="background-image: url({{banner.image.url}})"
+        data-src="{{banner.image.url}}"
       >
         <div class="container">
           <div class="caption">
