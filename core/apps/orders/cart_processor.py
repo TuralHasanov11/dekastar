@@ -54,7 +54,7 @@ class CartProcessor:
 
     @property
     def get_total_discount(self) -> Decimal:
-        return self.get_total_regular_price - self.get_total_price
+        return (self.get_total_regular_price - self.get_total_price) * (-1)
 
     def add(self, product: Product, quantity: int = None):
         product_id = str(product.id)

@@ -346,7 +346,8 @@ class CompanyInfoForm(forms.ModelForm):
                 "rows": 5,
                 "title": _("Please enter address"),
             }
-        ),
+        ), 
+        required=True
     )
     working_hours = forms.CharField(
         label=_("Working Hours"),
@@ -356,7 +357,8 @@ class CompanyInfoForm(forms.ModelForm):
                 "placeholder": _("Working Hours"),
                 "title": _("Please enter working hours"),
             }
-        ),
+        ), 
+        required=True
     )
 
     class Meta:
@@ -374,7 +376,7 @@ class SiteImageForm(forms.ModelForm):
         label=_("Contact Image"),
         widget=forms.FileInput(
             attrs={
-                "class": "form-control form-control-sm",
+                "class": "form-control form-control-sm mb-2",
                 "placeholder": _("Contact Image"),
                 "title": _("Please upload contact image"),
                 "multiple": False,
@@ -386,7 +388,7 @@ class SiteImageForm(forms.ModelForm):
         label=_("About Image"),
         widget=forms.FileInput(
             attrs={
-                "class": "form-control form-control-sm",
+                "class": "form-control form-control-sm mb-2",
                 "placeholder": _("About Image"),
                 "title": _("Please upload about image"),
                 "multiple": False,
@@ -398,7 +400,7 @@ class SiteImageForm(forms.ModelForm):
         label=_("Delivery Policy Image"),
         widget=forms.FileInput(
             attrs={
-                "class": "form-control form-control-sm",
+                "class": "form-control form-control-sm mb-2",
                 "placeholder": _("Delivery Policy Image"),
                 "title": _("Please upload delivery policy image"),
                 "multiple": False,
@@ -410,7 +412,7 @@ class SiteImageForm(forms.ModelForm):
         label=_("Privacy Policy Image"),
         widget=forms.FileInput(
             attrs={
-                "class": "form-control form-control-sm",
+                "class": "form-control form-control-sm mb-2",
                 "placeholder": _("Privacy Policy Image"),
                 "title": _("Please upload privacy policy image"),
                 "multiple": False,
@@ -444,7 +446,7 @@ class BannerForm(forms.ModelForm):
         label=_("Image"),
         widget=forms.FileInput(
             attrs={
-                "class": "form-control form-control-sm",
+                "class": "form-control form-control-sm mb-2",
                 "placeholder": _("Image"),
                 "title": _("Please upload Image"),
                 "multiple": False,
@@ -479,7 +481,7 @@ class CategoryForm(forms.ModelForm):
         label=_("Cover Image"),
         widget=forms.FileInput(
             attrs={
-                "class": "form-control form-control-sm",
+                "class": "form-control form-control-sm mb-2",
                 "placeholder": _("Cover Image"),
                 "title": _("Please upload cover Image"),
                 "multiple": False,
@@ -539,7 +541,7 @@ class BrandForm(forms.ModelForm):
         label=_("Cover Image"),
         widget=forms.FileInput(
             attrs={
-                "class": "form-control form-control-sm",
+                "class": "form-control form-control-sm mb-2",
                 "placeholder": _("Cover Image"),
                 "title": _("Please upload cover Image"),
                 "multiple": False,
@@ -568,7 +570,7 @@ class CollectionForm(forms.ModelForm):
         label=_("Cover Image"),
         widget=forms.FileInput(
             attrs={
-                "class": "form-control form-control-sm",
+                "class": "form-control form-control-sm mb-2",
                 "placeholder": _("Cover Image"),
                 "title": _("Please upload cover Image"),
                 "multiple": False,
@@ -697,7 +699,7 @@ class ProductImageForm(forms.ModelForm):
         label=_("Image"),
         widget=forms.ClearableFileInput(
             attrs={
-                "class": "form-control form-control-sm",
+                "class": "form-control form-control-sm mb-2",
                 "placeholder": _("Image"),
                 "title": _("Please upload image"),
                 "multiple": False,

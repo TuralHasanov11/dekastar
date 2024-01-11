@@ -121,7 +121,7 @@
                         </div>
                         <div>
                             <span class="text-success">
-                                &#8380; -<span id="checkout-discount-price">{{cart.get_total_discount}}</span>
+                                &#8380; <span id="checkout-discount-price">{{cart.get_total_discount|default:0}}</span>
                             </span>
                         </div>
                     </div>
@@ -145,10 +145,11 @@
                 <div class="row">
                     <div class="col-md-4 offset-md-8">
                         <div class="cart-block cart-block-footer cart-block-footer-price clearfix">
-                            <div>
-                                <div class="h2">&#8380; 
+                            <div class="w-100">
+                                <h2>
+                                    &#8380; 
                                     <span class="checkout-total-price">{{cart.get_total_price}}</span>
-                                </div>
+                                </h2>
                             </div>
                         </div>
                     </div>
