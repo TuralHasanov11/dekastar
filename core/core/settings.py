@@ -30,9 +30,6 @@ if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
-CORS_ALLOWED_ORIGIN_REGEXES = [SITE_URL, os.environ.get("SITE_URL2", None)]
-
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -408,12 +405,8 @@ MAINTENANCE_MODE = int(os.environ.get("MAINTENANCE_MODE", 0))
 MAINTENANCE_BYPASS_QUERY = os.environ.get("MAINTENANCE_BYPASS_QUERY")
 
 
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    SITE_URL,
-    os.environ.get("SITE_URL2", None),
-]
-
 CORS_URLS_REGEX = r"^/api/.*$"
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 WHATSAPP_NUMBER = os.environ.get("WHATSAPP_NUMBER", "")

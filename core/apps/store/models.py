@@ -453,6 +453,10 @@ class Product(models.Model):
     def is_active_display_value(self):
         return _("Active") if self.is_active else _("Not Active")
 
+    @property
+    def in_stock_display_value(self):
+        return _("In Stock") if self.in_stock is True else _("Not In Stock")
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         if self.discount is not None:
