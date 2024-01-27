@@ -2,8 +2,9 @@ from enum import Enum
 
 
 class SocialMediaPlatformIconContainer(Enum):
-    INSTAGRAM = "fa fa-instagram"
-    FACEBOOK = "fa fa-facebook"
-    TWITTER = "fa fa-twitter"
-    PINTEREST = "fa fa-pinterest"
-    GOOGLEPLUS = "fa fa-google-plus-square"
+    INSTAGRAM = "fa-brands fa-instagram"
+    FACEBOOK = "fa-brands fa-facebook"
+    TWITTER = "fa-brands fa-twitter"
+    PINTEREST = "fa-brands fa-pinterest"
+    GOOGLEPLUS = "fa-brands fa-google-plus-square"
+    TIKTOK = "fa-brands fa-tiktok"

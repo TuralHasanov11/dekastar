@@ -171,7 +171,6 @@ class FilterListView(APIView):
 
         data["current_category"] = {}
         data["ancestor_categories"] = []
-        print(form.cleaned_data)
 
         if form.cleaned_data.get("category") != "":
             current_category = Category.categories.list_queryset().get(slug=query_params.get("category"))

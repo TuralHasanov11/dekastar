@@ -34,6 +34,7 @@ class SocialMediaLink(models.Model):
         TWITTER = "TWITTER", _("Twitter")
         PINTEREST = "PINTEREST", _("Pinterest")
         GOOGLEPLUS = "GOOGLEPLUS", _("GooglePlus")
+        TIKTOK = "TIKTOK", _("TikTok")
 
     platform = models.CharField(max_length=50, choices=Platforms.choices)
     link = models.URLField()

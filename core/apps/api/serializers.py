@@ -1,3 +1,4 @@
+from apps.api import utils
 from apps.main.models import Banner, CompanyInfo, ContactEmail, ContactPhone, SiteText
 from apps.store.models import (
     Brand,
@@ -46,12 +47,19 @@ class CartProductSerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    cover_image = serializers.SerializerMethodField()
+
     class Meta:
         model = Category
         fields = ("id", "name", "slug", "parent", "cover_image", "category_name", "created_at", "updated_at")
 
+    def get_cover_image(self, obj):
+        return utils.get_image_absolute_path(obj.cover_image.url) if hasattr(obj.cover_image, "url") else ""
+
 
 class BrandSerializer(serializers.ModelSerializer):
+    cover_image = serializers.SerializerMethodField()
+
     class Meta:
         model = Brand
         fields = (
@@ -63,27 +71,40 @@ class BrandSerializer(serializers.ModelSerializer):
             "updated_at",
         )
 
+    def get_cover_image(self, obj):
+        return utils.get_image_absolute_path(obj.cover_image.url) if hasattr(obj.cover_image, "url") else ""
+
 
 class CollectionSerializer(serializers.ModelSerializer):
     products_count = serializers.ReadOnlyField()
+    cover_image = serializers.SerializerMethodField()
 
     class Meta:
         model = Collection
         fields = ("id", "name", "slug", "cover_image", "products_count", "created_at", "updated_at")
 
+    def get_cover_image(self, obj):
+        return utils.get_image_absolute_path(obj.cover_image.url) if hasattr(obj.cover_image, "url") else ""
+
 
 class CollectionDetailSerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True)
     brand = BrandSerializer(read_only=True)
+    cover_image = serializers.SerializerMethodField()
 
     class Meta:
         model = Collection
         fields = ("id", "name", "slug", "cover_image", "category", "brand", "created_at", "updated_at")
 
+    def get_cover_image(self, obj):
+        return utils.get_image_absolute_path(obj.cover_image.url) if hasattr(obj.cover_image, "url") else ""
+
 
 class ProductSerializer(serializers.ModelSerializer):
     is_active_display_value = serializers.ReadOnlyField()
     in_stock_display_value = serializers.ReadOnlyField()
+    collection = CollectionSerializer(read_only=True)
+    image_feature_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
@@ -95,11 +116,17 @@ class ProductSerializer(serializers.ModelSerializer):
             "discount",
             "discount_price",
             "in_stock",
-            "get_image_feature",
             "is_active_display_value",
             "in_stock_display_value",
+            "image_feature_url",
+            "collection",
             "created_at",
             "updated_at",
+        )
+
+    def get_image_feature_url(self, obj):
+        return (
+            utils.get_image_absolute_path(obj.get_image_feature) if hasattr(obj, "get_image_feature") else ""
         )
 
 
@@ -146,9 +173,14 @@ class BannerSerializer(serializers.ModelSerializer):
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = ProductImage
         fields = ("id", "image", "is_feature")
+
+    def get_image(self, obj):
+        return utils.get_image_absolute_path(obj.image.url) if hasattr(obj.image, "url") else ""
 
 
 class ProductInformationSerializer(serializers.ModelSerializer):
@@ -162,6 +194,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
     collection = CollectionDetailSerializer(read_only=True)
     images = ProductImageSerializer(many=True, read_only=True)
     information = ProductInformationSerializer()
+    image_feature_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
@@ -173,11 +206,16 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "discount",
             "discount_price",
             "in_stock",
-            "get_image_feature",
             "in_stock_display_value",
             "collection",
             "images",
             "information",
+            "image_feature_url",
             "created_at",
             "updated_at",
+        )
+
+    def get_image_feature_url(self, obj):
+        return (
+            utils.get_image_absolute_path(obj.get_image_feature) if hasattr(obj, "get_image_feature") else ""
         )
