@@ -184,6 +184,9 @@ class Brand(models.Model):
     def __str__(self):
         return str(self.name)
 
+    def get_absolute_url(self):
+        return reverse("apps.store:category-products") + f"?brand={self.slug}"
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
@@ -248,6 +251,9 @@ class Collection(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+    def get_absolute_url(self):
+        return reverse("apps.store:category-products") + f"?collection={self.slug}"
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
