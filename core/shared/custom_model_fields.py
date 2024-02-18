@@ -56,6 +56,7 @@ class TextUploadingField(ckeditor_uploader_fields.RichTextUploadingField):
 class ProductQuantityType(models.TextChoices):
     SQUARE_METER = "SQUARE_METER", _("Square Meter")
     NUMBER = "NUMBER", _("Number")
+    BOX = "BOX", _("Box")
 
 
 class WEBPFieldFile(ImageFieldFile):

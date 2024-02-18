@@ -76,6 +76,10 @@ class CategoryProductsView(TemplateView):
             )
         )
 
+        if query_params.get("collection", None):
+            collection = Collection.objects.get(slug=query_params.get("collection"))
+            form.data["brand"] = context["brands"].get(id=collection.brand_id).slug
+
         context["all_products_count"] = products.count()
         context["in_stock_products_count"] = Product.products.in_stock_count(products)
         context["filter_form"] = form

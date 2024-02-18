@@ -20,6 +20,7 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_api_key.permissions import HasAPIKey
 
 logger = logging.getLogger("main")
 
@@ -147,6 +148,7 @@ class CartDetailView(APIView):
 class CategoryListView(generics.ListAPIView):
     serializer_class = serializers.CategorySerializer
     model = Category
+    permission_classes = [HasAPIKey]
 
     def get_queryset(self):
         translation.activate(self.request.GET.get("lang", settings.LANGUAGE_CODE))
@@ -156,6 +158,7 @@ class CategoryListView(generics.ListAPIView):
 class FilterListView(APIView):
     http_method_names = ["get"]
     form_class = ProductFilterForm
+    permission_classes = [HasAPIKey]
 
     def get(self, request):
         query_params = request.GET.copy()
@@ -195,6 +198,10 @@ class FilterListView(APIView):
             )
         )
 
+        if form.cleaned_data.get("collection", None):
+            collection = Collection.objects.get(slug=form.cleaned_data.get("collection"))
+            data["current_brand"] = serializers.BrandSerializer(brands.get(id=collection.brand_id)).data
+
         category_list_serializer = serializers.CategorySerializer(categories, many=True)
         data["categories"] = category_list_serializer.data
         collection_list_serializer = serializers.CollectionSerializer(collections, many=True)
@@ -209,6 +216,7 @@ class ProductListView(APIView):
     model = Product
     form_class = ProductFilterForm
     http_method_names = ["get"]
+    permission_classes = [HasAPIKey]
 
     def get(self, request):
         translation.activate(request.GET.get("lang", settings.LANGUAGE_CODE))
@@ -236,6 +244,7 @@ class ProductListView(APIView):
 
 class PrivacyPolicyView(APIView):
     http_method_names = ["get"]
+    permission_classes = [HasAPIKey]
 
     def get(self, request):
         privacy_policy_serializer = serializers.PrivacyPolicySerializer(
@@ -252,6 +261,7 @@ class PrivacyPolicyView(APIView):
 
 class DeliveryPolicyView(APIView):
     http_method_names = ["get"]
+    permission_classes = [HasAPIKey]
 
     def get(self, request):
         delivery_policy_serializer = serializers.DeliveryPolicySerializer(
@@ -268,6 +278,7 @@ class DeliveryPolicyView(APIView):
 
 class ContactView(APIView):
     http_method_names = ["get"]
+    permission_classes = [HasAPIKey]
 
     def get(self, request):
         contact_emails_serializer = serializers.ContactEmailSerializer(
@@ -294,6 +305,7 @@ class ContactView(APIView):
 
 class AboutView(APIView):
     http_method_names = ["get"]
+    permission_classes = [HasAPIKey]
 
     def get(self, request):
         about_serializer = serializers.AboutSerializer(
@@ -309,11 +321,13 @@ class AboutView(APIView):
 
 
 class BannerListView(generics.ListAPIView):
+    permission_classes = [HasAPIKey]
     queryset = Banner.banners.list_queryset()
     serializer_class = serializers.BannerSerializer
 
 
 class ProductDetailView(APIView):
+    permission_classes = [HasAPIKey]
     model = Product
     serializer_class = serializers.ProductDetailSerializer
     http_method_names = ["get"]
@@ -328,6 +342,7 @@ class ProductDetailView(APIView):
 
 
 class RelatedProductListView(generics.ListAPIView):
+    permission_classes = [HasAPIKey]
     serializer_class = serializers.ProductSerializer
     model = Product
 

@@ -193,7 +193,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
     in_stock_display_value = serializers.ReadOnlyField()
     collection = CollectionDetailSerializer(read_only=True)
     images = ProductImageSerializer(many=True, read_only=True)
-    information = ProductInformationSerializer()
+    information_text = serializers.SerializerMethodField()
     image_feature_url = serializers.SerializerMethodField()
 
     class Meta:
@@ -209,7 +209,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "in_stock_display_value",
             "collection",
             "images",
-            "information",
+            "information_text",
             "image_feature_url",
             "created_at",
             "updated_at",
@@ -219,3 +219,6 @@ class ProductDetailSerializer(serializers.ModelSerializer):
         return (
             utils.get_image_absolute_path(obj.get_image_feature) if hasattr(obj, "get_image_feature") else ""
         )
+
+    def get_information_text(self, obj):
+        return obj.get_information

@@ -36,6 +36,7 @@
           <thead>
             <tr>
               <th>{% translate "Name" %}</th>
+              <th>{% translate "Code" %}</th>
               <th>{% translate "Category" %}</th>
               <th>{% translate "Brand" %}</th>
               <th>{% translate "Collection" %}</th>
@@ -48,6 +49,7 @@
           <tfoot>
             <tr>
               <th>{% translate "Name" %}</th>
+              <th>{% translate "Code" %}</th>
               <th>{% translate "Category" %}</th>
               <th>{% translate "Brand" %}</th>
               <th>{% translate "Collection" %}</th>
@@ -65,6 +67,7 @@
                   {{product.name}}
                 </a>
               </td>
+              <td>{{product.code}}</td>
               <td>{% if product.collection.category %}<a href="{% url 'apps.administration:store-category-update-delete' pk=product.collection.category.pk %}">{{product.collection.category.category_name}}</a>{% endif %}</td>
               <td>{% if product.collection.brand %}<a href="{% url 'apps.administration:store-brand-update-delete' pk=product.collection.brand.pk %}">{{product.collection.brand}}</a>{% endif %}</td>
               <td>{% if product.collection %}<a href="{% url 'apps.administration:store-collection-update-delete' pk=product.collection.pk %}">{{product.collection.name}}</a>{% endif %}</td>

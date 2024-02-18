@@ -10,6 +10,7 @@ register = template.Library()
 class ProductQuantityType(enum.Enum):
     SQUARE_METER = "m<sup>2</sup>"
     NUMBER = _("number")
+    BOX = _("box")
 
 
 @register.filter

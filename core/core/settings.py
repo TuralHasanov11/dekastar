@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "ckeditor_uploader",
     "mptt",
     "rest_framework",
+    "rest_framework_api_key",
     "corsheaders",
     "apps.main",
     "apps.administration",
@@ -414,3 +415,12 @@ WHATSAPP_NUMBER = os.environ.get("WHATSAPP_NUMBER", "")
 
 DJANGO_ADMIN_URL_SUFFIX = os.environ.get("DJANGO_ADMIN_URL_SUFFIX")
 ADMIN_URL_SUFFIX = os.environ.get("ADMIN_URL_SUFFIX")
+
+
+API_KEY_CUSTOM_HEADER = "HTTP_X_API_KEY"
+
+# REST_FRAMEWORK = {
+#     "DEFAULT_PERMISSION_CLASSES": [
+#         "rest_framework_api_key.permissions.HasAPIKey",
+#     ]
+# }
