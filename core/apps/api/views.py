@@ -10,10 +10,12 @@ from apps.main.models import (
     SiteText,
 )
 from apps.orders.cart_processor import CartProcessor
+from apps.orders.models import Order
 from apps.store.favorites_processor import FavoritesProcessor
 from apps.store.forms import ProductFilterForm
 from apps.store.models import Brand, Category, Collection, Product
 from django.conf import settings
+from django.db import transaction
 from django.db.models import Count, OuterRef, Subquery
 from django.utils import translation
 from django.utils.translation import gettext_lazy as _
@@ -350,3 +352,31 @@ class RelatedProductListView(generics.ListAPIView):
         translation.activate(self.request.GET.get("lang", settings.LANGUAGE_CODE))
         product = self.model.products.get(slug=self.kwargs.get("slug"))
         return self.model.products.related_products_queryset(product=product)
+
+
+class CheckoutView(APIView):
+    serializer_class = serializers.CheckoutSerializer
+    http_method_names = ["post"]
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            data = serializer.validated_data
+            data.pop("terms_agreed")
+            cart = data.pop("cart")
+            with transaction.atomic():
+                order = Order(
+                    **data,
+                    total_paid=sum(item["price"] * item["quantity"] for item in cart),
+                )
+                order.save()
+                for item in cart:
+                    order.add_item(
+                        item["product_id"],
+                        item["product_quantity_type"],
+                        item["price"],
+                        item["price"] * item["quantity"],
+                        item["quantity"],
+                    )
+                return Response(data={"order_id": str(order.uuid)}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

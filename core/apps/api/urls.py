@@ -24,4 +24,5 @@ urlpatterns = [
         views.RelatedProductListView.as_view(),
         name="related-product-list",
     ),
+    path("checkout", views.CheckoutView.as_view(), name="checkout"),
 ]

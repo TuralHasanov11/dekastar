@@ -35,7 +35,11 @@ class CheckoutView(TemplateView):
                 order.save()
                 for item in cart:
                     order.add_item(
-                        cart_item=item
+                        item["product"]["id"],
+                        item["product"]["quantity_type"],
+                        item["price"],
+                        item["total_price"],
+                        item["quantity"],
                     )
                 order_processor = OrderProcessor(request=request)
                 order_processor.create(order_id=str(order.uuid))

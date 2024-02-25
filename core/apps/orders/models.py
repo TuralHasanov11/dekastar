@@ -81,15 +81,16 @@ class Order(models.Model):
         self.code = (
             self.name[0].capitalize() + str(self.pk) + "-" + datetime.datetime.now().strftime("%Y%m%d")
         )
+        self.uuid = uuid.uuid4()
         return super().save(*args, **kwargs)
 
-    def add_item(self, cart_item) -> None:
+    def add_item(self, product_id, quantity_type, price, sub_total, quantity) -> None:
         self.items.create(
-            product_id=cart_item["product"]["id"],
-            quantity_type=cart_item["product"]["quantity_type"],
-            price=cart_item["price"],
-            sub_total=cart_item["total_price"],
-            quantity=cart_item["quantity"],
+            product_id=product_id,
+            quantity_type=quantity_type,
+            price=price,
+            sub_total=sub_total,
+            quantity=quantity,
         )
 
 

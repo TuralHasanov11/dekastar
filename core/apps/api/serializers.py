@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 from apps.api import utils
 from apps.main.models import Banner, CompanyInfo, ContactEmail, ContactPhone, SiteText
+from apps.orders.models import Order
 from apps.store.models import (
     Brand,
     Category,
@@ -9,6 +12,7 @@ from apps.store.models import (
     ProductInformation,
 )
 from rest_framework import serializers
+from shared import custom_model_fields
 
 
 class FavoritesSerializer(serializers.Serializer):
@@ -222,3 +226,29 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
     def get_information_text(self, obj):
         return obj.get_information
+
+
+class CheckoutItemSerializer(serializers.Serializer):
+    price = serializers.DecimalField(required=True, max_digits=6, decimal_places=2)
+    quantity = serializers.IntegerField(required=True)
+    product_id = serializers.IntegerField(required=True)
+    product_quantity_type = serializers.ChoiceField(
+        required=True,
+        initial=custom_model_fields.ProductQuantityType.NUMBER,
+        choices=custom_model_fields.ProductQuantityType.choices
+    )
+
+    class Meta:
+        fields = ("price", "quantity", "product_id", "product_quantity_type")
+
+
+class CheckoutSerializer(serializers.Serializer):
+    name = serializers.CharField(required=True)
+    phone = serializers.CharField(required=True)
+    address = serializers.CharField(required=True)
+    terms_agreed = serializers.BooleanField(required=True)
+    cart = CheckoutItemSerializer(many=True, required=True)
+
+    class Meta:
+        model = Order
+        fields = ("name", "phone", "terms_agreed", "address")
