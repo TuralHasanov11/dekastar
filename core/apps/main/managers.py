@@ -1,3 +1,4 @@
+from apps.api import utils
 from data.managers.managers import ModelManager, QuerySet
 
 
@@ -128,23 +129,27 @@ class SiteImageManager(ModelManager):
         return self.get_queryset()
 
     def privacy_policy_image(self):
-        return getattr(
+        image = getattr(
             self.get_queryset().detail_queryset().only("privacy_policy_image").first(),
             "privacy_policy_image",
             "",
         )
+        return utils.get_image_absolute_path(image.url) if image else ""
 
     def delivery_policy_image(self):
-        return getattr(
+        image = getattr(
             self.get_queryset().detail_queryset().only("delivery_policy_image").first(),
             "delivery_policy_image",
             "",
         )
+        return utils.get_image_absolute_path(image.url) if image else ""
 
     def about_image(self):
-        return getattr(self.get_queryset().detail_queryset().only("about_image").first(), "about_image", "")
+        image = getattr(self.get_queryset().detail_queryset().only("about_image").first(), "about_image", "")
+        return utils.get_image_absolute_path(image.url) if image else ""
 
     def contact_image(self):
-        return getattr(
+        image = getattr(
             self.get_queryset().detail_queryset().only("contact_image").first(), "contact_image", ""
         )
+        return utils.get_image_absolute_path(image.url) if image else ""

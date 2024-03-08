@@ -279,7 +279,7 @@ class ProductQuerySet(models.QuerySet):
         return self.prefetch_related(
             Prefetch(
                 "collection",
-                queryset=Collection.objects.all(),
+                queryset=Collection.objects.select_related("brand").all(),
             ),
         ).prefetch_related(
             Prefetch(

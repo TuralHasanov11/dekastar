@@ -44,13 +44,6 @@
               </div>
               {% endif %}
               
-              {% if product.brand %}
-              <div class="info-box">
-                <span><strong>{% translate "Brand" %}</strong></span>
-                <span>{{product.brand }}</span>
-              </div>
-              {% endif %}
-
               {% if product.collection %}
               <div class="info-box">
                 <span><strong>{% translate "Collection" %}</strong></span>
@@ -58,6 +51,12 @@
                   {{product.collection }}
                 </a></span>
               </div>
+              {% if product.collection.brand %}
+              <div class="info-box">
+                <span><strong>{% translate "Brand" %}</strong></span>
+                <span>{{product.collection.brand }}</span>
+              </div>
+              {% endif %}
               {% endif %}
 
               <div class="info-box">

@@ -221,7 +221,6 @@ class ProductListView(APIView):
     permission_classes = [HasAPIKey]
 
     def get(self, request):
-        translation.activate(request.GET.get("lang", settings.LANGUAGE_CODE))
         query_params = request.GET.copy()
         form = self.form_class(query_params)
         products = Product.products
@@ -249,13 +248,13 @@ class PrivacyPolicyView(APIView):
     permission_classes = [HasAPIKey]
 
     def get(self, request):
-        privacy_policy_serializer = serializers.PrivacyPolicySerializer(
-            SiteText.site_texts.privacy_policy(language=request.GET.get("lang", settings.LANGUAGE_CODE))
+        privacy_policy_text = SiteText.site_texts.privacy_policy(
+            language=request.GET.get("lang", settings.LANGUAGE_CODE)
         )
         privacy_policy_image = SiteImage.site_images.privacy_policy_image()
         return Response(
             data={
-                "site_text": privacy_policy_serializer.data,
+                "privacy_policy_text": privacy_policy_text,
                 "privacy_policy_image": str(privacy_policy_image),
             }
         )
@@ -266,13 +265,13 @@ class DeliveryPolicyView(APIView):
     permission_classes = [HasAPIKey]
 
     def get(self, request):
-        delivery_policy_serializer = serializers.DeliveryPolicySerializer(
-            SiteText.site_texts.delivery_policy(language=request.GET.get("lang", settings.LANGUAGE_CODE))
+        delivery_policy_text = SiteText.site_texts.delivery_policy(
+            language=request.GET.get("lang", settings.LANGUAGE_CODE)
         )
         delivery_policy_image = SiteImage.site_images.delivery_policy_image()
         return Response(
             data={
-                "site_text": delivery_policy_serializer.data,
+                "delivery_policy_text": delivery_policy_text,
                 "delivery_policy_image": str(delivery_policy_image),
             }
         )
@@ -310,13 +309,11 @@ class AboutView(APIView):
     permission_classes = [HasAPIKey]
 
     def get(self, request):
-        about_serializer = serializers.AboutSerializer(
-            SiteText.site_texts.about(language=request.GET.get("lang", settings.LANGUAGE_CODE))
-        )
+        about_text = SiteText.site_texts.about(language=request.GET.get("lang", settings.LANGUAGE_CODE))
         about_image = SiteImage.site_images.about_image()
         return Response(
             data={
-                "site_text": about_serializer.data,
+                "about_text": about_text,
                 "about_image": str(about_image),
             }
         )
