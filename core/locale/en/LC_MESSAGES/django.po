@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-18 13:04+0100\n"
+"POT-Creation-Date: 2024-04-21 19:50+0200\n"
 "PO-Revision-Date: 2023-12-07 13:34+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,7 +35,7 @@ msgstr ""
 msgid "Brands"
 msgstr ""
 
-#: .\apps\administration\context_processors.py:24 .\apps\store\models.py:250
+#: .\apps\administration\context_processors.py:24 .\apps\store\models.py:253
 msgid "Collections"
 msgstr ""
 
@@ -43,7 +43,7 @@ msgstr ""
 #: .\apps\administration\templates\administration\orders\detail.html:54
 #: .\apps\administration\views.py:64
 #: .\apps\store\templates\store\category-products.html:5
-#: .\apps\store\views.py:40 .\apps\store\views.py:101
+#: .\apps\store\views.py:19 .\apps\store\views.py:110
 msgid "Products"
 msgstr ""
 
@@ -286,7 +286,7 @@ msgid "Please enter link"
 msgstr ""
 
 #: .\apps\administration\forms.py:446 .\apps\administration\forms.py:450
-#: .\apps\administration\forms.py:699 .\apps\administration\forms.py:703
+#: .\apps\administration\forms.py:735 .\apps\administration\forms.py:739
 #: .\apps\administration\templates\administration\banners\index.html:64
 #: .\apps\administration\templates\administration\banners\index.html:72
 #: .\apps\administration\templates\administration\orders\detail.html:64
@@ -298,7 +298,7 @@ msgid "Please upload Image"
 msgstr ""
 
 #: .\apps\administration\forms.py:458 .\apps\main\models.py:151
-#: .\apps\store\models.py:460
+#: .\apps\store\models.py:463
 msgid "Active"
 msgstr ""
 
@@ -306,7 +306,7 @@ msgstr ""
 #: .\apps\administration\forms.py:506 .\apps\administration\forms.py:510
 #: .\apps\administration\forms.py:531 .\apps\administration\forms.py:535
 #: .\apps\administration\forms.py:560 .\apps\administration\forms.py:564
-#: .\apps\administration\forms.py:609 .\apps\administration\forms.py:613
+#: .\apps\administration\forms.py:619 .\apps\administration\forms.py:623
 #: .\apps\administration\templates\administration\orders\detail.html:48
 #: .\apps\administration\templates\administration\orders\list.html:46
 #: .\apps\administration\templates\administration\orders\list.html:57
@@ -314,8 +314,8 @@ msgstr ""
 #: .\apps\administration\templates\administration\store\brands\index.html:62
 #: .\apps\administration\templates\administration\store\categories\index.html:60
 #: .\apps\administration\templates\administration\store\categories\index.html:68
-#: .\apps\administration\templates\administration\store\collections\index.html:65
-#: .\apps\administration\templates\administration\store\collections\index.html:74
+#: .\apps\administration\templates\administration\store\collections\index.html:70
+#: .\apps\administration\templates\administration\store\collections\index.html:79
 #: .\apps\administration\templates\administration\store\products\list.html:38
 #: .\apps\administration\templates\administration\store\products\list.html:51
 #: .\apps\store\forms.py:14
@@ -324,7 +324,7 @@ msgstr ""
 
 #: .\apps\administration\forms.py:475 .\apps\administration\forms.py:511
 #: .\apps\administration\forms.py:536 .\apps\administration\forms.py:565
-#: .\apps\administration\forms.py:614
+#: .\apps\administration\forms.py:624
 msgid "Please enter name"
 msgstr ""
 
@@ -336,54 +336,67 @@ msgstr ""
 
 #: .\apps\administration\forms.py:481 .\apps\administration\forms.py:485
 #: .\apps\administration\forms.py:541 .\apps\administration\forms.py:545
-#: .\apps\administration\forms.py:570 .\apps\administration\forms.py:574
+#: .\apps\administration\forms.py:580 .\apps\administration\forms.py:584
 #: .\apps\administration\templates\administration\store\brands\index.html:56
 #: .\apps\administration\templates\administration\store\brands\index.html:63
 #: .\apps\administration\templates\administration\store\categories\index.html:62
 #: .\apps\administration\templates\administration\store\categories\index.html:70
-#: .\apps\administration\templates\administration\store\collections\index.html:68
-#: .\apps\administration\templates\administration\store\collections\index.html:77
+#: .\apps\administration\templates\administration\store\collections\index.html:73
+#: .\apps\administration\templates\administration\store\collections\index.html:82
 #: .\apps\administration\templates\administration\store\products\list.html:45
 #: .\apps\administration\templates\administration\store\products\list.html:58
 msgid "Cover Image"
 msgstr ""
 
 #: .\apps\administration\forms.py:486 .\apps\administration\forms.py:546
-#: .\apps\administration\forms.py:575
+#: .\apps\administration\forms.py:585
 msgid "Please upload cover Image"
 msgstr ""
 
-#: .\apps\administration\forms.py:582
-#: .\apps\administration\templates\administration\store\collections\index.html:67
-#: .\apps\administration\templates\administration\store\collections\index.html:76
+#: .\apps\administration\forms.py:570 .\apps\administration\forms.py:574
+#: .\apps\administration\templates\administration\orders\detail.html:63
+#: .\apps\administration\templates\administration\store\products\list.html:43
+#: .\apps\orders\templates\orders\checkout.html:95
+#: .\apps\orders\templates\orders\checkout.html:108 .\apps\store\forms.py:15
+#: .\apps\store\forms.py:16 .\templates\components\default\filters.html:11
+msgid "Price"
+msgstr ""
+
+#: .\apps\administration\forms.py:575
+msgid "Please enter price"
+msgstr ""
+
+#: .\apps\administration\forms.py:592
+#: .\apps\administration\templates\administration\store\collections\index.html:72
+#: .\apps\administration\templates\administration\store\collections\index.html:81
 #: .\apps\administration\templates\administration\store\products\list.html:40
 #: .\apps\administration\templates\administration\store\products\list.html:53
 #: .\apps\store\templates\store\products\detail.html:38
-#: .\apps\store\templates\store\products\detail.html:205
+#: .\apps\store\templates\store\products\detail.html:210
 #: .\templates\components\default\filters.html:18
 msgid "Category"
 msgstr ""
 
-#: .\apps\administration\forms.py:586
+#: .\apps\administration\forms.py:596
 msgid "Please select category"
 msgstr ""
 
-#: .\apps\administration\forms.py:592
-#: .\apps\administration\templates\administration\store\collections\index.html:66
-#: .\apps\administration\templates\administration\store\collections\index.html:75
+#: .\apps\administration\forms.py:602
+#: .\apps\administration\templates\administration\store\collections\index.html:71
+#: .\apps\administration\templates\administration\store\collections\index.html:80
 #: .\apps\administration\templates\administration\store\products\list.html:41
 #: .\apps\administration\templates\administration\store\products\list.html:54
-#: .\apps\store\templates\store\products\detail.html:49
-#: .\apps\store\templates\store\products\detail.html:200
+#: .\apps\store\templates\store\products\detail.html:56
+#: .\apps\store\templates\store\products\detail.html:204
 #: .\templates\components\default\filters.html:25
 msgid "Brand"
 msgstr ""
 
-#: .\apps\administration\forms.py:596
+#: .\apps\administration\forms.py:606
 msgid "Please select brand"
 msgstr ""
 
-#: .\apps\administration\forms.py:619 .\apps\administration\forms.py:623
+#: .\apps\administration\forms.py:629 .\apps\administration\forms.py:633
 #: .\apps\administration\templates\administration\orders\detail.html:52
 #: .\apps\administration\templates\administration\orders\list.html:49
 #: .\apps\administration\templates\administration\orders\list.html:60
@@ -393,75 +406,80 @@ msgstr ""
 msgid "Code"
 msgstr ""
 
-#: .\apps\administration\forms.py:624
+#: .\apps\administration\forms.py:634
 msgid "Please enter code"
 msgstr ""
 
-#: .\apps\administration\forms.py:629
+#: .\apps\administration\forms.py:639
 msgid "Quantity Type"
 msgstr ""
 
-#: .\apps\administration\forms.py:634
+#: .\apps\administration\forms.py:644
 msgid "Please select quantity type"
 msgstr ""
 
-#: .\apps\administration\forms.py:639
+#: .\apps\administration\forms.py:649
 #: .\apps\administration\templates\administration\store\products\list.html:42
 #: .\apps\administration\templates\administration\store\products\list.html:55
 #: .\apps\administration\views.py:60
-#: .\apps\store\templates\store\products\detail.html:56
+#: .\apps\store\templates\store\products\detail.html:49
 #: .\templates\components\default\filters.html:32
 msgid "Collection"
 msgstr ""
 
-#: .\apps\administration\forms.py:643
+#: .\apps\administration\forms.py:653
 msgid "Please select collection"
 msgstr ""
 
-#: .\apps\administration\forms.py:649 .\apps\administration\forms.py:653
+#: .\apps\administration\forms.py:659 .\apps\administration\forms.py:663
 #: .\apps\administration\templates\administration\store\products\list.html:56
 msgid "Regular Price"
 msgstr ""
 
-#: .\apps\administration\forms.py:654
+#: .\apps\administration\forms.py:664 .\apps\administration\forms.py:727
 msgid "Please enter regular price"
 msgstr ""
 
-#: .\apps\administration\forms.py:659 .\apps\administration\forms.py:663
+#: .\apps\administration\forms.py:670 .\apps\administration\forms.py:674
 #: .\apps\administration\templates\administration\store\products\list.html:44
 #: .\apps\administration\templates\administration\store\products\list.html:57
 #: .\apps\orders\templates\orders\checkout.html:120
 msgid "Discount"
 msgstr ""
 
-#: .\apps\administration\forms.py:664
+#: .\apps\administration\forms.py:675
 msgid "Please enter discount"
 msgstr ""
 
-#: .\apps\administration\forms.py:671 .\apps\administration\forms.py:672
-#: .\apps\store\models.py:464 .\apps\store\templatetags\in_stock_display.py:9
+#: .\apps\administration\forms.py:682 .\apps\administration\forms.py:683
+#: .\apps\store\models.py:467 .\apps\store\templatetags\in_stock_display.py:9
 msgid "In Stock"
 msgstr ""
 
-#: .\apps\administration\forms.py:677 .\apps\administration\forms.py:678
+#: .\apps\administration\forms.py:688 .\apps\administration\forms.py:689
 #: .\apps\administration\templates\administration\banners\index.html:66
 #: .\apps\administration\templates\administration\banners\index.html:74
 msgid "Is Active"
 msgstr ""
 
-#: .\apps\administration\forms.py:704
+#: .\apps\administration\forms.py:715
+#, python-format
+msgid "%(name)s named product already exists"
+msgstr ""
+
+#: .\apps\administration\forms.py:740
 msgid "Please upload image"
 msgstr ""
 
-#: .\apps\administration\forms.py:711
+#: .\apps\administration\forms.py:747
 msgid "Is Feature"
 msgstr ""
 
-#: .\apps\administration\forms.py:733
+#: .\apps\administration\forms.py:769
 msgid "Text"
 msgstr ""
 
-#: .\apps\administration\forms.py:750
+#: .\apps\administration\forms.py:786
 #: .\apps\administration\templates\administration\orders\list.html:50
 #: .\apps\administration\templates\administration\orders\list.html:61
 msgid "Status"
@@ -488,8 +506,8 @@ msgstr ""
 #: .\apps\administration\templates\administration\store\brands\index.html:44
 #: .\apps\administration\templates\administration\store\categories\edit.html:96
 #: .\apps\administration\templates\administration\store\categories\index.html:49
-#: .\apps\administration\templates\administration\store\collections\edit.html:79
-#: .\apps\administration\templates\administration\store\collections\index.html:54
+#: .\apps\administration\templates\administration\store\collections\edit.html:84
+#: .\apps\administration\templates\administration\store\collections\index.html:59
 #: .\apps\administration\templates\administration\store\products\create.html:137
 #: .\apps\administration\templates\administration\store\products\edit.html:164
 #: .\apps\administration\templates\administration\users\create.html:83
@@ -565,8 +583,8 @@ msgstr ""
 #: .\apps\administration\templates\administration\store\brands\index.html:64
 #: .\apps\administration\templates\administration\store\categories\index.html:63
 #: .\apps\administration\templates\administration\store\categories\index.html:71
-#: .\apps\administration\templates\administration\store\collections\index.html:69
-#: .\apps\administration\templates\administration\store\collections\index.html:78
+#: .\apps\administration\templates\administration\store\collections\index.html:74
+#: .\apps\administration\templates\administration\store\collections\index.html:83
 #: .\apps\administration\templates\administration\store\products\list.html:46
 #: .\apps\administration\templates\administration\store\products\list.html:59
 #: .\apps\administration\templates\administration\users\list.html:40
@@ -621,8 +639,7 @@ msgstr ""
 #: .\apps\administration\templates\administration\orders\detail.html:17
 #: .\apps\administration\templates\administration\orders\detail.html:46
 #: .\apps\orders\templates\orders\checkout.html:67
-#: .\apps\store\templates\store\products\detail.html:87
-#: .\apps\store\templates\store\products\detail.html:233
+#: .\apps\store\templates\store\products\detail.html:239
 msgid "Order"
 msgstr ""
 
@@ -647,16 +664,8 @@ msgstr ""
 
 #: .\apps\administration\templates\administration\orders\detail.html:62
 #: .\apps\orders\templates\orders\checkout.html:94
-#: .\apps\store\templates\store\products\detail.html:77
+#: .\apps\store\templates\store\products\detail.html:79
 msgid "Quantity"
-msgstr ""
-
-#: .\apps\administration\templates\administration\orders\detail.html:63
-#: .\apps\administration\templates\administration\store\products\list.html:43
-#: .\apps\orders\templates\orders\checkout.html:95
-#: .\apps\orders\templates\orders\checkout.html:108 .\apps\store\forms.py:15
-#: .\apps\store\forms.py:16 .\templates\components\default\filters.html:11
-msgid "Price"
 msgstr ""
 
 #: .\apps\administration\templates\administration\orders\detail.html:77
@@ -984,12 +993,12 @@ msgstr ""
 msgid "Order status cannot be updated"
 msgstr ""
 
-#: .\apps\api\views.py:76 .\apps\api\views.py:107 .\apps\api\views.py:131
+#: .\apps\api\views.py:79 .\apps\api\views.py:110 .\apps\api\views.py:134
 msgid "Product was not found"
 msgstr ""
 
 #: .\apps\main\context_processors.py:12 .\apps\main\templates\main\index.html:4
-#: .\apps\store\views.py:39 .\apps\store\views.py:100 .\apps\store\views.py:149
+#: .\apps\store\views.py:18 .\apps\store\views.py:109 .\apps\store\views.py:170
 msgid "Home"
 msgstr ""
 
@@ -1073,7 +1082,7 @@ msgstr ""
 msgid "TikTok"
 msgstr ""
 
-#: .\apps\main\models.py:151 .\apps\store\models.py:460
+#: .\apps\main\models.py:151 .\apps\store\models.py:463
 msgid "Not Active"
 msgstr ""
 
@@ -1237,7 +1246,7 @@ msgstr ""
 msgid "We will contact you soon!"
 msgstr ""
 
-#: .\apps\orders\views.py:44
+#: .\apps\orders\views.py:48
 msgid "Order cannot be placed!"
 msgstr ""
 
@@ -1263,7 +1272,7 @@ msgstr ""
 msgid "List"
 msgstr ""
 
-#: .\apps\store\models.py:464 .\apps\store\templatetags\in_stock_display.py:9
+#: .\apps\store\models.py:467 .\apps\store\templatetags\in_stock_display.py:9
 msgid "Not In Stock"
 msgstr ""
 
@@ -1277,36 +1286,40 @@ msgstr ""
 msgid "No product was found!"
 msgstr ""
 
-#: .\apps\store\templates\store\products\detail.html:64
-#: .\apps\store\templates\store\products\detail.html:209
+#: .\apps\store\templates\store\products\detail.html:63
+#: .\apps\store\templates\store\products\detail.html:215
 #: .\templates\components\default\filters.html:39
 msgid "Availability"
 msgstr ""
 
-#: .\apps\store\templates\store\products\detail.html:102
+#: .\apps\store\templates\store\products\detail.html:89
+msgid "Add to cart"
+msgstr ""
+
+#: .\apps\store\templates\store\products\detail.html:104
 #: .\templates\components\default\products\grid-item.html:11
 #: .\templates\components\default\products\list-item.html:11
 msgid "Add to favorites"
 msgstr ""
 
-#: .\apps\store\templates\store\products\detail.html:105
+#: .\apps\store\templates\store\products\detail.html:107
 msgid "Remove from favorites"
 msgstr ""
 
-#: .\apps\store\templates\store\products\detail.html:144
+#: .\apps\store\templates\store\products\detail.html:146
 msgid "Description"
 msgstr ""
 
-#: .\apps\store\templates\store\products\detail.html:155
+#: .\apps\store\templates\store\products\detail.html:157
 msgid "Related products"
 msgstr ""
 
-#: .\apps\store\templates\store\products\detail.html:172
+#: .\apps\store\templates\store\products\detail.html:174
 msgid "View all related products"
 msgstr ""
 
 #: .\apps\store\templates\store\products\favorites.html:4
-#: .\apps\store\views.py:150
+#: .\apps\store\views.py:171
 msgid "Favorites"
 msgstr ""
 

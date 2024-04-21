@@ -1,0 +1,372 @@
+{
+	"info": {
+		"_postman_id": "a361c738-ffce-4437-977c-3dde506566d2",
+		"name": "Dekastar Production",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10147868"
+	},
+	"item": [
+		{
+			"name": "Get Categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dekastar.az/api/store/categories?lang=az",
+					"protocol": "https",
+					"host": [
+						"dekastar",
+						"az"
+					],
+					"path": [
+						"api",
+						"store",
+						"categories"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "az"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Privacy Policy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dekastar.az/api/privacy-policy?lang=az",
+					"protocol": "https",
+					"host": [
+						"dekastar",
+						"az"
+					],
+					"path": [
+						"api",
+						"privacy-policy"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "az"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Delivery Policy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dekastar.az/api/delivery-policy?lang=az",
+					"protocol": "https",
+					"host": [
+						"dekastar",
+						"az"
+					],
+					"path": [
+						"api",
+						"delivery-policy"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "az"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Contact Info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dekastar.az/api/contact?lang=az",
+					"protocol": "https",
+					"host": [
+						"dekastar",
+						"az"
+					],
+					"path": [
+						"api",
+						"contact"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "az"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get About Data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dekastar.az/api/about?lang=az",
+					"protocol": "https",
+					"host": [
+						"dekastar",
+						"az"
+					],
+					"path": [
+						"api",
+						"about"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "az"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Banners",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dekastar.az/api/banners",
+					"protocol": "https",
+					"host": [
+						"dekastar",
+						"az"
+					],
+					"path": [
+						"api",
+						"banners"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Filter Entries",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dekastar.az/api/store/filters?lang=az",
+					"protocol": "https",
+					"host": [
+						"dekastar",
+						"az"
+					],
+					"path": [
+						"api",
+						"store",
+						"filters"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "az"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Some Filter Entries",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dekastar.az/api/store/filters?collection={collection.slug}&in_stock=1&min_price=55&max_price=417&category={category.slug}&lang=az",
+					"protocol": "https",
+					"host": [
+						"dekastar",
+						"az"
+					],
+					"path": [
+						"api",
+						"store",
+						"filters"
+					],
+					"query": [
+						{
+							"key": "collection",
+							"value": "{collection.slug}"
+						},
+						{
+							"key": "in_stock",
+							"value": "1"
+						},
+						{
+							"key": "min_price",
+							"value": "55"
+						},
+						{
+							"key": "max_price",
+							"value": "417"
+						},
+						{
+							"key": "category",
+							"value": "{category.slug}"
+						},
+						{
+							"key": "lang",
+							"value": "az"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recent Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dekastar.az/api/store/products?type=new&lang=az",
+					"protocol": "https",
+					"host": [
+						"dekastar",
+						"az"
+					],
+					"path": [
+						"api",
+						"store",
+						"products"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "new"
+						},
+						{
+							"key": "lang",
+							"value": "az"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Discounted Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dekastar.az/api/store/products?type=discounted&lang=az",
+					"protocol": "https",
+					"host": [
+						"dekastar",
+						"az"
+					],
+					"path": [
+						"api",
+						"store",
+						"products"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "discounted"
+						},
+						{
+							"key": "lang",
+							"value": "az"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Filtered Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dekastar.az/api/store/products?collection={collection.slug}&in_stock=1&min_price=10&max_price=417&category={category.slug}&lang=az",
+					"protocol": "https",
+					"host": [
+						"dekastar",
+						"az"
+					],
+					"path": [
+						"api",
+						"store",
+						"products"
+					],
+					"query": [
+						{
+							"key": "collection",
+							"value": "{collection.slug}"
+						},
+						{
+							"key": "in_stock",
+							"value": "1"
+						},
+						{
+							"key": "min_price",
+							"value": "10"
+						},
+						{
+							"key": "max_price",
+							"value": "417"
+						},
+						{
+							"key": "category",
+							"value": "{category.slug}"
+						},
+						{
+							"key": "lang",
+							"value": "az"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dekastar.az/api/store/products/{product.slug}?lang=az",
+					"protocol": "https",
+					"host": [
+						"dekastar",
+						"az"
+					],
+					"path": [
+						"api",
+						"store",
+						"products",
+						"{product.slug}"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "az"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -73,6 +73,11 @@
                     {{ form.brand }}
                     {{ form.brand.errors }}
                   </div>
+                  <div class="col-md-6 col-12">
+                    <label class="small mb-1" for="{{ form.price.id_for_label }}">{{ form.price.label }}</label>
+                    {{ form.price }}
+                    {{ form.price.errors }}
+                  </div>
                 </div>
                 {{form.non_field_errors}}
                 {{form.non_form_errors}}

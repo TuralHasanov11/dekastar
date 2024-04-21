@@ -33,7 +33,7 @@
                 <span>{{ product.code|default:"" }}</span>
               </div>
 
-              {% if product.collection %}
+              {% if product.collection and product.collection.category %}
               <div class="info-box">
                 <span><strong>{% translate "Category" %}</strong></span>
                 <span>
@@ -64,8 +64,11 @@
                 <span
                   class="font-weight-bold {% if not product.in_stock %}text-danger{% endif %}"
                 >
-                  {% if product.in_stock %}<i class="fa fa-check-square-o"></i
-                  >{% endif %} {{product.in_stock|in_stock_display }}
+                  {% if product.in_stock %}
+                  <i class="fa-solid fa-square-check"></i>
+                  {% else %}
+                  <i class="fa-solid fa-circle-exclamation"></i>
+                  {% endif %} {{product.in_stock|in_stock_display }}
                 </span>
               </div>
 
@@ -83,7 +86,7 @@
                     <span class="col-5">
                       <button type="button" class="btn btn-danger btn-add-many" 
                         data-product_id="{{product.pk}}">
-                        {% translate "Order" %}
+                        {% translate "Add to cart" %}
                       </button>
                     </span>
                   </span>
@@ -98,7 +101,7 @@
               >
                 <span>
                   <i class="add"
-                    ><i class="fa fa-heart-o"></i> {% translate "Add to favorites" %}</i
+                    ><i class="icon icon-heart"></i> {% translate "Add to favorites" %}</i
                   >
                   <i class="added"
                     ><i class="fa fa-heart"></i> {% translate "Remove from favorites" %}</i
@@ -144,7 +147,7 @@
         </a>
       </li>
     </ul>
-    <div class="col-12">{{ product.get_information|safe }}</div>
+    <div class="col-12 table-responsive">{{ product.get_information|safe }}</div>
   </div>
 </section>
 
@@ -162,7 +165,7 @@
       </div>
       {% endfor %}
     </div>
-    {% if product.collection %}
+    {% if product.collection and product.collection.category %}
     <div class="wrapper-more">
       <a
         href="{% url 'apps.store:category-products' category=product.collection.category.slug %}"
@@ -180,7 +183,9 @@
     <div class="popup-title">
       <div class="h3 title">
         {{ product }}
+        {% if product.collection and product.collection.category %}
         <small>{{ product.collection.category }}</small>
+        {% endif %}
       </div>
     </div>
 
@@ -200,10 +205,12 @@
               <span>{{ product.brand }}</span>
             </div>
             {% endif %}
+            {% if product.collection and product.collection.category%}
             <div class="info-box">
               <strong>{% translate "Category" %}</strong>
               <span>{{ product.collection.category.category_name }}</span>
             </div>
+            {% endif %}
             <div class="info-box">
               <strong>{% translate "Availability" %}</strong>
               <span

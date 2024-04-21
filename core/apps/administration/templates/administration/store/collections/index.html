@@ -48,6 +48,11 @@
                 {{ form.brand }}
                 {{ form.brand.errors }}
               </div>
+              <div class="col-md-6 col-12">
+                <label class="small mb-1" for="{{ form.price.id_for_label }}">{{ form.price.label }}</label>
+                {{ form.price }}
+                {{ form.price.errors }}
+              </div>
             </div>
             {{form.non_field_errors}} {{form.non_form_errors}}
             <button class="btn btn-success btn-sm" type="submit">
@@ -83,7 +88,11 @@
             <tr>
               <td>{{collection.name}}</td>
               <td><a href="{% url 'apps.administration:store-brand-update-delete' pk=collection.brand.pk %}">{{collection.brand}}</a></td>
-              <td><a href="{% url 'apps.administration:store-category-update-delete' pk=collection.category.pk %}">{{collection.category.category_name}}</a></td>
+              <td>
+                {% if collection.category %}
+                <a href="{% url 'apps.administration:store-category-update-delete' pk=collection.category.pk %}">{{collection.category.category_name}}</a>
+                {% endif %}
+              </td>
               <td>{% if collection.cover_image %}<img class="lazyload" width="80" height="40" data-src="{{collection.cover_image.url}}" alt="{{collection.name}}">{% endif %}</td>
               <td>
                 <a href="{% url 'apps.administration:store-collection-update-delete' pk=collection.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>

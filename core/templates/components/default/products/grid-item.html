@@ -36,10 +36,15 @@
           >{{product}}</a
         >
       </h2>
-      <h4 class="title h6">
+      {% if product.collection %}
+      <h4 class="title h6 mb-2">
         <a class="text-danger" href="{% url 'apps.store:category-products' %}?collection={{product.collection.slug}}"
           >{{product.collection}}</a
         >
+      </h4>
+      {% endif %}
+      <h4 class="title h6">
+        {{product.code}}
       </h4>
       {% if product.discount %}
       <sub>&#8380; {{product.regular_price}}</sub><sup>&#8380; {{product.discount_price}}</sup>

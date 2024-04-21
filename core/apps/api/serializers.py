@@ -115,6 +115,7 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "name",
+            "code",
             "slug",
             "regular_price",
             "discount",

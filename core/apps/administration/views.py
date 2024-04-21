@@ -625,8 +625,9 @@ class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
+        languages = [lang[0] for lang in settings.LANGUAGES]
         context["product_information_formset"] = self.product_information_form_class(
-            queryset=ProductInformation.objects.none()
+            initial=[{"language": lang} for lang in languages]
         )
         context["product_image_formset"] = self.product_image_form_class(queryset=ProductImage.objects.none())
         return context
@@ -634,23 +635,22 @@ class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     @transaction.atomic
     def post(self, request):
         form = self.form_class(data=request.POST, files=request.FILES)
-        product_image_formset = self.product_image_form_class(queryset=ProductImage.objects.none())
+        product_image_formset = self.product_image_form_class(
+            data=self.request.POST, files=self.request.FILES
+        )
         product_information_formset = self.product_information_form_class(
-            queryset=ProductInformation.objects.none()
+            data=self.request.POST, files=self.request.FILES
         )
         if form.is_valid():
             product = form.save()
-            product_image_formset = self.product_image_form_class(
-                instance=product, data=self.request.POST, files=self.request.FILES
-            )
-            product_information_formset = self.product_information_form_class(
-                instance=product, data=self.request.POST, files=self.request.FILES
-            )
+            product_image_formset.instance = product
+            product_information_formset.instance = product
             if product_image_formset.is_valid() and product_information_formset.is_valid():
                 product_image_formset.save()
                 product_information_formset.save()
                 messages.success(request, self.success_message)
                 return redirect(self.success_url)
+
         messages.error(request, _("Product cannot be created"))
         return render(
             request,

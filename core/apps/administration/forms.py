@@ -346,8 +346,8 @@ class CompanyInfoForm(forms.ModelForm):
                 "rows": 5,
                 "title": _("Please enter address"),
             }
-        ), 
-        required=True
+        ),
+        required=True,
     )
     working_hours = forms.CharField(
         label=_("Working Hours"),
@@ -357,8 +357,8 @@ class CompanyInfoForm(forms.ModelForm):
                 "placeholder": _("Working Hours"),
                 "title": _("Please enter working hours"),
             }
-        ), 
-        required=True
+        ),
+        required=True,
     )
 
     class Meta:
@@ -566,6 +566,16 @@ class CollectionForm(forms.ModelForm):
             }
         ),
     )
+    price = forms.DecimalField(
+        label=_("Price"),
+        widget=forms.NumberInput(
+            attrs={
+                "class": "form-control form-control-sm",
+                "placeholder": _("Price"),
+                "title": _("Please enter price"),
+            }
+        ),
+    )
     cover_image = forms.ImageField(
         label=_("Cover Image"),
         widget=forms.FileInput(
@@ -601,7 +611,7 @@ class CollectionForm(forms.ModelForm):
 
     class Meta:
         model = Collection
-        fields = ("name", "cover_image", "category", "brand")
+        fields = ("name", "cover_image", "category", "brand", "price")
 
 
 class ProductForm(forms.ModelForm):
@@ -654,6 +664,7 @@ class ProductForm(forms.ModelForm):
                 "title": _("Please enter regular price"),
             }
         ),
+        required=False,
     )
     discount = forms.IntegerField(
         label=_("Discount"),
@@ -692,6 +703,31 @@ class ProductForm(forms.ModelForm):
             "quantity_type",
             "collection",
         )
+
+    def clean_name(self) -> None:
+        name = self.cleaned_data.get("name")
+        instance = self.instance
+
+        queryset = Product.objects.exclude(pk=instance.pk) if instance else Product.objects.all()
+
+        if queryset.filter(name=name).exists():
+            raise forms.ValidationError(
+                _("%(name)s named product already exists"),
+                params={"name": name},
+            )
+        return name
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if self.cleaned_data.get("regular_price") is None:
+            instance.regular_price = Collection.objects.get(
+                id=self.cleaned_data.get("collection").id
+            ).price
+            if instance.regular_price is None:
+                raise forms.ValidationError(_("Please enter regular price"))
+            
+        instance.save()
+        return instance
 
 
 class ProductImageForm(forms.ModelForm):

@@ -1,5 +1,6 @@
 from abc import ABC
 
+from django.db.models import Q
 from django.db.models.query import QuerySet
 
 
@@ -103,5 +104,5 @@ class SearchFilter(Filter):
     @property
     def queryset(self) -> QuerySet:
         if "search" in self._data and self._data["search"] is not None:
-            self._queryset = self._queryset.filter(name__icontains=self._data["search"])
+            self._queryset = self._queryset.filter(Q(name__icontains=self._data["search"]) | Q(code__icontains=self._data["search"]))
         return self._queryset

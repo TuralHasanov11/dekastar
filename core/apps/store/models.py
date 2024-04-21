@@ -223,6 +223,9 @@ class CollectionManager(models.Manager):
 @cleanup.select
 class Collection(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    price = models.DecimalField(
+        max_digits=6, decimal_places=2, validators=[MinValueValidator(0)], null=True, blank=True, default=0
+    )
     slug = models.SlugField(max_length=255, unique=True)
     cover_image = custom_model_fields.WEBPField(upload_to=collection_image_path, null=True, blank=True)
     brand = models.ForeignKey(

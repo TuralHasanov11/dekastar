@@ -3,7 +3,7 @@ from typing import Any
 from apps.store.forms import ProductFilterForm
 from apps.store.models import Brand, Category, Collection, Product
 from data import pagination
-from django.db.models import Count
+from django.db.models import Count, OuterRef, Subquery
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -60,26 +60,27 @@ class CategoryProductsView(TemplateView):
 
                 brands = brands.filter(collection_brand__category=current_category).distinct()
 
-            # collections = (
-            #     Collection.collections.list_queryset()
-            #     .filter(brand__in=brands)
-            #     .annotate(
-            #         products_count=Subquery(
-            #             Product.objects.values("collection_id")
-            #             .annotate(count=Count("id"))
-            #             .filter(collection_id=OuterRef("id"), is_active=True)
-            #             .values("count")[:1]
-            #         )
-            #     )
-            # )
-
             collections = (
                 Collection.collections.list_queryset()
                 .filter(brand__in=brands)
                 .annotate(
-                    products_count=Count("product_collection")
+                    products_count=Subquery(
+                        Product.objects.values("collection_id")
+                        .annotate(count=Count("id"))
+                        .filter(collection_id=OuterRef("id"), is_active=True)
+                        .values("count")[:1]
+                    )
                 )
             )
+
+            # collections = (
+            #     Collection.collections.list_queryset()
+            #     .prefetch_related("product_collection")
+            #     .filter(brand__in=brands)
+            #     .annotate(
+            #         products_count=Count("product_collection")
+            #     )
+            # )
 
             if form.cleaned_data.get("collection", None):
                 form.data["brand"] = brands.get(
