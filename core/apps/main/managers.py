@@ -1,5 +1,6 @@
-from apps.api import utils
 from data.managers.managers import ModelManager, QuerySet
+
+from apps.api import utils
 
 
 class SiteTextQuerySet(QuerySet):
@@ -93,23 +94,6 @@ class CompanyInfoManager(ModelManager):
 
     def detail_queryset(self, language):
         return self.get_queryset().filter(language=language).first()
-
-
-class BannerQuerySet(QuerySet):
-    pass
-
-
-class BannerManager(ModelManager):
-    _queryset = CompanyInfoQuerySet
-
-    def get_queryset(self):
-        return self._queryset(self.model, using=self._db)
-
-    def list_queryset(self):
-        return self.get_queryset().list_queryset().filter(is_active=True).order_by("-id")
-
-    def detail_queryset(self):
-        return self.get_queryset().detail_queryset()
 
 
 class SiteImageQuerySet(QuerySet):

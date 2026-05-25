@@ -1,5 +1,6 @@
-from apps.administration import views
 from django.urls import path
+
+from apps.administration import views
 
 app_name = "apps.administration"
 
@@ -44,6 +45,9 @@ urlpatterns = [
         views.SocialMediaLinkDeleteView.as_view(),
         name="social-media-link-delete",
     ),
+    path("blogs", views.BlogPostListView.as_view(), name="blog-list"),
+    path("blogs/create", views.BlogPostCreateView.as_view(), name="blog-create"),
+    path("blogs/<int:pk>", views.BlogPostUpdateDeleteView.as_view(), name="blog-update-delete"),
     path("banners", views.BannerListCreateView.as_view(), name="banner-list-create"),
     path(
         "banners/<int:pk>",

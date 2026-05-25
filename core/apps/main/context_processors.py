@@ -1,8 +1,9 @@
-from apps.main.models import ContactEmail, ContactPhone, SocialMediaLink
-from apps.store.models import Category
 from django.conf import settings
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+
+from apps.main.models import ContactEmail, ContactPhone, SocialMediaLink
+from apps.store.models import Category
 
 
 def default_header_menu(request):
@@ -23,6 +24,10 @@ def default_header_menu(request):
                     }
                     for category in categories
                 ],
+            },
+            { 
+                "title": _("Blog"),
+                "route": reverse("apps.blog:blog-list"),
             },
             {"title": _("About Us"), "route": reverse("apps.main:about")},
             {"title": _("Contact"), "route": reverse("apps.main:contact")},

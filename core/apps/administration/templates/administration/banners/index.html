@@ -28,6 +28,12 @@
           {% include "components/forms/hidden-fields.html" with hidden_fields=form.hidden_fields %}
           <div class="row gx-3 mb-4">
             <div class="col-md-6 col-12 mb-3">
+              <label class="small mb-1" for="{{ form.title.id_for_label }}"
+                >{{ form.title.label }}</label
+              >
+              {{ form.title }} {{ form.title.errors }}
+            </div>
+            <div class="col-md-6 col-12 mb-3">
               <label class="small mb-1" for="{{ form.image.id_for_label }}"
                 >{{ form.image.label }}</label
               >

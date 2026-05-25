@@ -31,12 +31,14 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path("", include("apps.main.urls", namespace="apps.main")),
+    path("blog/", include("apps.blog.urls", namespace="apps.blog")),
     path("store/", include("apps.store.urls", namespace="apps.store")),
     path("orders/", include("apps.orders.urls", namespace="apps.orders")),
     path(
         f"admin-{settings.ADMIN_URL_SUFFIX}/",
         include("apps.administration.urls", namespace="apps.administration"),
     ),
+    re_path(r"^languages/", include("rosetta.urls")),
     prefix_default_language=False,
 )
 
@@ -44,6 +46,5 @@ if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += [
-        re_path(r"^languages/", include("rosetta.urls")),
         path("api-auth/", include("rest_framework.urls")),
     ]

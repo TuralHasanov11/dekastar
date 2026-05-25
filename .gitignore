@@ -176,3 +176,7 @@ cython_debug/
 # End of https://www.toptal.com/developers/gitignore/api/django
 notes.txt
 credentials.txt
+
+
+#Ignore vscode AI rules
+.github\instructions\codacy.instructions.md

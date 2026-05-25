@@ -1,0 +1,23 @@
+{% extends "layouts/default.html" %}
+{% load i18n %}
+{% block title %}{{ blog_post.title }}{% endblock title %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <article class="mx-auto" style="max-width: 920px;">
+      <a class="small text-decoration-none" href="{% url 'apps.blog:blog-list' %}">{% translate "Back to blog" %}</a>
+      <h1 class="display-6 mt-3 mb-3">{{ blog_post.title }}</h1>
+      <p class="text-muted">{{ blog_post.published_at|date:"M d, Y" }}</p>
+      {% if blog_post.cover_image %}
+      <img class="img-fluid rounded mb-4" src="{{ blog_post.cover_image.url }}" alt="{{ blog_post.title }}">
+      {% endif %}
+      {% if blog_post.summary %}
+      <p class="lead">{{ blog_post.summary }}</p>
+      {% endif %}
+      <div class="blog-post-body">
+        {{ blog_post.body|safe }}
+      </div>
+    </article>
+  </div>
+</section>
+{% endblock content %}

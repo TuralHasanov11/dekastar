@@ -1,0 +1,81 @@
+{% extends "layouts/admin.html" %} {% load static %} {% load i18n %}
+{% block title %}{% translate "Create Blog Post" %}{% endblock title %}
+{% block content %}
+<main>
+  <header
+    class="page-header page-header-compact page-header-light border-bottom bg-white mb-4"
+  >
+    <div class="container-fluid px-4">
+      <div class="page-header-content">
+        <div class="row align-items-center justify-content-between pt-3">
+          <div class="col-auto mb-3">
+            <h1 class="page-header-title">
+              <div class="page-header-icon"><i data-feather="file-plus"></i></div>
+              {% translate "Create Blog Post" %}
+            </h1>
+          </div>
+          <div class="col-12 col-xl-auto mb-3">
+            <a
+              class="btn btn-sm btn-light text-primary"
+              href="{% url 'apps.administration:blog-list' %}"
+            >
+              <i class="me-1" data-feather="list"></i>
+              {% translate "Back to Blog List" %}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container-fluid px-4">
+    {% include "components/messages.html" with messages=messages %}
+    <div class="card mb-4">
+      <div class="card-header">{% translate "Create Blog Post" %}</div>
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.media }}
+          {% include "components/forms/hidden-fields.html" with hidden_fields=form.hidden_fields %}
+          <div class="row g-3 mb-4">
+            <div class="col-12 col-md-6">
+              <label class="mb-1 small" for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+              {{ form.title }}
+              {{ form.title.errors }}
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="mb-1 small" for="{{ form.cover_image.id_for_label }}">{{ form.cover_image.label }}</label>
+              {{ form.cover_image }}
+              {{ form.cover_image.errors }}
+            </div>
+            <div class="col-12">
+              <label class="mb-1 small" for="{{ form.summary.id_for_label }}">{{ form.summary.label }}</label>
+              {{ form.summary }}
+              {{ form.summary.errors }}
+            </div>
+            <div class="col-12">
+              <label class="mb-1 small" for="{{ form.body.id_for_label }}">{{ form.body.label }}</label>
+              {{ form.body }}
+              {{ form.body.errors }}
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="mb-1 small" for="{{ form.published_at.id_for_label }}">{{ form.published_at.label }}</label>
+              {{ form.published_at }}
+              {{ form.published_at.errors }}
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="mb-1 small form-check-label" for="{{ form.is_published.id_for_label }}">{{ form.is_published.label }}</label>
+              {{ form.is_published }}
+              {{ form.is_published.errors }}
+            </div>
+          </div>
+          {{ form.non_field_errors }} {{ form.non_form_errors }}
+          <button class="btn btn-sm btn-success" type="submit">
+            <i class="me-1" data-feather="plus"></i> {% translate "Save" %}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

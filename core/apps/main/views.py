@@ -1,6 +1,15 @@
 import os
 from typing import Any
 
+from django.contrib import messages
+from django.core.mail import BadHeaderError, EmailMessage
+from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
+from django.urls import reverse
+from django.utils.translation import get_language
+from django.utils.translation import gettext_lazy as _
+from django.views.generic import TemplateView
+
 from apps.main.forms import ContactForm
 from apps.main.models import (
     Banner,
@@ -11,14 +20,6 @@ from apps.main.models import (
     SiteText,
 )
 from apps.store.models import Category, Product
-from django.contrib import messages
-from django.core.mail import BadHeaderError, EmailMessage
-from django.shortcuts import redirect, render
-from django.template.loader import render_to_string
-from django.urls import reverse
-from django.utils.translation import get_language
-from django.utils.translation import gettext_lazy as _
-from django.views.generic import TemplateView
 
 
 class HomeView(TemplateView):
@@ -30,7 +31,7 @@ class HomeView(TemplateView):
         context["categories"] = Category.categories.list_queryset()
         context["new_products"] = Product.products.new_products_queryset()
         context["discounted_products"] = Product.products.discounted_products_queryset()
-        context["banners"] = Banner.banners.list_queryset()
+        context["banners"] = Banner.objects.filter(is_active=True).order_by("-id")
         return context
 
 

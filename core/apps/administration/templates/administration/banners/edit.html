@@ -67,6 +67,12 @@
               />
             </div>
             <div class="col-12 col-md-6 mb-3">
+              <label class="small mb-1" for="{{ form.title.id_for_label }}"
+                >{{ form.title.label }}</label
+              >
+              {{ form.title }} {{ form.title.errors }}
+            </div>
+            <div class="col-12 col-md-6 mb-3">
               <label class="small mb-1" for="{{ form.link.id_for_label }}"
                 >{{ form.link.label }}</label
               >

@@ -71,5 +71,10 @@ def admin_menu(request):
                 "permission": "auth.view_user",
                 "icon": "user",
             },
+            {
+                "title": _("Blog Posts"),
+                "route": reverse("apps.administration:blog-list"),
+                "icon": "file"
+            }
         ]
     }

@@ -1,12 +1,13 @@
 import datetime
 import uuid
 
-from apps.store.models import Product
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import Prefetch
 from django.utils.translation import gettext_lazy as _
 from shared import custom_model_fields
+
+from apps.store.models import Product
 
 
 class OrderQuerySet(models.QuerySet):
@@ -50,7 +51,7 @@ class Order(models.Model):
     phone_regex = RegexValidator(regex=r"^\+?1?\d{12}$")
     phone = models.CharField(validators=[phone_regex], max_length=17)
     total_paid = models.DecimalField(max_digits=7, decimal_places=2)
-    uuid = models.UUIDField(unique=True, null=True, blank=True, default=uuid.uuid4())
+    uuid = models.UUIDField(unique=True, null=True, blank=True)
     seen = models.BooleanField(default=False)
     address = models.CharField(max_length=255, null=True, blank=True)
     code = models.CharField(max_length=255, null=True, blank=True)
@@ -71,21 +72,23 @@ class Order(models.Model):
     def status_display(self):
         return self.get_status_display()
 
-    def mark_as_seen(self) -> None:
+    def mark_as_seen(self) -> bool:
         self.seen = True
         self.save()
         return True
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        self.code = (
-            self.name[0].capitalize() + str(self.pk) + "-" + datetime.datetime.now().strftime("%Y%m%d")
-        )
-        self.uuid = uuid.uuid4()
+        if self.code is None:
+            self.code = (
+                self.name[0].capitalize() + str(self.pk) + "-" + datetime.datetime.now().strftime("%Y%m%d")
+            )
+        if self.uuid is None:
+            self.uuid = uuid.uuid4()
         return super().save(*args, **kwargs)
 
     def add_item(self, product_id, quantity_type, price, sub_total, quantity) -> None:
-        self.items.create(
+        Order.items.create(
             product_id=product_id,
             quantity_type=quantity_type,
             price=price,

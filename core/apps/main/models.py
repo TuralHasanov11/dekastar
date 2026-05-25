@@ -1,10 +1,11 @@
 import uuid
 
-from apps.main import managers
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_cleanup import cleanup
 from shared import custom_model_fields
+
+from apps.main import managers
 
 
 @cleanup.select
@@ -108,43 +109,19 @@ class SiteImage(models.Model):
         verbose_name_plural = _("Site Images")
 
 
-# def site_image_compressor(**kwargs):
-#     with Image.open(kwargs["instance"].contact_image.path) as contact_image:
-#         if contact_image.mode != 'RGB':
-#             contact_image = contact_image.convert('RGB')
-#         contact_image.save(kwargs["instance"].contact_image.path, optimize=True, quality=15)
-#     with Image.open(kwargs["instance"].about_image.path) as about_image:
-#         if about_image.mode != 'RGB':
-#             about_image = about_image.convert('RGB')
-#         about_image.save(kwargs["instance"].about_image.path, optimize=True, quality=15)
-#     with Image.open(kwargs["instance"].privacy_policy_image.path) as privacy_policy_image:
-#         if privacy_policy_image.mode != 'RGB':
-#             privacy_policy_image = privacy_policy_image.convert('RGB')
-#         privacy_policy_image.save(kwargs["instance"].privacy_policy_image.path, optimize=True, quality=15)
-#     with Image.open(kwargs["instance"].delivery_policy_image.path) as delivery_policy_image:
-#         if delivery_policy_image.mode != 'RGB':
-#             delivery_policy_image = delivery_policy_image.convert('RGB')
-#         delivery_policy_image.save(kwargs["instance"].delivery_policy_image.path, optimize=True, quality=15)
-
-
-# post_save.connect(site_image_compressor, sender=SiteImage)
-
-
 def banner_image_path(instance, filename):
     return f"banners/{uuid.uuid4()}.webp"
 
 
 @cleanup.select
 class Banner(models.Model):
+    title = models.CharField(max_length=255, blank=True, null=True)
     image = custom_model_fields.WEBPField(upload_to=banner_image_path)
     link = models.URLField(blank=True, null=True)
     is_active = models.BooleanField(default=True, null=True, blank=True)
 
     class Meta:
         verbose_name_plural = _("Banners")
-
-    objects = models.Manager()
-    banners = managers.BannerManager()
 
     @property
     def is_active_display(self):

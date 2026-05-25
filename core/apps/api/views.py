@@ -1,5 +1,15 @@
 import logging
 
+from django.conf import settings
+from django.db import transaction
+from django.db.models import Count, OuterRef, Subquery
+from django.utils import translation
+from django.utils.translation import gettext_lazy as _
+from rest_framework import generics, status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_api_key.permissions import HasAPIKey
+
 from apps.api import pagination, serializers
 from apps.main.models import (
     Banner,
@@ -14,15 +24,6 @@ from apps.orders.models import Order
 from apps.store.favorites_processor import FavoritesProcessor
 from apps.store.forms import ProductFilterForm
 from apps.store.models import Brand, Category, Collection, Product
-from django.conf import settings
-from django.db import transaction
-from django.db.models import Count, OuterRef, Subquery
-from django.utils import translation
-from django.utils.translation import gettext_lazy as _
-from rest_framework import generics, status
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework_api_key.permissions import HasAPIKey
 
 logger = logging.getLogger("main")
 
@@ -321,7 +322,7 @@ class AboutView(APIView):
 
 class BannerListView(generics.ListAPIView):
     permission_classes = [HasAPIKey]
-    queryset = Banner.banners.list_queryset()
+    queryset = Banner.objects.filter(is_active=True).order_by("-id")
     serializer_class = serializers.BannerSerializer
 
 

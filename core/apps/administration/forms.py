@@ -1,3 +1,14 @@
+from django import forms
+from django.conf import settings
+from django.contrib.auth import forms as auth_forms
+from django.contrib.auth import get_user_model
+from django.contrib.auth import models as auth_models
+from django.contrib.auth.forms import UserCreationForm
+from django.utils.translation import gettext_lazy as _
+from mptt.forms import TreeNodeChoiceField
+from shared import custom_form_fields, custom_model_fields
+
+from apps.blog.models import BlogPost
 from apps.main.models import (
     Banner,
     CompanyInfo,
@@ -17,15 +28,6 @@ from apps.store.models import (
     ProductImage,
     ProductInformation,
 )
-from django import forms
-from django.conf import settings
-from django.contrib.auth import forms as auth_forms
-from django.contrib.auth import get_user_model
-from django.contrib.auth import models as auth_models
-from django.contrib.auth.forms import UserCreationForm
-from django.utils.translation import gettext_lazy as _
-from mptt.forms import TreeNodeChoiceField
-from shared import custom_form_fields, custom_model_fields
 
 
 class LoginForm(auth_forms.AuthenticationForm):
@@ -432,6 +434,17 @@ class SiteImageForm(forms.ModelForm):
 
 
 class BannerForm(forms.ModelForm):
+    title = forms.CharField(
+        label=_("Title"),
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control form-control-sm",
+                "placeholder": _("Title"),
+                "title": _("Please enter title"),
+            }
+        ),
+        required=False,
+    )
     link = forms.URLField(
         label=_("Link"),
         widget=forms.URLInput(
@@ -462,7 +475,7 @@ class BannerForm(forms.ModelForm):
 
     class Meta:
         model = Banner
-        fields = ("link", "image", "is_active")
+        fields = ("link", "image", "is_active", "title")
 
 
 class CategoryForm(forms.ModelForm):
@@ -791,3 +804,64 @@ class OrderStatusForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ("status",)
+
+
+class BlogPostForm(forms.ModelForm):
+    title = forms.CharField(
+        label=_("Title"),
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control form-control-sm",
+                "placeholder": _("Title"),
+                "title": _("Please enter title"),
+            }
+        ),
+    )
+    summary = forms.CharField(
+        label=_("Summary"),
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control form-control-sm",
+                "placeholder": _("Summary"),
+                "rows": 4,
+                "title": _("Please enter summary"),
+            }
+        ),
+        required=False,
+    )
+    body = custom_form_fields.TextUploadingField(label=_("Body"))
+    cover_image = forms.ImageField(
+        label=_("Cover Image"),
+        widget=forms.FileInput(
+            attrs={
+                "class": "form-control form-control-sm mb-2",
+                "placeholder": _("Cover Image"),
+                "title": _("Please upload cover image"),
+                "multiple": False,
+            }
+        ),
+        required=False,
+    )
+    is_published = forms.BooleanField(
+        label=_("Published"),
+        widget=forms.CheckboxInput(attrs={"class": "form-check-input"}),
+        required=False,
+        initial=False,
+    )
+    published_at = forms.DateTimeField(
+        label=_("Published At"),
+        required=False,
+        input_formats=["%Y-%m-%dT%H:%M"],
+        widget=forms.DateTimeInput(
+            attrs={
+                "class": "form-control form-control-sm",
+                "type": "datetime-local",
+                "title": _("Please select publish date"),
+            },
+            format="%Y-%m-%dT%H:%M",
+        ),
+    )
+
+    class Meta:
+        model = BlogPost
+        fields = ("title", "summary", "body", "cover_image", "is_published", "published_at")

@@ -1,6 +1,23 @@
 from typing import Any
 
+from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.core import paginator
+from django.db import transaction
+from django.db.models import Q
+from django.db.models.deletion import ProtectedError
+from django.shortcuts import redirect, render
+from django.urls import reverse, reverse_lazy
+from django.utils.translation import gettext_lazy as _
+from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+
 from apps.administration import forms
+from apps.blog.models import BlogPost
 from apps.main.models import (
     Banner,
     CompanyInfo,
@@ -20,21 +37,24 @@ from apps.store.models import (
     ProductImage,
     ProductInformation,
 )
-from django.conf import settings
-from django.contrib import messages
-from django.contrib.auth import get_user_model
-from django.contrib.auth import views as auth_views
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.contrib.messages.views import SuccessMessageMixin
-from django.core import paginator
-from django.db import transaction
-from django.db.models import Q
-from django.db.models.deletion import ProtectedError
-from django.shortcuts import redirect, render
-from django.urls import reverse, reverse_lazy
-from django.utils.translation import gettext_lazy as _
-from django.views.generic import DetailView, ListView, TemplateView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+
+ADMIN_BANNER_LIST_CREATE_ROUTE = "apps.administration:banner-list-create"
+ADMIN_BLOG_LIST_ROUTE = "apps.administration:blog-list"
+ADMIN_BLOG_CREATE_ROUTE = "apps.administration:blog-create"
+ADMIN_BLOG_UPDATE_DELETE_ROUTE = "apps.administration:blog-update-delete"
+ADMIN_STORE_CATEGORY_LIST_CREATE_ROUTE = "apps.administration:store-category-list-create"
+ADMIN_STORE_BRAND_LIST_CREATE_ROUTE = "apps.administration:store-brand-list-create"
+ADMIN_STORE_COLLECTION_LIST_CREATE_ROUTE = "apps.administration:store-collection-list-create"
+ADMIN_STORE_PRODUCT_LIST_ROUTE = "apps.administration:store-product-list"
+ADMIN_ORDER_LIST_ROUTE = "apps.administration:order-list"
+ADMIN_ABOUT_ROUTE = "apps.administration:about"
+ADMIN_PRIVACY_POLICY_ROUTE = "apps.administration:privacy-policy"
+ADMIN_DELIVERY_POLICY_ROUTE = "apps.administration:delivery-policy"
+ADMIN_CONTACT_ROUTE = "apps.administration:contact"
+ADMIN_SITE_IMAGES_ROUTE = "apps.administration:site-images"
+ADMIN_USER_LIST_ROUTE = "apps.administration:user-list"
+ADMIN_INDEX_ROUTE = "apps.administration:index"
+ADMIN_PROFILE_ROUTE = "apps.administration:auth-profile"
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):
@@ -46,51 +66,55 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         context["creator_dashboards"] = [
             {
                 "name": _("Banners"),
-                "route": reverse("apps.administration:banner-list-create"),
+                "route": reverse(ADMIN_BANNER_LIST_CREATE_ROUTE),
+            },
+            {
+                "name": _("Blog"),
+                "route": reverse(ADMIN_BLOG_LIST_ROUTE),
             },
             {
                 "name": _("Categories"),
-                "route": reverse("apps.administration:store-category-list-create"),
+                "route": reverse(ADMIN_STORE_CATEGORY_LIST_CREATE_ROUTE),
             },
             {
                 "name": _("Brands"),
-                "route": reverse("apps.administration:store-brand-list-create"),
+                "route": reverse(ADMIN_STORE_BRAND_LIST_CREATE_ROUTE),
             },
             {
                 "name": _("Collection"),
-                "route": reverse("apps.administration:store-collection-list-create"),
+                "route": reverse(ADMIN_STORE_COLLECTION_LIST_CREATE_ROUTE),
             },
             {
                 "name": _("Products"),
-                "route": reverse("apps.administration:store-product-list"),
+                "route": reverse(ADMIN_STORE_PRODUCT_LIST_ROUTE),
             },
             {
                 "name": _("Orders"),
-                "route": reverse("apps.administration:order-list"),
+                "route": reverse(ADMIN_ORDER_LIST_ROUTE),
             },
             {
                 "name": _("About Us"),
-                "route": reverse("apps.administration:about"),
+                "route": reverse(ADMIN_ABOUT_ROUTE),
             },
             {
                 "name": _("Privacy Policy"),
-                "route": reverse("apps.administration:privacy-policy"),
+                "route": reverse(ADMIN_PRIVACY_POLICY_ROUTE),
             },
             {
                 "name": _("Delivery Policy"),
-                "route": reverse("apps.administration:delivery-policy"),
+                "route": reverse(ADMIN_DELIVERY_POLICY_ROUTE),
             },
             {
                 "name": _("Contact"),
-                "route": reverse("apps.administration:contact"),
+                "route": reverse(ADMIN_CONTACT_ROUTE),
             },
             {
                 "name": _("Site Images"),
-                "route": reverse("apps.administration:site-images"),
+                "route": reverse(ADMIN_SITE_IMAGES_ROUTE),
             },
             {
                 "name": _("Users"),
-                "route": reverse("apps.administration:user-list"),
+                "route": reverse(ADMIN_USER_LIST_ROUTE),
                 "permission": "auth.view_user",
             },
         ]
@@ -101,7 +125,7 @@ class PrivacyPolicyView(LoginRequiredMixin, PermissionRequiredMixin, TemplateVie
     template_name = "administration/privacy-policy.html"
     http_method_names = ["get", "post"]
     form_class = forms.PrivacyPolicyTextFormSet
-    redirect_url_name = "apps.administration:privacy-policy"
+    redirect_url_name = ADMIN_PRIVACY_POLICY_ROUTE
     permission_required = []
 
     def get(self, request):
@@ -131,7 +155,7 @@ class DeliveryPolicyView(LoginRequiredMixin, PermissionRequiredMixin, TemplateVi
     template_name = "administration/delivery-policy.html"
     http_method_names = ["get", "post"]
     form_class = forms.DeliveryPolicyTextFormSet
-    redirect_url_name = "apps.administration:delivery-policy"
+    redirect_url_name = ADMIN_DELIVERY_POLICY_ROUTE
     permission_required = []
 
     def get(self, request):
@@ -161,7 +185,7 @@ class AboutView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "administration/about.html"
     http_method_names = ["get", "post"]
     form_class = forms.AboutTextFormSet
-    redirect_url_name = "apps.administration:about"
+    redirect_url_name = ADMIN_ABOUT_ROUTE
     permission_required = []
 
     def get(self, request):
@@ -229,7 +253,7 @@ class ContactEmailCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
     permission_required = []
 
     def get_success_url(self) -> str:
-        return reverse("apps.administration:contact") + "#contact-email-form"
+        return reverse(ADMIN_CONTACT_ROUTE) + "#contact-email-form"
 
 
 class ContactEmailDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -238,7 +262,7 @@ class ContactEmailDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Succes
     permission_required = []
 
     def get_success_url(self) -> str:
-        return reverse("apps.administration:contact") + "#contact-email-form"
+        return reverse(ADMIN_CONTACT_ROUTE) + "#contact-email-form"
 
 
 class ContactPhoneCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -249,7 +273,7 @@ class ContactPhoneCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
     permission_required = []
 
     def get_success_url(self) -> str:
-        return reverse("apps.administration:contact") + "#contact-phone-form"
+        return reverse(ADMIN_CONTACT_ROUTE) + "#contact-phone-form"
 
 
 class ContactPhoneDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -258,7 +282,7 @@ class ContactPhoneDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Succes
     permission_required = []
 
     def get_success_url(self) -> str:
-        return reverse("apps.administration:contact") + "#contact-phone-form"
+        return reverse(ADMIN_CONTACT_ROUTE) + "#contact-phone-form"
 
 
 class SocialMediaLinkCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -269,7 +293,7 @@ class SocialMediaLinkCreateView(LoginRequiredMixin, PermissionRequiredMixin, Suc
     permission_required = []
 
     def get_success_url(self) -> str:
-        return reverse("apps.administration:contact") + "#social-media-link-form"
+        return reverse(ADMIN_CONTACT_ROUTE) + "#social-media-link-form"
 
 
 class SocialMediaLinkDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -278,7 +302,7 @@ class SocialMediaLinkDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Suc
     permission_required = []
 
     def get_success_url(self) -> str:
-        return reverse("apps.administration:contact") + "#social-media-link-form"
+        return reverse(ADMIN_CONTACT_ROUTE) + "#social-media-link-form"
 
 
 class CompanyInfoCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, TemplateView):
@@ -302,7 +326,7 @@ class CompanyInfoCreateView(LoginRequiredMixin, PermissionRequiredMixin, Success
         return redirect(self.redirect_url_name)
 
     def get_success_url(self) -> str:
-        return reverse("apps.administration:contact") + "#company-info-form"
+        return reverse(ADMIN_CONTACT_ROUTE) + "#company-info-form"
 
 
 class SiteImagesView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
@@ -339,7 +363,7 @@ class BannerListCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessM
     form_class = forms.BannerForm
     template_name = "administration/banners/index.html"
     success_message = _("Banner was created successfully!")
-    success_url = reverse_lazy("apps.administration:banner-list-create")
+    success_url = reverse_lazy(ADMIN_BANNER_LIST_CREATE_ROUTE)
     permission_required = []
 
     def get_context_data(self, **kwargs):
@@ -361,12 +385,52 @@ class BannerUpdateDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Succes
         if self.request.POST.get("_method", None) == "delete":
             banner.delete()
             messages.success(request, _("Banner was deleted successfully"))
-            return redirect(reverse("apps.administration:banner-list-create"))
+            return redirect(reverse(ADMIN_BANNER_LIST_CREATE_ROUTE))
         if form.is_valid():
             form.save()
             messages.success(request, _("Banner was updated successfully"))
             return redirect(reverse("apps.administration:banner-update-delete", kwargs={"pk": banner.pk}))
         return render(request, self.template_name, {"form": form, "banner": banner})
+
+
+class BlogPostListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    model = BlogPost
+    template_name = "administration/blogs/list.html"
+    context_object_name = "blog_posts"
+    permission_required = []
+
+    def get_queryset(self):
+        return super().get_queryset().all()
+
+
+class BlogPostCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    model = BlogPost
+    form_class = forms.BlogPostForm
+    template_name = "administration/blogs/create.html"
+    success_message = _("Blog post was created successfully!")
+    success_url = reverse_lazy(ADMIN_BLOG_LIST_ROUTE)
+    permission_required = []
+
+
+class BlogPostUpdateDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = BlogPost
+    form_class = forms.BlogPostForm
+    template_name = "administration/blogs/edit.html"
+    context_object_name = "blog_post"
+    permission_required = []
+
+    def post(self, request, pk):
+        blog_post = self.model.objects.get(pk=pk)
+        form = self.form_class(instance=blog_post, data=request.POST, files=request.FILES)
+        if self.request.POST.get("_method", None) == "delete":
+            blog_post.delete()
+            messages.success(request, _("Blog post was deleted successfully"))
+            return redirect(reverse(ADMIN_BLOG_LIST_ROUTE))
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Blog post was updated successfully"))
+            return redirect(reverse("apps.administration:blog-update-delete", kwargs={"pk": blog_post.pk}))
+        return render(request, self.template_name, {"form": form, "blog_post": blog_post})
 
 
 # AUTH
@@ -399,14 +463,14 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
 class LoginView(auth_views.LoginView):
     authentication_form = forms.LoginForm
-    redirect_field_name = reverse_lazy("apps.administration:index")
+    redirect_field_name = reverse_lazy(ADMIN_INDEX_ROUTE)
     redirect_authenticated_user = True
     template_name = "administration/auth/login.html"
 
 
 class PasswordChangeView(LoginRequiredMixin, auth_views.PasswordChangeView):
     template_name = "administration/auth/password-change.html"
-    success_url = reverse_lazy("apps.administration:auth-profile")
+    success_url = reverse_lazy(ADMIN_PROFILE_ROUTE)
     form_class = forms.PasswordChangeForm
 
 
@@ -423,10 +487,10 @@ class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 class UserCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = get_user_model()
     form_class = forms.UserCreateForm
-    login_url = reverse_lazy("apps.administration:index")
+    login_url = reverse_lazy(ADMIN_INDEX_ROUTE)
     template_name = "administration/users/create.html"
     success_message = _("User was created successfully!")
-    success_url = reverse_lazy("apps.administration:user-list")
+    success_url = reverse_lazy(ADMIN_USER_LIST_ROUTE)
     permission_required = ["auth.add_user"]
 
     def get_queryset(self, *args, **kwargs):
@@ -436,7 +500,7 @@ class UserCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
 class UserDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = get_user_model()
     success_message = _("User was deleted successfully!")
-    success_url = reverse_lazy("apps.administration:user-list")
+    success_url = reverse_lazy(ADMIN_USER_LIST_ROUTE)
     permission_required = ["auth.delete_user"]
 
     def get_queryset(self, *args, **kwargs):
@@ -449,7 +513,7 @@ class CategoryListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
     form_class = forms.CategoryForm
     template_name = "administration/store/categories/index.html"
     success_message = _("Category was created successfully!")
-    success_url = reverse_lazy("apps.administration:store-category-list-create")
+    success_url = reverse_lazy(ADMIN_STORE_CATEGORY_LIST_CREATE_ROUTE)
     permission_required = []
 
     def get_context_data(self, **kwargs):
@@ -495,7 +559,7 @@ class CategoryUpdateDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Succ
             if self.request.POST.get("_method", None) == "delete":
                 category.delete()
                 messages.success(request, _("Category was deleted successfully"))
-                return redirect(reverse("apps.administration:store-category-list-create"))
+                return redirect(reverse(ADMIN_STORE_CATEGORY_LIST_CREATE_ROUTE))
             if form.is_valid() and attribute_form.is_valid():
                 category = form.save()
                 attribute_form.save()
@@ -526,7 +590,7 @@ class BrandListCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMe
     form_class = forms.BrandForm
     template_name = "administration/store/brands/index.html"
     success_message = _("Brand was created successfully!")
-    success_url = reverse_lazy("apps.administration:store-brand-list-create")
+    success_url = reverse_lazy(ADMIN_STORE_BRAND_LIST_CREATE_ROUTE)
     permission_required = []
 
     def get_context_data(self, **kwargs):
@@ -548,7 +612,7 @@ class BrandUpdateDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Success
         if self.request.POST.get("_method", None) == "delete":
             brand.delete()
             messages.success(request, _("Brand was deleted successfully"))
-            return redirect(reverse("apps.administration:store-brand-list-create"))
+            return redirect(reverse(ADMIN_STORE_BRAND_LIST_CREATE_ROUTE))
         if form.is_valid():
             form.save()
             messages.success(request, _("Brand was updated successfully"))
@@ -566,7 +630,7 @@ class CollectionListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succ
     form_class = forms.CollectionForm
     template_name = "administration/store/collections/index.html"
     success_message = _("Model was created successfully!")
-    success_url = reverse_lazy("apps.administration:store-collection-list-create")
+    success_url = reverse_lazy(ADMIN_STORE_COLLECTION_LIST_CREATE_ROUTE)
     permission_required = []
 
     def get_context_data(self, **kwargs):
@@ -590,7 +654,7 @@ class CollectionUpdateDeleteView(
         if self.request.POST.get("_method", None) == "delete":
             collection.delete()
             messages.success(request, _("Model was deleted successfully"))
-            return redirect(reverse("apps.administration:store-collection-list-create"))
+            return redirect(reverse(ADMIN_STORE_COLLECTION_LIST_CREATE_ROUTE))
         if form.is_valid():
             form.save()
             messages.success(request, _("Model was updated successfully"))
@@ -620,7 +684,7 @@ class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     product_image_form_class = forms.ProductImageFormSet
     template_name = "administration/store/products/create.html"
     success_message = _("Product was created successfully")
-    success_url = reverse_lazy("apps.administration:store-product-list")
+    success_url = reverse_lazy(ADMIN_STORE_PRODUCT_LIST_ROUTE)
     permission_required = []
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
@@ -692,7 +756,7 @@ class ProductUpdateDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Updat
         if self.request.POST.get("_method", None) == "delete":
             product.delete()
             messages.success(request, _("Product was deleted successfully"))
-            return redirect(reverse("apps.administration:store-product-list"))
+            return redirect(reverse(ADMIN_STORE_PRODUCT_LIST_ROUTE))
         if form.is_valid() and product_image_formset.is_valid() and product_information_formset.is_valid():
             form.save()
             product_image_formset.save()

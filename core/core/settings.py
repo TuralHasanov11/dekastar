@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "apps.main",
     "apps.administration",
+    "apps.blog",
     "apps.store",
     "apps.orders",
     "apps.api",
@@ -160,12 +161,6 @@ LANGUAGES = (
 
 LOCALE_PATHS = (BASE_DIR / "locale/",)
 
-
-# STATIC_URL = "/static/"
-# STATIC_ROOT = BASE_DIR / "static_cdn"
-# STATICFILES_DIRS = [
-#     BASE_DIR / "static",
-# ]
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_URL = '/static/'
@@ -419,8 +414,3 @@ ADMIN_URL_SUFFIX = os.environ.get("ADMIN_URL_SUFFIX")
 
 API_KEY_CUSTOM_HEADER = "HTTP_X_API_KEY"
 
-# REST_FRAMEWORK = {
-#     "DEFAULT_PERMISSION_CLASSES": [
-#         "rest_framework_api_key.permissions.HasAPIKey",
-#     ]
-# }
